@@ -44,8 +44,8 @@ CREATE TABLE KhachHang
     Ten             VARCHAR2(40)        NOT NULL,
     NgaySinh        DATE                NOT NULL,
     GioiTinh        VARCHAR2(10)        DEFAULT 'Unknown',
-    SoDT            VARCHAR2(10)        NOT NULL,
-    DiaChi          VARCHAR2(60)        DEFAULT 'Unknown', 
+    SoDT            VARCHAR2(15)        NOT NULL,
+    DiaChi          VARCHAR2(255)        DEFAULT 'Unknown', 
     TaiKhoan        VARCHAR2(30)        NOT NULL UNIQUE,
     MatKhau         VARCHAR2(30)        NOT NULL,
     DiemTichLuy     NUMBER              DEFAULT 0,
@@ -75,8 +75,8 @@ CREATE TABLE NhanVien
     Ten             VARCHAR2(40)    NOT NULL,
     NgaySinh        DATE            NOT NULL,
     GioiTinh        VARCHAR2(10)    DEFAULT 'Unknown',
-    SoDT            VARCHAR2(10)    NOT NULL,
-    DiaChi          VARCHAR2(60)    DEFAULT 'Unknown',
+    SoDT            VARCHAR2(15)    NOT NULL,
+    DiaChi          VARCHAR2(255)    DEFAULT 'Unknown',
     NgayVaoLam      DATE            NOT NULL,
     LoaiNhanVien    VARCHAR2(15)    DEFAULT 'Staff',
     TaiKhoan        VARCHAR2(30)    NOT NULL UNIQUE,
@@ -95,8 +95,8 @@ CREATE TABLE TaiKhoan
     MaTK            NUMBER          NOT NULL,
     TaiKhoan        VARCHAR2(30)    NOT NULL UNIQUE,
     MatKhau         VARCHAR2(30)    NOT NULL,
-    MAKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH)  NOT NULL,
-    MANV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV)   NOT NULL,
+    MAKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
+    MANV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
     CONSTRAINT      PK_TAIKHOAN     PRIMARY KEY(MATK)
 );
 CREATE SEQUENCE MATK_SEQ4 START WITH 1;
@@ -122,6 +122,7 @@ CREATE TABLE NhanLuong
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
+--------------------------------------------BANG DICH VU----------------------------------------------------------
 
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
@@ -203,9 +204,9 @@ CREATE TABLE DANHGIA
 CREATE SEQUENCE MADG_SEQ14 START WITH 1;
 --------------------------------------------SELECT RECORDS-------------------------------------------------------
 -- Khach Hang
-SELECT * FROM KhanhHang
+SELECT * FROM KhachHang
 -- Loai Khach Hang
-SELECT * FROM LoaiKhacHang
+SELECT * FROM LoaiKhachHang
 -- Nhan Vien
 SELECT * FROM NhanVien
 -- Tai Khoan
@@ -235,9 +236,17 @@ SELECT * FROM CTHD
 -- Danh Gia
 SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
---------------------------------------------ALTER CHECKS---------------------------------------------------------
-ALTER TABLE KHACHHANG
-ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
+ALTER SESSION SET NLS_DATE_FORMAT ='DD/MM/YYYY HH24:MI:SS';
+-- Nhan Vien
+INSERT INTO NhanVien VALUES (
+    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','324/8 Xo Viet Nghe Tinh, quan Binh Thanh, TP Ho Chi Minh',To_Date('12-03-2021','dd-mm-yyyy'),'Admin','admin','1');
+-- TaiKhoan
+INSERT INTO TaiKhoan VALUES (
+    MATK_SEQ4.nextval,'admin','1',null,'1');
 
-ALTER TABLE KHACHHANG
-ADD CONSTRAINT check_constraint_name CHECK(expression);
+--------------------------------------------ALTER CHECKS---------------------------------------------------------
+-- ALTER TABLE KHACHHANG
+-- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
+
+-- ALTER TABLE KHACHHANG
+-- ADD CONSTRAINT check_constraint_name CHECK(expression);
