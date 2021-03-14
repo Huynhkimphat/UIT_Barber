@@ -13,11 +13,11 @@ async function connect() {
         console.log("Connect failed!!!");
     }
 }
-async function login(username, password) {
+async function login(email, password) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = `select * from TaiKhoan where TaiKhoan.Username = '${username}'`;
+        let exec = `select * from TaiKhoan where TaiKhoan.Email = '${email}'`;
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();

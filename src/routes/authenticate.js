@@ -4,7 +4,7 @@ const authenticateController = require("../app/controllers/AuthenticateControlle
 
 router.use("/login", authenticateController.login);
 router.use("/check", authenticateController.check);
-
+router.use("/success", authenticateController.success);
 router.use("/register", authenticateController.register);
 // router.use('/search', siteController.search);
 

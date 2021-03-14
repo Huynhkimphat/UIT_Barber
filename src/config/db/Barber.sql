@@ -42,7 +42,6 @@ CREATE TABLE KhachHang
     NgaySinh        DATE                NOT NULL,
     GioiTinh        VARCHAR2(10)        DEFAULT 'Unknown',
     SoDT            VARCHAR2(15)        NOT NULL,
-    Email           VARCHAR2(255)       NOT NULL,
     DiaChi          VARCHAR2(255)       DEFAULT 'Unknown', 
     DiemTichLuy     NUMBER              DEFAULT 0,
     CONSTRAINT      PK_KHACHHANG        PRIMARY KEY(MaKH),
@@ -72,7 +71,6 @@ CREATE TABLE NhanVien
     NgaySinh        DATE            NOT NULL,
     GioiTinh        VARCHAR2(10)    DEFAULT 'Unknown',
     SoDT            VARCHAR2(15)    NOT NULL,
-    Email           VARCHAR2(255)   NOT NULL,
     DiaChi          VARCHAR2(255)   DEFAULT 'Unknown',
     NgayVaoLam      DATE            NOT NULL,
     LoaiNhanVien    VARCHAR2(15)    DEFAULT 'Staff',
@@ -88,8 +86,8 @@ CREATE SEQUENCE MANV_SEQ3 START WITH 1;
 CREATE TABLE TaiKhoan
 (
     MaTK            NUMBER          NOT NULL,
-    Username        VARCHAR2(30)    NOT NULL UNIQUE,
-    Password         VARCHAR2(30)    NOT NULL,
+    Email           VARCHAR2(255)   NOT NULL UNIQUE,
+    Password        VARCHAR2(30)    NOT NULL,
     MaKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
     MaNV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
     CONSTRAINT      PK_TAIKHOAN     PRIMARY KEY(MATK)
@@ -230,13 +228,11 @@ SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
 ALTER SESSION SET NLS_DATE_FORMAT ='DD/MM/YYYY HH24:MI:SS';
 -- Nhan Vien
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,Email,NgayVaoLam,LoaiNhanVien) VALUES (
-    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','minhnhut@gmail.com',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
-INSERT INTO NhanVien VALUES (
-    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nu','0374349383','324/8 Xo Viet Nghe Tinh, quan Binh Thanh, TP Ho Chi Minh',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien) VALUES (
+    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
-    MATK_SEQ4.nextval,'admin','1',null,'1');
+    MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'admin1','1',null,MANV_SEQ3.CURRVAL);
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
