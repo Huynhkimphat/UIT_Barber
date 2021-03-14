@@ -13,4 +13,21 @@ async function connect() {
         console.log("Connect failed!!!");
     }
 }
-module.exports = { connect };
+async function login(username, password) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = `select * from TaiKhoan where TaiKhoan.Username = '${username}'`;
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        if (result) {
+            if (result.rows[0][2] === password) return true;
+        }
+        return false;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { connect, login };

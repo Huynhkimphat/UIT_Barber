@@ -33,8 +33,6 @@ DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
 DROP SEQUENCE MADG_SEQ12;
 
-
-DROP SEQUENCE MADG_SEQ14;
 ----------------------------------------------BANG KHACH HANG----------------------------------------------------
 CREATE TABLE KhachHang
 (
@@ -44,7 +42,8 @@ CREATE TABLE KhachHang
     NgaySinh        DATE                NOT NULL,
     GioiTinh        VARCHAR2(10)        DEFAULT 'Unknown',
     SoDT            VARCHAR2(15)        NOT NULL,
-    DiaChi          VARCHAR2(255)        DEFAULT 'Unknown', 
+    Email           VARCHAR2(255)       NOT NULL,
+    DiaChi          VARCHAR2(255)       DEFAULT 'Unknown', 
     DiemTichLuy     NUMBER              DEFAULT 0,
     CONSTRAINT      PK_KHACHHANG        PRIMARY KEY(MaKH),
     CONSTRAINT      CHK_KHACHHANG1      CHECK   (GioiTinh in ('Nam','Nu','Unknown') )
@@ -54,7 +53,7 @@ CREATE SEQUENCE MAKH_SEQ1 START WITH 1;
 CREATE TABLE LoaiKhachHang
 (
     MaLKH           NUMBER              NOT NULL,
-    MAKH            NUMBER              CONSTRAINT FK_LOAIKHACHHANG_KHACHHANG    REFERENCES KhachHang(MaKH)  NOT NULL,
+    MaKH            NUMBER              CONSTRAINT FK_LOAIKHACHHANG_KHACHHANG    REFERENCES KhachHang(MaKH)  NOT NULL,
     LoaiKH          VARCHAR2(10)        DEFAULT 'Member',
     NgayKichHoatVip DATE                NOT NULL,
     NgayHetHanVip   DATE                NOT NULL,
@@ -73,7 +72,8 @@ CREATE TABLE NhanVien
     NgaySinh        DATE            NOT NULL,
     GioiTinh        VARCHAR2(10)    DEFAULT 'Unknown',
     SoDT            VARCHAR2(15)    NOT NULL,
-    DiaChi          VARCHAR2(255)    DEFAULT 'Unknown',
+    Email           VARCHAR2(255)   NOT NULL,
+    DiaChi          VARCHAR2(255)   DEFAULT 'Unknown',
     NgayVaoLam      DATE            NOT NULL,
     LoaiNhanVien    VARCHAR2(15)    DEFAULT 'Staff',
     CONSTRAINT      PK_NHANVIEN     PRIMARY KEY(MaNV),
@@ -88,10 +88,10 @@ CREATE SEQUENCE MANV_SEQ3 START WITH 1;
 CREATE TABLE TaiKhoan
 (
     MaTK            NUMBER          NOT NULL,
-    TaiKhoan        VARCHAR2(30)    NOT NULL UNIQUE,
-    MatKhau         VARCHAR2(30)    NOT NULL,
-    MAKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
-    MANV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
+    Username        VARCHAR2(30)    NOT NULL UNIQUE,
+    Password         VARCHAR2(30)    NOT NULL,
+    MaKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
+    MaNV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
     CONSTRAINT      PK_TAIKHOAN     PRIMARY KEY(MATK)
 );
 CREATE SEQUENCE MATK_SEQ4 START WITH 1;
@@ -100,7 +100,7 @@ CREATE SEQUENCE MATK_SEQ4 START WITH 1;
 CREATE TABLE Luong
 (
     MaLuong     NUMBER      NOT NULL,
-    MANV        NUMBER      CONSTRAINT FK_LUONG_NHANVIEN    REFERENCES NhanVien(MaNV)   NOT NULL,
+    MaNV        NUMBER      CONSTRAINT FK_LUONG_NHANVIEN    REFERENCES NhanVien(MaNV)   NOT NULL,
     LuongCoBan  NUMBER      NOT NULL,
     CONSTRAINT  PK_LUONG    PRIMARY KEY(MaLuong)
 );
@@ -110,14 +110,13 @@ CREATE SEQUENCE MALUONG_SEQ5 START WITH 1;
 CREATE TABLE NhanLuong
 (
     MaLuong         NUMBER              CONSTRAINT FK_NHANLUONG_LUONG       REFERENCES Luong(MaLuong)   NOT NULL,
-    MANV            NUMBER              CONSTRAINT FK_NHANLUONG_NHANVIEN    REFERENCES NhanVien(MaNV)   NOT NULL,
+    MaNV            NUMBER              CONSTRAINT FK_NHANLUONG_NHANVIEN    REFERENCES NhanVien(MaNV)   NOT NULL,
     NgayNhanLuong   DATE                NOT NULL,
     LuongCoBan      NUMBER              NOT NULL,
     LuongThuong     NUMBER              NOT NULL,
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
---------------------------------------------BANG DICH VU----------------------------------------------------------
 
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
@@ -126,7 +125,6 @@ CREATE TABLE DichVu
     TenDichVu   VARCHAR2(255)   NOT NULL,
     Gia         NUMBER          default 0,
     Mota        VARCHAR2(255)   NOT NULL,
-    TietKiem    NUMBER          NOT NULL,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -144,7 +142,6 @@ CREATE  TABLE SanPham
 (
     MaSP            NUMBER          NOT NULL,
     TenSanPham      VARCHAR2(255)   NOT NULL,
-    NgayChieu       DATE            NOT NULL,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
@@ -233,15 +230,21 @@ SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
 ALTER SESSION SET NLS_DATE_FORMAT ='DD/MM/YYYY HH24:MI:SS';
 -- Nhan Vien
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,Email,NgayVaoLam,LoaiNhanVien) VALUES (
+    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','minhnhut@gmail.com',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
 INSERT INTO NhanVien VALUES (
-    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','324/8 Xo Viet Nghe Tinh, quan Binh Thanh, TP Ho Chi Minh',To_Date('12-03-2021','dd-mm-yyyy'),'Admin','admin','1');
+    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nu','0374349383','324/8 Xo Viet Nghe Tinh, quan Binh Thanh, TP Ho Chi Minh',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'admin','1',null,'1');
-
+INSERT INTO TaiKhoan VALUES (
+    MATK_SEQ4.nextval,'admin1','1',null,MANV_SEQ3.CURRVAL);
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
 -- ALTER TABLE KHACHHANG
 -- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
 
 -- ALTER TABLE KHACHHANG
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
+select * from TaiKhoan where TAIKHOAN.USERNAME = '1'
+select * from TaiKhoan 
+
