@@ -7,18 +7,31 @@ class AuthenticateController {
     }
     check(req, res, next) {
         let result;
-        console.log("Hello World");
-        (async() => {
-            result = await login(req.body.email, req.body.password);
-            if (result === true) {
-                console.log("Dang nhap thanh cong");
-                res.redirect("/authenticate/success");
-            } else {
-                console.log("Dang nhap that bai");
-                res.redirect("/authenticate/login");
-            }
-        })();
-        // res.redirect("/authenticate/login");
+        if (req.body.length == 2) {
+            console.log("Dang nhap tai khoan");
+            (async() => {
+                result = await login(req.body.email, req.body.password);
+                if (result === true) {
+                    console.log("Dang nhap thanh cong");
+                    res.redirect("/authenticate/success");
+                } else {
+                    console.log("Dang nhap that bai");
+                    res.redirect("/authenticate/login");
+                }
+            })();
+        } else {
+            console.log("Dang Ky Tai Khoan");
+            (async() => {
+                result = await login(req.body.email, req.body.password);
+                if (result === true) {
+                    console.log("Dang nhap thanh cong");
+                    res.redirect("/authenticate/success");
+                } else {
+                    console.log("Dang nhap that bai");
+                    res.redirect("/authenticate/login");
+                }
+            })();
+        }
     }
     register(req, res) {
         res.render("authenticate/register");

@@ -1,23 +1,75 @@
-<div class="mt-4">
-    <h3>New Account</h3>
+<link rel="stylesheet" href="/css/authenticate.css">
 
-    <form class="mt-4" method="POST" action="">
+
+<div class="main">
+    {{!--  --}}
+     <form method="POST" action="/authenticate/check"  class="form" id="login-form"> 
+        <h3 class="heading">Register</h3>
+        <p class="desc">Be together at UIT's BABER ❤️</p>
+
+        <div class="spacer"></div>
         <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com" class="form-control">
+            <span class="form-message"></span>
         </div>
         <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name">
+            <label for="password" class="form-label">Password</label>
+            <input id="password" name="password" type="password" placeholder="Enter your password: " class="form-control">
+            <span class="form-message"></span>
         </div>
         <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control"  id="username" name="username">
+            <label for="firstName" class="form-label">First Name: </label>
+            <input id="firstName" name="firstName" type="text" placeholder="Example: Quy" class="form-control">
+            <span class="form-message"></span>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
+            <label for="lastName" class="form-label">Last Name: </label>
+            <input id="lastName" name="lastName" type="text" placeholder="Example: Luong" class="form-control">
+            <span class="form-message"></span>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <div class="form-group">
+            <label for="birthday" class="form-label">Date of Birth</label>
+            <input id="birthday" name="birthday" type="date" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <div class="form-group" >
+            <label for="gender" class="form-label">Gender</label>
+            <div style="display: flex">
+                <input name="gender" type="radio" value="male" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Male</div>
+                <input name="gender" type="radio" value="female" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Female</div>
+                <input name="gender" type="radio" value="others" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Others</div>
+            </div>
+        </div> 
+        <div class="form-group">
+            <label for="phone" class="form-label">Phone: </label>
+            <input id="phone" name="phone" type="number" placeholder="Example: 0935589947" class="form-control">
+            <span class="form-message"></span>
+        </div>
+        <button class="form-submit">Login</button>
     </form>
 </div>
+
+<script src="/js/validator.js"></script>
+
+<script >  
+    Validator({
+        form: '#login-form',
+        formGroupSelector: '.form-group',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#email', 'Please enter your email'),
+            Validator.isEmail('#email', 'Wrong email'),
+            Validator.isRequired('#password', 'Please enter your password'),
+            Validator.isRequired('#birthday','Please enter your birthday'),
+            Validator.isRequired('#firstName','Please enter your fisrtname'),
+            Validator.isRequired('#lastName','Please enter your lastname'),
+            Validator.isRequired('#phone','Please enter your phone number'),
+
+        ],
+        {{!-- onSubmit: (data) => {
+            console.log(data);
+        } --}}
+    });
+
+</script>
