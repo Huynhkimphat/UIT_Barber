@@ -169,6 +169,7 @@ CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
     MaDV        NUMBER      CONSTRAINT FK_HOADON_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
+    KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
 );
