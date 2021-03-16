@@ -16,7 +16,8 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
-DROP TABLE CTHD; -- Super_primary_key
+DROP TABLE CTHDDV; -- Super_primary_key
+DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DanhGia;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
@@ -168,19 +169,26 @@ CREATE SEQUENCE MADL_SEQ10 START WITH 1;
 CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
-    MaDV        NUMBER      CONSTRAINT FK_HOADON_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
+    MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
 );
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
---------------------------------------------BANG CTHD-------------------------------------------------------------
-CREATE TABLE CTHD
+--------------------------------------------BANG CTHDDV-----------------------------------------------------------
+CREATE TABLE CTHDDV
 ( 
-    MaHD        NUMBER      CONSTRAINT FK_CTHD_HOADON      REFERENCES HOADON(MaHD)    NOT NULL,
-    MaSP        NUMBER      CONSTRAINT FK_CTHD_SANPHAM     REFERENCES SANPHAM(MASP)   ,
+    MaHD        NUMBER      CONSTRAINT FK_CTHDDV_HOADON     REFERENCES HOADON(MaHD)    NOT NULL,
+    MaDV        NUMBER      CONSTRAINT FK_CTHDDV_DICHVU     REFERENCES DICHVU(MaDV)    NOT NULL,
+    CONSTRAINT  PK_CTHDDV   PRIMARY KEY(MaHD,MaDV)
+);
+--------------------------------------------BANG CTHDSP-----------------------------------------------------------
+CREATE TABLE CTHDSP
+( 
+    MaHD        NUMBER      CONSTRAINT FK_CTHDSP_HOADON      REFERENCES HOADON(MaHD)    NOT NULL,
+    MaSP        NUMBER      CONSTRAINT FK_CTHDSP_SANPHAM     REFERENCES SANPHAM(MaSP)   ,
     SoLuong     NUMBER,
-    CONSTRAINT  PK_CTHD     PRIMARY KEY(MaHD,MaSP)
+    CONSTRAINT  PK_CTHDSP   PRIMARY KEY(MaHD,MaSP)
 );
 --------------------------------------------BANG DANH GIA---------------------------------------------------------
 CREATE TABLE DANHGIA
