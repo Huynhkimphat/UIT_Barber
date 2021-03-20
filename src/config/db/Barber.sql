@@ -79,7 +79,6 @@ CREATE TABLE NhanVien
     CONSTRAINT      CHK_NHANVIEN1   CHECK   (GioiTinh in ('Nam','Nu','Unknown') ),
     CONSTRAINT      CHK_NHANVIEN2   CHECK   (LoaiNhanVien in ('Staff','Admin') ),
     CONSTRAINT      CHK_NHANVIEN3   CHECK   (NgaySinh <  NgayVaoLam)
-    
 );
 CREATE SEQUENCE MANV_SEQ3 START WITH 1;
 
@@ -236,15 +235,13 @@ SELECT * FROM CTHD
 -- Danh Gia
 SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
-ALTER SESSION SET NLS_DATE_FORMAT ='DD/MM/YYYY HH24:MI:SS';
+ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
 -- Nhan Vien
 INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien) VALUES (
-    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
+    MANV_SEQ3.nextval,'Nguyen','Nhut',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
-INSERT INTO TaiKhoan VALUES (
-    MATK_SEQ4.nextval,'admin1','1',null,MANV_SEQ3.CURRVAL);
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
 -- ALTER TABLE KHACHHANG
 -- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
@@ -253,4 +250,8 @@ INSERT INTO TaiKhoan VALUES (
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
 select * from TaiKhoan where TAIKHOAN.USERNAME = '1'
 select * from TaiKhoan 
+select * from NhanVien;
+DELETE FROM NhanVien where Ho='Nguyen' and Ten='Nhut'
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Huynh','Phat',to_date('27-08-2001','dd-mm-yyyy'),'Nam','0944651790',To_Date(SYSDATE,'dd-mm-yyyy'));
 
