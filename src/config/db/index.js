@@ -53,7 +53,7 @@ async function register(
             .reverse()
             .join(
                 "-"
-            )}','dd-mm-yyyy'),'${gender}','${phone}',To_Date(${currentDay},'dd-mm-yyyy'));`;
+            )}','dd-mm-yyyy'),'${gender}','${phone}',To_Date('${currentDay}','dd-mm-yyyy'));`;
         let exec2 = `INSERT INTO TaiKhoan VALUES (
                 MATK_SEQ4.nextval,'${email}','${password}',null,MANV_SEQ3.CURRVAL);`;
         console.log(exec1);

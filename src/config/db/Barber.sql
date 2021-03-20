@@ -253,5 +253,7 @@ select * from TaiKhoan
 select * from NhanVien;
 DELETE FROM NhanVien where Ho='Nguyen' and Ten='Nhut'
 INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Huynh','Phat',to_date('27-08-2001','dd-mm-yyyy'),'Nam','0944651790',To_Date(SYSDATE,'dd-mm-yyyy'));
+            MANV_SEQ3.nextval,'Huynh','Phat',to_date('21-07-2020','dd-mm-yyyy'),'Nam','0944651790',To_Date('20-3-2021','dd-mm-yyyy'));
 
+INSERT INTO TaiKhoan VALUES (
+                MATK_SEQ4.nextval,'19521992@gm.uit.edu.vn','123',null,MANV_SEQ3.CURRVAL);
