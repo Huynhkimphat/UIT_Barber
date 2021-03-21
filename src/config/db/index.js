@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+
 const config = {
     user: "system",
     password: "Kimphat2001",
@@ -13,7 +14,7 @@ async function connect() {
         console.log("Connect failed!!!");
     }
 }
-async function login(email, password) {
+async function login(email) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
@@ -22,10 +23,7 @@ async function login(email, password) {
         if (conn) {
             await conn.close();
         }
-        if (result) {
-            if (result.rows[0][2] === password) return true;
-        }
-        return false;
+        return result.rows[0][2];
     } catch (err) {
         console.log("Ouch!", err);
     }
@@ -79,9 +77,3 @@ async function register(
     }
 }
 module.exports = { connect, login, register };
-
-// let exec1 = `INSERT INTO GioDat VALUES (
-//     MAGD_SEQ9.nextval,'10-11')`;
-
-// let exec2 = `INSERT INTO TaiKhoan VALUES (
-//         MATK_SEQ4.nextval,'${email}','${password}',null,MANV_SEQ3.CURRVAL);`;
