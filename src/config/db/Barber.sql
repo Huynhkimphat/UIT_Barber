@@ -87,7 +87,7 @@ CREATE TABLE TaiKhoan
 (
     MaTK            NUMBER          NOT NULL,
     Email           VARCHAR2(255)   NOT NULL UNIQUE,
-    Password        VARCHAR2(30)    NOT NULL,
+    Password        VARCHAR2(255)    NOT NULL,
     MaKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
     MaNV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
     CONSTRAINT      PK_TAIKHOAN     PRIMARY KEY(MATK)
@@ -257,3 +257,15 @@ INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
 
 INSERT INTO TaiKhoan VALUES (
                 MATK_SEQ4.nextval,'19521992@gm.uit.edu.vn','123',null,MANV_SEQ3.CURRVAL);
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Truong','Phan',to_date('24-08-2001','dd-mm-yyyy'),'Nam','0327475967',To_Date('20-3-2021','dd-mm-yyyy'));
+            
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
+            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
+
+
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Hi','You',To_Date('12-08-2001','dd-mm-yyyy'),'Nam','0935589947',To_Date('20-3-2021','dd-mm-yyyy'))
+
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Hi','You',To_Date('12-09-2003','dd-mm-yyyy'),'Nam','0944651790',To_Date('21-3-2021','dd-mm-yyyy'))

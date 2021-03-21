@@ -7,35 +7,33 @@ class AuthenticateController {
     }
     check(req, res, next) {
         let result;
-        console.log(req.body);
-        console.log(req.body.length);
-        // if (req.body.length == 2) {
-        //     console.log("Dang nhap tai khoan");
-        //     (async() => {
-        //         result = await login(req.body.email, req.body.password);
-        //         if (result === true) {
-        //             console.log("Dang nhap thanh cong");
-        //             res.redirect("/authenticate/success");
-        //         } else {
-        //             console.log("Dang nhap that bai");
-        //             res.redirect("/authenticate/login");
-        //         }
-        //     })();
-        // } else {
-        //     console.log("Dang Ky Tai Khoan");
-        //     console.log(req.body);
-        //     (async() => {
-        //         result = await register(
-        //             req.body.email,
-        //             req.body.password,
-        //             req.body.firstName,
-        //             req.body.lastName,
-        //             req.body.birthday,
-        //             req.body.gender,
-        //             req.body.phone
-        //         );
-        //     })();
-        // }
+        if (!req.body.firstName) {
+            console.log("Dang nhap tai khoan");
+            (async() => {
+                result = await login(req.body.email, req.body.password);
+                if (result === true) {
+                    console.log("Dang nhap thanh cong");
+                    res.redirect("/authenticate/success");
+                } else {
+                    console.log("Dang nhap that bai");
+                    res.redirect("/authenticate/login");
+                }
+            })();
+        } else {
+            console.log("Dang Ky Tai Khoan");
+            (async() => {
+                await register(
+                    req.body.email,
+                    req.body.password,
+                    req.body.firstName,
+                    req.body.lastName,
+                    req.body.birthday,
+                    req.body.gender,
+                    req.body.phone
+                );
+                res.redirect("/authenticate/login");
+            })();
+        }
     }
     register(req, res) {
         res.render("authenticate/register");
