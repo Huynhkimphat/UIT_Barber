@@ -2,8 +2,8 @@ const oracledb = require("oracledb");
 
 const config = {
     user: "system",
-    password: "Kimphat2001",
-    connectString: "localhost:1521/Project",
+    password: "Truong240801",
+    connectString: "localhost:1521/PLXT",
 };
 
 async function connect() {
