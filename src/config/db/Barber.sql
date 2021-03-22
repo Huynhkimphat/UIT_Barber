@@ -16,7 +16,8 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
-DROP TABLE CTHD; -- Super_primary_key
+DROP TABLE CTHDDV; -- Super_primary_key
+DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DanhGia;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
@@ -78,7 +79,6 @@ CREATE TABLE NhanVien
     CONSTRAINT      CHK_NHANVIEN1   CHECK   (GioiTinh in ('Nam','Nu','Unknown') ),
     CONSTRAINT      CHK_NHANVIEN2   CHECK   (LoaiNhanVien in ('Staff','Admin') ),
     CONSTRAINT      CHK_NHANVIEN3   CHECK   (NgaySinh <  NgayVaoLam)
-    
 );
 CREATE SEQUENCE MANV_SEQ3 START WITH 1;
 
@@ -87,7 +87,7 @@ CREATE TABLE TaiKhoan
 (
     MaTK            NUMBER          NOT NULL,
     Email           VARCHAR2(255)   NOT NULL UNIQUE,
-    Password        VARCHAR2(30)    NOT NULL,
+    Password        VARCHAR2(255)    NOT NULL,
     MaKH            NUMBER          CONSTRAINT FK_TAIKHOAN_KHACHHANG    REFERENCES KhachHang(MaKH),
     MaNV            NUMBER          CONSTRAINT FK_TAIKHOAN_NHANVIEN     REFERENCES NhanVien(MaNV),
     CONSTRAINT      PK_TAIKHOAN     PRIMARY KEY(MATK)
@@ -168,19 +168,26 @@ CREATE SEQUENCE MADL_SEQ10 START WITH 1;
 CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
-    MaDV        NUMBER      CONSTRAINT FK_HOADON_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
+    MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
 );
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
---------------------------------------------BANG CTHD-------------------------------------------------------------
-CREATE TABLE CTHD
+--------------------------------------------BANG CTHDDV-----------------------------------------------------------
+CREATE TABLE CTHDDV
 ( 
-    MaHD        NUMBER      CONSTRAINT FK_CTHD_HOADON      REFERENCES HOADON(MaHD)    NOT NULL,
-    MaSP        NUMBER      CONSTRAINT FK_CTHD_SANPHAM     REFERENCES SANPHAM(MASP)   ,
+    MaHD        NUMBER      CONSTRAINT FK_CTHDDV_HOADON     REFERENCES HOADON(MaHD)    NOT NULL,
+    MaDV        NUMBER      CONSTRAINT FK_CTHDDV_DICHVU     REFERENCES DICHVU(MaDV)    NOT NULL,
+    CONSTRAINT  PK_CTHDDV   PRIMARY KEY(MaHD,MaDV)
+);
+--------------------------------------------BANG CTHDSP-----------------------------------------------------------
+CREATE TABLE CTHDSP
+( 
+    MaHD        NUMBER      CONSTRAINT FK_CTHDSP_HOADON      REFERENCES HOADON(MaHD)    NOT NULL,
+    MaSP        NUMBER      CONSTRAINT FK_CTHDSP_SANPHAM     REFERENCES SANPHAM(MaSP)   ,
     SoLuong     NUMBER,
-    CONSTRAINT  PK_CTHD     PRIMARY KEY(MaHD,MaSP)
+    CONSTRAINT  PK_CTHDSP   PRIMARY KEY(MaHD,MaSP)
 );
 --------------------------------------------BANG DANH GIA---------------------------------------------------------
 CREATE TABLE DANHGIA
@@ -228,15 +235,13 @@ SELECT * FROM CTHD
 -- Danh Gia
 SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
-ALTER SESSION SET NLS_DATE_FORMAT ='DD/MM/YYYY HH24:MI:SS';
+ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
 -- Nhan Vien
 INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien) VALUES (
-    MANV_SEQ3.nextval,'Nguyen','Nhut',to_date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
+    MANV_SEQ3.nextval,'Nguyen','Nhut',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
-INSERT INTO TaiKhoan VALUES (
-    MATK_SEQ4.nextval,'admin1','1',null,MANV_SEQ3.CURRVAL);
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
 -- ALTER TABLE KHACHHANG
 -- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
@@ -245,4 +250,22 @@ INSERT INTO TaiKhoan VALUES (
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
 select * from TaiKhoan where TAIKHOAN.USERNAME = '1'
 select * from TaiKhoan 
+select * from NhanVien;
+DELETE FROM NhanVien where Ho='Nguyen' and Ten='Nhut'
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Huynh','Phat',to_date('21-07-2020','dd-mm-yyyy'),'Nam','0944651790',To_Date('20-3-2021','dd-mm-yyyy'));
 
+INSERT INTO TaiKhoan VALUES (
+                MATK_SEQ4.nextval,'19521992@gm.uit.edu.vn','123',null,MANV_SEQ3.CURRVAL);
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Truong','Phan',to_date('24-08-2001','dd-mm-yyyy'),'Nam','0327475967',To_Date('20-3-2021','dd-mm-yyyy'));
+            
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
+            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
+
+
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Hi','You',To_Date('12-08-2001','dd-mm-yyyy'),'Nam','0935589947',To_Date('20-3-2021','dd-mm-yyyy'))
+
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
+            MANV_SEQ3.nextval,'Hi','You',To_Date('12-09-2003','dd-mm-yyyy'),'Nam','0944651790',To_Date('21-3-2021','dd-mm-yyyy'))

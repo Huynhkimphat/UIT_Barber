@@ -2,20 +2,22 @@
 
 
 <div class="main">
-    {{!--  --}}
-     <form method="POST" action="/authenticate/check"  class="form" id="login-form"> 
+    {{!-- --}}
+    <form method="POST" action="/authenticate/register" class="form" id="login-form">
         <h3 class="heading">Register</h3>
         <p class="desc">Be together at UIT's BABER ❤️</p>
 
         <div class="spacer"></div>
         <div class="form-group">
             <label for="email" class="form-label">Email</label>
-            <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com" class="form-control">
+            <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com"
+                class="form-control">
             <span class="form-message"></span>
         </div>
         <div class="form-group">
             <label for="password" class="form-label">Password</label>
-            <input id="password" name="password" type="password" placeholder="Enter your password: " class="form-control">
+            <input id="password" name="password" type="password" placeholder="Enter your password: "
+                class="form-control">
             <span class="form-message"></span>
         </div>
         <div class="form-group">
@@ -33,14 +35,17 @@
             <input id="birthday" name="birthday" type="date" class="form-control">
             <span class="form-message"></span>
         </div>
-        <div class="form-group" >
+        <div class="form-group">
             <label for="gender" class="form-label">Gender</label>
             <div style="display: flex">
-                <input name="gender" type="radio" value="male" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Male</div>
-                <input name="gender" type="radio" value="female" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Female</div>
-                <input name="gender" type="radio" value="others" class="form-control" style="height:16px ;"> <div style="margin-top:-2px; font-size:14px;">Others</div>
+                <input name="gender" type="radio" checked value="Nam" class="form-control" style="height:16px ;">
+                <div style="margin-top:-2px; font-size:14px;">Male</div>
+                <input name="gender" type="radio" value="Nu" class="form-control" style="height:16px ;">
+                <div style="margin-top:-2px; font-size:14px;">Female</div>
+                <input name="gender" type="radio" value="Unknown" class="form-control" style="height:16px ;">
+                <div style="margin-top:-2px; font-size:14px;">Unknown</div>
             </div>
-        </div> 
+        </div>
         <div class="form-group">
             <label for="phone" class="form-label">Phone: </label>
             <input id="phone" name="phone" type="number" placeholder="Example: 0935589947" class="form-control">
@@ -52,7 +57,7 @@
 
 <script src="/js/validator.js"></script>
 
-<script >  
+<script>
     Validator({
         form: '#login-form',
         formGroupSelector: '.form-group',
@@ -61,15 +66,15 @@
             Validator.isRequired('#email', 'Please enter your email'),
             Validator.isEmail('#email', 'Wrong email'),
             Validator.isRequired('#password', 'Please enter your password'),
-            Validator.isRequired('#birthday','Please enter your birthday'),
-            Validator.isRequired('#firstName','Please enter your fisrtname'),
-            Validator.isRequired('#lastName','Please enter your lastname'),
-            Validator.isRequired('#phone','Please enter your phone number'),
+            Validator.isRequired('#birthday', 'Please enter your birthday'),
+            Validator.isRequired('#firstName', 'Please enter your fisrtname'),
+            Validator.isRequired('#lastName', 'Please enter your lastname'),
+            Validator.isRequired('#phone', 'Please enter your phone number'),
 
         ],
         {{!-- onSubmit: (data) => {
-            console.log(data);
-        } --}}
+        console.log(data);
+    } --}}
     });
 
 </script>

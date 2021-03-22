@@ -1,3 +1,4 @@
+// Import Packages
 const path = require("path");
 const morgan = require("morgan");
 const express = require("express");
@@ -5,7 +6,7 @@ const handlebars = require("express-handlebars");
 const methodOverride = require("method-override");
 const route = require("./routes");
 const db = require("./config/db");
-
+// Create Port
 const app = express();
 const port = 3000;
 // Connect DB
@@ -30,9 +31,9 @@ app.engine(
     "hbs",
     handlebars({
         extname: ".hbs",
-        helpers: {
-            sum: (a, b) => a + b,
-        },
+        // helpers: {
+        //     sum: (a, b) => a + b,
+        // },
     })
 );
 app.set("view engine", "hbs");
