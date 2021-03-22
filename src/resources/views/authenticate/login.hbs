@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="/css/authenticate.css">
 
 <div class="main">
-    {{!--  --}}
-     <form method="POST" action="/authenticate/check"  class="form" id="login-form"> 
+    {{!-- --}}
+    <form method="POST" action="/authenticate/login" class="form" id="login-form">
         <h3 class="heading">Login</h3>
         <p class="desc">Be together at UIT's BABER ❤️</p>
 
@@ -12,9 +12,10 @@
             <input id="email" name="email" type="text" placeholder="Example: email@domain.com" class="form-control">
             <span class="form-message"></span>
         </div>
-    <div class="form-group">
+        <div class="form-group">
             <label for="password" class="form-label">Password</label>
-            <input id="password" name="password" type="password" placeholder="Enter your password: " class="form-control">
+            <input id="password" name="password" type="password" placeholder="Enter your password: "
+                class="form-control">
             <span class="form-message"></span>
         </div>
         <button class="form-submit">Login</button>
@@ -23,7 +24,7 @@
 
 <script src="/js/validator.js"></script>
 
-<script >  
+<script>
     Validator({
         form: '#login-form',
         formGroupSelector: '.form-group',
@@ -34,16 +35,16 @@
             Validator.isRequired('#password', 'Please enter your password'),
         ],
         {{!-- onSubmit: (data) => {
-            let result;
-            (async() => {
-                result = await login('1@gmail.com', '1');
-                if (result === true) {
-                    console.log("Dang nhap thanh cong");
-                } else {
-                    console.log("Dang nhap that bai");
-                }
-            })();
-        } --}}
+        let result;
+        (async () => {
+            result = await login('1@gmail.com', '1');
+            if (result === true) {
+                console.log("Dang nhap thanh cong");
+            } else {
+                console.log("Dang nhap that bai");
+            }
+        })();
+    } --}}
     });
 
 </script>
