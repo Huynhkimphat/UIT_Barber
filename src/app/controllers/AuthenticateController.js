@@ -9,9 +9,6 @@ class AuthenticateController {
     register(req, res) {
         res.render("authenticate/register");
     }
-    success(req, res) {
-        res.render("authenticate/success");
-    }
     check(req, res, next) {
         let pass;
         let encryptedPassword = "";
@@ -19,13 +16,13 @@ class AuthenticateController {
             console.log("Dang nhap tai khoan");
             (async() => {
                 pass = await login(req.body.email);
-                console.log(pass);
                 bcrypt.compare(req.body.password, pass, function(err, result) {
                     if (err) {
-                        console.log("false");
+                        console.log(err);
                     } else {
-                        console.log("true");
-                        res.redirect("/authenticate/success");
+                        res.redirect(
+                            "/usr=" + req.body.email.split("@")[0] + "#" + pass
+                        );
                     }
                 });
             })();

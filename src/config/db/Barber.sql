@@ -122,7 +122,7 @@ CREATE TABLE DichVu
     MaDV        NUMBER          NOT NULL,
     TenDichVu   VARCHAR2(255)   NOT NULL,
     Gia         NUMBER          default 0,
-    Mota        VARCHAR2(255)   NOT NULL,
+    MotaDichVu  VARCHAR2(4000)   NOT NULL,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -140,6 +140,9 @@ CREATE  TABLE SanPham
 (
     MaSP            NUMBER          NOT NULL,
     TenSanPham      VARCHAR2(255)   NOT NULL,
+    Gia             NUMBER           NOT NULL,
+    MOTASANPHAM     VARCHAR2(4000) NOT NULL,
+    XuatXu          VARCHAR2(100) NOT NULL,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
@@ -239,6 +242,8 @@ ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
 -- Nhan Vien
 INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien) VALUES (
     MANV_SEQ3.nextval,'Nguyen','Nhut',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
+            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
@@ -248,24 +253,7 @@ INSERT INTO TaiKhoan VALUES (
 
 -- ALTER TABLE KHACHHANG
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
-select * from TaiKhoan where TAIKHOAN.USERNAME = '1'
-select * from TaiKhoan 
-select * from NhanVien;
-DELETE FROM NhanVien where Ho='Nguyen' and Ten='Nhut'
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Huynh','Phat',to_date('21-07-2020','dd-mm-yyyy'),'Nam','0944651790',To_Date('20-3-2021','dd-mm-yyyy'));
+--------------------------------------------TRIGGER--------------------------------------------------------------
+-- TRIGGER 15
 
-INSERT INTO TaiKhoan VALUES (
-                MATK_SEQ4.nextval,'19521992@gm.uit.edu.vn','123',null,MANV_SEQ3.CURRVAL);
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Truong','Phan',to_date('24-08-2001','dd-mm-yyyy'),'Nam','0327475967',To_Date('20-3-2021','dd-mm-yyyy'));
-            
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
-            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
-
-
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Hi','You',To_Date('12-08-2001','dd-mm-yyyy'),'Nam','0935589947',To_Date('20-3-2021','dd-mm-yyyy'))
-
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Hi','You',To_Date('12-09-2003','dd-mm-yyyy'),'Nam','0944651790',To_Date('21-3-2021','dd-mm-yyyy'))
+Tao la Huynh Kim Phat
