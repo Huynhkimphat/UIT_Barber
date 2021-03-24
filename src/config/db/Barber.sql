@@ -122,7 +122,7 @@ CREATE TABLE DichVu
     MaDV        NUMBER          NOT NULL,
     TenDichVu   VARCHAR2(255)   NOT NULL,
     Gia         NUMBER          default 0,
-    Mota        VARCHAR2(255)   NOT NULL,
+    MotaDichVu  VARCHAR2(4000)   NOT NULL,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -140,6 +140,9 @@ CREATE  TABLE SanPham
 (
     MaSP            NUMBER          NOT NULL,
     TenSanPham      VARCHAR2(255)   NOT NULL,
+    Gia             NUMBER           NOT NULL,
+    MOTASANPHAM     VARCHAR2(4000) NOT NULL,
+    XuatXu          VARCHAR2(100) NOT NULL,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
