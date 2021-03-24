@@ -19,7 +19,6 @@ DROP TABLE HoaDon;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DanhGia;
-
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
 DROP SEQUENCE MALKH_SEQ2;
