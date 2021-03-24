@@ -2,7 +2,7 @@ const authenticateRouter = require("./authenticate");
 
 function route(app) {
     app.use("/authenticate", authenticateRouter);
-    app.get("/:slug", (req, res) => {
+    app.get("/usr=:slug#:pass", (req, res) => {
         res.render("home", {
             name: req.params.slug,
         });
