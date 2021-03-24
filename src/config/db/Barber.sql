@@ -255,3 +255,21 @@ INSERT INTO TaiKhoan VALUES (
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 
+
+--------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
+DESCRIBE SANPHAM;
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'Seri', 220000, 'Dầu gội giữ màu tóc','VietNam', 2);
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức', 1);
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'ACSYS', 289000, 'Sữa Rửa Mặt trị mụn - Phiên bản đặc biệt','Hàn Quốc', 3);
+
+
+--------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
+DESCRIBE LOAISANPHAM;
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
+
+
