@@ -11,7 +11,11 @@ html {
 }
 
 body {
-    background-image: url('../images/backgroundauthen.png');
+    background: rgba(93, 84, 240, 0.5);
+    background: -webkit-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
+    background: -o-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
+    background: -moz-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
+    background: linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
 }
 
 .main {
@@ -25,11 +29,11 @@ body {
     min-height: 100px;
     padding: 32px 24px;
     text-align: center;
-    background: #fff;
+    /* background: #fff; */
     border-radius: 2px;
     margin: 24px;
     align-self: center;
-    box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+    box-shadow: 0 15px 15px 0 rgba(51, 62, 73, 1);
 }
 
 .form .heading {
@@ -44,6 +48,30 @@ body {
     line-height: 2.4rem;
     margin-top: 16px;
     font-weight: 300;
+}
+
+input[type="text"] {
+    background: transparent;
+    box-shadow: 5px 5px 5px 0 rgba(51, 62, 73, 0.3);
+    border-color: #1dbfaf;
+}
+
+input[type="password"] {
+    background: transparent;
+    box-shadow: 5px 5px 5px 0 rgba(51, 62, 73, 0.3);
+    border-color: #1dbfaf;
+}
+
+input[type="date"] {
+    background: transparent;
+    box-shadow: 5px 5px 5px 0 rgba(51, 62, 73, 0.3);
+    border-color: #1dbfaf;
+}
+
+input[type="number"] {
+    background: transparent;
+    box-shadow: 5px 5px 5px 0 rgba(51, 62, 73, 0.3);
+    border-color: #1dbfaf;
 }
 
 .form-group {
@@ -97,7 +125,7 @@ body {
 
 .form-submit {
     outline: none;
-    background-color: #1dbfaf;
+    background-image: linear-gradient(to left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
     margin-top: 12px;
     padding: 12px 16px;
     font-weight: 600;
@@ -110,7 +138,7 @@ body {
 }
 
 .form-submit:hover {
-    background-color: #1ac7b6;
+    /* background-image: linear-gradient(to right, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5)); */
 }
 
 .spacer {
