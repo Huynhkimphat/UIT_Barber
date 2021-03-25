@@ -10,6 +10,10 @@ html {
     font-family: "Open Sans", sans-serif;
 }
 
+body {
+    background-image: url('../images/backgroundauthen.png');
+}
+
 .main {
     min-height: 80vh;
     display: flex;
