@@ -76,4 +76,18 @@ async function register(
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register };
+async function showProduct() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = 'SELECT * FROM SANPHAM';
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { connect, login, register, showProduct };
