@@ -20,9 +20,7 @@ class AuthenticateController {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.redirect(
-                            "/usr=" + req.body.email.split("@")[0] + "#" + pass
-                        );
+                        res.redirect("/usr=" + req.body.email.split("@")[0]);
                     }
                 });
             })();

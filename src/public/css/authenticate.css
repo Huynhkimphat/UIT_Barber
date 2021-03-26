@@ -11,11 +11,11 @@ html {
 }
 
 body {
-    background: rgba(93, 84, 240, 0.5);
+    /* background-image: linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5)), url("../images/img.jpg");
     background: -webkit-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
     background: -o-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
     background: -moz-linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
-    background: linear-gradient(left, rgba(0, 168, 255, 0.5), rgba(185, 0, 255, 0.5));
+    background: ; */
 }
 
 .main {
@@ -33,7 +33,7 @@ body {
     border-radius: 2px;
     margin: 24px;
     align-self: center;
-    box-shadow: 0 15px 15px 0 rgba(51, 62, 73, 1);
+    box-shadow: 0px 0px 15px 5px rgba(51, 62, 73, 1);
 }
 
 .form .heading {
