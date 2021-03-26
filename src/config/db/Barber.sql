@@ -2,7 +2,7 @@
 -- Intro
 -- ...
 -- ...
--- ...
+-- END INTRO
 -----------------------------------------------DELETE TABLE-------------------------------------------------------
 DROP TABLE KhachHang;
 DROP TABLE LoaiKhachHang;
@@ -18,7 +18,13 @@ DROP TABLE DatLich;
 DROP TABLE HoaDon;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
+<<<<<<< HEAD
 DROP TABLE DanhGia;
+=======
+DROP TABLE DANHGIANHANVIEN;
+DROP TABLE DANHGIASANPHAM;
+
+>>>>>>> master
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
 DROP SEQUENCE MALKH_SEQ2;
@@ -31,7 +37,10 @@ DROP SEQUENCE MASP_SEQ8;
 DROP SEQUENCE MAGD_SEQ9;
 DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
-DROP SEQUENCE MADG_SEQ12;
+DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
+DROP SEQUENCE MADGNV_SEQ12;
+DROP SEQUENCE MADGSP_SEQ13;
+
 
 ----------------------------------------------BANG KHACH HANG----------------------------------------------------
 CREATE TABLE KhachHang
@@ -191,18 +200,31 @@ CREATE TABLE CTHDSP
     SoLuong     NUMBER,
     CONSTRAINT  PK_CTHDSP   PRIMARY KEY(MaHD,MaSP)
 );
---------------------------------------------BANG DANH GIA---------------------------------------------------------
-CREATE TABLE DANHGIA
+--------------------------------------------BANG DANH GIA NHAN VIEN-----------------------------------------------
+CREATE TABLE DANHGIANHANVIEN
 ( 
-    MaDG            NUMBER          NOT NULL,
+    MaDGNV            NUMBER          NOT NULL,
     MaKH            NUMBER          CONSTRAINT FK_DANHGIA_KHACHHANG     REFERENCES KHACHHANG(MaKH)      NOT NULL,
     MaNV            NUMBER          CONSTRAINT FK_DANHGIA_NHANVIEN      REFERENCES NHANVIEN(MaNV)       NOT NULL,
     NgayDanhGia     DATE            NOT NULL,
     DANHGIA         NUMBER          NOT NULL,
     CHITIETDANHGIA  VARCHAR2(255)   NOT NULL,
-    CONSTRAINT      PK_DG           PRIMARY KEY(MaDG)
+    CONSTRAINT      PK_DGNV           PRIMARY KEY(MaDGNV)
 );
-CREATE SEQUENCE MADG_SEQ12 START WITH 1;
+CREATE SEQUENCE MADGNV_SEQ12 START WITH 1;
+--------------------------------------------BANG DANH GIA SAN PHAM------------------------------------------------
+CREATE TABLE DANHGIASANPHAM
+( 
+    MaDGSP          NUMBER          NOT NULL,
+    MaKH            NUMBER          CONSTRAINT FK_DANHGIA_KHACHHANG     REFERENCES KHACHHANG(MaKH)      NOT NULL,
+    MaSP            NUMBER          CONSTRAINT FK_DANHGIA_SANPHAM       REFERENCES SANPHAM(MaSP)       NOT NULL,
+    NgayDanhGia     DATE            NOT NULL,
+    DANHGIA         NUMBER          NOT NULL,
+    CHITIETDANHGIA  VARCHAR2(255)   NOT NULL,
+    CONSTRAINT      PK_DGSP           PRIMARY KEY(MaDGSP)
+);
+CREATE SEQUENCE MADGSP_SEQ13 START WITH 1;
+
 --------------------------------------------SELECT RECORDS-------------------------------------------------------
 -- Khach Hang
 SELECT * FROM KhachHang
