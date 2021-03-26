@@ -8,6 +8,9 @@ function route(app) {
             name: req.params.slug,
         });
     });
+    app.use("/about", (req, res) => {
+        res.render("about");
+    });
     app.use("/", (req, res) => {
         res.render("home", {
             login: "Login",
