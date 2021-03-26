@@ -2,7 +2,7 @@
 -- Intro
 -- ...
 -- ...
--- ...
+-- END INTRO
 -----------------------------------------------DELETE TABLE-------------------------------------------------------
 DROP TABLE KhachHang;
 DROP TABLE LoaiKhachHang;
@@ -18,8 +18,13 @@ DROP TABLE DatLich;
 DROP TABLE HoaDon;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
+<<<<<<< HEAD
 DROP TABLE DanhGia;
+=======
+DROP TABLE DANHGIANHANVIEN;
+DROP TABLE DANHGIASANPHAM;
 
+>>>>>>> master
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
 DROP SEQUENCE MALKH_SEQ2;
@@ -32,7 +37,10 @@ DROP SEQUENCE MASP_SEQ8;
 DROP SEQUENCE MAGD_SEQ9;
 DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
-DROP SEQUENCE MADG_SEQ12;
+DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
+DROP SEQUENCE MADGNV_SEQ12;
+DROP SEQUENCE MADGSP_SEQ13;
+
 
 ----------------------------------------------BANG KHACH HANG----------------------------------------------------
 CREATE TABLE KhachHang
@@ -122,7 +130,7 @@ CREATE TABLE DichVu
     MaDV        NUMBER          NOT NULL,
     TenDichVu   VARCHAR2(255)   NOT NULL,
     Gia         NUMBER          default 0,
-    Mota        VARCHAR2(255)   NOT NULL,
+    MotaDichVu  VARCHAR2(4000)   NOT NULL,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -140,6 +148,9 @@ CREATE  TABLE SanPham
 (
     MaSP            NUMBER          NOT NULL,
     TenSanPham      VARCHAR2(255)   NOT NULL,
+    Gia             NUMBER           NOT NULL,
+    MOTASANPHAM     VARCHAR2(4000) NOT NULL,
+    XuatXu          VARCHAR2(100) NOT NULL,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
@@ -189,18 +200,31 @@ CREATE TABLE CTHDSP
     SoLuong     NUMBER,
     CONSTRAINT  PK_CTHDSP   PRIMARY KEY(MaHD,MaSP)
 );
---------------------------------------------BANG DANH GIA---------------------------------------------------------
-CREATE TABLE DANHGIA
+--------------------------------------------BANG DANH GIA NHAN VIEN-----------------------------------------------
+CREATE TABLE DANHGIANHANVIEN
 ( 
-    MaDG            NUMBER          NOT NULL,
+    MaDGNV            NUMBER          NOT NULL,
     MaKH            NUMBER          CONSTRAINT FK_DANHGIA_KHACHHANG     REFERENCES KHACHHANG(MaKH)      NOT NULL,
     MaNV            NUMBER          CONSTRAINT FK_DANHGIA_NHANVIEN      REFERENCES NHANVIEN(MaNV)       NOT NULL,
     NgayDanhGia     DATE            NOT NULL,
     DANHGIA         NUMBER          NOT NULL,
     CHITIETDANHGIA  VARCHAR2(255)   NOT NULL,
-    CONSTRAINT      PK_DG           PRIMARY KEY(MaDG)
+    CONSTRAINT      PK_DGNV           PRIMARY KEY(MaDGNV)
 );
-CREATE SEQUENCE MADG_SEQ12 START WITH 1;
+CREATE SEQUENCE MADGNV_SEQ12 START WITH 1;
+--------------------------------------------BANG DANH GIA SAN PHAM------------------------------------------------
+CREATE TABLE DANHGIASANPHAM
+( 
+    MaDGSP          NUMBER          NOT NULL,
+    MaKH            NUMBER          CONSTRAINT FK_DANHGIA_KHACHHANG     REFERENCES KHACHHANG(MaKH)      NOT NULL,
+    MaSP            NUMBER          CONSTRAINT FK_DANHGIA_SANPHAM       REFERENCES SANPHAM(MaSP)       NOT NULL,
+    NgayDanhGia     DATE            NOT NULL,
+    DANHGIA         NUMBER          NOT NULL,
+    CHITIETDANHGIA  VARCHAR2(255)   NOT NULL,
+    CONSTRAINT      PK_DGSP           PRIMARY KEY(MaDGSP)
+);
+CREATE SEQUENCE MADGSP_SEQ13 START WITH 1;
+
 --------------------------------------------SELECT RECORDS-------------------------------------------------------
 -- Khach Hang
 SELECT * FROM KhachHang
@@ -239,6 +263,8 @@ ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
 -- Nhan Vien
 INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien) VALUES (
     MANV_SEQ3.nextval,'Nguyen','Nhut',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383',To_Date('12-03-2021','dd-mm-yyyy'),'Admin');
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
+            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
@@ -248,24 +274,25 @@ INSERT INTO TaiKhoan VALUES (
 
 -- ALTER TABLE KHACHHANG
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
-select * from TaiKhoan where TAIKHOAN.USERNAME = '1'
-select * from TaiKhoan 
-select * from NhanVien;
-DELETE FROM NhanVien where Ho='Nguyen' and Ten='Nhut'
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Huynh','Phat',to_date('21-07-2020','dd-mm-yyyy'),'Nam','0944651790',To_Date('20-3-2021','dd-mm-yyyy'));
-
-INSERT INTO TaiKhoan VALUES (
-                MATK_SEQ4.nextval,'19521992@gm.uit.edu.vn','123',null,MANV_SEQ3.CURRVAL);
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Truong','Phan',to_date('24-08-2001','dd-mm-yyyy'),'Nam','0327475967',To_Date('20-3-2021','dd-mm-yyyy'));
-            
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (   
-            MANV_SEQ3.nextval,'Quy','Tường',to_date('09-06-2020','dd-mm-yyyy'),'Nu','0935589947',To_Date('20-3-2021','dd-mm-yyyy'));
+--------------------------------------------TRIGGER--------------------------------------------------------------
+-- TRIGGER 15
 
 
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Hi','You',To_Date('12-08-2001','dd-mm-yyyy'),'Nam','0935589947',To_Date('20-3-2021','dd-mm-yyyy'))
+--------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
+DESCRIBE SANPHAM;
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'Seri', 220000, 'Dầu gội giữ màu tóc','VietNam', 2);
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức', 1);
+INSERT INTO SANPHAM VALUES (
+    MASP_SEQ8.NEXTVAL, 'ACSYS', 289000, 'Sữa Rửa Mặt trị mụn - Phiên bản đặc biệt','Hàn Quốc', 3);
 
-INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
-            MANV_SEQ3.nextval,'Hi','You',To_Date('12-09-2003','dd-mm-yyyy'),'Nam','0944651790',To_Date('21-3-2021','dd-mm-yyyy'))
+
+--------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
+DESCRIBE LOAISANPHAM;
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
+INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
+
+
+SELECT * FROM SANPHAM
