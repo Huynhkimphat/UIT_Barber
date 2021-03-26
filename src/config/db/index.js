@@ -2,8 +2,8 @@ const oracledb = require("oracledb");
 
 const config = {
     user: "system",
-    password: "Kimphat2001",
-    connectString: "localhost:1521/Project",
+    password: "lehoang2210kt",
+    connectString: "localhost:1521/test",
 };
 
 async function connect() {
@@ -76,4 +76,18 @@ async function register(
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register };
+async function showProduct() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = 'SELECT * FROM SANPHAM';
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { connect, login, register, showProduct };
