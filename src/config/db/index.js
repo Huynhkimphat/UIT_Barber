@@ -81,11 +81,15 @@ async function register(
         console.log("Ouch!", err);
     }
 }
+<<<<<<< HEAD
 async function showBooking() {
+=======
+async function show(type, condition) {
+>>>>>>> master
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM SANPHAM";
+        let exec = "SELECT * FROM " + type;
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -95,6 +99,7 @@ async function showBooking() {
         console.log("Ouch!", err);
     }
 }
+<<<<<<< HEAD
 
 async function showProduct() {
     let conn;
@@ -111,3 +116,6 @@ async function showProduct() {
     }
 }
 module.exports = { connect, login, register, showProduct, showBooking };
+=======
+module.exports = { connect, login, register, show };
+>>>>>>> master

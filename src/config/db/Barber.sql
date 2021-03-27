@@ -324,9 +324,27 @@ INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
 
+INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 1', 220000, 'Day la dich vu so 1');
+    INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
+    INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
 
 SELECT * FROM SANPHAM
+<<<<<<< HEAD
 INSERT INTO KHACHHANG VALUES (
     MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','111',0);
 
 
+=======
+CREATE TABLE DichVu
+(
+    MaDV        NUMBER          NOT NULL,
+    TenDichVu   VARCHAR2(255)   NOT NULL,
+    Gia         NUMBER          default 0,
+    MotaDichVu  VARCHAR2(4000)   NOT NULL,
+    CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
+);
+CREATE SEQUENCE MADV_SEQ6 START WITH 1;
+>>>>>>> master
