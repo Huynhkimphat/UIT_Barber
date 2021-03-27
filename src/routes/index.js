@@ -1,5 +1,6 @@
 const authenticateRouter = require("./authenticate");
 const productRouter = require("./product");
+const serviceRouter = require("./service");
 
 function route(app) {
     // Route Login
@@ -17,14 +18,16 @@ function route(app) {
     });
     // Route Product
     app.use("/products", productRouter);
-    // Route Home 
+    // Route Service
+    app.use("/service", serviceRouter);
+
+    // Route Home
     app.use("/", (req, res) => {
         res.render("home", {
             login: "Login",
             register: "Register",
         });
     });
-
 }
 
 module.exports = route;

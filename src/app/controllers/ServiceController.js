@@ -1,14 +1,15 @@
 const { show } = require("../../config/db");
-class ProductController {
+class ServiceController {
     //* [GET]/
     show(req, res, next) {
+        console.log("show");
         (async() => {
-            let result = await show("SANPHAM", 0);
+            let result = await show("DichVu", 0);
             res.render("services/showServices", {
-                products: result.rows,
+                services: result.rows,
             });
         })();
     }
 }
 
-module.exports = new ProductController();
+module.exports = new ServiceController();

@@ -81,11 +81,11 @@ async function register(
         console.log("Ouch!", err);
     }
 }
-async function showProduct() {
+async function show(type, condition) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM SANPHAM";
+        let exec = "SELECT * FROM " + type;
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -95,4 +95,4 @@ async function showProduct() {
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register, showProduct };
+module.exports = { connect, login, register, show };
