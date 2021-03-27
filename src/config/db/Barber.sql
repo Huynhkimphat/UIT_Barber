@@ -276,6 +276,36 @@ INSERT INTO TaiKhoan VALUES (
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
+-- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
+-- Khach Hang Sua
+-- Nhan VIen Sua
+-- Dat Lich Them Sua
+SET DEFINE OFF;
+CREATE [OR REPLACE] TRIGGER TRIGGER_15_KHACHHANG
+AFTER UPDATE ON KHACHHANG
+FOR EACH ROW
+DECLARE
+    t_ngaysinh KHACHHANG.ngaysinh%TYPE;
+    t_ngaydatlich DATLICH.Ngay%TYPE;
+BEGIN 
+    SELECT kh.ngaysinh into t_ngaysinh
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH
+
+    SELECT dl.ngay into t_ngaydatlich
+    FROM (
+        SELECT dl.ngay from DATLICH dl 
+        WHERE dl.MaKH=:NEW.MaKH
+        ORDER BY dl.ngaty ASC
+    )
+    WHERE ROWNUM=1
+
+    IF(t_ngaysinh>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    ELSE IF;
+END;
 
 
 --------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
