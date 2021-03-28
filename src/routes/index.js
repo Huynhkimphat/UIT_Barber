@@ -22,6 +22,7 @@ function route(app) {
     app.use("/booking", bookingRouter);
     // Route Product
     app.use("/products", productRouter);
+
     // Route Service
     app.use("/service", serviceRouter);
     // Route employee

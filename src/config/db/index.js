@@ -117,4 +117,27 @@ async function showBooking() {
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register, showBooking, show };
+async function addBooking(date) {
+    let conn;
+    try {
+        console.log(date);
+        let bookingDate = date.split('-').reverse().join('-');
+        console.log(bookingDate);
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "INSERT INTO DATLICH VALUES (MADL_SEQ10.nextval , To_Date(:bookingDate,'dd-mm-yyyy') , 1 , 1 , 1 ,1)";
+        await conn.execute(
+            exec, {
+                bookingDate
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { connect, login, register, showBooking, show, addBooking };

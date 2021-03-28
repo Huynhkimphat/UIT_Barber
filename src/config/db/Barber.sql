@@ -332,19 +332,18 @@ INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
 
 SELECT * FROM SANPHAM
-<<<<<<< HEAD
 INSERT INTO KHACHHANG VALUES (
     MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','111',0);
 
-
-=======
-CREATE TABLE DichVu
+INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
+SELECT * FROM DATLICH
+CREATE TABLE DatLich
 (
-    MaDV        NUMBER          NOT NULL,
-    TenDichVu   VARCHAR2(255)   NOT NULL,
-    Gia         NUMBER          default 0,
-    MotaDichVu  VARCHAR2(4000)   NOT NULL,
-    CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
+    MaDL        NUMBER          NOT NULL,
+    Ngay        DATE            NOT NULL,
+    MaGio       NUMBER          CONSTRAINT FK_DATLICH_GIODAT    REFERENCES GioDat(MaGio)    NOT NULL,
+    MaKH        NUMBER          CONSTRAINT FK_DATLICH_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
+    MaNV        NUMBER          CONSTRAINT FK_DATLICH_NHANVIEN  REFERENCES NhanVien(MaNV)   NOT NULL,
+    MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
+    CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
 );
-CREATE SEQUENCE MADV_SEQ6 START WITH 1;
->>>>>>> master
