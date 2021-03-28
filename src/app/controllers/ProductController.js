@@ -9,6 +9,17 @@ class ProductController {
             });
         })();
     }
+    addProduct(req, res, next) {
+        res.render('product/addProduct');
+    }
+    adding(req, res, next) {
+        (async() => {
+            let result = await addBooking(req.body.date);
+
+        })();
+        res.redirect('/booking');
+    }
+
 }
 
 module.exports = new ProductController();

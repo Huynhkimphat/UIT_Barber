@@ -1,7 +1,6 @@
 const authenticateRouter = require("./authenticate");
 const productRouter = require("./product");
 const serviceRouter = require("./service");
-
 function route(app) {
     // Route Login
     app.use("/authenticate", authenticateRouter);
@@ -12,6 +11,8 @@ function route(app) {
             name: req.params.slug,
         });
     });
+    // Route Admin
+    app.use("/admin/products",productRouter);
     // Route About
     app.use("/about", (req, res) => {
         res.render("about");
