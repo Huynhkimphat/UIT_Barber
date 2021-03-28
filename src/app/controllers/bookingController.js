@@ -3,7 +3,7 @@ class bookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            let result = await showBooking();
+            let result = await showBooking("DATLICH", 0);
             res.render('booking/showBooking', {
                 booking: result.rows,
             });
