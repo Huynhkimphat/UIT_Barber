@@ -329,7 +329,6 @@ INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
     INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
-<<<<<<< HEAD
 
 SELECT * FROM SANPHAM
 INSERT INTO KHACHHANG VALUES (
@@ -347,5 +346,3 @@ CREATE TABLE DatLich
     MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
     CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
 );
-=======
->>>>>>> master
