@@ -1,15 +1,11 @@
 const oracledb = require("oracledb");
-
-// const config = {
-//     user: "system",
-//     password: "lehoang2210kt",
-//     connectString: "localhost:1521/test",
-// };
+const dotenv = require("dotenv");
+dotenv.config();
 
 const config = {
-    user: "system",
-    password: "Kimphat2001",
-    connectString: "localhost:1521/Project",
+    user: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
+    connectString: process.env.API_STRING,
 };
 async function connect() {
     try {
