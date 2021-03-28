@@ -4,7 +4,7 @@ class ProductController {
     show(req, res, next) {
         (async() => {
             let result = await show("SANPHAM", 0);
-            res.render("services/showServices", {
+            res.render("products/showProduct", {
                 products: result.rows,
             });
         })();
