@@ -10,15 +10,15 @@ class ProductController {
         })();
     }
     addProduct(req, res, next) {
-        res.render('product/addProduct');
+        res.render('products/addProduct');
     }
-    adding(req, res, next) {
-        (async() => {
-            let result = await addBooking(req.body.date);
+    // adding(req, res, next) {
+    //     (async() => {
+    //         let result = await addBooking(req.body.date);
 
-        })();
-        res.redirect('/booking');
-    }
+    //     })();
+    //     res.redirect('/booking');
+    // }
 
 }
 
