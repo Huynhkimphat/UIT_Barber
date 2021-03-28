@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -7,6 +8,12 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
+
+// const config = {
+//     user: "system",
+//     password: "Kimphat2001",
+//     connectString: "localhost:1521/Project",
+// };
 async function connect() {
     try {
         await oracledb.getConnection(config);
@@ -77,7 +84,10 @@ async function register(
         console.log("Ouch!", err);
     }
 }
+
+
 async function show(type, condition) {
+
     let conn;
     try {
         conn = await oracledb.getConnection(config);
@@ -91,4 +101,46 @@ async function show(type, condition) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register, show };
+
+async function showBooking() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT * FROM DATLICH,KHACHHANG,NHANVIEN,GIODAT,DICHVU \n" +
+            "WHERE DATLICH.MANV=NHANVIEN.MANV \n" +
+            "AND DATLICH.MAKH=KHACHHANG.MAKH \n" +
+            "AND DATLICH.MAGIO=GIODAT.MAGIO \n" +
+            "AND DATLICH.MADV=DichVu.MADV";
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function addBooking(date) {
+    let conn;
+    try {
+        console.log(date);
+        let bookingDate = date.split('-').reverse().join('-');
+        console.log(bookingDate);
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "INSERT INTO DATLICH VALUES (MADL_SEQ10.nextval , To_Date(:bookingDate,'dd-mm-yyyy') , 1 , 1 , 1 ,1)";
+        await conn.execute(
+            exec, {
+                bookingDate
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { connect, login, register, showBooking, show, addBooking };
