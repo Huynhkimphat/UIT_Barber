@@ -281,22 +281,22 @@ INSERT INTO TaiKhoan VALUES (
 -- Nhan VIen Sua
 -- Dat Lich Them Sua
 SET DEFINE OFF;
-CREATE [OR REPLACE] TRIGGER TRIGGER_15_KHACHHANG
+CREATE TRIGGER TRIGGER_15_KHACHHANG
 AFTER UPDATE ON KHACHHANG
 FOR EACH ROW
 DECLARE
-    t_ngaysinh KHACHHANG.ngaysinh%TYPE;
-    t_ngaydatlich DATLICH.Ngay%TYPE;
+    t_ngaysinh KHACHHANG.ngaysinh%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
 BEGIN 
     SELECT kh.ngaysinh into t_ngaysinh
     FROM KHACHHANG kh
-    WHERE kh.MaKH=:NEW.MaKH
+    WHERE kh.MaKH=:NEW.MaKH;
 
     SELECT dl.ngay into t_ngaydatlich
     FROM (
         SELECT dl.ngay from DATLICH dl 
         WHERE dl.MaKH=:NEW.MaKH
-        ORDER BY dl.ngaty ASC
+        ORDER BY dl.ngat ASC
     )
     WHERE ROWNUM=1
 
@@ -304,7 +304,6 @@ BEGIN
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
-    ELSE IF;
 END;
 
 
@@ -330,6 +329,7 @@ INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
     INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
+<<<<<<< HEAD
 
 SELECT * FROM SANPHAM
 INSERT INTO KHACHHANG VALUES (
@@ -347,3 +347,5 @@ CREATE TABLE DatLich
     MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
     CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
 );
+=======
+>>>>>>> master
