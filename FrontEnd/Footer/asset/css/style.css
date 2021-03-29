@@ -41,10 +41,12 @@ ul>li {
 hr {
     border-width: 3px
 }
-
+.social{
+    display:flex;
+}
 .social>i {
     padding: 1%;
-    font-size: 15px
+    font-size: 1.5rem;
 }
 
 .social>i:hover {
@@ -57,7 +59,8 @@ hr {
 }
 
 .heading {
-    color: white
+    color: white;
+    font-size:18px;
 }
 
 .divider {
@@ -71,3 +74,13 @@ hr {
 .app-cash__item + .app-cash__item{
     margin: 0 12px;
 }
+.try_booking{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn{
+    margin-block-start: 25px;
+    margin-left: -20px;
+}
+
