@@ -1,0 +1,73 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border;
+}
+
+
+body {
+    background-color: #f3f6fd;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(189, 196, 203);
+    font-family: 'Poppins', sans-serif;
+}
+.footer{
+    background-color: #06070B;
+
+}
+.card {
+    padding: 2% 7%;
+    color: #646771;
+    background-color: #06070B;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0
+}
+
+ul>li {
+    padding: 4px
+}
+
+/* ul>li:hover {
+    color: #DC4C5A;
+    cursor: pointer
+} */
+
+hr {
+    border-width: 3px
+}
+
+.social>i {
+    padding: 1%;
+    font-size: 15px
+}
+
+.social>i:hover {
+    color: #DC4C5A;
+    cursor: pointer
+}
+
+.policy>div {
+    padding: 4px
+}
+
+.heading {
+    color: white
+}
+
+.divider {
+    border-top: 2px solid rgba(189, 196, 203, 0.5);
+}
+
+.app-cash__list {
+    display: flex;
+    justify-content: flex-start;
+}
+.app-cash__item + .app-cash__item{
+    margin: 0 12px;
+}
