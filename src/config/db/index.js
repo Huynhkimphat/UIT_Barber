@@ -4,9 +4,9 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const config = {
-    user: process.env.API_USERNAME,
-    password: process.env.API_PASSWORD,
-    connectString: process.env.API_STRING,
+    user: "system",
+    password: "lehoang2210kt",
+    connectString: "localhost:1521/Test",
 };
 
 // const config = {
