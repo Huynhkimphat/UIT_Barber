@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto';
+    font-size: 25px;
+    color: black;
+}
+
+.container{
+    background-color: white;
+}
+
+.container .service_head .title_service{
+    font-size:  25px;
+    font-weight: bold;
+    color: black;
+} 
+
+
+.container .service_head .subTitle {
+    font-size: 15px;
+}
+
+.service_head {
+    padding: 20px 0px 20px 0px;
+}
+
+img{
+    vertical-align: middle;
+    border-style: none;
+}
+
+
+
+.service_banner img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
