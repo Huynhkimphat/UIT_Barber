@@ -276,6 +276,35 @@ INSERT INTO TaiKhoan VALUES (
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
+-- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
+-- Khach Hang Sua
+-- Nhan VIen Sua
+-- Dat Lich Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_15_KHACHHANG
+AFTER UPDATE ON KHACHHANG
+FOR EACH ROW
+DECLARE
+    t_ngaysinh KHACHHANG.ngaysinh%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
+BEGIN 
+    SELECT kh.ngaysinh into t_ngaysinh
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH;
+
+    SELECT dl.ngay into t_ngaydatlich
+    FROM (
+        SELECT dl.ngay from DATLICH dl 
+        WHERE dl.MaKH=:NEW.MaKH
+        ORDER BY dl.ngat ASC
+    )
+    WHERE ROWNUM=1
+
+    IF(t_ngaysinh>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
 
 
 --------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
@@ -294,5 +323,26 @@ INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
 
+INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 1', 220000, 'Day la dich vu so 1');
+    INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
+    INSERT INTO DichVu VALUES (
+    MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
 
 SELECT * FROM SANPHAM
+INSERT INTO KHACHHANG VALUES (
+    MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','111',0);
+
+INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
+SELECT * FROM DATLICH
+CREATE TABLE DatLich
+(
+    MaDL        NUMBER          NOT NULL,
+    Ngay        DATE            NOT NULL,
+    MaGio       NUMBER          CONSTRAINT FK_DATLICH_GIODAT    REFERENCES GioDat(MaGio)    NOT NULL,
+    MaKH        NUMBER          CONSTRAINT FK_DATLICH_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
+    MaNV        NUMBER          CONSTRAINT FK_DATLICH_NHANVIEN  REFERENCES NhanVien(MaNV)   NOT NULL,
+    MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
+    CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
+);
