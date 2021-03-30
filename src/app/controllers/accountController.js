@@ -5,7 +5,7 @@ class accountController {
         (async() => {
             let result = await show("TAIKHOAN", 0);
             res.render("account/showAccounts", {
-                account: temp,
+                account: result.rows,
             });
         })();
     }
