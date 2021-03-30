@@ -4,16 +4,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const config = {
-    user: "system",
-    password: "lehoang2210kt",
-    connectString: "localhost:1521/Test",
+    user: process.env.API_USERNAME,
+    password: process.env.API_PASSWORD,
+    connectString: process.env.API_STRING,
 };
 
-// const config = {
-//     user: "system",
-//     password: "Kimphat2001",
-//     connectString: "localhost:1521/Project",
-// };
 async function connect() {
     try {
         await oracledb.getConnection(config);

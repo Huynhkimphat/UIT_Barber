@@ -1,20 +1,24 @@
-<div class="card" style="width: 18rem;">
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Mã nhân viên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Ngày vào làm</th>
+            <th scope="col">Loại nhân viên</th>
+        </tr>
+    </thead>
     {{#each employee}}
-    <img class="card-img-top" src="..." alt="cái mặt tk nhân viên chỗ đây nè">
-    <div class="card-body">
-        <h5 class="card-title">{{1}} {{2}}</h5>
-        <p class="card-text">Giới thiệu sương sương</p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Mã nhân viên: {{0}}</li>
-        <li class="list-group-item" type="date">Ngày sinh: {{3}}</li>
-        <li class="list-group-item">Giới tính: {{4}}</li>
-        <li class="list-group-item">Ngày vào làm: {{7}}</li>
-        <li class="list-group-item">Loại nhân viên: {{8}}</li>
-    </ul>
-    <div class="card-body">
-        <a href="https://fb.com/ldh2210" class="card-link">Facebook</a>
-        <a href="#" class="card-link">{{5}}</a>
-    </div>
+    <tbody>
+        <tr>
+            <th scope="row">{{1}} {{2}}</th>
+            <td>{{0}}</td>
+            <td>{{3}}</td>
+            <td>{{4}}</td>
+            <td>{{7}}</td>
+            <td>{{8}}</td>
+        </tr>
+    </tbody>
     {{/each}}
-</div>
+</table>

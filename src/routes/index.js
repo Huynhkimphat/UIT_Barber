@@ -5,6 +5,7 @@ const serviceRouter = require("./service");
 const employeeRouter = require("./employee");
 const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
+const accountRouter = require("./account");
 
 function route(app) {
     // Route Login
@@ -30,6 +31,8 @@ function route(app) {
     app.use("/service", serviceRouter);
     // Route Customer
     app.use("/customer", customerRouter);
+    // Route Account
+    app.use("/account", accountRouter);
     // Route employee
     app.use("/employee", employeeRouter);
     // Route Home
