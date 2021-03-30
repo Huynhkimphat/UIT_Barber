@@ -105,19 +105,12 @@ async function show(type, condition) {
 async function showBooking() {
     let conn;
     try {
-        conn = await oracledb.getConnection(config); <<
-        <<
-        << < HEAD
-        let exec = "SELECT * FROM SANPHAM"; ===
-        ===
-        =
+        conn = await oracledb.getConnection(config);
         let exec = "SELECT * FROM DATLICH,KHACHHANG,NHANVIEN,GIODAT,DICHVU \n" +
             "WHERE DATLICH.MANV=NHANVIEN.MANV \n" +
             "AND DATLICH.MAKH=KHACHHANG.MAKH \n" +
             "AND DATLICH.MAGIO=GIODAT.MAGIO \n" +
-            "AND DATLICH.MADV=DichVu.MADV"; >>>
-        >>>
-        > master
+            "AND DATLICH.MADV=DichVu.MADV";
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();

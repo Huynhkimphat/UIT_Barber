@@ -1,5 +1,5 @@
 const { show } = require("../../config/db");
-class employeeController {
+class EmployeeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
@@ -12,4 +12,4 @@ class employeeController {
     }
 }
 
-module.exports = new employeeController();
+module.exports = new EmployeeController();
