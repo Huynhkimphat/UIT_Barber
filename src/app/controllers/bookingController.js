@@ -1,9 +1,11 @@
 const { showBooking, addBooking } = require("../../config/db");
+const { formatDate } = require("../../utils/formatDate");
 class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await showBooking("DATLICH", 0);
+            let temp = formatDate(result.rows);
             res.render('booking/showBooking', {
                 booking: result.rows,
             });
