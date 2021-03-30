@@ -1,25 +1,24 @@
 .footer {
     background-color: #06070B;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(189, 196, 203);
 }
 
-.card {
+.footer-card {
     padding: 2% 7%;
-    color: #646771;
+    color: #DBD7D8;
     background-color: #06070B;
 }
 
-ul {
+.footer-card-text {
     list-style-type: none;
     margin: 0;
     padding: 0
 }
 
-ul>li {
+.footer-card-text>li {
     padding: 4px
-}
-
-hr {
-    border-width: 3px
 }
 
 .social {
@@ -40,7 +39,7 @@ hr {
     padding: 4px
 }
 
-.heading {
+.footer-heading {
     color: white;
     font-size: 18px;
 }
@@ -63,13 +62,13 @@ hr {
     flex-direction: column;
 }
 
-.btn {
+.footer-btn {
     margin-top: 25px;
     margin-left: -25px;
 }
 
 .me-3 {
-    font-size: 15px;
+    font-size: 20px;
     margin-left: -20px;
 }
 
@@ -92,24 +91,24 @@ hr {
 }
 
 @media only screen and (max-width: 767px) {
-    .heading {
+    .footer-heading {
         margin-top: 20px;
         text-align: center;
     }
     .app-cash__list {
         justify-content: center;
     }
-    ul>li {
+    .footer-card-text>li {
         text-align: center;
     }
     .me-3 {
         font-size: 15px;
         margin-left: 18px;
     }
-    .btn {
+    .footer-btn {
         margin-left: 0;
     }
-    .card-text {
+    .footer-card-text {
         text-align: center;
     }
     .social>i {
