@@ -1,5 +1,5 @@
 const { showBooking, addBooking } = require("../../config/db");
-class bookingController {
+class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
@@ -22,4 +22,4 @@ class bookingController {
 
 }
 
-module.exports = new bookingController();
+module.exports = new BookingController();

@@ -16,15 +16,12 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
+DROP TABLE CTHD
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
-<<<<<<< HEAD
-DROP TABLE DanhGia;
-=======
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
 
->>>>>>> master
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
 DROP SEQUENCE MALKH_SEQ2;
