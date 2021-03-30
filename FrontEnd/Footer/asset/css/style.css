@@ -80,7 +80,49 @@ hr {
 }
 
 .btn{
-    margin-block-start: 25px;
+    margin-top: 25px;
+    margin-left: -25px;
+}
+
+.me-3{
+    font-size: 15px;
     margin-left: -20px;
 }
 
+.me-3:hover{
+animation-name: color;
+animation-duration:1s ;
+animation-iteration-count: infinite;
+}
+
+@keyframes color{
+    0%{color: #766C24;}
+    50%{color:  #891900;}
+    75%{color: #DC4C5A;}
+}
+
+@media only screen and (max-width: 767px){
+    .heading {
+       margin-top: 20px;
+       text-align: center;
+    }
+    .app-cash__list{
+        justify-content: center;
+    }
+    ul>li{
+        text-align: center;
+        
+    }
+    .me-3 {
+        font-size: 15px;
+        margin-left: 18px;
+    }.btn{
+        margin-left: 0;
+    }
+    .card-text{
+        text-align: center;
+    }
+    .social>i{
+        margin-left: 50px;
+    }
+}
