@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 
 body {
     width: 100%;
@@ -14,10 +13,7 @@ body {
     font-size: 25px;
     color: black;
 }
-
-.container{
-    background-color: white;
-}
+    
 
 .container .service_head .title_service{
     font-size:  25px;
@@ -38,8 +34,6 @@ img{
     vertical-align: middle;
     border-style: none;
 }
-
-
 
 .service_banner img {
     width: 100%;
