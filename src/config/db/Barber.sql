@@ -50,6 +50,7 @@ CREATE TABLE KhachHang
     SoDT            VARCHAR2(15)        NOT NULL,
     DiaChi          VARCHAR2(255)       DEFAULT 'Unknown', 
     DiemTichLuy     NUMBER              DEFAULT 0,
+    HinhAnh         VARCHAR2(4000)      DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     CONSTRAINT      PK_KHACHHANG        PRIMARY KEY(MaKH),
     CONSTRAINT      CHK_KHACHHANG1      CHECK   (GioiTinh in ('Nam','Nu','Unknown') )
 );
@@ -80,6 +81,7 @@ CREATE TABLE NhanVien
     DiaChi          VARCHAR2(255)   DEFAULT 'Unknown',
     NgayVaoLam      DATE            NOT NULL,
     LoaiNhanVien    VARCHAR2(15)    DEFAULT 'Staff',
+    HinhAnh         VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     CONSTRAINT      PK_NHANVIEN     PRIMARY KEY(MaNV),
     CONSTRAINT      CHK_NHANVIEN1   CHECK   (GioiTinh in ('Nam','Nu','Unknown') ),
     CONSTRAINT      CHK_NHANVIEN2   CHECK   (LoaiNhanVien in ('Staff','Admin') ),
@@ -127,7 +129,8 @@ CREATE TABLE DichVu
     MaDV        NUMBER          NOT NULL,
     TenDichVu   VARCHAR2(255)   NOT NULL,
     Gia         NUMBER          default 0,
-    MotaDichVu  VARCHAR2(4000)   NOT NULL,
+    MotaDichVu  VARCHAR2(4000)  NOT NULL,
+    HinhAnh     VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -145,9 +148,12 @@ CREATE  TABLE SanPham
 (
     MaSP            NUMBER          NOT NULL,
     TenSanPham      VARCHAR2(255)   NOT NULL,
-    Gia             NUMBER           NOT NULL,
-    MOTASANPHAM     VARCHAR2(4000) NOT NULL,
-    XuatXu          VARCHAR2(100) NOT NULL,
+    Gia             NUMBER          NOT NULL,
+    MOTASANPHAM     VARCHAR2(4000)  NOT NULL,
+    XuatXu          VARCHAR2(100)   NOT NULL,
+    HinhAnh         VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
+    TinhTrang       NUMBER          DEFAULT 1,
+    SoLuong         NUMBER          DEFAULT 0,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
@@ -265,6 +271,17 @@ INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (
 -- TaiKhoan
 INSERT INTO TaiKhoan VALUES (
     MATK_SEQ4.nextval,'1@gmail.com','1',null,MANV_SEQ3.CURRVAL);
+-- GioDat
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'8h30-10h00');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'10h00-11h30');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'13h00-14h30');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'14h30-16h00');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
+INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
+
+
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
 -- ALTER TABLE KHACHHANG
 -- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
