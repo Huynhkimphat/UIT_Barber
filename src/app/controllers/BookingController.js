@@ -6,22 +6,20 @@ class BookingController {
         (async() => {
             let result = await showBooking("DATLICH", 0);
             let temp = formatDate(result.rows);
-            res.render('booking/showBooking', {
+            res.render("booking/showBooking", {
                 booking: result.rows,
             });
         })();
     }
     AddBooking(req, res, next) {
-        res.render('booking/addBooking');
+        res.render("booking/addBooking");
     }
     Adding(req, res, next) {
         (async() => {
             let result = await addBooking(req.body.date);
-
         })();
-        res.redirect('/booking');
+        res.redirect("/booking");
     }
-
 }
 
 module.exports = new BookingController();
