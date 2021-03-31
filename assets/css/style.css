@@ -1,26 +1,22 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
 body {
     width: 100%;
     height: 100%;
-    font-family: 'Roboto';
+    font-family: 'Poppins';
     font-size: 25px;
     color: black;
 }
-    
 
-.container .service_head .title_service{
-    font-size:  25px;
+.container .service_head .title_service {
+    font-size: 25px;
     font-weight: bold;
     color: black;
-} 
-
+}
 
 .container .service_head .subTitle {
     font-size: 15px;
@@ -30,7 +26,10 @@ body {
     padding: 20px 0px 20px 0px;
 }
 
-img{
+
+/* TODO: Đặt class cho thằng img */
+
+img {
     vertical-align: middle;
     border-style: none;
 }
