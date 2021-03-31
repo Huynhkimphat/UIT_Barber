@@ -35,27 +35,24 @@
             </ul>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item" style="position:relative">
-                    {{#if name}}
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {{name}}
+                    {{#if status}}
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{username}}
                     </a>
-                    <div class="dropdown-menu mt-2" aria-labelledby="navbarDropdown" style="font-size:14px">
-                        <a class="dropdown-item" href="">
-                            Thông tin tài khoản
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="">
-                            Đặt Lịch
-                        </a>
-                        <a class="dropdown-item" href="">
-                            Đơn hàng
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/">
-                            Đăng Xuất
-                        </a>
-                    </div>
+                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                        <li><a class="dropdown-item" href="#">Thông Tin Tài Khoản</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Đặt Lịch</a></li>
+                        <li><a class="dropdown-item" href="#">Đơn hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="/authenticate/logout">Đăng Xuất</a></li>
+                    </ul>
+
                     {{else}}
                     <div class="authen__block d-flex">
                         <a class="nav-link" href="/authenticate/register">
