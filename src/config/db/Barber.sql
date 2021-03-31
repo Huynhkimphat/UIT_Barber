@@ -334,12 +334,23 @@ INSERT INTO KHACHHANG VALUES (
 INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
 SELECT * FROM DATLICH
 CREATE TABLE DatLich
+
+SELECT * FROM KHACHHANG, LoaiKhachHang
+WHERE KHACHHANG.MaKH = LoaiKhachHang.MaKH
+
+
+CREATE TABLE LoaiKhachHang
 (
-    MaDL        NUMBER          NOT NULL,
-    Ngay        DATE            NOT NULL,
-    MaGio       NUMBER          CONSTRAINT FK_DATLICH_GIODAT    REFERENCES GioDat(MaGio)    NOT NULL,
-    MaKH        NUMBER          CONSTRAINT FK_DATLICH_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
-    MaNV        NUMBER          CONSTRAINT FK_DATLICH_NHANVIEN  REFERENCES NhanVien(MaNV)   NOT NULL,
-    MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
-    CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
+    MaLKH           NUMBER              NOT NULL,
+    MaKH            NUMBER              CONSTRAINT FK_LOAIKHACHHANG_KHACHHANG    REFERENCES KhachHang(MaKH)  NOT NULL,
+    LoaiKH          VARCHAR2(10)        DEFAULT 'Member',
+    NgayKichHoatVip DATE                NOT NULL,
+    NgayHetHanVip   DATE                NOT NULL,
+    CONSTRAINT      PK_LOAIKHACHHANG    PRIMARY KEY(MaLKH),
+    CONSTRAINT      CHK_LOAIKHACHHANG1  CHECK   (LoaiKH in ('Member','Vip') ),
+    CONSTRAINT      CHK_LOAIKHACHHANG2  CHECK   (NgayKichHoatVip <  NgayHetHanVip)
 );
+
+SELECT * FROM LoaiKhachHang
+SELECT * FROM KHACHHANG
+INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))

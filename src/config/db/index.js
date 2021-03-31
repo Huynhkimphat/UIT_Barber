@@ -9,11 +9,6 @@ const config = {
     connectString: process.env.API_STRING,
 };
 
-// const config = {
-//     user: "system",
-//     password: "Kimphat2001",
-//     connectString: "localhost:1521/Project",
-// };
 async function connect() {
     try {
         await oracledb.getConnection(config);
