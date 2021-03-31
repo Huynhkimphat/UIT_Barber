@@ -8,18 +8,21 @@ const customerRouter = require("./customer");
 const accountRouter = require("./account");
 
 function route(app) {
+    // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
     // Route Login
     app.use("/authenticate", authenticateRouter);
     // Route User
-    app.get("/usr=:slug", (req, res) => {
-        console.log("Hi");
+    app.get("/usr=:status", (req, res) => {
+        process.env.status = req.params.status;
         res.render("home", {
             name: req.params.slug,
         });
+        console.log(process.env.status);
     });
     // Route About
     app.use("/about", (req, res) => {
         res.render("about");
+        console.log(process.env.status);
     });
     // Route booking
     app.use("/booking", bookingRouter);

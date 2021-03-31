@@ -8,6 +8,7 @@ const route = require("./routes");
 const db = require("./config/db");
 // Create Port
 const app = express();
+app.set("view options", { layout: "authenticate_layout" });
 const port = 3000;
 // Connect DB
 db.connect();
