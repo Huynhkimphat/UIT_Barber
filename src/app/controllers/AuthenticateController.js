@@ -29,8 +29,6 @@ class AuthenticateController {
                 console.log("Dang nhap tai khoan");
                 (async() => {
                     pass = await login(req.body.email);
-                    console.log(pass);
-                    console.log(req.body.password);
                     bcrypt.compare(
                         req.body.password,
                         pass,
@@ -56,7 +54,6 @@ class AuthenticateController {
                 bcrypt.genSalt(saltRounds, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         encryptedPassword = hash;
-                        console.log(encryptedPassword);
                         console.log("Dang Ky Tai Khoan");
                         (async() => {
                             await register(

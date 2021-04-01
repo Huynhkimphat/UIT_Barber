@@ -39,8 +39,6 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources", "views"));
-console.log(process.env.status);
-console.log(process.env.user);
 route(app);
 
 app.listen(port, () => {
