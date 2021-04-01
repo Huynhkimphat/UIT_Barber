@@ -292,8 +292,6 @@ INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
 -- Khach Hang Sua
--- Nhan VIen Sua
--- Dat Lich Them Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_KHACHHANG
 AFTER UPDATE ON KHACHHANG
@@ -302,15 +300,13 @@ DECLARE
     t_ngaysinh KHACHHANG.ngaysinh%TYPE
     t_ngaydatlich DATLICH.Ngay%TYPE
 BEGIN 
-    SELECT kh.ngaysinh into t_ngaysinh
-    FROM KHACHHANG kh
-    WHERE kh.MaKH=:NEW.MaKH;
+    t_ngaysinh := :NEW.ngaysinh
 
     SELECT dl.ngay into t_ngaydatlich
     FROM (
         SELECT dl.ngay from DATLICH dl 
         WHERE dl.MaKH=:NEW.MaKH
-        ORDER BY dl.ngat ASC
+        ORDER BY dl.ngay ASC
     )
     WHERE ROWNUM=1
 
@@ -319,8 +315,103 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
 END;
+-- Nhan VIen Sua
 
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_15_NHANVIEN
+AFTER UPDATE ON NHANVIEN
+FOR EACH ROW
+DECLARE
+    t_ngaysinh NHANVIEN.ngaysinh%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
+BEGIN 
+    t_ngaysinh := :NEW.ngaysinh
 
+    SELECT dl.ngay into t_ngaydatlich
+    FROM (
+        SELECT dl.ngay from DATLICH dl 
+        WHERE dl.MaNV=:NEW.MaNV
+        ORDER BY dl.ngay ASC
+    )
+    WHERE ROWNUM=1
+
+    IF(t_ngaysinh>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
+-- Dat Lich Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_15_DATLICH
+AFTER INSERT,UPDATE ON DATLICH
+FOR EACH ROW
+DECLARE
+    t_ngaysinhKH KHACHHANG.ngaysinh%TYPE
+    t_ngaysinhNV NHANVIEN.ngaysinh%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
+BEGIN 
+    t_ngaydatlich := :NEW.ngay
+    
+
+    SELECT nv.ngaysinh into t_ngaysinhNV
+    FROM NHANVIEN nv
+    WHERE nv.MANV=:NEW.MANV;
+
+    SELECT kh.ngaysinh into t_ngaysinhKH
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH;
+
+    IF(t_ngaysinhNV>t_ngaydatlich or t_ngaysinhKH>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
+-- TRIGGER 19
+-- Ngày vào làm của một nhân viên phải nhỏ hơn hoặc bằng ngày đặt lịch.
+-- Nhan Vien Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_19_NHANVIEN
+AFTER UPDATE ON NHANVIEN
+FOR EACH ROW
+DECLARE
+    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
+BEGIN
+    t_ngayvaolam := :NEW.NgayVaoLam
+
+    SELECT dl.ngay into t_ngaydatlich
+    FROM (
+        SELECT dl.ngay from DATLICH dl 
+        WHERE dl.MaNV=:NEW.MaNV
+        ORDER BY dl.ngay ASC
+    )
+    WHERE ROWNUM=1
+
+    IF(t_ngayvaolam>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
+-- Dat Lich Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_19_DATLICH
+AFTER UPDATE ON DATLICH
+FOR EACH ROW
+DECLARE
+    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE
+BEGIN 
+    t_ngaydatlich := :NEW.ngay
+
+    SELECT nv.NgayVaoLam into t_ngayvaolam
+    FROM NHANVIEN nv
+    WHERE nv.MaNV=:NEW.MaNV;
+
+    IF(t_ngayvaolam>t_ngaydatlich)
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
 --------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
 DESCRIBE SANPHAM;
 INSERT INTO SANPHAM VALUES (
