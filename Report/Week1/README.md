@@ -1,0 +1,23 @@
+# Week1: 26/3-2/4
+
+- Phan Tung + Huynh Thi My Duyen
+  - [ ] Carousel
+  - [ ] Sevice
+- Tran Thi Thu Oanh
+  - [ ] Header
+- Luong Tuong Quy
+  - [ ] Footer
+  - [ ] Trigger
+- Huynh Kim Phat
+  - [ ] Log In
+  - [ ] Register
+  - [ ] Log Out
+  - [ ] Encrypt Password
+- Le Duy Hoang
+  - [ ] Display Informations
+- Phan Le Xuan Truong
+  - [ ] Add Informations
+- Nguyen Dinh Sang
+  - [ ] Update Informations  
+- Nguyen Thua An Thai
+  - [ ] Delete Informations and Soft Delete Informations

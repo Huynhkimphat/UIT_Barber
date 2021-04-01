@@ -34,6 +34,9 @@
 - [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 - [About Us](#about-us)
+  - [Project Manger](#project-manger)
+  - [FrontEnd Developer](#frontend-developer)
+  - [BackEnd Developer](#backend-developer)
 
 ## Overview
 
@@ -74,5 +77,20 @@
 ## Acknowledgements
 
 ## Contact
+- Github : [Huynhkimphat](https://github.com/Huynhkimphat)
+- Email :   kimphat.devcs@gmail.com
 
 ## About Us
+### Project Manger 
+  - [Nguyen Minh Nhut]()
+### FrontEnd Developer 
+   - [Phan Tung](https://github.com/PhanTung-06)
+   - [Huynh Thi My Duyen](https://github.com/HuynhThiMyDuyen/)
+   - [Luong Tuong Quy](https://github.com/QuyLuong)
+   - [Tran Thi Thu Oanh](https://github.com/thuoanh63)
+### BackEnd Developer
+- [Huynh Kim Phat](https://github.com/Huynhkimphat)
+- [Le Duy Hoang](https://github.com/DyHon)
+- [Nguyen Thua An Thai](https://github.com/thainta)
+- [Phan Le Xuan Truong](https://github.com/XuanTruong2408)
+- [Nguyen Dinh Sang](https://github.com/nguyendinhsang1609)
