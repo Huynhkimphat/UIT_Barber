@@ -27,8 +27,7 @@
 ### Le Duy Hoang
 
   - [ ] Trigger
-  - [ ] General Show Functions
-  - [ ] Help Truong, Thai,Sang to Add, Update, Delete
+  - [ ] General Show Functions 
 ### Phan Le Xuan Truong
 
   - [ ] Add Informations
