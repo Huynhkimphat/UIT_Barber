@@ -5,14 +5,18 @@
   - Start project
 
 ### Phan Tung 
-  
+  - [ ] Fix Carousel
+  - [ ] Making Service
 ### Huynh Thi My Duyen
-  
+  - [ ] Making Product
+   
 ### Tran Thi Thu Oanh
 
   - [ ] Header Cart
+  - [ ] Header Profile
 ### Luong Tuong Quy
 
+  - [ ] Fix Footer: Color + Address 
   - [ ] Trigger for the Report 1 With Database Management System
     - [Table_Description](../../References/Template_MotaMHDLQH.pdf)
     - [Trigger_Description](../../References/Template_MotaRBTV.pdf)
@@ -22,22 +26,30 @@
 ### Huynh Kim Phat
 
   - [ ] Trigger
-  - [ ] Making Login And Register form
   - [ ] Fix bug Validation
+  - [ ] Delete Information
 ### Le Duy Hoang
 
   - [ ] Trigger
   - [ ] General Show Functions 
+  - [ ] Update Informations
 ### Phan Le Xuan Truong
 
   - [ ] Add Informations
   - [ ] Triggers
-  - [ ] Generalize
 ### Nguyen Dinh Sang
 
-  - [ ] Update Informations  
-  - [ ] Generalize
+  - [ ] Make TodoList With Reactjs and Expressjs
+    - [ExpressJS]()
+    - [ReactJS]()
+    - [HandleBarExpressJS]()
+    - [Bodyparser]()
+    - [Nodemon]()
 ### Nguyen Thua An Thai
 
-  - [ ] Delete Informations and Soft Delete Informations
-  - [ ] Generalize
+  - [ ] Make TodoList With Reactjs and Expressjs
+    - [ExpressJS]()
+    - [ReactJS]()
+    - [HandleBarExpressJS]()
+    - [Bodyparser]()
+    - [Nodemon]()
