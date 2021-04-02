@@ -1,20 +1,21 @@
 # Week1: 26/3-2/4
 
 ### Phan Tung + Huynh Thi My Duyen
-  - [ ] Carousel
+  - [x] Carousel
   - [ ] Sevice
 ### Tran Thi Thu Oanh
-  - [ ] Header
+  - [x] Header
 ### Luong Tuong Quy
-  - [ ] Footer
+  - [x] Footer
   - [ ] Trigger
 ### Huynh Kim Phat
-  - [ ] Log In
-  - [ ] Register
-  - [ ] Log Out
-  - [ ] Encrypt Password
+  - [x] Log In
+  - [x] Register
+  - [x] Log Out
+  - [x] Encrypt Password
+  - [x] Making Login And Register form
 ### Le Duy Hoang
-  - [ ] Display Informations
+  - [x] Display Informations
 ### Phan Le Xuan Truong
   - [ ] Add Informations
 ### Nguyen Dinh Sang
