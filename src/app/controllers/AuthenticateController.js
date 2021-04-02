@@ -62,7 +62,7 @@ class AuthenticateController {
                                 req.body.firstName,
                                 req.body.lastName,
                                 req.body.birthday,
-                                req.body.gender,
+                                "Unknown",
                                 req.body.phone
                             );
                             res.redirect("/authenticate/login");
