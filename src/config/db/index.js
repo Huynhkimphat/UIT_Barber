@@ -80,9 +80,7 @@ async function register(
     }
 }
 
-
 async function show(type, condition) {
-
     let conn;
     try {
         conn = await oracledb.getConnection(config);
@@ -101,7 +99,8 @@ async function showBooking() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM DATLICH,KHACHHANG,NHANVIEN,GIODAT,DICHVU \n" +
+        let exec =
+            "SELECT * FROM DATLICH,KHACHHANG,NHANVIEN,GIODAT,DICHVU \n" +
             "WHERE DATLICH.MANV=NHANVIEN.MANV \n" +
             "AND DATLICH.MAKH=KHACHHANG.MAKH \n" +
             "AND DATLICH.MAGIO=GIODAT.MAGIO \n" +
@@ -119,14 +118,14 @@ async function addBooking(date) {
     let conn;
     try {
         console.log(date);
-        let bookingDate = date.split('-').reverse().join('-');
+        let bookingDate = date.split("-").reverse().join("-");
         console.log(bookingDate);
         conn = await oracledb.getConnection(config);
         let exec =
             "INSERT INTO DATLICH VALUES (MADL_SEQ10.nextval , To_Date(:bookingDate,'dd-mm-yyyy') , 1 , 1 , 1 ,1)";
         await conn.execute(
             exec, {
-                bookingDate
+                bookingDate,
             }, {
                 autoCommit: true,
             }

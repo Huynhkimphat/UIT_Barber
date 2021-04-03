@@ -73,7 +73,6 @@ class AuthenticateController {
         } else {
             process.env.status = 0;
             process.env.user = undefined;
-            console.log(process.env.status);
             res.redirect("/");
         }
     }

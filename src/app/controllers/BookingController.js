@@ -1,4 +1,4 @@
-const { showBooking, addBooking } = require("../../config/db");
+const { showBooking, addBooking, destroy } = require("../../config/db");
 const { formatDate } = require("../../utils/formatDate");
 class BookingController {
     //* [GET]/
@@ -17,6 +17,12 @@ class BookingController {
     Adding(req, res, next) {
         (async() => {
             let result = await addBooking(req.body.date);
+        })();
+        res.redirect("/booking");
+    }
+    destroy(req, res, next) {
+        (async() => {
+            let result = await destroy(req.body.id);
         })();
         res.redirect("/booking");
     }
