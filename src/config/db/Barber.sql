@@ -453,3 +453,7 @@ WHERE KHACHHANG.MaKH = LoaiKhachHang.MaKH
 SELECT * FROM LoaiKhachHang
 SELECT * FROM KHACHHANG
 INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
+
+
+
+DELETE FROM DATLICH WHERE MaDL = 1
