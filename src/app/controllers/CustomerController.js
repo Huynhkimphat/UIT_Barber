@@ -4,10 +4,10 @@ class customerController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            let result = await show("KHACHHANG, LoaiKhachHang WHERE KHACHHANG.MaKH = LoaiKhachHang.MaKH", 0);
+            let result = await show("KHACHHANG, LoaiKhachHang, TAIKHOAN WHERE KHACHHANG.MAKH = LOAIKHACHHANG.MAKH AND KHACHHANG.MAKH = TAIKHOAN.MAKH", 0);
             let temp = formatDate(result.rows);
             res.render("customer/showCustomer", {
-                customer: result.rows,
+                customer: temp,
             });
         })();
     }
