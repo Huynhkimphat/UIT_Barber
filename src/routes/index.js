@@ -37,10 +37,7 @@ function route(app) {
                 username: process.env.username,
             });
         } else {
-            res.render("home", {
-                login: "Login",
-                register: "Register",
-            });
+            res.render("home");
         }
     });
 }

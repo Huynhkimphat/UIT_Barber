@@ -6,9 +6,15 @@ class BookingController {
         (async() => {
             let result = await showBooking("DATLICH", 0);
             let temp = formatDate(result.rows);
-            res.render("booking/showBooking", {
-                booking: result.rows,
-            });
+            if (process.env.status != 0) {
+                res.render("booking/showBooking", {
+                    booking: result.rows,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.redirect("/");
+            }
         })();
     }
     AddBooking(req, res, next) {
