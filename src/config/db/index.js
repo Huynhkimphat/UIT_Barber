@@ -21,12 +21,12 @@ async function login(email) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = `select * from TaiKhoan where TaiKhoan.Email = '${email}'`;
+        let exec = `SELECT tk.password FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}'`;
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
         }
-        return result.rows[0][2];
+        return result.rows[0][0];
     } catch (err) {
         console.log("Ouch!", err);
     }
@@ -44,31 +44,37 @@ async function register(
     try {
         conn = await oracledb.getConnection(config);
         let date = new Date();
-        let currentDay = `${date.getDate()}-${
+        let currentDay = `
+        $ { date.getDate() } - $ {
             date.getMonth() + 1
-        }-${date.getFullYear()}`;
+        } - $ { date.getFullYear() }
+        `;
         let emBirthday = birthday.split("-").reverse().join("-");
         let exec1 =
-            "INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam) VALUES (MANV_SEQ3.nextval , :firstName , :lastName , To_Date(:emBirthday,'dd-mm-yyyy') , :gender ,:phone , To_Date(:currentDay,'dd-mm-yyyy'))";
+            "INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,Email) VALUES (MANV_SEQ3.nextval , :firstName , :lastName , To_Date(:emBirthday,'dd-mm-yyyy') , :gender ,:phone , To_Date(:currentDay,'dd-mm-yyyy'), :email)";
         await conn.execute(
-            exec1, {
+            exec1,
+            {
                 firstName,
                 lastName,
                 emBirthday,
                 gender,
                 phone,
                 currentDay,
-            }, {
+                email,
+            },
+            {
                 autoCommit: true,
             }
         );
         let exec2 =
-            "INSERT INTO TaiKhoan VALUES (MATK_SEQ4.nextval,:email,:password,null,MANV_SEQ3.CURRVAL)";
+            "INSERT INTO TaiKhoan VALUES (MATK_SEQ4.nextval,:password,null,MANV_SEQ3.CURRVAL)";
         await conn.execute(
-            exec2, {
-                email,
+            exec2,
+            {
                 password,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -101,9 +107,11 @@ async function destroy(type, condition) {
         conn = await oracledb.getConnection(config);
         let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 condition,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -143,9 +151,11 @@ async function addBooking(date) {
         let exec =
             "INSERT INTO DATLICH VALUES (MADL_SEQ10.nextval , To_Date(:bookingDate,'dd-mm-yyyy') , 1 , 1 , 1 ,1)";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 bookingDate,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
