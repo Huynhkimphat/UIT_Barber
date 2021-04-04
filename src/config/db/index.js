@@ -95,6 +95,25 @@ async function show(type, condition) {
     }
 }
 
+async function destroy(type, condition) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
+        await conn.execute(
+            exec, {
+                condition,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function showBooking() {
     let conn;
     try {
@@ -137,4 +156,12 @@ async function addBooking(date) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { connect, login, register, showBooking, show, addBooking };
+module.exports = {
+    connect,
+    login,
+    register,
+    showBooking,
+    show,
+    addBooking,
+    destroy,
+};

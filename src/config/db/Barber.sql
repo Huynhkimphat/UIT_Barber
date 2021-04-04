@@ -463,6 +463,7 @@ CREATE TABLE LoaiKhachHang
 SELECT * FROM LoaiKhachHang
 SELECT * FROM KHACHHANG
 INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
+<<<<<<< HEAD
 --------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
 DESCRIBE DICHVU
 SELECT * FROM DICHVU
@@ -513,3 +514,9 @@ INSERT INTO NHANLUONG VALUES (2, 2, To_Date('01-01-2020','dd-mm-yyyy'), 20000000
 INSERT INTO NHANLUONG VALUES (3, 3, To_Date('01-01-2020','dd-mm-yyyy'), 20000000, 0, 20000000);
 
 SELECT * FROM NHANVIEN, TAIKHOAN, LUONG, NHANLUONG WHERE NHANVIEN.MANV = TAIKHOAN.MANV AND NHANVIEN.MANV = LUONG.MANV AND NHANVIEN.MANV = NHANLUONG.MANV;
+=======
+
+
+
+DELETE FROM DATLICH WHERE MaDL = 1
+>>>>>>> master

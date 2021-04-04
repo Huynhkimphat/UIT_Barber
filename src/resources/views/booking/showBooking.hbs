@@ -72,7 +72,7 @@
 
         // When delete button clicked
         btnDeleteBooking.onclick = function () {
-            deleteForm.action = '/booking/' + bookingId; + '?_method=DELETE';
+            deleteForm.action = '/booking/' + bookingId + '?_method=DELETE';
             deleteForm.submit();
         };
     })
