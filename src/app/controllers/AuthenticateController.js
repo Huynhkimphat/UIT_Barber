@@ -1,4 +1,4 @@
-const { login, register } = require("../../config/db");
+const { authenticate } = require("../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 class AuthenticateController {
@@ -28,7 +28,7 @@ class AuthenticateController {
             if (!req.body.firstName) {
                 console.log("Dang nhap tai khoan");
                 (async() => {
-                    pass = await login(req.body.email);
+                    pass = await authenticate.login(req.body.email);
                     bcrypt.compare(
                         req.body.password,
                         pass,
@@ -56,7 +56,7 @@ class AuthenticateController {
                         encryptedPassword = hash;
                         console.log("Dang Ky Tai Khoan");
                         (async() => {
-                            await register(
+                            await authenticate.register(
                                 req.body.email,
                                 encryptedPassword,
                                 req.body.firstName,
