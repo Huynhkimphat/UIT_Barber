@@ -27,15 +27,15 @@
 
   - [ ] Trigger
   - [ ] Fix bug Validation
-  - [ ] Delete Information
 ### Le Duy Hoang
 
   - [ ] Trigger
   - [ ] General Show Functions 
-  - [ ] Update Informations
+  - [ ] Delete Information
 ### Phan Le Xuan Truong
 
   - [ ] Add Informations
+  - [ ] Update Informations
   - [ ] Triggers
 ### Nguyen Dinh Sang
 

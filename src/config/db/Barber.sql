@@ -53,6 +53,7 @@ CREATE TABLE KhachHang
     DiemTichLuy     NUMBER              DEFAULT 0,
     HinhAnh         VARCHAR2(4000)      DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     Email           VARCHAR2(255)       NOT NULL UNIQUE,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT      PK_KHACHHANG        PRIMARY KEY(MaKH),
     CONSTRAINT      CHK_KHACHHANG1      CHECK   (GioiTinh in ('Nam','Nu','Unknown') )
 );
@@ -85,6 +86,7 @@ CREATE TABLE NhanVien
     LoaiNhanVien    VARCHAR2(15)    DEFAULT 'Staff',
     HinhAnh         VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     Email           VARCHAR2(255)   NOT NULL UNIQUE,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT      PK_NHANVIEN     PRIMARY KEY(MaNV),
     CONSTRAINT      CHK_NHANVIEN1   CHECK   (GioiTinh in ('Nam','Nu','Unknown') ),
     CONSTRAINT      CHK_NHANVIEN2   CHECK   (LoaiNhanVien in ('Staff','Admin') ),
@@ -133,6 +135,7 @@ CREATE TABLE DichVu
     Gia         NUMBER          default 0,
     MotaDichVu  VARCHAR2(4000)  NOT NULL,
     HinhAnh     VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -141,6 +144,7 @@ CREATE  TABLE LOAISANPHAM
 (
     MaLSP           NUMBER              NOT NULL,
     TenLoaiSanPham  VARCHAR2(255)       NOT NULL,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT      PK_LOAISANPHAM      PRIMARY KEY (MaLSP)
 );
 CREATE SEQUENCE MALSP_SEQ7 START WITH 1;
@@ -155,7 +159,7 @@ CREATE  TABLE SanPham
     XuatXu          VARCHAR2(100)   NOT NULL,
     HinhAnh         VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
     TinhTrang       NUMBER          DEFAULT 1,
-    SoLuong         NUMBER          DEFAULT 0,
+    SoLuong         NUMBER          DEFAULT 1,
     MaLSP           NUMBER          CONSTRAINT FK_SANPHAM_LOAISANPHAM    REFERENCES LOAISANPHAM(MaLSP)   NOT NULL,
     CONSTRAINT      PK_SANPHAM      PRIMARY KEY (MaSP)
 );
@@ -187,6 +191,7 @@ CREATE TABLE HoaDon
     MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
 );
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
@@ -214,6 +219,7 @@ CREATE TABLE DANHGIANHANVIEN
     NgayDanhGia     DATE            NOT NULL,
     DANHGIA         NUMBER          NOT NULL,
     CHITIETDANHGIA  VARCHAR2(255)   ,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT      PK_DGNV         PRIMARY KEY(MaDGNV)
 );
 CREATE SEQUENCE MADGNV_SEQ12 START WITH 1;
@@ -230,6 +236,7 @@ CREATE TABLE DANHGIASANPHAM
     NgayDanhGia     DATE            NOT NULL,
     DANHGIA         NUMBER          NOT NULL,
     CHITIETDANHGIA  VARCHAR2(255)   ,
+    TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT      PK_DGSP         PRIMARY KEY(MaDGSP)
 );
 CREATE SEQUENCE MADGSP_SEQ13 START WITH 1;
@@ -243,6 +250,7 @@ SELECT * FROM LoaiKhachHang
 SELECT * FROM NhanVien
 -- Tai Khoan
 SELECT * FROM TaiKhoan
+
 -- Luong
 SELECT * FROM Luong
 -- Luong Thuong
