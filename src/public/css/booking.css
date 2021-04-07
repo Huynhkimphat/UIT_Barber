@@ -1,0 +1,17 @@
+#id_work_days input[type="radio"] {
+    display: none;
+}
+
+#id_work_days span {
+    display: inline-block;
+    padding: 10px;
+    text-transform: uppercase;
+    border: 2px solid gold;
+    border-radius: 3px;
+    color: gold;
+}
+
+#id_work_days input[type="radio"]:checked+span {
+    background-color: gold;
+    color: black;
+}
