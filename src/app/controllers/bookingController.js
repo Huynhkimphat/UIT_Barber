@@ -23,6 +23,7 @@ class BookingController {
         // Adding(req, res, next) {
         //     (async() => {
         //         let result = await addBooking(req.body.date);
+
         //     })();
         //     res.redirect("/booking");
         // }

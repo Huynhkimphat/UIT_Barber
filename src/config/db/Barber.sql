@@ -238,6 +238,7 @@ SELECT * FROM LoaiKhachHang
 SELECT * FROM NhanVien
 -- Tai Khoan
 SELECT * FROM TaiKhoan
+
 -- Luong
 SELECT * FROM Luong
 -- Luong Thuong
