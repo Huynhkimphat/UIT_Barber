@@ -1,6 +1,17 @@
 <form method="POST" action="/booking/AddBooking" class="form">
     <div class="mb-3">
-        <label for="date" class="form-label">Day</label>
+        <label for="time">time:</label><br>
+        <select name="time" id="time">
+                <option value="8h30-10h00">8h30-10h00</option>
+                <option value="10h00-11h30">10h00-11h30</option>
+                <option value="13h00-14h30">13h00-14h30</option>
+                <option value="14h30-16h00">14h30-16h00</option>
+                <option value="16h00-17h30">16h00-17h30</option>
+                <option value="17h30-19h00">17h30-19h00</option>
+                <option value="19h30-20h30">19h30-20h30</option>
+                <option value="20h30-22h00">20h30-22h00</option>
+        </select><br><br>
+        <label for="date" class="form-label">Day</label><br>
         <input id="date" name="date" type="date" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

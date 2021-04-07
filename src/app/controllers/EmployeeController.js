@@ -1,15 +1,16 @@
 const { show } = require("../../config/db");
-class employeeController {
+const { formatDate } = require("../../utils/formatDate");
+class EmployeeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await show("NHANVIEN", 0);
-            console.log(result);
+            let temp = formatDate(result.rows);
             res.render("employee/showEmployee", {
-                employee: result.rows,
+                employee: temp,
             });
         })();
     }
 }
 
-module.exports = new employeeController();
+module.exports = new EmployeeController();
