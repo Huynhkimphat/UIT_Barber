@@ -33,3 +33,38 @@ body {
     border-radius: 8px;
 }
 
+.service_list {
+    margin-top: 20px;
+}
+
+.service_list .row .card .card-body {
+    text-align: left;
+    padding-top: -15px;
+}   
+
+.service_list .row .card{
+    border-style: none; 
+}
+
+.service_list .row .card img {
+    border-radius: 8px;
+}
+
+.service_list .row .col-xl-3 .card .card-body{
+    margin-left: -10px;
+}
+
+.service_list .row .col-lg-4 .card .card-body{
+    margin-left: -10px;
+}
+
+
+
+.service_list .row .card .card-body .card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.service_list .row .card .card-body .card-text {
+    font-size: 16px;
+}
