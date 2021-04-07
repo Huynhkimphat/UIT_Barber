@@ -18,13 +18,9 @@ DROP TABLE DatLich;
 DROP TABLE HoaDon;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
-<<<<<<< HEAD
-DROP TABLE DanhGia;
-=======
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
 
->>>>>>> master
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
 DROP SEQUENCE MALKH_SEQ2;
@@ -329,20 +325,3 @@ INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
     INSERT INTO DichVu VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
-
-SELECT * FROM SANPHAM
-INSERT INTO KHACHHANG VALUES (
-    MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','111',0);
-
-INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
-SELECT * FROM DATLICH
-CREATE TABLE DatLich
-(
-    MaDL        NUMBER          NOT NULL,
-    Ngay        DATE            NOT NULL,
-    MaGio       NUMBER          CONSTRAINT FK_DATLICH_GIODAT    REFERENCES GioDat(MaGio)    NOT NULL,
-    MaKH        NUMBER          CONSTRAINT FK_DATLICH_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
-    MaNV        NUMBER          CONSTRAINT FK_DATLICH_NHANVIEN  REFERENCES NhanVien(MaNV)   NOT NULL,
-    MaDV        NUMBER          CONSTRAINT FK_DATLICH_DICHVU    REFERENCES DichVu(MaDV)     NOT NULL,
-    CONSTRAINT  PK_DatLich      PRIMARY KEY (MaDL)
-);
