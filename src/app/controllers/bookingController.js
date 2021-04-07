@@ -3,12 +3,29 @@ const { formatDate } = require("../../utils/formatDate");
 class BookingController {
     //* [GET]/
     show(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                let result = await booking.show();
+                let temp = formatDate(result);
+                res.render("booking/showBooking", {
+                    booking: temp,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
+    add(req, res, next) {
             (async() => {
                 if (process.env.status != 0) {
-                    let result = await booking.show();
-                    let temp = formatDate(result);
-                    res.render("booking/showBooking", {
-                        booking: temp,
+                    // let result = await booking.show(req.params.id);
+                    // let timePeriod = await time.show();
+                    // let temp = formatDate(result);
+                    res.render("booking/addBooking", {
+                        // booking: temp,
+                        // timePeriod: timePeriod,
                         status: process.env.status,
                         username: process.env.username,
                     });
@@ -23,7 +40,6 @@ class BookingController {
         // Adding(req, res, next) {
         //     (async() => {
         //         let result = await addBooking(req.body.date);
-
         //     })();
         //     res.redirect("/booking");
         // }
@@ -32,7 +48,6 @@ class BookingController {
             if (process.env.status != 0) {
                 let result = await booking.show(req.params.id);
                 let timePeriod = await time.show();
-                console.log(timePeriod);
                 let temp = formatDate(result);
                 res.render("booking/updateBooking", {
                     booking: temp,
