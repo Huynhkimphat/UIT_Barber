@@ -16,12 +16,11 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
-DROP TABLE CTHD
+DROP TABLE CTHD;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
-DROP TABLE DANHGIA;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
@@ -227,11 +226,7 @@ CREATE SEQUENCE MADGNV_SEQ12 START WITH 1;
 CREATE TABLE DANHGIASANPHAM
 ( 
     MaDGSP          NUMBER          NOT NULL,
-<<<<<<< HEAD
-    MaKH            NUMBER          CONSTRAINT FK_DANHGIA_KHACHHANG1     REFERENCES KHACHHANG(MaKH)      NOT NULL,
-=======
     MaKH            NUMBER          CONSTRAINT FK_DANHGIASP_KHACHHANG     REFERENCES KHACHHANG(MaKH)      NOT NULL,
->>>>>>> master
     MaSP            NUMBER          CONSTRAINT FK_DANHGIA_SANPHAM       REFERENCES SANPHAM(MaSP)       NOT NULL,
     NgayDanhGia     DATE            NOT NULL,
     DANHGIA         NUMBER          NOT NULL,
@@ -278,14 +273,14 @@ SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
 ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
 -- GioDat
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'8h30-10h00');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'10h00-11h30');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'13h00-14h30');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'14h30-16h00');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
-INSERT INTO GioDat VALUE(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'8h30-10h00');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'10h00-11h30');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'13h00-14h30');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'14h30-16h00');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
+INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
 
 
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
@@ -434,104 +429,14 @@ INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
 INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
 
-<<<<<<< HEAD
-INSERT INTO DichVu VALUES (
-=======
 
 INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
->>>>>>> master
     MADV_SEQ6.NEXTVAL, 'Dich vu 1', 220000, 'Day la dich vu so 1');
-    INSERT INTO DichVu VALUES (
+    INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
-    INSERT INTO DichVu VALUES (
+    INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
 
-<<<<<<< HEAD
-SELECT * FROM SANPHAM
-INSERT INTO KHACHHANG VALUES (
-    MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('02-09-1999','dd-mm-yyyy'),'Nam','0374349383','111',0);
-
-INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
-SELECT * FROM DATLICH
-CREATE TABLE DatLich
-
-SELECT * FROM KHACHHANG, LoaiKhachHang
-WHERE KHACHHANG.MaKH = LoaiKhachHang.MaKH
-
-
-CREATE TABLE LoaiKhachHang
-(
-    MaLKH           NUMBER              NOT NULL,
-    MaKH            NUMBER              CONSTRAINT FK_LOAIKHACHHANG_KHACHHANG    REFERENCES KhachHang(MaKH)  NOT NULL,
-    LoaiKH          VARCHAR2(10)        DEFAULT 'Member',
-    NgayKichHoatVip DATE                NOT NULL,
-    NgayHetHanVip   DATE                NOT NULL,
-    CONSTRAINT      PK_LOAIKHACHHANG    PRIMARY KEY(MaLKH),
-    CONSTRAINT      CHK_LOAIKHACHHANG1  CHECK   (LoaiKH in ('Member','Vip') ),
-    CONSTRAINT      CHK_LOAIKHACHHANG2  CHECK   (NgayKichHoatVip <  NgayHetHanVip)
-);
-
-SELECT * FROM LoaiKhachHang
-SELECT * FROM KHACHHANG
-INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
-<<<<<<< HEAD
---------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
-DESCRIBE DICHVU
-SELECT * FROM DICHVU
-INSERT INTO DICHVU VALUES (MADV_SEQ6.NEXTVAL, 'Service 1', 50000, 'Brand new service',DEFAULT );
-INSERT INTO DICHVU VALUES (MADV_SEQ6.NEXTVAL, 'Service 2', 50000, 'Brand new service',DEFAULT );
-INSERT INTO DICHVU VALUES (MADV_SEQ6.NEXTVAL, 'Service 3', 50000, 'Brand new service',DEFAULT );
---------------------------------------------INSERT TABLE: KHACHHANG---------------------------------------------------------
-DESCRIBE KHACHHANG
-SELECT * FROM KHACHHANG
-INSERT INTO KHACHHANG VALUES (MAKH_SEQ1.NEXTVAL, 'LE DUY','HOANG 1', To_Date('22-10-2001','dd-mm-yyyy'),'Nam','22102001','BT',0,DEFAULT);
-INSERT INTO KHACHHANG VALUES (MAKH_SEQ1.NEXTVAL, 'LE DUY','HOANG 2', To_Date('22-10-2002','dd-mm-yyyy'),'Nam','22102002','BT',0,DEFAULT);
-INSERT INTO KHACHHANG VALUES (MAKH_SEQ1.NEXTVAL, 'LE DUY','HOANG 3', To_Date('22-10-2003','dd-mm-yyyy'),'Nam','22102003','BT',0,DEFAULT);
---------------------------------------------INSERT TABLE: LOAIKHACHHANG---------------------------------------------------------
-DESCRIBE LOAIKHACHHANG
-SELECT * FROM LOAIKHACHHANG
-INSERT INTO LOAIKHACHHANG VALUES(MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('22-10-2020','dd-mm-yyyy'), To_Date('22-10-2021','dd-mm-yyyy'));
-INSERT INTO LOAIKHACHHANG VALUES(MALKH_SEQ2.NEXTVAL, 2, 'Vip', To_Date('22-10-2020','dd-mm-yyyy'), To_Date('22-10-2021','dd-mm-yyyy'));
-INSERT INTO LOAIKHACHHANG VALUES(MALKH_SEQ2.NEXTVAL, 3, 'Vip', To_Date('22-10-2020','dd-mm-yyyy'), To_Date('22-10-2021','dd-mm-yyyy'));
---------------------------------------------INSERT TABLE: TAIKHOAN---------------------------------------------------------
-DESCRIBE TAIKHOAN
-SELECT * FROM TAIKHOAN
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'ldh8d@gmail.com', '123456', 1, null);
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'ldh9d@gmail.com', '123456', 2, null);
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'ldh10d@gmail.com', '123456', 3, null);
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'kp8d@gmail.com', '123456', null, 1);
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'kp9d@gmail.com', '123456', null, 2);
-INSERT INTO TAIKHOAN VALUES (MATK_SEQ4.NEXTVAL, 'kp10d@gmail.com', '123456', null, 3);
-SELECT * FROM KHACHHANG, LoaiKhachHang, TAIKHOAN 
-WHERE KHACHHANG.MAKH = LOAIKHACHHANG.MAKH
-AND   KHACHHANG.MAKH = TAIKHOAN.MAKH
---------------------------------------------INSERT TABLE: NHANVIEN---------------------------------------------------------
-DESCRIBE NHANVIEN
-SELECT * FROM NHANVIEN
-INSERT INTO NHANVIEN VALUES (MANV_SEQ3.NEXTVAL, 'KIM', 'PHAT 1', To_Date('02-09-2001','dd-mm-yyyy'), 'Nam', '02092001', 'GV', To_Date('22-10-2018','dd-mm-yyyy'), 'Staff', DEFAULT);
-INSERT INTO NHANVIEN VALUES (MANV_SEQ3.NEXTVAL, 'KIM', 'PHAT 2', To_Date('02-09-2002','dd-mm-yyyy'), 'Nam', '02092002', 'GV', To_Date('22-10-2018','dd-mm-yyyy'), 'Staff', DEFAULT);
-INSERT INTO NHANVIEN VALUES (MANV_SEQ3.NEXTVAL, 'KIM', 'PHAT 3', To_Date('02-09-2003','dd-mm-yyyy'), 'Nam', '02092003', 'GV', To_Date('22-10-2018','dd-mm-yyyy'), 'Staff', DEFAULT);
---------------------------------------------INSERT TABLE: LUONG---------------------------------------------------------
-DESCRIBE LUONG
-SELECT * FROM LUONG
-INSERT INTO LUONG VALUES (MALUONG_SEQ5.NEXTVAL, 1, 20000000);
-INSERT INTO LUONG VALUES (MALUONG_SEQ5.NEXTVAL, 2, 20000000);
-INSERT INTO LUONG VALUES (MALUONG_SEQ5.NEXTVAL, 3, 20000000);
---------------------------------------------INSERT TABLE: NHANLUONG---------------------------------------------------------
-DESCRIBE NHANLUONG
-SELECT * FROM NHANLUONG
-INSERT INTO NHANLUONG VALUES (1, 1, To_Date('01-01-2020','dd-mm-yyyy'), 20000000, 0, 20000000);
-INSERT INTO NHANLUONG VALUES (2, 2, To_Date('01-01-2020','dd-mm-yyyy'), 20000000, 0, 20000000);
-INSERT INTO NHANLUONG VALUES (3, 3, To_Date('01-01-2020','dd-mm-yyyy'), 20000000, 0, 20000000);
-
-SELECT * FROM NHANVIEN, TAIKHOAN, LUONG, NHANLUONG WHERE NHANVIEN.MANV = TAIKHOAN.MANV AND NHANVIEN.MANV = LUONG.MANV AND NHANVIEN.MANV = NHANLUONG.MANV;
-=======
-
-
-
-DELETE FROM DATLICH WHERE MaDL = 1
->>>>>>> master
-=======
 INSERT INTO KHACHHANG(MAKH,HO,TEN,NGAYSINH,GioiTinh,SODT,DiemTichLuy,email) VALUES (
     MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('27-08-2001','dd-mm-yyyy'),'Nam','0374349383',0,'guest@gmail.com');
 
@@ -542,5 +447,3 @@ INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('24-12-2021','dd-mm-yyyy'
 INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
 
 
-
->>>>>>> master
