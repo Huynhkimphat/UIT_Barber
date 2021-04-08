@@ -6,6 +6,9 @@ router.get("/:slug", (req, res) => {
 });
 
 router.get("/", productController.show);
+router.get("/:id/edit", productController.edit);
+router.delete("/:id/", productController.destroy);
+
 
 // router.use('/search', siteController.search);
 

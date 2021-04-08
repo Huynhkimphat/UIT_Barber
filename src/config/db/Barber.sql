@@ -447,4 +447,3 @@ INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('24-12-2021','dd-mm-yyyy'
 INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
 
 
-
