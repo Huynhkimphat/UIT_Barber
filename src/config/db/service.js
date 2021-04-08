@@ -7,20 +7,6 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function show() {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM GIODAT";
-        const result = await conn.execute(exec);
-        if (conn) {
-            await conn.close();
-        }
-        return result.rows;
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
 async function showToAdd() {
     let conn;
     try {
@@ -57,6 +43,51 @@ async function add(name,price,describle) {
         console.log("Ouch!", err);
     }
 }
+async function destroy(type, condition) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "DELETE FROM " + type + " WHERE MaDV = :condition ";
+        await conn.execute(
+            exec, {
+                condition,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function show(id = -1) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        if (id == -1) {
+            let exec =
+                "SELECT * FROM DICHVU";
+            const result = await conn.execute(exec);
+            if (conn) {
+                await conn.close();
+            }
+            return result.rows;
+        } else {
+            let exec =
+                "SELECT * FROM DICHVU WHERE MADV =" +
+                id;
+            const result = await conn.execute(exec);
+            if (conn) {
+                await conn.close();
+            }
+            return result.rows;
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
-    show,showToAdd,add
+    show,showToAdd,add,destroy
 };

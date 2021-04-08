@@ -12,7 +12,7 @@ async function destroy(type, condition) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
+        let exec = "DELETE FROM " + type + " WHERE MaSP = :condition ";
         await conn.execute(
             exec, {
                 condition,

@@ -1,17 +1,70 @@
-<div class="mt-4">
-    <div class="row">
-        <ul style="display:flex;">
-            {{#each products}}
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">{{1}}</h5>
-                    <p class="card-text">{{3}}</p>
-                    <a href="#" class="btn btn-primary">{{2}}</a><a href="/authenticate/register"
-                        class="btn btn-warning" style="float:right">Mua</a>
-                </div>
+<div style="width: 18rem; display: flex">
+    {{#each product}}
+    <img class="card-img-top" src={{5}} alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{1}}</h5>
+        <p class="card-text">{{3}}</p>
+        <p class="card-text">Xuất xứ: {{4}}</p>
+        <p class="card-text product-status" data-id={{7}}></p>
+        <p class="card-text">Loại sản phẩm: {{9}}</p>
+        <a href="#" class="btn btn-primary">{{2}}</a>
+        <a href="#" class="btn btn-primary">Buy now</a>
+        <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
+        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord" data-id={{0}}>Delete
+        </a>
+    </div>
+    {{/each}}
+</div>
+
+
+
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            {{/each}}
-        </ul>
+            <div class="modal-body">
+                Do you want to delete product?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-product">Yes</button>
+            </div>
+        </div>
     </div>
 </div>
+{{!-- Delete hidden Form --}}
+<form name="delete-product-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let productId;
+        let deleteForm = document.forms['delete-product-form'];
+        let btnDeleteProduct = document.getElementById('btn-delete-product');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            productId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteProduct.onclick = function () {
+            deleteForm.action = '/product/' + productId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+    if (0 < 20) {
+        let x = document.querySelectorAll(".product-status")
+        console.log(x);
+        x.forEach(elem => {
+
+            elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Con hang' : 'Het hang';
+        });
+    }
+    else {
+    }
+</script>

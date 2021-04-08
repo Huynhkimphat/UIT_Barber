@@ -11,7 +11,7 @@ async function destroy(type, condition) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaSP = :condition ";
+        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
         await conn.execute(
             exec, {
                 condition,
@@ -26,26 +26,13 @@ async function destroy(type, condition) {
         console.log("Ouch!", err);
     }
 }
-async function showToAdd() {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec = "SELECT MaNV,Ho,Ten FROM NHANVIEN";
-        const result = await conn.execute(exec);
-        if (conn) {
-            await conn.close();
-        }
-        return result.rows;
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
 async function show(id = -1) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV";
+            let exec =
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP";
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -53,7 +40,7 @@ async function show(id = -1) {
             return result.rows;
         } else {
             let exec =
-                "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV AND NHANVIEN.MANV =" +
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {
@@ -65,6 +52,5 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-module.exports = {
-    show,showToAdd,destroy
-};
+
+module.exports = { show, destroy };

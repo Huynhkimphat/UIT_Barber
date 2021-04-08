@@ -2,6 +2,9 @@ const oracledb = require("oracledb");
 const dotenv = require("dotenv");
 const authenticate = require("./authenticate");
 const booking = require("./booking");
+const service = require("./service");
+const product = require("./product");
+const employee = require("./employee");
 const time = require("./time");
 const employee = require('./employee');
 const service = require("./service");
@@ -40,6 +43,9 @@ module.exports = {
     connect,
     authenticate,
     booking,
+    service,
+    product,
+    employee,
     time,
     employee,
     service,
