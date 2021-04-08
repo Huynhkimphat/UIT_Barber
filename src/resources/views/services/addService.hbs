@@ -1,0 +1,18 @@
+<div class="mt-4 ">
+    <h3>ADD SERVICE</h3>
+    <form class="mt-4 " method="POST" action="/service/?_method=PUT">
+        <div>
+            <label for="name">Nhập tên dịch vụ: </label><br>
+            <input type="text" name="name" id="name" width="full"><br>
+        </div>
+        <div>
+            <label for="price">Nhập giá tiền: </label><br>
+            <input type="number" name="price" id="price" placeholder=">20000" min="20000" max="500000" step="1000"><br>
+        </div>
+        <div>
+            <label for="describle">Mô tả dịch vụ: </label><br>
+            <textarea name="describle" id="describle" cols="100" rows="10"></textarea>
+        </div><br>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

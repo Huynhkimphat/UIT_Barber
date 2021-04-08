@@ -136,7 +136,7 @@ CREATE TABLE DichVu
     Gia         NUMBER          default 0,
     MotaDichVu  VARCHAR2(4000)  NOT NULL,
     HinhAnh     VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
-    TinhTrang       NUMBER              DEFAULT 1,
+    TinhTrang       NUMBER      DEFAULT 1,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -445,3 +445,4 @@ SELECT * From KhachHang
 
 
 INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
+select * from dichvu
