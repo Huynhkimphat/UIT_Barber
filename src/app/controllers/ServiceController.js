@@ -10,6 +10,23 @@ class ServiceController {
             });
         })();
     }
+    add(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                
+                
+                res.render("service/addService", {
+                    // booking: temp,
+                    status: process.env.status,
+                    username: process.env.username,
+                    
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
+
 }
 
 module.exports = new ServiceController();

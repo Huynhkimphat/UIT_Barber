@@ -3,6 +3,8 @@ const dotenv = require("dotenv");
 const authenticate = require("./authenticate");
 const booking = require("./booking");
 const time = require("./time");
+const employee = require('./employee');
+const service = require("./service");
 dotenv.config();
 
 const config = {
@@ -39,4 +41,6 @@ module.exports = {
     authenticate,
     booking,
     time,
+    employee,
+    service,
 };
