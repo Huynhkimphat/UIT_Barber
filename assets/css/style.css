@@ -9,13 +9,14 @@ body {
     height: 100%;
     font-family: 'Poppins', sans-serif;
     font-size: 25px;
-    color: black;
+    color: white;
 }
 
 .container .service_head .title_service {
     font-size: 25px;
     font-weight: bold;
-    color: black;
+    color: white;
+   
 }
 
 .container .service_head .subTitle {
@@ -44,6 +45,7 @@ body {
 
 .service_list .row .card{
     border-style: none; 
+    background-color: black;
 }
 
 .service_list .row .card img {
@@ -63,6 +65,8 @@ body {
 .service_list .row .card .card-body .card-title {
     font-size: 18px;
     font-weight: bold;
+    color: white;
+    
 }
 
 .service_list .row .card .card-body .card-text {
