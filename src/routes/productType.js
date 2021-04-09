@@ -7,6 +7,6 @@ router.get("/", productTypeController.show);
 router.get("/add", productTypeController.add);
 router.get("/:id/edit", productTypeController.edit);
 router.delete("/:id/", productTypeController.destroy);
-// router.use('/search', siteController.search);
+router.put("/",productTypeController.adding);
 
 module.exports = router;

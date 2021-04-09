@@ -1,13 +1,10 @@
 .footer {
     background-color: #06070B;
-    font-size: 13px;
-    font-weight: bold;
-    color: rgb(189, 196, 203);
 }
 
-.footer-card {
+.card {
     padding: 2% 7%;
-    color: #DBD7D8;
+    color: #646771;
     background-color: #06070B;
 }
 
@@ -21,8 +18,19 @@
     padding: 4px
 }
 
+hr {
+    border-width: 3px
+}
+
+.center-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .social {
     display: flex;
+    justify-content: space-around;
 }
 
 .social>i {
@@ -31,15 +39,20 @@
 }
 
 .social>i:hover {
-    color: #DC4C5A;
-    cursor: pointer
+    color: #FF1E56;
+    cursor: pointer;
+}
+
+.app-cash__item>i:hover {
+    color: #FF1E56;
+    cursor: pointer;
 }
 
 .policy>div {
     padding: 4px
 }
 
-.footer-heading {
+.heading {
     color: white;
     font-size: 18px;
 }
@@ -62,13 +75,13 @@
     flex-direction: column;
 }
 
-.footer-btn {
+.btn {
     margin-top: 25px;
     margin-left: -25px;
 }
 
 .me-3 {
-    font-size: 20px;
+    font-size: 15px;
     margin-left: -20px;
 }
 
@@ -83,35 +96,36 @@
         color: #766C24;
     }
     50% {
-        color: #891900;
+        color: #FF1E56;
     }
     75% {
         color: #DC4C5A;
     }
+    100% {
+        color: #F7FF56
+    }
 }
 
 @media only screen and (max-width: 767px) {
-    .footer-heading {
+    .heading {
         margin-top: 20px;
         text-align: center;
     }
     .app-cash__list {
         justify-content: center;
     }
-    .footer-card-text>li {
+    ul>li {
         text-align: center;
     }
     .me-3 {
         font-size: 15px;
         margin-left: 18px;
     }
-    .footer-btn {
+    .btn {
         margin-left: 0;
     }
-    .footer-card-text {
+    .card-text {
         text-align: center;
     }
-    .social>i {
-        margin-left: 50px;
-    }
+    .social>i {}
 }

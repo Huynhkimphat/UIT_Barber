@@ -36,8 +36,15 @@ hr {
     border-width: 3px
 }
 
+.center-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .social {
     display: flex;
+    justify-content: space-around;
 }
 
 .social>i {
@@ -46,8 +53,13 @@ hr {
 }
 
 .social>i:hover {
-    color: #DC4C5A;
-    cursor: pointer
+    color: #FF1E56;
+    cursor: pointer;
+}
+
+.app-cash__item>i:hover {
+    color: #FF1E56;
+    cursor: pointer;
 }
 
 .policy>div {
@@ -98,10 +110,13 @@ hr {
         color: #766C24;
     }
     50% {
-        color: #891900;
+        color: #FF1E56;
     }
     75% {
         color: #DC4C5A;
+    }
+    100% {
+        color: #F7FF56
     }
 }
 
@@ -113,7 +128,7 @@ hr {
     .app-cash__list {
         justify-content: center;
     }
-    .footer-card-text>li {
+    ul>li {
         text-align: center;
     }
     .me-3 {
@@ -126,7 +141,5 @@ hr {
     .card-text {
         text-align: center;
     }
-    .social>i {
-        margin-left: 50px;
-    }
+    .social>i {}
 }

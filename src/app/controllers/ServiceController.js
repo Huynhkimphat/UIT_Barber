@@ -11,6 +11,26 @@ class ServiceController {
                 status: process.env.status,
                 username: process.env.username,
             });
+    add(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                res.render("services/addService", {
+                    status: process.env.status,
+                    username: process.env.username, 
+                });
+            } else {
+                res.redirect("/services");
+            }
+        })();
+    }
+    adding(req,res,next){
+        (async() => {
+            if (process.env.status != 0) {
+                await service.add(req.body.name,req.body.price,req.body.describe,req.body.img);
+                res.redirect("/service");
+            } else {
+                res.redirect("/");
+            }
         })();
     }
     edit(req, res, next) {

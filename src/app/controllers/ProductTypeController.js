@@ -14,27 +14,17 @@ class ProductTypeController {
         })();
     }
     add(req, res, next) {
-            (async() => {
-                // let result = await booking.show(req.params.id);
-                // let timePeriod = await time.show();
-                // let temp = formatDate(result);
+        (async() => {
+            if (process.env.status != 0) {
                 res.render("productType/addProductType", {
-                    // booking: temp,
-                    // timePeriod: timePeriod,
                     status: process.env.status,
-                    username: process.env.username,
+                    username: process.env.username, 
                 });
-            })();
+            } else {
+                res.redirect("/productType");
+            }
+        })();
         }
-        // AddBooking(req, res, next) {
-        //     res.render("booking/addBooking");
-        // }
-        // Adding(req, res, next) {
-        //     (async() => {
-        //         let result = await addBooking(req.body.date);
-        //     })();
-        //     res.redirect("/booking");
-        // }
     edit(req, res, next) {
         (async() => {
             let result = await booking.show(req.params.id);
@@ -53,6 +43,17 @@ class ProductTypeController {
             let result = await productType.destroy("LOAISANPHAM", req.params.id);
         })();
         res.redirect("/productType");
+
+    }
+    adding(req,res,next){
+        (async() => {
+            if (process.env.status != 0) {
+                await productType.add(req.body.name);
+                res.redirect("/productType/add");
+            } else {
+                res.redirect("/");
+            }
+        })();
     }
 }
 

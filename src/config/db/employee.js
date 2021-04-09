@@ -26,6 +26,20 @@ async function destroy(type, condition) {
         console.log("Ouch!", err);
     }
 }
+async function showToAdd() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT MaNV,Ho,Ten FROM NHANVIEN";
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function show(id = -1) {
     let conn;
     try {
@@ -51,5 +65,6 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-
-module.exports = { show, destroy };
+module.exports = {
+    show,showToAdd,destroy
+};
