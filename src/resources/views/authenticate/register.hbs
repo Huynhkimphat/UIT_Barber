@@ -2,58 +2,51 @@
 
 
 <div class="main">
-    {{!-- --}}
-    <form method="POST" action="/authenticate/register" class="form" id="login-form">
-        <h3 class="heading">Register</h3>
-        <p class="desc">Be together at UIT's BABER ❤️</p>
+    <div class="main-bg"></div>
+    <div class="main-form">
 
-        <div class="spacer"></div>
-        <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com"
-                class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="password" class="form-label">Password</label>
-            <input id="password" name="password" type="password" placeholder="Enter your password: "
-                class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="firstName" class="form-label">First Name: </label>
-            <input id="firstName" name="firstName" type="text" placeholder="Example: Quy" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="lastName" class="form-label">Last Name: </label>
-            <input id="lastName" name="lastName" type="text" placeholder="Example: Luong" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="birthday" class="form-label">Date of Birth</label>
-            <input id="birthday" name="birthday" type="date" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <div class="form-group">
-            <label for="gender" class="form-label">Gender</label>
-            <div style="display: flex">
-                <input name="gender" type="radio" checked value="Nam" class="form-control" style="height:16px ;">
-                <div style="margin-top:-2px; font-size:14px;">Male</div>
-                <input name="gender" type="radio" value="Nu" class="form-control" style="height:16px ;">
-                <div style="margin-top:-2px; font-size:14px;">Female</div>
-                <input name="gender" type="radio" value="Unknown" class="form-control" style="height:16px ;">
-                <div style="margin-top:-2px; font-size:14px;">Unknown</div>
+        <form method="POST" action="/authenticate/register" class="form" id="login-form">
+            <h3 class="heading">Register</h3>
+            <p class="desc">Be together at UIT's BABER ❤️</p>
+
+            <div class="spacer"></div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com"
+                    class="form-control">
+                <span class="form-message"></span>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="phone" class="form-label">Phone: </label>
-            <input id="phone" name="phone" type="number" placeholder="Example: 0935589947" class="form-control">
-            <span class="form-message"></span>
-        </div>
-        <button class="form-submit">Register</button>
-        <a href="./login">Login</a>
-    </form>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" name="password" type="password" placeholder="Enter your password: "
+                    class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="firstName" class="form-label">First Name: </label>
+                <input id="firstName" name="firstName" type="text" placeholder="Example: Quy" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="lastName" class="form-label">Last Name: </label>
+                <input id="lastName" name="lastName" type="text" placeholder="Example: Luong" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="birthday" class="form-label">Date of Birth</label>
+                <input id="birthday" name="birthday" type="date" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="phone" class="form-label">Phone: </label>
+                <input id="phone" name="phone" type="number" placeholder="Example: 0935589947" class="form-control">
+                <span class="form-message"></span>
+            </div>
+            <button class="form-submit">Register</button>
+            <a href="./login">Login</a>
+        </form>
+    </div>
+
 </div>
 
 <script src="/js/validator.js"></script>

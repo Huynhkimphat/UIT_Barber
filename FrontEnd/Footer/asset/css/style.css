@@ -22,13 +22,13 @@ body {
     background-color: #06070B;
 }
 
-ul {
+.footer-card-text {
     list-style-type: none;
     margin: 0;
     padding: 0
 }
 
-ul>li {
+.footer-card-text>li {
     padding: 4px
 }
 
@@ -111,6 +111,7 @@ hr {
     }
     50% {
         color: #FF1E56;
+
     }
     75% {
         color: #DC4C5A;
@@ -118,10 +119,11 @@ hr {
     100% {
         color: #F7FF56
     }
+
 }
 
 @media only screen and (max-width: 767px) {
-    .heading {
+     .heading {
         margin-top: 20px;
         text-align: center;
     }
@@ -142,4 +144,5 @@ hr {
         text-align: center;
     }
     .social>i {}
+
 }
