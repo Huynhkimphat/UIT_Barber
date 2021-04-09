@@ -4,16 +4,12 @@ class ProductController {
     //* [GET]/
     show(req, res, next) {
             (async() => {
-                if (process.env.status != 0) {
-                    let result = await product.show();
-                    res.render("products/showProduct", {
-                        product: result,
-                        status: process.env.status,
-                        username: process.env.username,
-                    });
-                } else {
-                    res.redirect("/");
-                }
+                let result = await product.show();
+                res.render("products/showProduct", {
+                    product: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
             })();
         }
         // AddBooking(req, res, next) {
@@ -27,20 +23,16 @@ class ProductController {
         // }
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await product.show(req.params.id);
-                let timePeriod = await time.show();
-                console.log(timePeriod);
-                let temp = formatDate(result);
-                res.render("product/updateProduct", {
-                    product: temp,
-                    timePeriod: timePeriod,
-                    status: process.env.status,
-                    username: process.env.username,
-                });
-            } else {
-                res.redirect("/");
-            }
+            let result = await product.show(req.params.id);
+            let timePeriod = await time.show();
+            console.log(timePeriod);
+            let temp = formatDate(result);
+            res.render("product/updateProduct", {
+                product: temp,
+                timePeriod: timePeriod,
+                status: process.env.status,
+                username: process.env.username,
+            });
         })();
     }
     destroy(req, res, next) {

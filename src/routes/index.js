@@ -6,6 +6,7 @@ const employeeRouter = require("./employee");
 const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
 const accountRouter = require("./account");
+const billRouter = require("./bill");
 
 function route(app) {
     // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
@@ -29,6 +30,8 @@ function route(app) {
     app.use("/account", accountRouter);
     // Route employee
     app.use("/employee", employeeRouter);
+    // Route Bill
+    app.use("/bill", billRouter);
     // Route Home
     app.use("/", (req, res) => {
         if (process.env.status != 0) {
