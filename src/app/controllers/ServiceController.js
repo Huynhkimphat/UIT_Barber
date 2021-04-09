@@ -7,10 +7,10 @@ class ServiceController {
         (async() => {
             let result = await service.show();
             res.render("services/showServices", {
-                services: result,
+                service: result,
+                status: process.env.status,
+                username: process.env.username,
             });
-        })();
-    }
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
@@ -35,19 +35,15 @@ class ServiceController {
     }
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await service.show(req.params.id);
-                let timePeriod = await time.show();
-                console.log(timePeriod);
-                res.render("service/updateService", {
-                    service: result,
-                    timePeriod: timePeriod,
-                    status: process.env.status,
-                    username: process.env.username,
-                });
-            } else {
-                res.redirect("/");
-            }
+            let result = await service.show(req.params.id);
+            let timePeriod = await time.show();
+            console.log(timePeriod);
+            res.render("service/updateService", {
+                service: result,
+                timePeriod: timePeriod,
+                status: process.env.status,
+                username: process.env.username,
+            });
         })();
     }
     destroy(req, res, next) {
