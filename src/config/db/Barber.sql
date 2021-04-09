@@ -446,3 +446,4 @@ SELECT * From KhachHang
 
 INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
 select * from dichvu
+SELECT * from SANPHAM

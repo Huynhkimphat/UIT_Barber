@@ -6,8 +6,7 @@ const service = require("./service");
 const product = require("./product");
 const employee = require("./employee");
 const time = require("./time");
-const employee = require('./employee');
-const service = require("./service");
+const productType = require("./productType");
 dotenv.config();
 
 const config = {
@@ -49,4 +48,5 @@ module.exports = {
     time,
     employee,
     service,
+    productType,
 };

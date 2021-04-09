@@ -21,17 +21,17 @@ async function showToAdd() {
         console.log("Ouch!", err);
     }
 }
-async function add(name,price,describle) {
+async function add(name,price,describe,img) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        console.log(name,price,describle)
-        let exec = "INSERT INTO DICHVU(MADV,TENDICHVU, GIA, MOTADICHVU) VALUES (MADV_SEQ6.nextval , :name , :price, :describle)";
+        let exec = "INSERT INTO DICHVU(MADV,TENDICHVU, GIA, MOTADICHVU, HINHANH) VALUES (MADV_SEQ6.nextval , :name , :price, :describe, :img)";
         await conn.execute(
             exec, {
+                img,
                 name,
                 price,
-                describle
+                describe
             }, {
                 autoCommit: true,
             }
