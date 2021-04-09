@@ -18,13 +18,13 @@ class ProductTypeController {
             if (process.env.status != 0) {
                 res.render("productType/addProductType", {
                     status: process.env.status,
-                    username: process.env.username, 
+                    username: process.env.username,
                 });
             } else {
                 res.redirect("/productType");
             }
         })();
-        }
+    }
     edit(req, res, next) {
         (async() => {
             let result = await booking.show(req.params.id);
@@ -40,12 +40,14 @@ class ProductTypeController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await productType.destroy("LOAISANPHAM", req.params.id);
+            let result = await productType.destroy(
+                "LOAISANPHAM",
+                req.params.id
+            );
         })();
         res.redirect("/productType");
-
     }
-    adding(req,res,next){
+    adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
                 await productType.add(req.body.name);

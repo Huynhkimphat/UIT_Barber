@@ -3,7 +3,6 @@ const { service, time } = require("../../config/db");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
-        console.log("show");
         (async() => {
             let result = await service.show();
             res.render("services/showServices", {
