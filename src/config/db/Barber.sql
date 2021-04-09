@@ -418,8 +418,9 @@ BEGIN
 END;
 --------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
 DESCRIBE SANPHAM;
-INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
-    MASP_SEQ8.NEXTVAL, 'Seri', 220000, 'Dầu gội giữ màu tóc','VietNam',2);
+INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'GÔM XỊT TÓC LADY KILLER',130000,'Khả năng giữ nếp vượt trội, tạo độ cứng vừa phải mà vẫn đảm bảo mái tóc có độ bồng nhất định. Ngay cả khi đội mũ bảo hiểm ra đường, gôm xịt tóc Lady Killer vẫn giữ được nếp tóc đẹp như mới.','Việt Nam','',1,100,1);												
+
+
 INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
     MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức',1);
 INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
@@ -428,22 +429,19 @@ INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
 
 --------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
 DESCRIBE LOAISANPHAM;
-INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sáp');
-INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Dầu gội');
-INSERT INTO LOAISANPHAM VALUES (MALSP_SEQ7.NEXTVAL,'Sữa rửa mặt');
-
-
-INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
-    MADV_SEQ6.NEXTVAL, 'Dich vu 1', 220000, 'Day la dich vu so 1');
-    INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
-    MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
-    INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
-    MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
-INSERT INTO KhachHang(MaKH,Ho,Ten,NgaySinh,GioiTinh,SoDT,Email)
-        VALUES    (MaKH_SEQ1.NEXTVAL,'Phan','Truong',To_Date('22-01-2001','dd-mm-yy'),'Nam','0123456789','Truong24082001@gmail.com')
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare','1')	
+--------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)','70000','Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào?','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước','40000','1. Massage khai huyệt điều hòa','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp','349000','Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','','1');				
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn','260000','Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','','1');
 SELECT * From KhachHang
 
 
 INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
 select * from dichvu
 SELECT * from SANPHAM
+
