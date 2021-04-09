@@ -1,9 +1,8 @@
-*{
-    padding:0;
-    margin:0;
+* {
+    padding: 0;
+    margin: 0;
     box-sizing: border;
 }
-
 
 body {
     background-color: #f3f6fd;
@@ -12,15 +11,15 @@ body {
     color: rgb(189, 196, 203);
     font-family: 'Poppins', sans-serif;
 }
-.footer{
-    background-color: #06070B;
 
+.footer {
+    background-color: #06070B;
 }
+
 .card {
     padding: 2% 7%;
     color: #646771;
     background-color: #06070B;
-
 }
 
 ul {
@@ -36,9 +35,18 @@ ul>li {
 hr {
     border-width: 3px
 }
-.social{
-    display:flex;
+
+.center-image {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
+
+.social {
+    display: flex;
+    justify-content: space-around;
+}
+
 .social>i {
     padding: 1%;
     font-size: 1.5rem;
@@ -59,8 +67,8 @@ hr {
 }
 
 .heading {
-    color:#D49D42;
-    font-size:18px;
+    color: white;
+    font-size: 18px;
 }
 
 .divider {
@@ -71,59 +79,67 @@ hr {
     display: flex;
     justify-content: flex-start;
 }
-.app-cash__item + .app-cash__item{
+
+.app-cash__item+.app-cash__item {
     margin: 0 12px;
 }
-.try_booking{
+
+.try_booking {
     display: flex;
     flex-direction: column;
 }
 
-.btn{
+.btn {
     margin-top: 25px;
     margin-left: -25px;
 }
 
-.me-3{
+.me-3 {
     font-size: 15px;
     margin-left: -20px;
 }
 
-.me-3:hover{
-animation-name: color;
-animation-duration:1s ;
-animation-iteration-count: infinite;
+.me-3:hover {
+    animation-name: color;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
 }
 
-@keyframes color{
-    0%{color: #766C24;}
-    50%{color:  #FF1E56;}
-    75%{color: #DC4C5A;}
-    100%{color:  #F7FF56}
-}
-
-@media only screen and (max-width: 767px){
-    .heading {
-       margin-top: 20px;
-       text-align: center;
+@keyframes color {
+    0% {
+        color: #766C24;
     }
-    .app-cash__list{
+    50% {
+        color: #FF1E56;
+    }
+    75% {
+        color: #DC4C5A;
+    }
+    100% {
+        color: #F7FF56
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .heading {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .app-cash__list {
         justify-content: center;
     }
-    ul>li{
+    ul>li {
         text-align: center;
-        
     }
     .me-3 {
         font-size: 15px;
         margin-left: 18px;
-    }.btn{
+    }
+    .btn {
         margin-left: 0;
     }
-    .card-text{
+    .card-text {
         text-align: center;
     }
-    .social>i{
-        margin-left: 50px;
-    }
+    .social>i {}
 }
