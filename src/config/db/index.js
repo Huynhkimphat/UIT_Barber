@@ -9,7 +9,6 @@ const customer = require("./customer");
 const productType = require("./productType");
 const bill = require("./bill");
 const time = require("./time");
-const productType = require("./productType");
 dotenv.config();
 
 const config = {
@@ -26,20 +25,6 @@ async function connect() {
         console.log("Connect failed!!!");
     }
 }
-async function show(type, condition) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM " + type;
-        const result = await conn.execute(exec);
-        if (conn) {
-            await conn.close();
-        }
-        return result;
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
 
 module.exports = {
     connect,
@@ -52,7 +37,4 @@ module.exports = {
     productType,
     bill,
     time,
-    employee,
-    service,
-    productType,
 };

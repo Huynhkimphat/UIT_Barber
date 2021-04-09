@@ -17,7 +17,7 @@ class ProductController {
             let result = await product.show(req.params.id);
             let timePeriod = await time.show();
             console.log(timePeriod);
-            let temp = formatDate(result);
+            let temp = formatDate(result);``
             res.render("product/updateProduct", {
                 product: temp,
                 timePeriod: timePeriod,
