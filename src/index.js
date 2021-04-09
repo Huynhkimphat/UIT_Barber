@@ -8,6 +8,7 @@ const route = require("./routes");
 const db = require("./config/db");
 // Create Port
 const app = express();
+app.set("view options", { layout: "authenticate_layout" });
 const port = 3000;
 // Connect DB
 db.connect();
@@ -38,7 +39,6 @@ app.engine(
 );
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources", "views"));
-
 route(app);
 
 app.listen(port, () => {
