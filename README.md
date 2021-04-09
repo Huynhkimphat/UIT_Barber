@@ -41,6 +41,13 @@
 ## Overview
 
 ### Introduction
+
+- Ngày nay, xã hội ngày càng phát triển, đời sống của con người ngày càng được cải thiện thì những nhu cầu cá nhân ngày càng được chú trọng, trong đó có nhu cầu làm đẹp nhất là nhu cầu làm kiểu tóc đẹp, theo kịp xu hướng, phù hợp với gương mặt của mỗi người ngày càng được phát triển rộng.
+- Làm thế nào để hệ thống cửa tiệm hoạt động nhanh cũng như việc sử dụng dịch vụ của khách hàng tại cửa tiệm không mất thời gian, tiện lợi, phù hợp với cuộc cách mạng công nghệ 4.0.
+- Hệ thống quản lý tiệm cắt tóc được xây dựng dựa trên yêu cầu thực tế của người dùng giúp nâng cao hiệu suất giúp xử lý quá trình đặt lịch, quản lý nhân viên, tránh rủi ro mất dữ liệu.
+- Hệ thống cần giải quyết được các vấn đề trên một cách nhanh chóng và tối ưu. Tạo lòng tin với khách hàng, và đúng đắn tăng/trừ lương thưởng/phạt giữa các nhân viên mang lại cảm giác thân thiện, thiết thực.
+- Hệ thống dễ sử dụng trong quá trình đặt lịch trực tiếp tại cửa tiệm hoặc đặt lịch trước tại nhà để tiết kiệm thời gian chờ của khách hàng và thời gian sắp xếp lịch phù hợp cho nhân viên, điều này sẽ giảm thiểu khối lượng công việc của nhân viên làm tóc cũng như người quản lý trong thời đại công nghệ.
+- Ngoài ra, hệ thống quản lý còn tích hợp thêm tính năng như một cửa hàng trực tuyến bán những sản phẩm chăm sóc tóc, làm đẹp phù hợp với nhu cầu của khách hàng. Bất cứ nơi đâu, bất cứ lúc nào khách hàng đều có thể thêm sản phẩm cần thiết vào giỏ hàng của mình rất tiện lợi và đáng tin cậy.
 ### Built With
 
 - [HTML](https://en.wikipedia.org/wiki/HTML)
@@ -75,6 +82,9 @@
 - npm start
 
 ## Acknowledgements
+
+- Hệ thống cần thiết phải giải quyết được các vấn đề trong việc cập nhật đồng thời việc đặt lịch của khách hàng, đặt mua sản phẩm và thao tác đồng thời giữa các nhân viên, cập nhật lịch đặt, nhân viên làm tóc, dịch vụ còn trống và sản phẩm còn hàng để tránh xảy ra tranh chấp dữ liệu. Bên cạnh đó, hệ thống được xây dựng phải là hệ thống quản lý tích hợp, lưu trữ tập trung dễ tương tác với người dùng và nhân viên, giao diện thân thiện, phù hợp.
+- Ngoài hệ thống quản lý tiệm cắt tóc sau này còn có thể mở rộng sang các hệ thống khác liên quan như: Hệ thống nhà hàng, khách sạn, khu vui chơi giải trí.
 
 ## Contact
 - Github : [Huynhkimphat](https://github.com/Huynhkimphat)
