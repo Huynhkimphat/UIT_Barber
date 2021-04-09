@@ -26,15 +26,15 @@
 ### Huynh Kim Phat
 
   - [ ] Trigger
-  - [ ] Fix bug Validation
+  - [x] Fix bug Validation
 ### Le Duy Hoang
 
   - [ ] Trigger
-  - [ ] General Show Functions 
+  - [x] General Show Functions 
   - [ ] Delete Information
 ### Phan Le Xuan Truong
 
-  - [ ] Add Informations
+  - [x] Add Informations
   - [ ] Update Informations
   - [ ] Triggers
 ### Nguyen Dinh Sang
