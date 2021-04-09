@@ -1,20 +1,93 @@
-<div class="card" style="width: 18rem;">
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">MaNV</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Số đt</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Ngày vào làm</th>
+            <th scope="col">Loại nv</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mã lương</th>
+            <th scope="col">Lương cơ bản</th>
+            <th scope="col">Lương thưởng</th>
+            <th scope="col">Lương được nhận</th>
+            <th scope="col">Ngày nhận lương</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
     {{#each employee}}
-    <img class="card-img-top" src="..." alt="cái mặt tk nhân viên chỗ đây nè">
-    <div class="card-body">
-        <h5 class="card-title">{{1}} {{2}}</h5>
-        <p class="card-text">Giới thiệu sương sương</p>
-    </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Mã nhân viên: {{0}}</li>
-        <li class="list-group-item" type="date">Ngày sinh: {{3}}</li>
-        <li class="list-group-item">Giới tính: {{4}}</li>
-        <li class="list-group-item">Ngày vào làm: {{7}}</li>
-        <li class="list-group-item">Loại nhân viên: {{8}}</li>
-    </ul>
-    <div class="card-body">
-        <a href="https://fb.com/ldh2210" class="card-link">Facebook</a>
-        <a href="#" class="card-link">{{5}}</a>
-    </div>
+    <tbody>
+        <tr>
+            <th scope="row">{{0}}</th>
+            <td>{{1}} {{2}}</td>
+            <td>{{3}}</td>
+            <td>{{4}}</td>
+            <td>{{5}}</td>
+            <td>{{6}}</td>
+            <td>{{7}}</td>
+            <td>{{8}}</td>
+            <td>{{10}}</td>
+            <td>{{11}}</td>
+            <td>{{12}}</td>
+            <td>{{13}}</td>
+            <td>{{14}}</td>
+            <td>{{15}}</td>
+            <td>
+                <a href="/employee/{{0}}/edit" class="btn btn-link">Update</a>
+            </td>
+            <td>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{0}}>Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
     {{/each}}
+
+</table>
+<button class="btn btn-primary"><a href="/employee/add">Add</a></button>
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete employee?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-booking">Yes</button>
+            </div>
+        </div>
+    </div>
 </div>
+{{!-- Delete hidden Form --}}
+<form name="delete-employee-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let employeeId;
+        let deleteForm = document.forms['delete-employee-form'];
+        let btnDeleteEmployee = document.getElementById('btn-delete-employee');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            employeeId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteEmployee.onclick = function () {
+            deleteForm.action = '/employee/' + employeeId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>
