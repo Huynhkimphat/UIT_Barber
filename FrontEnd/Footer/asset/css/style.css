@@ -33,11 +33,6 @@ ul>li {
     padding: 4px
 }
 
-/* ul>li:hover {
-    color: #DC4C5A;
-    cursor: pointer
-} */
-
 hr {
     border-width: 3px
 }
@@ -50,8 +45,13 @@ hr {
 }
 
 .social>i:hover {
-    color: #DC4C5A;
-    cursor: pointer
+    color: #FF1E56;
+    cursor: pointer;
+}
+
+.app-cash__item>i:hover {
+    color: #FF1E56;
+    cursor: pointer;
 }
 
 .policy>div {
@@ -59,7 +59,7 @@ hr {
 }
 
 .heading {
-    color: white;
+    color:#D49D42;
     font-size:18px;
 }
 
@@ -97,8 +97,9 @@ animation-iteration-count: infinite;
 
 @keyframes color{
     0%{color: #766C24;}
-    50%{color:  #891900;}
+    50%{color:  #FF1E56;}
     75%{color: #DC4C5A;}
+    100%{color:  #F7FF56}
 }
 
 @media only screen and (max-width: 767px){
