@@ -1,4 +1,4 @@
-const { product, time } = require("../../config/db");
+const { product, time, productType } = require("../../config/db");
 const { formatDate } = require("../../utils/formatDate");
 class ProductController {
     //* [GET]/
@@ -16,15 +16,6 @@ class ProductController {
                 }
             })();
         }
-        // AddBooking(req, res, next) {
-        //     res.render("booking/addBooking");
-        // }
-        // Adding(req, res, next) {
-        //     (async() => {
-        //         let result = await addBooking(req.body.date);
-        //     })();
-        //     res.redirect("/booking");
-        // }
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
@@ -38,6 +29,30 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                 });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
+    add(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                let typeProduct = await productType.showToAdd();
+                res.render("products/addProduct", {
+                    typeProduct: typeProduct,
+                    status: process.env.status,
+                    username: process.env.username, 
+                });
+            } else {
+                res.redirect("/products");
+            }
+        })();
+    }
+    adding(req,res,next){
+        (async() => {
+            if (process.env.status != 0) {
+                await product.add(req.body.name,req.body.price,req.body.describe,req.body.country,req.body.img,req.body.count,req.body.typeProduct);
+                res.redirect("/products");
             } else {
                 res.redirect("/");
             }

@@ -5,13 +5,29 @@ class ServiceController {
     show(req, res, next) {
         console.log("show");
         (async() => {
+            let result = await service.show();
+            res.render("services/showServices", {
+                services: result,
+            });
+        })();
+    }
+    add(req, res, next) {
+        (async() => {
             if (process.env.status != 0) {
-                let result = await service.show();
-                res.render("services/showServices", {
-                    service: result,
+                res.render("services/addService", {
                     status: process.env.status,
-                    username: process.env.username,
+                    username: process.env.username, 
                 });
+            } else {
+                res.redirect("/services");
+            }
+        })();
+    }
+    adding(req,res,next){
+        (async() => {
+            if (process.env.status != 0) {
+                await service.add(req.body.name,req.body.price,req.body.describe,req.body.img);
+                res.redirect("/service");
             } else {
                 res.redirect("/");
             }

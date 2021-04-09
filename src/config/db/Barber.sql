@@ -21,6 +21,7 @@ DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
+drop table DANHGIA;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
@@ -38,7 +39,7 @@ DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
 DROP SEQUENCE MADGNV_SEQ12;
 DROP SEQUENCE MADGSP_SEQ13;
 
-
+DESCRIBE NHANVIEN
 ----------------------------------------------BANG KHACH HANG----------------------------------------------------
 CREATE TABLE KhachHang
 (
@@ -56,6 +57,7 @@ CREATE TABLE KhachHang
     CONSTRAINT      PK_KHACHHANG        PRIMARY KEY(MaKH),
     CONSTRAINT      CHK_KHACHHANG1      CHECK   (GioiTinh in ('Nam','Nu','Unknown') )
 );
+
 CREATE SEQUENCE MAKH_SEQ1 START WITH 1;
 ----------------------------------------------BANG LOAI KHACH HANG -----------------------------------------------
 CREATE TABLE LoaiKhachHang
@@ -134,7 +136,7 @@ CREATE TABLE DichVu
     Gia         NUMBER          default 0,
     MotaDichVu  VARCHAR2(4000)  NOT NULL,
     HinhAnh     VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
-    TinhTrang       NUMBER              DEFAULT 1,
+    TinhTrang       NUMBER      DEFAULT 1,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -281,6 +283,7 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
+
 
 
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
@@ -436,14 +439,11 @@ INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 2', 220000, 'Day la dich vu so 2');
     INSERT INTO DichVu(MADV,TENDICHVU,GIA,MOTADICHVU) VALUES (
     MADV_SEQ6.NEXTVAL, 'Dich vu 3', 220000, 'Day la dich vu so 3');
-
-INSERT INTO KHACHHANG(MAKH,HO,TEN,NGAYSINH,GioiTinh,SODT,DiemTichLuy,email) VALUES (
-    MAKH_SEQ1.NEXTVAL, 'Phat','Huynh',To_Date('27-08-2001','dd-mm-yyyy'),'Nam','0374349383',0,'guest@gmail.com');
-
-INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-1999','dd-mm-yyyy'),1,1,1,1);
-INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('02-09-2005','dd-mm-yyyy'),5,1,1,1);
-INSERT INTO DATLICH VALUES(MADL_SEQ10.NEXTVAL, To_Date('24-12-2021','dd-mm-yyyy'),5,1,1,1);
-
-INSERT INTO LoaiKhachHang VALUES (MALKH_SEQ2.NEXTVAL, 1, 'Vip', To_Date('11-09-2020','dd-mm-yyyy'), To_Date('02-09-2021','dd-mm-yyyy'))
+INSERT INTO KhachHang(MaKH,Ho,Ten,NgaySinh,GioiTinh,SoDT,Email)
+        VALUES    (MaKH_SEQ1.NEXTVAL,'Phan','Truong',To_Date('22-01-2001','dd-mm-yy'),'Nam','0123456789','Truong24082001@gmail.com')
+SELECT * From KhachHang
 
 
+INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
+select * from dichvu
+SELECT * from SANPHAM
