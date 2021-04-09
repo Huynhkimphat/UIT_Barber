@@ -5,6 +5,9 @@ const booking = require("./booking");
 const service = require("./service");
 const product = require("./product");
 const employee = require("./employee");
+const customer = require("./customer");
+const productType = require("./productType");
+const bill = require("./bill");
 const time = require("./time");
 const productType = require("./productType");
 dotenv.config();
@@ -45,6 +48,9 @@ module.exports = {
     service,
     product,
     employee,
+    customer,
+    productType,
+    bill,
     time,
     employee,
     service,
