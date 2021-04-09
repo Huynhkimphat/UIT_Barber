@@ -1,14 +1,14 @@
-const { booking, time } = require("../../config/db");
+const { bill, time } = require("../../config/db");
 const { formatDate } = require("../../utils/formatDate");
-class BookingController {
+class BillController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.show();
+                let result = await bill.show();
                 let temp = formatDate(result);
-                res.render("booking/showBooking", {
-                    booking: temp,
+                res.render("bill/showBill", {
+                    bill: temp,
                     status: process.env.status,
                     username: process.env.username,
                 });
@@ -23,7 +23,7 @@ class BookingController {
                     // let result = await booking.show(req.params.id);
                     // let timePeriod = await time.show();
                     // let temp = formatDate(result);
-                    res.render("booking/addBooking", {
+                    res.render("bill/addBill", {
                         // booking: temp,
                         // timePeriod: timePeriod,
                         status: process.env.status,
@@ -46,11 +46,11 @@ class BookingController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.show(req.params.id);
+                let result = await bill.show(req.params.id);
                 let timePeriod = await time.show();
                 let temp = formatDate(result);
-                res.render("booking/updateBooking", {
-                    booking: temp,
+                res.render("bill/updateBill", {
+                    bill: temp,
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
@@ -62,10 +62,10 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await booking.destroy("HOADON", req.params.id);
         })();
-        res.redirect("/booking");
+        res.redirect("/bill");
     }
 }
 
-module.exports = new BookingController();
+module.exports = new BillController();
