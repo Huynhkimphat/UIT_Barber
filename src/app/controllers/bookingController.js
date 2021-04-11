@@ -88,5 +88,4 @@ class BookingController {
         res.redirect("/booking");
     }
 }
-
 module.exports = new BookingController();
