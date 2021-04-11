@@ -1,7 +1,7 @@
-const { authenticate } = require("../../config/db");
+const { adminAuthenticate } = require("../../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-class AuthenticateController {
+class AdminAuthenticateController {
     //* [GET]/
     login(req, res, next) {
         if (process.env.status == 0) {
@@ -28,7 +28,7 @@ class AuthenticateController {
             if (!req.body.firstName) {
                 console.log("Dang nhap tai khoan");
                 (async() => {
-                    pass = await authenticate.login(req.body.email);
+                    pass = await adminAuthenticate.login(req.body.email);
                     bcrypt.compare(
                         req.body.password,
                         pass,
@@ -41,7 +41,7 @@ class AuthenticateController {
                                         "@"
                                     )[0];
                                     // process.env.password = req.body.password;
-                                    process.env.status = 1;
+                                    process.env.status = 3;
                                     res.redirect("/");
                                 } else {
                                     res.redirect("/authenticate/login");
@@ -56,7 +56,7 @@ class AuthenticateController {
                         encryptedPassword = hash;
                         console.log("Dang Ky Tai Khoan");
                         (async() => {
-                            await authenticate.register(
+                            await adminAuthenticate.register(
                                 req.body.email,
                                 encryptedPassword,
                                 req.body.firstName,
@@ -78,4 +78,4 @@ class AuthenticateController {
     }
 }
 
-module.exports = new AuthenticateController();
+module.exports = new AdminAuthenticateController();

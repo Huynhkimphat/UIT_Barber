@@ -16,7 +16,6 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
-DROP TABLE CTHD;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
@@ -35,7 +34,6 @@ DROP SEQUENCE MASP_SEQ8;
 DROP SEQUENCE MAGD_SEQ9;
 DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
-DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
 DROP SEQUENCE MADGNV_SEQ12;
 DROP SEQUENCE MADGSP_SEQ13;
 
@@ -240,14 +238,15 @@ CREATE SEQUENCE MADGSP_SEQ13 START WITH 1;
 
 --------------------------------------------SELECT RECORDS-------------------------------------------------------
 -- Khach Hang
+INSERT INTO LOAIKHACHHANG(MALKH,MAKH) VALUES(MALKH_SEQ2.NEXTVAL,MATK.CURRVAL)
 SELECT * FROM KhachHang
 -- Loai Khach Hang
 SELECT * FROM LoaiKhachHang
+
 -- Nhan Vien
 SELECT * FROM NhanVien
 -- Tai Khoan
 SELECT * FROM TaiKhoan
-
 -- Luong
 SELECT * FROM Luong
 -- Luong Thuong
@@ -416,6 +415,8 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
 END;
+--------------------------------------------INSERT TABLE: LOAIKHACKHANG---------------------------------------------------
+INSERT INTO LOAIKHACHHANG(MALKH,MAKH) VALUES(MALKH_SEQ2.NEXTVAL,MAKH_SEQ1.CURRVAL);
 --------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
 DESCRIBE SANPHAM;
 INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'GÔM XỊT TÓC LADY KILLER',130000,'Khả năng giữ nếp vượt trội, tạo độ cứng vừa phải mà vẫn đảm bảo mái tóc có độ bồng nhất định. Ngay cả khi đội mũ bảo hiểm ra đường, gôm xịt tóc Lady Killer vẫn giữ được nếp tóc đẹp như mới.','Việt Nam','',1,100,1);												
@@ -429,10 +430,11 @@ INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
 
 --------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
 DESCRIBE LOAISANPHAM;
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare','1')	
+SELECT * FROM LOAISANPHAM
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1)			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1)			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc',1)			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare',1)	
 --------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)','70000','Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào?','','1');
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước','40000','1. Massage khai huyệt điều hòa','','1');
@@ -473,7 +475,4 @@ DROP COLUMN TEST;
 INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
 select * from dichvu
 SELECT * from SANPHAM
-<<<<<<< HEAD
 
-=======
->>>>>>> 5786aade20c8fa8a0b99286753b6e104eac941a8

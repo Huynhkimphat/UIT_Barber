@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const billController = require("../app/controllers/BillController");
-const { route } = require("./authenticate");
 
 router.get("/", billController.show);
 router.get("/add", billController.add);

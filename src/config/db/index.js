@@ -1,5 +1,6 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
+const adminAuthenticate = require("./adminAuthenticate");
 const authenticate = require("./authenticate");
 const booking = require("./booking");
 const service = require("./service");
@@ -28,6 +29,7 @@ async function connect() {
 
 module.exports = {
     connect,
+    adminAuthenticate,
     authenticate,
     booking,
     service,
