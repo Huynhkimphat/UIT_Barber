@@ -1,6 +1,5 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
-const e = require("express");
 dotenv.config();
 
 const config = {
@@ -27,21 +26,24 @@ async function destroy(type, condition) {
         console.log("Ouch!", err);
     }
 }
-async function add(date,time,employee,service) {
+async function add(date, time, employee, service) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         // let bookingDate = new Date(date)
         // console.log(bookingDate);
-        let day=date.split('/').join('-');
-        console.log(day, time ,employee,service);
-        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
+        let day = date.split("/").join("-");
+        let customer = process.env.id;
+        console.log(customer);
+        let exec =
+            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
         await conn.execute(
             exec, {
                 day,
                 time,
+                customer,
                 employee,
-                service
+                service,
             }, {
                 autoCommit: true,
             }
@@ -89,4 +91,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy,add };
+module.exports = { show, destroy, add };

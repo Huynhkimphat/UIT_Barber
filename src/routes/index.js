@@ -7,14 +7,14 @@ const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
 const accountRouter = require("./account");
 const billRouter = require("./bill");
-const adminAuthenticateRouter = require("./admin/authenticate");
+const adminRouter = require("./admin");
 
 function route(app) {
     // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
     // Route Login
     app.use("/authenticate", authenticateRouter);
     // Route Admin
-    app.use("/admin/authenticate", adminAuthenticateRouter);
+    app.use("/admin", adminRouter);
     // Route About
     app.use("/about", (req, res) => {
         res.render("about");

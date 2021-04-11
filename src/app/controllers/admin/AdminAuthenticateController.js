@@ -5,7 +5,7 @@ class AdminAuthenticateController {
     //* [GET]/
     login(req, res, next) {
         if (process.env.status == 0) {
-            res.render("authenticate/login", {
+            res.render("admin/authenticate/login", {
                 layout: "authenticate_layout",
             });
         } else {
@@ -14,7 +14,7 @@ class AdminAuthenticateController {
     }
     register(req, res) {
         if (process.env.status == 0) {
-            res.render("authenticate/register", {
+            res.render("admin/authenticate/register", {
                 layout: "authenticate_layout",
             });
         } else {
@@ -26,7 +26,6 @@ class AdminAuthenticateController {
         let encryptedPassword = "";
         if (process.env.status == 0) {
             if (!req.body.firstName) {
-                console.log("Dang nhap tai khoan");
                 (async() => {
                     pass = await adminAuthenticate.login(req.body.email);
                     bcrypt.compare(
@@ -37,14 +36,11 @@ class AdminAuthenticateController {
                                 console.log(err);
                             } else {
                                 if (result) {
-                                    process.env.username = req.body.email.split(
-                                        "@"
-                                    )[0];
-                                    // process.env.password = req.body.password;
+                                    process.env.username = "Admin";
                                     process.env.status = 3;
                                     res.redirect("/");
                                 } else {
-                                    res.redirect("/authenticate/login");
+                                    res.redirect("/admin/authenticate/login");
                                 }
                             }
                         }
@@ -54,7 +50,7 @@ class AdminAuthenticateController {
                 bcrypt.genSalt(saltRounds, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         encryptedPassword = hash;
-                        console.log("Dang Ky Tai Khoan");
+                        console.log("Dang Ky Tai Khoan Admin");
                         (async() => {
                             await adminAuthenticate.register(
                                 req.body.email,
@@ -65,7 +61,7 @@ class AdminAuthenticateController {
                                 "Unknown",
                                 req.body.phone
                             );
-                            res.redirect("/authenticate/login");
+                            res.redirect("/admin/authenticate/login");
                         })();
                     });
                 });

@@ -38,9 +38,10 @@ async function register(
         let currentDay = `
         ${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()}
         `;
+        let admin = "Admin";
         let emBirthday = birthday.split("-").reverse().join("-");
         let exec1 =
-            "INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,Email) VALUES (MANV_SEQ3.nextval , :firstName , :lastName , To_Date(:emBirthday,'dd-mm-yyyy') , :gender ,:phone , To_Date(:currentDay,'dd-mm-yyyy'), :email)";
+            "INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,GioiTinh,SoDT,NgayVaoLam,LoaiNhanVien,Email) VALUES (MANV_SEQ3.nextval , :firstName , :lastName , To_Date(:emBirthday,'dd-mm-yyyy') , :gender ,:phone , To_Date(:currentDay,'dd-mm-yyyy'),:admin, :email)";
         await conn.execute(
             exec1, {
                 firstName,
@@ -49,6 +50,7 @@ async function register(
                 gender,
                 phone,
                 currentDay,
+                admin,
                 email,
             }, {
                 autoCommit: true,
