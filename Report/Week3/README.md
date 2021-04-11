@@ -21,6 +21,7 @@
 
 - Phan Le Xuan Truong
   - [ ] Update 
+  - [ ] Ajax
   - [ ] Trigger
 
 - Nguyen Dinh Sang
