@@ -1,17 +1,17 @@
-#id_work_days input[type="radio"] {
+.booking_type input[type="radio"] {
     display: none;
 }
 
-#id_work_days span {
+.booking_type span {
     display: inline-block;
     padding: 10px;
     text-transform: uppercase;
-    border: 2px solid gold;
+    border: 2px solid blue;
     border-radius: 3px;
-    color: gold;
+    color: blue;
 }
 
-#id_work_days input[type="radio"]:checked+span {
-    background-color: gold;
+.booking_type input[type="radio"]:checked+span {
+    background-color: blue;
     color: black;
 }

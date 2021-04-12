@@ -57,14 +57,12 @@
             deleteForm.submit();
         };
     })
-    if (0 < 20) {
-        let x = document.querySelectorAll(".product-status")
-        console.log(x);
-        x.forEach(elem => {
+    let x = document.querySelectorAll(".product-status")
+    console.log(x);
+    x.forEach(elem => {
+        let remain = elem.getAttribute('data-id')
+        elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Het hang (' + remain + ')' : 'Con hang (' + remain + ')';
+    });
 
-            elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Con hang' : 'Het hang';
-        });
-    }
-    else {
-    }
+
 </script>

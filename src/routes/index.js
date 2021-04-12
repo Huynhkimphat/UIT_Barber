@@ -6,11 +6,15 @@ const employeeRouter = require("./employee");
 const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
 const accountRouter = require("./account");
+const billRouter = require("./bill");
+const adminRouter = require("./admin");
 
 function route(app) {
     // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
     // Route Login
     app.use("/authenticate", authenticateRouter);
+    // Route Admin
+    app.use("/admin", adminRouter);
     // Route About
     app.use("/about", (req, res) => {
         res.render("about");
@@ -29,6 +33,8 @@ function route(app) {
     app.use("/account", accountRouter);
     // Route employee
     app.use("/employee", employeeRouter);
+    // Route Bill
+    app.use("/bill", billRouter);
     // Route Home
     app.use("/", (req, res) => {
         if (process.env.status != 0) {

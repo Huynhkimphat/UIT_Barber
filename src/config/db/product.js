@@ -7,6 +7,31 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
+async function add(name,price,describe,country,img,count,typeProduct) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "INSERT INTO SANPHAM(MASP,TENSANPHAM, GIA, MOTASANPHAM, XUATXU , HINHANH, SOLUONG , MALSP) VALUES (MASP_SEQ8.nextval , :name , :price, :describe, :country , :img, :count, :typeProduct)";
+        await conn.execute(
+            exec, {
+                img,
+                name,
+                price,
+                country,
+                count,
+                typeProduct,
+                describe
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function destroy(type, condition) {
     let conn;
     try {
@@ -32,7 +57,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP";
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP";
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -40,7 +65,7 @@ async function show(id = -1) {
             return result.rows;
         } else {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {
@@ -53,4 +78,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy };
+module.exports = { show, destroy,add };

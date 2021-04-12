@@ -23,12 +23,15 @@ class AuthenticateController {
     }
     check(req, res, next) {
         let pass;
+        let id;
         let encryptedPassword = "";
         if (process.env.status == 0) {
             if (!req.body.firstName) {
                 console.log("Dang nhap tai khoan");
                 (async() => {
-                    pass = await authenticate.login(req.body.email);
+                    let result = await authenticate.login(req.body.email);
+                    pass = result[0];
+                    id = result[1];
                     bcrypt.compare(
                         req.body.password,
                         pass,
@@ -41,7 +44,8 @@ class AuthenticateController {
                                         "@"
                                     )[0];
                                     // process.env.password = req.body.password;
-                                    process.env.status = 3;
+                                    process.env.status = 1;
+                                    process.env.id = id;
                                     res.redirect("/");
                                 } else {
                                     res.redirect("/authenticate/login");
