@@ -12,7 +12,7 @@
       Demo
     </a>
     <span> | </span>
-    <a href="https://github.com/Huynhkimphat/CheckOut_DevIOChallenge">
+    <a href="https://github.com/Huynhkimphat/">
       Solution
     </a>
   </h3>

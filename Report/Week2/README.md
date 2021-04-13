@@ -16,25 +16,25 @@
   - [ ] Header Profile
 ### Luong Tuong Quy
 
-  - [ ] Fix Footer: Color + Address 
-  - [ ] Trigger for the Report 1 With Database Management System
+  - [x] Fix Footer: Color + Address 
+  - [x] Trigger for the Report 1 With Database Management System
     - [Table_Description](../../References/Template_MotaMHDLQH.pdf)
     - [Trigger_Description](../../References/Template_MotaRBTV.pdf)
-  - [ ] README : Introduction, Acknowledgements
+  - [x] README : Introduction, Acknowledgements
   - [ ] Trigger
-  - [ ] Content for Service,Product,Product's Type
+  - [x] Content for Service,Product,Product's Type
 ### Huynh Kim Phat
 
   - [ ] Trigger
-  - [ ] Fix bug Validation
+  - [x] Fix bug Validation
 ### Le Duy Hoang
 
   - [ ] Trigger
-  - [ ] General Show Functions 
+  - [x] General Show Functions 
   - [ ] Delete Information
 ### Phan Le Xuan Truong
 
-  - [ ] Add Informations
+  - [x] Add Informations
   - [ ] Update Informations
   - [ ] Triggers
 ### Nguyen Dinh Sang
