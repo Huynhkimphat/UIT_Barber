@@ -2,7 +2,7 @@
     background-color: #06070B;
 }
 
-.card {
+.footer-card {
     padding: 2% 7%;
     color: #646771;
     background-color: #06070B;
@@ -16,10 +16,6 @@
 
 .footer-card-text>li {
     padding: 4px
-}
-
-hr {
-    border-width: 3px
 }
 
 .center-image {
@@ -52,7 +48,7 @@ hr {
     padding: 4px
 }
 
-.heading {
+.footer-heading {
     color: white;
     font-size: 18px;
 }
