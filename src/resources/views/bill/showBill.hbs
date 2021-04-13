@@ -1,0 +1,79 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mã hóa đơn</th>
+            <th scope="col">Mã khách hàng</th>
+            <th scope="col">Khuyến mãi</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+            <th scope="col">MORE</th>
+        </tr>
+    </thead>
+    {{#each bill}}
+    <tbody>
+        <tr>
+            <th scope="row">{{0}}</th>
+            <td>{{1}}</td>
+            <td>{{2}}</td>
+            <td>{{3}} </td>
+            <td>
+                <a href="/bill/{{0}}/edit" class="btn btn-link">Update</a>
+            </td>
+            <td>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{0}}>Delete
+                </a>
+            </td>
+            <td>
+                <a href="/bill/{{0}}/view" class="btn btn-link">View more</a>
+            </td>
+        </tr>
+
+    </tbody>
+
+    {{/each}}
+
+</table>
+
+<button class="btn btn-primary"><a href="/bill/add">Add</a></button>
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete bill</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete bill?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-bill">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-bill-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let billId;
+        let deleteForm = document.forms['delete-bill-form'];
+        let btnDeleteBill = document.getElementById('btn-delete-bill');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            billId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteBill.onclick = function () {
+            deleteForm.action = '/bill/' + billId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>

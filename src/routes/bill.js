@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const billController = require("../app/controllers/BillController");
+const BillController = require("../app/controllers/BillController");
 const { route } = require("./authenticate");
 
-router.get("/", billController.show);
-router.get("/add", billController.add);
-router.get("/:id/edit", billController.edit);
-router.delete("/:id/", billController.destroy);
+router.get("/", BillController.show);
+router.get("/:id/view", BillController.view);
+router.get("/add", BillController.add);
+router.get("/:id/edit", BillController.edit);
+router.delete("/:id/", BillController.destroy);
 // router.use('/search', siteController.search);
 
 module.exports = router;

@@ -17,6 +17,22 @@ class BillController {
             }
         })();
     }
+    view(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                let resultPr = await bill.viewProducts(req.params.id);
+                let resultSe = await bill.viewServices(req.params.id);
+                res.render("bill/viewBill", {
+                    Products: resultPr,
+                    Services: resultSe,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
     add(req, res, next) {
             (async() => {
                 if (process.env.status != 0) {
