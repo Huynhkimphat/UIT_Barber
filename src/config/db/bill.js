@@ -57,7 +57,7 @@ async function viewProducts(id) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "SELECT MASP, SOLUONG FROM CTHDSP WHERE MAHD =" +
+            "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
             id;
         const result = await conn.execute(exec);
         if (conn) {
@@ -73,7 +73,7 @@ async function viewServices(id) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "SELECT MADV FROM CTHDDV WHERE MAHD =" +
+            "SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG FROM DICHVU, CTHDDV WHERE CTHDDV.MAHD =" +
             id;
         const result = await conn.execute(exec);
         if (conn) {

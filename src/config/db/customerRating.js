@@ -59,11 +59,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV";
+                "SELECT * FROM DANHGIANHANVIEN";
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -71,12 +67,7 @@ async function show(id = -1) {
             return result.rows;
         } else {
             let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV\n" +
-                "AND dl.MADL=" +
+                "SELECT * FROM DANHGIANHANVIEN WHERE MADGNV=" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {

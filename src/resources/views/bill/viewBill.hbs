@@ -1,16 +1,67 @@
 <p>
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-        aria-controls="collapseExample">
-        Link with href
-    </a>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProducts"
         aria-expanded="false" aria-controls="collapseExample">
-        Button with data-target
+        Sản phẩm
+    </button>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServices"
+        aria-expanded="false" aria-controls="collapseExample">
+        Dịch vụ
     </button>
 </p>
-<div class="collapse" id="collapseExample">
+<div class="collapse" id="collapseProducts">
     <div class="card card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim
-        keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        <div class="container">
+            <div class="row">
+                {{#each Products}}
+                <div class="col-6" id="card-product-bill">
+                    <img class="card-img-top" src={{6}} alt="Card-image-cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{0}}</h5>
+                        <p class="card-text">{{2}}</p>
+                        <p class="card-text">Số lượng: {{1}}</p>
+                        <p class="card-text">Giá: {{3}}</p>
+                        <a href="#" class="btn btn-primary">{{2}}</a>
+                        <a href="/bill/{{0}}/edit" class="btn btn-link">Update</a>
+                        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                            data-id={{0}}>Delete
+                        </a>
+                    </div>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
     </div>
 </div>
+<div class="collapse" id="collapseServices">
+    <div class="card card-body">
+        <div class="container">
+            <div class="row" id="card-service-bill">
+                {{#each Services}}
+                <div class="col-6">
+                    <img class="card-img-top" src={{3}} alt="Card-image-cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{0}}</h5>
+                        <p class="card-text">{{1}}</p>
+                        <p class="card-text">Giá: {{2}}</p>
+                        <a href="/bill/{{0}}/edit" class="btn btn-link">Update</a>
+                        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                            data-id={{0}}>Delete
+                        </a>
+                    </div>
+                </div>
+
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if (document.getElementById("card-service-bill").innerHTML == "
+    ") {
+
+    document.getElementById("card-service-bill").innerHTML = "Khong su dung dich vu";
+    }
+
+
+</script>
