@@ -20,6 +20,7 @@ DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
+DROP TABLE DANHGIA;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
@@ -451,3 +452,30 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
 END;
+-- TRIGGER 16
+-- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
+-- Nhan vien them sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_16_NHANVIEN 
+AFTER INSERT OR UPDATE ON NHANVIEN
+FOR EACH ROW
+DECLARE
+    var_ngaysinh NHANVIEN.NgaySinh%TYPE
+BEGIN
+    var_ngaysinh =:NEW.NgaySinh
+
+    SELECT nv.NgaySinh into var_ngaysinh
+    FROM NHANVIEN nv
+    WHERE nv.MaNV=:NEW.MaNV;
+
+    IF (var_ngaysinh>CURRENT_DATE())
+    THEN 
+        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+END;
+
+DROP TRIGGER TRIGGER_16_NHANVIEN;
+-- TRIGGER 20
+--Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
+
+

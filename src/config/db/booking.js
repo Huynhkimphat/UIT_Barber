@@ -34,7 +34,7 @@ async function add(date, time, employee, service) {
         // console.log(bookingDate);
         let day = date.split("/").join("-");
         let customer = process.env.id;
-        console.log(customer);
+        console.log(day);
         let exec =
             "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
         await conn.execute(
