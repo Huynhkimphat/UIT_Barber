@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+const { formatDate } = require("../../utils/formatDate");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -67,6 +68,7 @@ async function show(id = -1) {
                 "AND dl.MAGIO=gd.MAGIO \n" +
                 "AND dl.MADV=dv.MADV";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -81,6 +83,7 @@ async function show(id = -1) {
                 "AND dl.MADL=" +
                 id;
             const result = await conn.execute(exec);
+            result = formatDate(result);
             if (conn) {
                 await conn.close();
             }

@@ -1,7 +1,7 @@
 const oracledb = require("oracledb");
-
-oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
+const { formatDate } = require("../../utils/formatDate");
+const e = require("express");
 dotenv.config();
 
 const config = {
@@ -9,20 +9,14 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function add(name, price, describe, country, img, count, typeProduct) {
+async function destroy(type, condition) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "INSERT INTO SANPHAM(MASP,TENSANPHAM, GIA, MOTASANPHAM, XUATXU , HINHANH, SOLUONG , MALSP) VALUES (MASP_SEQ8.nextval , :name , :price, :describe, :country , :img, :count, :typeProduct)";
+        let exec = "DELETE FROM " + type + " WHERE MADGNV = :condition ";
         await conn.execute(
             exec, {
-                img,
-                name,
-                price,
-                country,
-                count,
-                typeProduct,
-                describe
+                condition,
             }, {
                 autoCommit: true,
             }
@@ -34,14 +28,21 @@ async function add(name, price, describe, country, img, count, typeProduct) {
         console.log("Ouch!", err);
     }
 }
-async function destroy(type, condition) {
+async function add(date, time, employee, service) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
+        // let bookingDate = new Date(date)
+        // console.log(bookingDate);
+        let day = date.split('/').join('-');
+        console.log(day, time, employee, service);
+        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
         await conn.execute(
             exec, {
-                condition,
+                day,
+                time,
+                employee,
+                service
             }, {
                 autoCommit: true,
             }
@@ -59,17 +60,19 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP";
+                "SELECT * FROM DANHGIANHANVIEN";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
             return result.rows;
         } else {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
+                "SELECT * FROM DANHGIANHANVIEN WHERE MADGNV=" +
                 id;
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }

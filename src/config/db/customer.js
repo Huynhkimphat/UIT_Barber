@@ -1,5 +1,6 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
+const { formatDate } = require("../../utils/formatDate");
 dotenv.config();
 
 const config = {
@@ -34,6 +35,7 @@ async function show(id = -1) {
             let exec =
                 "SELECT * FROM KHACHHANG";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -43,6 +45,7 @@ async function show(id = -1) {
                 "SELECT * FROM KHACHHANG WHERE MAKH =" +
                 id;
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
