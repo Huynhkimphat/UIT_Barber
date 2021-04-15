@@ -14,18 +14,18 @@
     {{#each customerRating}}
     <tbody>
         <tr>
-            <th scope="row">{{0}}</th>
-            <td>{{1}}</td>
-            <td>{{2}}</td>
-            <td>{{3}}</td>
-            <td>{{4}}⭐</td>
-            <td>{{5}}</td>
+            <th scope="row">{{MADGNV}}</th>
+            <td>{{MAKH}}</td>
+            <td>{{MANV}}</td>
+            <td>{{NGAYDANHGIA}}</td>
+            <td>{{DANHGIA}}⭐</td>
+            <td>{{CHITIETDANHGIA}}</td>
             <td>
-                <a href="/customerRating/{{0}}/edit" class="btn btn-link">Update</a>
+                <a href="/customerRating/{{MADGNV}}/edit" class="btn btn-link">Update</a>
             </td>
             <td>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{0}}>Delete
+                    data-id={{MADGNV}}>Delete
                 </a>
             </td>
         </tr>

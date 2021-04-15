@@ -1,5 +1,6 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
+const { formatDate } = require("../../utils/formatDate");
 const e = require("express");
 dotenv.config();
 
@@ -61,6 +62,7 @@ async function show(id = -1) {
             let exec =
                 "SELECT * FROM DANHGIANHANVIEN";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -70,6 +72,7 @@ async function show(id = -1) {
                 "SELECT * FROM DANHGIANHANVIEN WHERE MADGNV=" +
                 id;
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }

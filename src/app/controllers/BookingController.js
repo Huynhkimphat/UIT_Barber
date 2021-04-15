@@ -1,14 +1,13 @@
 const { booking, time, employee, service } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
+
 class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
                 let result = await booking.show();
-                let temp = formatDate(result);
                 res.render("booking/showBooking", {
-                    booking: temp,
+                    booking: result,
                     status: process.env.status,
                     username: process.env.username,
                 });

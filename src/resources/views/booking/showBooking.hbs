@@ -15,19 +15,19 @@
     {{#each booking}}
     <tbody>
         <tr>
-            <th scope="row">{{0}}</th>
-            <td>{{1}}</td>
-            <td>{{2}}</td>
-            <td>{{3}} {{4}}</td>
-            <td>{{5}} {{6}}</td>
-            <td>{{7}}</td>
-            <td>{{8}}</td>
+            <th scope="row">{{MADL}}</th>
+            <td>{{NGAY}}</td>
+            <td>{{KHUNGGIO}}</td>
+            <td>{{HO}} {{TEN}}</td>
+            <td>{{HO_1}} {{TEN_1}}</td>
+            <td>{{TENDICHVU}}</td>
+            <td>{{GIA}}</td>
             <td>
-                <a href="/booking/{{0}}/edit" class="btn btn-link">Update</a>
+                <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
             </td>
             <td>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{0}}>Delete
+                    data-id={{MADL}}>Delete
                 </a>
             </td>
         </tr>

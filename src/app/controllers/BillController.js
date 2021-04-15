@@ -1,14 +1,13 @@
 const { bill, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
+
 class BillController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
                 let result = await bill.show();
-                let temp = formatDate(result);
                 res.render("bill/showBill", {
-                    bill: temp,
+                    bill: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
@@ -22,6 +21,12 @@ class BillController {
             if (process.env.status != 0) {
                 let resultPr = await bill.viewProducts(req.params.id);
                 let resultSe = await bill.viewServices(req.params.id);
+                console.log(resultSe)
+                if (resultSe === "[]") {
+                    resultSe = [
+                        ['Khong dang ki dich vu']
+                    ];
+                }
                 res.render("bill/viewBill", {
                     Products: resultPr,
                     Services: resultSe,

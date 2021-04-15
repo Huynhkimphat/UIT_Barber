@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -13,6 +14,7 @@ async function showToAdd() {
         conn = await oracledb.getConnection(config);
         let exec = "SELECT MaDV,TenDichVu FROM DichVu";
         const result = await conn.execute(exec);
+
         if (conn) {
             await conn.close();
         }
@@ -70,6 +72,7 @@ async function show(id = -1) {
         if (id == -1) {
             let exec = "SELECT * FROM DICHVU";
             const result = await conn.execute(exec);
+
             if (conn) {
                 await conn.close();
             }

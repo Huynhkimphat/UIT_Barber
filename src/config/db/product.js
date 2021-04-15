@@ -1,4 +1,6 @@
 const oracledb = require("oracledb");
+
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -7,7 +9,7 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function add(name,price,describe,country,img,count,typeProduct) {
+async function add(name, price, describe, country, img, count, typeProduct) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
@@ -78,4 +80,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy,add };
+module.exports = { show, destroy, add };

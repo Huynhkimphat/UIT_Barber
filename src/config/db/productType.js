@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -67,6 +68,7 @@ async function show(id = -1) {
         if (id == -1) {
             let exec = "SELECT * FROM LOAISANPHAM";
             const result = await conn.execute(exec);
+
             if (conn) {
                 await conn.close();
             }

@@ -1,13 +1,11 @@
 const { customerRating, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
 class CustomerRatingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await customerRating.show();
-            let temp = formatDate(result);
             res.render("CustomerRating/showCustomerRating", {
-                customerRating: temp,
+                customerRating: result,
                 status: process.env.status,
                 username: process.env.username,
             });

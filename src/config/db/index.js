@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 const adminAuthenticate = require("./admin/adminAuthenticate");
 const create = require("./admin/create");

@@ -1,13 +1,11 @@
 const { productType, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
 class ProductTypeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await productType.show();
-            let temp = formatDate(result);
             res.render("productType/showProductType", {
-                productType: temp,
+                productType: result,
                 status: process.env.status,
                 username: process.env.username,
             });
