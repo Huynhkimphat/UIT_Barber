@@ -10,6 +10,7 @@ DROP TABLE NhanVien;
 DROP TABLE TaiKhoan;
 DROP TABLE Luong;
 DROP TABLE NhanLuong;-- Super_primary_key
+DROP TABLE LoaiDichVu
 DROP TABLE DichVu;
 DROP TABLE LoaiSanPham;
 DROP TABLE SanPham;
@@ -28,6 +29,7 @@ DROP SEQUENCE MALKH_SEQ2;
 DROP SEQUENCE MANV_SEQ3;
 DROP SEQUENCE MATK_SEQ4;
 DROP SEQUENCE MALUONG_SEQ5;
+DROP SEQUENCE MALDV_SEQ14;
 DROP SEQUENCE MADV_SEQ6;
 DROP SEQUENCE MALSP_SEQ7;
 DROP SEQUENCE MASP_SEQ8;
@@ -125,6 +127,16 @@ CREATE TABLE NhanLuong
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
+--------------------------------------------BANG LOAI DICH VU-----------------------------------------------------
+
+CREATE  TABLE LOAIDICHVU
+(
+    MaLDV           NUMBER              NOT NULL,
+    TenLoaiDichVu  VARCHAR2(255)       NOT NULL,
+    TinhTrang       NUMBER              DEFAULT 1,
+    CONSTRAINT      PK_LOAISANPHAM      PRIMARY KEY (MaLDV)
+);
+CREATE SEQUENCE MALDV_SEQ14 START WITH 1;
 
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
