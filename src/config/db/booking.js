@@ -82,7 +82,7 @@ async function show(id = -1) {
                 "AND dl.MADV=dv.MADV\n" +
                 "AND dl.MADL=" +
                 id;
-            const result = await conn.execute(exec);
+            let result = await conn.execute(exec);
             result = formatDate(result);
             if (conn) {
                 await conn.close();
