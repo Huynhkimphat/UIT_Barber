@@ -18,9 +18,15 @@
             {{/each}}
             </p>
         </div>
+        <div class="form-group">
+            <label for="serviceName">Service:</label>
+                <p class="booking_type">
+                {{#each serviceName}}
+                    <label><input type="radio" name="service" value="{{0}}"><span>{{1}}</span></label>
+                {{/each}}
+                </p>
+        </div>
         <div id="addEmployee"></div>
-
-        <div id="addService"></div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
@@ -29,18 +35,9 @@
         let cform = '<label for="employee">employee:</label>'
                 +'<p class="booking_type">'
                 +'{{#each employeeName}}'
-                +'    <label><input type="radio" name="employee" value="{{0}}" onclick="addService()"><span>{{1}} {{2}}</span></label>'
+                +'    <label><input type="radio" name="employee" value="{{0}}" ><span>{{1}} {{2}}</span></label>'
                 +'{{/each}}'
                 +'</p>';
         document.getElementById("addEmployee").innerHTML = cform;
-    }
-    function addService() {
-        let cform = '<label for="serviceName">Service:</label>'
-                +'<p class="booking_type">'
-                +'{{#each serviceName}}'
-                +'    <label><input type="radio" name="service" value="{{0}}"><span>{{1}}</span></label>'
-                +'{{/each}}'
-                +'</p>';
-        document.getElementById("addService").innerHTML = cform;
     }
 </script>
