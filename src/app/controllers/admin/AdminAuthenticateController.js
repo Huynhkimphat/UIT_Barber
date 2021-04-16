@@ -1,11 +1,11 @@
-const { authenticate } = require("../../config/db");
+const { adminAuthenticate } = require("../../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-class AuthenticateController {
+class AdminAuthenticateController {
     //* [GET]/
     login(req, res, next) {
         if (process.env.status == 0) {
-            res.render("authenticate/login", {
+            res.render("admin/authenticate/login", {
                 layout: "authenticate_layout",
             });
         } else {
@@ -14,7 +14,7 @@ class AuthenticateController {
     }
     register(req, res) {
         if (process.env.status == 0) {
-            res.render("authenticate/register", {
+            res.render("admin/authenticate/register", {
                 layout: "authenticate_layout",
             });
         } else {
@@ -23,15 +23,11 @@ class AuthenticateController {
     }
     check(req, res, next) {
         let pass;
-        let id;
         let encryptedPassword = "";
         if (process.env.status == 0) {
             if (!req.body.firstName) {
-                console.log("Dang nhap tai khoan");
                 (async() => {
-                    let result = await authenticate.login(req.body.email);
-                    pass = result[0];
-                    id = result[1];
+                    pass = await adminAuthenticate.login(req.body.email);
                     bcrypt.compare(
                         req.body.password,
                         pass,
@@ -40,15 +36,11 @@ class AuthenticateController {
                                 console.log(err);
                             } else {
                                 if (result) {
-                                    process.env.username = req.body.email.split(
-                                        "@"
-                                    )[0];
-                                    // process.env.password = req.body.password;
-                                    process.env.status = 1;
-                                    process.env.id = id;
+                                    process.env.username = "Admin";
+                                    process.env.status = 3;
                                     res.redirect("/");
                                 } else {
-                                    res.redirect("/authenticate/login");
+                                    res.redirect("/admin/authenticate/login");
                                 }
                             }
                         }
@@ -58,9 +50,9 @@ class AuthenticateController {
                 bcrypt.genSalt(saltRounds, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         encryptedPassword = hash;
-                        console.log("Dang Ky Tai Khoan");
+                        console.log("Dang Ky Tai Khoan Admin");
                         (async() => {
-                            await authenticate.register(
+                            await adminAuthenticate.register(
                                 req.body.email,
                                 encryptedPassword,
                                 req.body.firstName,
@@ -69,7 +61,7 @@ class AuthenticateController {
                                 "Unknown",
                                 req.body.phone
                             );
-                            res.redirect("/authenticate/login");
+                            res.redirect("/admin/authenticate/login");
                         })();
                     });
                 });
@@ -82,4 +74,4 @@ class AuthenticateController {
     }
 }
 
-module.exports = new AuthenticateController();
+module.exports = new AdminAuthenticateController();

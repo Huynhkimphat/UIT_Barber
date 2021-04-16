@@ -1,19 +1,25 @@
-<div style="width: 18rem; display: flex">
-    {{#each product}}
-    <img class="card-img-top" src={{5}} alt="Card image cap">
-    <div class="card-body">
-        <h5 class="card-title">{{1}}</h5>
-        <p class="card-text">{{3}}</p>
-        <p class="card-text">Xuất xứ: {{4}}</p>
-        <p class="card-text product-status" data-id={{7}}></p>
-        <p class="card-text">Loại sản phẩm: {{9}}</p>
-        <a href="#" class="btn btn-primary">{{2}}</a>
-        <a href="#" class="btn btn-primary">Buy now</a>
-        <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
-        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord" data-id={{0}}>Delete
-        </a>
+<div class="container">
+    <div class="row">
+        {{#each product}}
+        <div class="col-6">
+            <img class="card-img-top" src={{5}} alt="Card-image-cap">
+            <div class="card-body">
+                <h5 class="card-title">{{1}}</h5>
+                <p class="card-text">{{3}}</p>
+                <p class="card-text">Xuất xứ: {{4}}</p>
+                <p class="card-text product-status" data-id={{7}}></p>
+                <p class="card-text">Loại sản phẩm: {{9}}</p>
+                <a href="#" class="btn btn-primary">{{2}}</a>
+                <a href="#" class="btn btn-primary">Buy now</a>
+                <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{0}}>Delete
+                </a>
+            </div>
+        </div>
+        {{/each}}
+
     </div>
-    {{/each}}
 </div>
 
 
@@ -57,14 +63,12 @@
             deleteForm.submit();
         };
     })
-    if (0 < 20) {
-        let x = document.querySelectorAll(".product-status")
-        console.log(x);
-        x.forEach(elem => {
+    let x = document.querySelectorAll(".product-status")
+    console.log(x);
+    x.forEach(elem => {
+        let remain = elem.getAttribute('data-id')
+        elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Het hang (' + remain + ')' : 'Con hang (' + remain + ')';
+    });
 
-            elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Con hang' : 'Het hang';
-        });
-    }
-    else {
-    }
+
 </script>

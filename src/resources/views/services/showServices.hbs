@@ -1,17 +1,24 @@
-<div style="width: 18rem; display: flex">
-    {{#each services}}
-    <img class="card-img-top" src="/images/service/{{4}}" alt="Card image cap" width="50px" height="50px">
-    <div class="card-body">
-        <h5 class="card-title">{{1}}</h5>
-        <p class="card-text">{{3}}</p>
-        <a href="#" class="btn btn-primary">{{2}}</a>
-        <a href="#" class="btn btn-primary">Booking now</a>
-        <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
-        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord" data-id={{0}}>Delete
-        </a>
+<div class="container">
+    <div class="row">
+        {{#each service}}
+        <div class="col-2">
+            <img class="card-img-top" src="{{4}}" alt="Card image cap" width="50px" height="100px">
+            <div class="card-body">
+                <h5 class="card-title">{{1}}</h5>
+                <p class="card-text">{{3}}</p>
+                <a href="#" class="btn btn-primary">{{2}}</a>
+                <a href="#" class="btn btn-primary">Booking now</a>
+                <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{0}}>Delete
+                </a>
+            </div>
+        </div>
+        {{/each}}
+
     </div>
-    {{/each}}
 </div>
+
 
 {{!-- Delete Model --}}
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">

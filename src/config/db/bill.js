@@ -11,39 +11,10 @@ async function destroy(type, condition) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
+        let exec = "DELETE FROM " + type + " WHERE MaKH = :condition ";
         await conn.execute(
             exec, {
                 condition,
-            }, {
-                autoCommit: true,
-            }
-        );
-        if (conn) {
-            await conn.close();
-        }
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
-async function add(date, time, employee, service) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        // let bookingDate = new Date(date)
-        // console.log(bookingDate);
-        let day = date.split("/").join("-");
-        let customer = process.env.id;
-        console.log(customer);
-        let exec =
-            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
-        await conn.execute(
-            exec, {
-                day,
-                time,
-                customer,
-                employee,
-                service,
             }, {
                 autoCommit: true,
             }
@@ -91,4 +62,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy, add };
+module.exports = { show, destroy };

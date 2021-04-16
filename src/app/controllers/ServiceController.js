@@ -3,11 +3,12 @@ const { service, time } = require("../../config/db");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
-        console.log("show");
         (async() => {
             let result = await service.show();
             res.render("services/showServices", {
-                services: result,
+                service: result,
+                status: process.env.status,
+                username: process.env.username,
             });
         })();
     }
@@ -16,17 +17,22 @@ class ServiceController {
             if (process.env.status != 0) {
                 res.render("services/addService", {
                     status: process.env.status,
-                    username: process.env.username, 
+                    username: process.env.username,
                 });
             } else {
                 res.redirect("/services");
             }
         })();
     }
-    adding(req,res,next){
+    adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                await service.add(req.body.name,req.body.price,req.body.describe,req.body.img);
+                await service.add(
+                    req.body.name,
+                    req.body.price,
+                    req.body.describe,
+                    req.body.img
+                );
                 res.redirect("/service");
             } else {
                 res.redirect("/");
@@ -35,19 +41,15 @@ class ServiceController {
     }
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await service.show(req.params.id);
-                let timePeriod = await time.show();
-                console.log(timePeriod);
-                res.render("service/updateService", {
-                    service: result,
-                    timePeriod: timePeriod,
-                    status: process.env.status,
-                    username: process.env.username,
-                });
-            } else {
-                res.redirect("/");
-            }
+            let result = await service.show(req.params.id);
+            let timePeriod = await time.show();
+            console.log(timePeriod);
+            res.render("service/updateService", {
+                service: result,
+                timePeriod: timePeriod,
+                status: process.env.status,
+                username: process.env.username,
+            });
         })();
     }
     destroy(req, res, next) {
@@ -56,7 +58,6 @@ class ServiceController {
         })();
         res.redirect("/service");
     }
-
 }
 
 module.exports = new ServiceController();
