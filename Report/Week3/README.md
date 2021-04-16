@@ -9,7 +9,7 @@
   - [ ] README : Introduction, Acknowledgements
   - [ ] Trigger (very very important)
   - [ ] Fix bug register and login form
-  - [ ] Design for Service(include Responsive)
+  - [ ] Design for Service(include Responsive)-> Sunday 
 - Huynh Kim Phat
   - [ ] Trigger
   - [x] Add account for customers
