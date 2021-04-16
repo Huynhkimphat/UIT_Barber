@@ -5,6 +5,7 @@ const serviceRouter = require("./service");
 const employeeRouter = require("./employee");
 const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
+const customerRatingRouter = require("./customerRating");
 const accountRouter = require("./account");
 const billRouter = require("./bill");
 const adminRouter = require("./admin");
@@ -29,6 +30,8 @@ function route(app) {
     app.use("/service", serviceRouter);
     // Route Customer
     app.use("/customer", customerRouter);
+    // Route CustomerRating
+    app.use("/customerRating", customerRatingRouter);
     // Route Account
     app.use("/account", accountRouter);
     // Route employee

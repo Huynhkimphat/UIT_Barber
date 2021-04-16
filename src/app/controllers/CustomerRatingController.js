@@ -1,19 +1,14 @@
-const { booking, time, employee, service } = require("../../config/db");
-
-class BookingController {
+const { customerRating, time } = require("../../config/db");
+class CustomerRatingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await booking.show();
-                res.render("booking/showBooking", {
-                    booking: result,
-                    status: process.env.status,
-                    username: process.env.username,
-                });
-            } else {
-                res.redirect("/");
-            }
+            let result = await customerRating.show();
+            res.render("CustomerRating/showCustomerRating", {
+                customerRating: result,
+                status: process.env.status,
+                username: process.env.username,
+            });
         })();
     }
     add(req, res, next) {
@@ -24,17 +19,16 @@ class BookingController {
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
                 let d = new Date();
-                let dayString = d.toLocaleDateString("en-GB");
+                let dayString = d.toLocaleDateString('en-GB');
                 let day = [
                     [dayString]
                 ];
                 d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
+                dayString = d.toLocaleDateString('en-GB');
                 day.push([dayString]);
                 d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
+                dayString = d.toLocaleDateString('en-GB');
                 day.push([dayString]);
-                console.log(day);
                 res.render("booking/addBooking", {
                     // booking: temp,
                     day: day,
@@ -43,6 +37,7 @@ class BookingController {
                     serviceName: serviceName,
                     status: process.env.status,
                     username: process.env.username,
+
                 });
             } else {
                 res.redirect("/");
@@ -52,12 +47,7 @@ class BookingController {
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                await booking.add(
-                    req.body.date,
-                    req.body.time,
-                    req.body.employee,
-                    req.body.service
-                );
+                await booking.add(req.body.date, req.body.time, req.body.employee, req.body.service);
                 res.redirect("/booking");
             } else {
                 res.redirect("/");
@@ -67,11 +57,11 @@ class BookingController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.show(req.params.id);
+                let result = await customerRating.show(req.params.id);
                 let timePeriod = await time.show();
                 let temp = formatDate(result);
-                res.render("booking/updateBooking", {
-                    booking: temp,
+                res.render("CustomerRating/updateCustomerRating", {
+                    customerRating: temp,
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
@@ -83,9 +73,10 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await customerRating.destroy("DANHGIANHANVIEN", req.params.id);
         })();
         res.redirect("/booking");
     }
 }
-module.exports = new BookingController();
+
+module.exports = new CustomerRatingController();

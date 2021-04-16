@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+const { formatDate } = require("../../utils/formatDate");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -34,7 +35,7 @@ async function add(date, time, employee, service) {
         // console.log(bookingDate);
         let day = date.split("/").join("-");
         let customer = process.env.id;
-        console.log(customer);
+        console.log(day);
         let exec =
             "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
         await conn.execute(
@@ -67,6 +68,7 @@ async function show(id = -1) {
                 "AND dl.MAGIO=gd.MAGIO \n" +
                 "AND dl.MADV=dv.MADV";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -80,7 +82,8 @@ async function show(id = -1) {
                 "AND dl.MADV=dv.MADV\n" +
                 "AND dl.MADL=" +
                 id;
-            const result = await conn.execute(exec);
+            let result = await conn.execute(exec);
+            result = formatDate(result);
             if (conn) {
                 await conn.close();
             }

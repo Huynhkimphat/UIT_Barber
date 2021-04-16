@@ -1,14 +1,15 @@
 module.exports = {
-    formatDate: function(array) {
-        for (let i = 0; i < array.length; i++) {
-            for (let j = 0; j < array[i].length; j++) {
-                if (array[i][j] === null) {
+    formatDate: function(object) {
+        for (let i = 0; i < object.rows.length; i++) {
+            const keys = Object.keys(object.rows[i]);
+            keys.forEach((key, index) => {
+                if (object.rows[i][key] === null) {
                     console.log("null detected");
-                } else if (typeof array[i][j] === "object") {
-                    array[i][j] = array[i][j].toDateString();
+                } else if (typeof object.rows[i][key] === "object") {
+                    object.rows[i][key] = object.rows[i][key].toDateString();
                 }
-            }
+            });
         }
-        return array;
+        return object;
     },
 };

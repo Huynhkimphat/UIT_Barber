@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+const { formatDate } = require("../../utils/formatDate");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -47,10 +48,11 @@ async function show(id = -1) {
         if (id == -1) {
             let exec = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV";
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
-            return result.rows;
+            return temp.rows;
         } else {
             let exec =
                 "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV AND NHANVIEN.MANV =" +
@@ -66,5 +68,7 @@ async function show(id = -1) {
     }
 }
 module.exports = {
-    show,showToAdd,destroy
+    show,
+    showToAdd,
+    destroy
 };

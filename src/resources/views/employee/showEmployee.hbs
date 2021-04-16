@@ -22,26 +22,26 @@
     {{#each employee}}
     <tbody>
         <tr>
-            <th scope="row">{{0}}</th>
-            <td>{{1}} {{2}}</td>
-            <td>{{3}}</td>
-            <td>{{4}}</td>
-            <td>{{5}}</td>
-            <td>{{6}}</td>
-            <td>{{7}}</td>
-            <td>{{8}}</td>
-            <td>{{10}}</td>
-            <td>{{11}}</td>
-            <td>{{12}}</td>
-            <td>{{13}}</td>
-            <td>{{14}}</td>
-            <td>{{15}}</td>
+            <th scope="row">{{MANV}}</th>
+            <td>{{HO}} {{TEN}}</td>
+            <td>{{NGAYSINH}}</td>
+            <td>{{GIOITINH}}</td>
+            <td>{{SODT}}</td>
+            <td>{{DIACHI}}</td>
+            <td>{{NGAYVAOLAM}}</td>
+            <td>{{LOAINHANVIEN}}</td>
+            <td>{{EMAIL}}</td>
+            <td>{{MALUONG}}</td>
+            <td>{{LUONGCOBAN}}</td>
+            <td>{{LUONGTHUONG}}</td>
+            <td>{{LUONGDUOCNHAN}}</td>
+            <td>{{NGAYNHANLUONG}}</td>
             <td>
-                <a href="/employee/{{0}}/edit" class="btn btn-link">Update</a>
+                <a href="/employee/{{MANV}}/edit" class="btn btn-link">Update</a>
             </td>
             <td>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{0}}>Delete
+                    data-id={{MANV}}>Delete
                 </a>
             </td>
         </tr>

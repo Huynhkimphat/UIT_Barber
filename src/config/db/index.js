@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 const adminAuthenticate = require("./admin/adminAuthenticate");
 const create = require("./admin/create");
@@ -10,6 +11,7 @@ const employee = require("./employee");
 const customer = require("./customer");
 const productType = require("./productType");
 const bill = require("./bill");
+const customerRating = require("./customerRating");
 const time = require("./time");
 dotenv.config();
 
@@ -40,5 +42,6 @@ module.exports = {
     customer,
     productType,
     bill,
+    customerRating,
     time,
 };
