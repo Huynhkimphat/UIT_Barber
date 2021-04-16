@@ -17,7 +17,7 @@ async function login(email) {
         if (conn) {
             await conn.close();
         }
-        return result.rows[0][0];
+        return result.rows[0].PASSWORD;
     } catch (err) {
         console.log("Ouch!", err);
     }

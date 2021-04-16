@@ -30,8 +30,8 @@ class AuthenticateController {
                 console.log("Dang nhap tai khoan");
                 (async() => {
                     let result = await authenticate.login(req.body.email);
-                    pass = result[0];
-                    id = result[1];
+                    pass = result.PASSWORD;
+                    id = result.MAKH;
                     bcrypt.compare(
                         req.body.password,
                         pass,
