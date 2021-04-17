@@ -54,7 +54,7 @@ class ServiceController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await service.destroy("DICHVU", req.params.id);
+            let result = await service.destroy(req.params.id);
         })();
         res.redirect("/service");
     }

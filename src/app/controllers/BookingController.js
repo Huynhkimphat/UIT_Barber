@@ -83,7 +83,7 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await booking.destroy(req.params.id);
         })();
         res.redirect("/booking");
     }

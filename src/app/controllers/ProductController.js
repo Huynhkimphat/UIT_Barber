@@ -49,9 +49,9 @@ class ProductController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await product.destroy("SANPHAM", req.params.id);
+            await product.destroy(req.params.id);
         })();
-        res.redirect("/product");
+        res.redirect("/products");
     }
 }
 

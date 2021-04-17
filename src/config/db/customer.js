@@ -8,14 +8,14 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaNV = :condition ";
+        let exec = "UPDATE KHACHHANG SET TINHTRANG = 0 WHERE MAKH = :id";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -33,7 +33,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             let exec =
-                "SELECT * FROM KHACHHANG";
+                "SELECT * FROM KHACHHANG WHERE TINHTRANG = 1";
             const result = await conn.execute(exec);
             let temp = formatDate(result);
             if (conn) {
@@ -42,7 +42,7 @@ async function show(id = -1) {
             return result.rows;
         } else {
             let exec =
-                "SELECT * FROM KHACHHANG WHERE MAKH =" +
+                "SELECT * FROM KHACHHANG WHERE TINHTRANG = 1 AND MAKH =" +
                 id;
             const result = await conn.execute(exec);
             let temp = formatDate(result);

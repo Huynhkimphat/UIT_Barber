@@ -13,7 +13,7 @@
                 <a href="#" class="btn btn-primary">Buy now</a>
                 <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{0}}>Delete
+                    data-id={{MASP}}>Delete
                 </a>
             </div>
         </div>
@@ -59,7 +59,7 @@
 
         // When delete button clicked
         btnDeleteProduct.onclick = function () {
-            deleteForm.action = '/product/' + productId + '?_method=DELETE';
+            deleteForm.action = '/products/' + productId + '?_method=DELETE';
             deleteForm.submit();
         };
     })

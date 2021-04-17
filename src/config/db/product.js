@@ -34,14 +34,14 @@ async function add(name, price, describe, country, img, count, typeProduct) {
         console.log("Ouch!", err);
     }
 }
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDL = :condition ";
+        let exec = "UPDATE SANPHAM SET TINHTRANG = 0 WHERE MASP = :id";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -59,7 +59,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP";
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.TINHTRANG = 1 AND SANPHAM.MALSP = LOAISANPHAM.MALSP";
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -67,7 +67,7 @@ async function show(id = -1) {
             return result.rows;
         } else {
             let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
+                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.TINHTRANG = 1 AND SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {
