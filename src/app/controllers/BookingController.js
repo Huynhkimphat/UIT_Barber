@@ -19,7 +19,6 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                // let result = await booking.show(req.params.id);
                 let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
@@ -34,9 +33,7 @@ class BookingController {
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
-                console.log(day);
                 res.render("booking/addBooking", {
-                    // booking: temp,
                     day: day,
                     timePeriod: timePeriod,
                     employeeName: employeeName,
