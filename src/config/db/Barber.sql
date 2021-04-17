@@ -383,40 +383,37 @@ UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE
 
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_NHANVIEN
-AFTER UPDATE ON NHANVIEN
+AFTER UPDATE OF NGAYSINH ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    t_ngaysinh NHANVIEN.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
-BEGIN 
-    t_ngaysinh := :NEW.ngaysinh
-
-    SELECT dl.ngay into t_ngaydatlich
+    t_ngaydatlich DATLICH.Ngay%TYPE;
+BEGIN
+    SELECT NGAY INTO t_ngaydatlich
     FROM (
-        SELECT dl.ngay from DATLICH dl 
+        SELECT dl.ngay 
+        from DATLICH dl 
         WHERE dl.MaNV=:NEW.MaNV
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngaysinh>t_ngaydatlich)
+    IF(:NEW.ngaysinh>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_15_NHANVIEN;
+
 -- Dat Lich Them Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_DATLICH
-AFTER INSERT,UPDATE ON DATLICH
+AFTER INSERT OR UPDATE ON DATLICH
 FOR EACH ROW
 DECLARE
-    t_ngaysinhKH KHACHHANG.ngaysinh%TYPE
-    t_ngaysinhNV NHANVIEN.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaysinhKH KHACHHANG.ngaysinh%TYPE;
+    t_ngaysinhNV NHANVIEN.ngaysinh%TYPE;
 BEGIN 
-    t_ngaydatlich := :NEW.ngay
-    
-
     SELECT nv.ngaysinh into t_ngaysinhNV
     FROM NHANVIEN nv
     WHERE nv.MANV=:NEW.MANV;
@@ -425,11 +422,14 @@ BEGIN
     FROM KHACHHANG kh
     WHERE kh.MaKH=:NEW.MaKH;
 
-    IF(t_ngaysinhNV>t_ngaydatlich or t_ngaysinhKH>t_ngaydatlich)
+    IF(t_ngaysinhNV>=:NEW.ngay or t_ngaysinhKH>=:NEW.ngay)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_15_DATLICH;
+
 -- TRIGGER 19
 -- Ngày vào làm của một nhân viên phải nhỏ hơn hoặc bằng ngày đặt lịch.
 -- Nhan Vien Sua
