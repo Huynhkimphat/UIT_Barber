@@ -355,16 +355,11 @@ INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da 
 -- Khach Hang Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_KHACHHANG
-AFTER UPDATE 
-    ON KHACHHANG
-    FOR EACH ROW
+AFTER UPDATE OF NGAYSINH ON KHACHHANG
+FOR EACH ROW
 DECLARE
-    t_ngaysinh KHACHHANG.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE;
 BEGIN 
-    t_ngaysinh := :NEW.ngaysinh
-
-
     SELECT NGAY INTO t_ngaydatlich
     FROM (
         SELECT dl.ngay 
@@ -372,18 +367,17 @@ BEGIN
         WHERE dl.MaKH=:NEW.MaKH
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngaysinh>t_ngaydatlich)
+    IF(:NEW.ngaysinh>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
 
+UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
 DROP TRIGGER TRIGGER_15_KHACHHANG;
-
-DESCRIBE KHACHHANG
-UPDATE KHACHHANG SET KHACHHANG.
 
 -- Nhan VIen Sua
 
@@ -509,3 +503,30 @@ DROP TRIGGER TRIGGER_16_NHANVIEN;
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
 
 
+
+CREATE TABLE KhachHang1
+(
+    MaKH number NOT NULL,
+    Ho varchar2(10) NOT NULL,
+    Ten varchar2(20) NOT NULL,
+    NgaySinh date NOT NULL,
+    GioiTinh varchar2(10) NOT NULL,
+    LoaiKH varchar2(15) DEFAULT 'Than thiet',
+    username varchar2(30) not null unique,
+    password varchar2(30) not null,
+    tichluy number default 0,
+    CONSTRAINT PK_KH PRIMARY KEY(MaKH)
+);
+CREATE TABLE DatVe
+(
+    MaVe number NOT NULL,
+    MaKH number CONSTRAINT FK_DV_KH REFERENCES KhachHang(MaKH) NOT NULL,
+    Gia number default 100000,
+    NgayBan date NOT NULL,
+    HinhThuc varchar2(20) NOT NULL,
+    ThanhToan varchar2(20) NOT NULL,
+    CONSTRAINT PK_DV PRIMARY KEY(MaVe)
+);
+SET DEFINE OFF;
+
+DROP TRIGGER TRIGGER_KHACHHANG_BANVE
