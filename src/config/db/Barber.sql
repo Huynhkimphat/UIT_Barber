@@ -435,47 +435,48 @@ DROP TRIGGER TRIGGER_15_DATLICH;
 -- Nhan Vien Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_19_NHANVIEN
-AFTER UPDATE ON NHANVIEN
+AFTER UPDATE OF NGAYVAOLAM ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE;
 BEGIN
-    t_ngayvaolam := :NEW.NgayVaoLam
-
-    SELECT dl.ngay into t_ngaydatlich
+    SELECT NGAY into t_ngaydatlich
     FROM (
-        SELECT dl.ngay from DATLICH dl 
+        SELECT dl.ngay 
+        FROM DATLICH dl 
         WHERE dl.MaNV=:NEW.MaNV
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngayvaolam>t_ngaydatlich)
+    IF(:NEW.NgayVaoLam>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_19_NHANVIEN;
+
 -- Dat Lich Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_19_DATLICH
-AFTER UPDATE ON DATLICH
+AFTER UPDATE OF NGAY ON DATLICH
 FOR EACH ROW
 DECLARE
-    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE;
 BEGIN 
-    t_ngaydatlich := :NEW.ngay
-
     SELECT nv.NgayVaoLam into t_ngayvaolam
     FROM NHANVIEN nv
     WHERE nv.MaNV=:NEW.MaNV;
 
-    IF(t_ngayvaolam>t_ngaydatlich)
+    IF(t_ngayvaolam>=:NEW.ngay)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_19_DATLICH;
+
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
