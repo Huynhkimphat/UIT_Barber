@@ -18,6 +18,7 @@
   - [ ] Add Service's Type Table
   - [ ] Demo Update
   - [ ] Role for staff
+  - [ ] Trigger
 
 - Le Duy Hoang
   - [ ] Trigger

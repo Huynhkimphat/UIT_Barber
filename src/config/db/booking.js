@@ -31,11 +31,9 @@ async function add(date, time, employee, service) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        // let bookingDate = new Date(date)
-        // console.log(bookingDate);
         let day = date.split("/").join("-");
         let customer = process.env.id;
-        console.log(day);
+        console.log(day, time, employee, service);
         let exec =
             "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
         await conn.execute(
