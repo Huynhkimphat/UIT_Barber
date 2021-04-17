@@ -375,9 +375,9 @@ BEGIN
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
     END IF;
 END;
-
-UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
 DROP TRIGGER TRIGGER_15_KHACHHANG;
+-- Test
+UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
 
 -- Nhan VIen Sua
 
@@ -501,32 +501,3 @@ END;
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
-
-
-
-CREATE TABLE KhachHang1
-(
-    MaKH number NOT NULL,
-    Ho varchar2(10) NOT NULL,
-    Ten varchar2(20) NOT NULL,
-    NgaySinh date NOT NULL,
-    GioiTinh varchar2(10) NOT NULL,
-    LoaiKH varchar2(15) DEFAULT 'Than thiet',
-    username varchar2(30) not null unique,
-    password varchar2(30) not null,
-    tichluy number default 0,
-    CONSTRAINT PK_KH PRIMARY KEY(MaKH)
-);
-CREATE TABLE DatVe
-(
-    MaVe number NOT NULL,
-    MaKH number CONSTRAINT FK_DV_KH REFERENCES KhachHang(MaKH) NOT NULL,
-    Gia number default 100000,
-    NgayBan date NOT NULL,
-    HinhThuc varchar2(20) NOT NULL,
-    ThanhToan varchar2(20) NOT NULL,
-    CONSTRAINT PK_DV PRIMARY KEY(MaVe)
-);
-SET DEFINE OFF;
-
-DROP TRIGGER TRIGGER_KHACHHANG_BANVE
