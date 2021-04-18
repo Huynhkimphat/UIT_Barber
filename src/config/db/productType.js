@@ -80,26 +80,6 @@ async function show(id = -1) {
                 await conn.close();
             }
             return result.rows;
-            async function add(name) {
-                let conn;
-                try {
-                    conn = await oracledb.getConnection(config);
-                    let exec =
-                        "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
-                    await conn.execute(
-                        exec, {
-                            name,
-                        }, {
-                            autoCommit: true,
-                        }
-                    );
-                    if (conn) {
-                        await conn.close();
-                    }
-                } catch (err) {
-                    console.log("Ouch!", err);
-                }
-            }
         }
     } catch (err) {
         console.log("Ouch!", err);
