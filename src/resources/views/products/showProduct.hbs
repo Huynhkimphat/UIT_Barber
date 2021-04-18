@@ -11,13 +11,6 @@
                 <p class="card-text product-status" data-id={{SOLUONG}}></p>
                 <p class="card-text">Mã loại sản phẩm: {{MALSP}}</p>
                 <a href="#" class="btn btn-primary">Buy now</a>
-<<<<<<< HEAD
-                <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
-                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{MASP}}>Delete
-                </a>
-=======
->>>>>>> master
             </div>
         </div>
         {{/each}}
@@ -26,26 +19,6 @@
 </div>
 
 <script>
-<<<<<<< HEAD
-    document.addEventListener('DOMContentLoaded', function () {
-        let productId;
-        let deleteForm = document.forms['delete-product-form'];
-        let btnDeleteProduct = document.getElementById('btn-delete-product');
-
-        // When dialog confirm clicked
-        $('#deleteRecord').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            productId = button.data('id');
-        });
-
-        // When delete button clicked
-        btnDeleteProduct.onclick = function () {
-            deleteForm.action = '/products/' + productId + '?_method=DELETE';
-            deleteForm.submit();
-        };
-    })
-=======
->>>>>>> master
     let x = document.querySelectorAll(".product-status")
     console.log(x);
     x.forEach(elem => {
