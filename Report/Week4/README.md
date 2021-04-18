@@ -1,7 +1,7 @@
 # Week4: 16/3-23/4
 
 - Phan Tung + Huynh Thi My Duyen
-  - [ ] Show Product
+  - [ ] Show Product(product card)
   - [ ] Rating Product
   - [ ] Modal
 - Tran Thi Thu Oanh
