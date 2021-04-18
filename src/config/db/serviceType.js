@@ -1,6 +1,6 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
-const { formatDate } = require("../../utils/formatDate");
 dotenv.config();
 
 const config = {
@@ -8,14 +8,29 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function destroy(type, condition) {
+async function showToAdd() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaNV = :condition ";
+        let exec = "SELECT * FROM LOAIDICHVU";
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function add(name) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
         await conn.execute(
             exec, {
-                condition,
+                name,
             }, {
                 autoCommit: true,
             }
@@ -32,17 +47,16 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT * FROM KHACHHANG";
+            let exec = "SELECT * FROM LOAIDICHVU";
             const result = await conn.execute(exec);
-            let temp = formatDate(result);
+
             if (conn) {
                 await conn.close();
             }
             return result.rows;
         } else {
-            let exec = "SELECT * FROM KHACHHANG WHERE MAKH =" + id;
+            let exec = "SELECT * FROM LOAIDICHVU WHERE MALDV =" + id;
             const result = await conn.execute(exec);
-            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -52,5 +66,4 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-
-module.exports = { show, destroy };
+module.exports = { show, showToAdd, add };

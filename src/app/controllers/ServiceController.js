@@ -1,4 +1,4 @@
-const { service, time } = require("../../config/db");
+const { service, serviceType } = require("../../config/db");
 
 class ServiceController {
     //* [GET]/
@@ -54,9 +54,11 @@ class ServiceController {
     edit(req, res, next) {
         (async() => {
             let result = await service.show(req.params.id);
-            console.log(result);
+            let result2 = await serviceType.show();
+            console.log(result2);
             res.render("admin/services/updateServices", {
                 service: result[0],
+                serviceType: result2,
                 status: process.env.status,
                 username: process.env.username,
             });
