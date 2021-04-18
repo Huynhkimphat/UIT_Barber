@@ -296,7 +296,6 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
-<<<<<<< HEAD
 
 
 
@@ -306,7 +305,6 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
 
 -- ALTER TABLE KHACHHANG
 -- ADD CONSTRAINT check_constraint_name CHECK(expression);
-=======
 -- Loai San Pham
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1);			
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1);			
@@ -359,7 +357,6 @@ INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',300
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
->>>>>>> master
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
@@ -486,11 +483,6 @@ BEGIN
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
     END IF;
 END;
-<<<<<<< HEAD
---------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
-DESCRIBE SANPHAM;
-INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'GÔM XỊT TÓC LADY KILLER',130000,'Khả năng giữ nếp vượt trội, tạo độ cứng vừa phải mà vẫn đảm bảo mái tóc có độ bồng nhất định. Ngay cả khi đội mũ bảo hiểm ra đường, gôm xịt tóc Lady Killer vẫn giữ được nếp tóc đẹp như mới.','Việt Nam','',1,100,1);												
-=======
 DROP TRIGGER TRIGGER_19_DATLICH;
 -- Trigger 23
 -- Khách hàng VIP sẽ được giảm 10% trên tổng mỗi hoá đơn. 
@@ -536,7 +528,6 @@ DECLARE
     var_ngaysinh NHANVIEN.NgaySinh%TYPE
 BEGIN
     var_ngaysinh =:NEW.NgaySinh
->>>>>>> master
 
 
 INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
@@ -593,7 +584,6 @@ SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG
 FROM DICHVU, CTHDDV
 WHERE CTHDDV.MAHD = 2
 
-<<<<<<< HEAD
 SELECT MASP, SOLUONG FROM CTHDSP WHERE MAHD = 1
 
 ALTER TABLE NHANVIEN
@@ -603,8 +593,6 @@ select * from dichvu
 SELECT * from SANPHAM
 
 SELECT * FROM SANPHAM
-=======
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
->>>>>>> master
