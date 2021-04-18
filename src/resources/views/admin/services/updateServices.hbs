@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/product.css">
+<div class="mt-4 ">
+    <h3>Update Service {{service.MADV}}</h3>
+    <form class="mt-4" method="POST" action="/service/{{service.MASP}}/edit">
+        <div>
+            <label for="name">Tên dich vu: </label><br>
+            <input type="text" name="name" id="name" width="full" value="{{service.TENDICHVU}}"><br>
+        </div>
+        <div>
+            <label for="price">Nhập giá sản phẩm: </label><br>
+            <input type="number" name="price" id="price" placeholder=">20000" min="20000" max="5000000" step="1000"
+                value="{{service.GIA}}"><br>
+        </div>
+        <div>
+            <label for="describe">Mô tả sản phẩm: </label><br>
+            <textarea name="describe" id="describe" cols="100" rows="10">{{service.MOTADICHVU}}</textarea><br>
+        </div>
+        <div>
+            <label for="img">Ảnh của sản phẩm: </label><br>
+            <input type="text" id="img" name="img" width="100px" value={{service.HINHANH}}><br>
+        </div>
+        <div class="form-group" id="typeServiceChosen" data-id="{{service.MALSP}}">
+            <label for="typeProduct">Loại sản phẩm: </label>
+            <p class="typeProduct">
+                {{#each typeService}}
+                <label><input type="radio" name="typeProduct" value="{{MALDV}}"
+                        id="typeProduct"><span>{{TENLOAIDICHVU}}</span></label>
+                {{/each}}
+            </p>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+    let checkedType = document.getElementById('typeServiceChosen').getAttribute('data-id');
+    document.querySelectorAll("#typeProduct").forEach(e => {
+        if (e.value == checkedType)
+            e.checked = true;
+    })
+</script>

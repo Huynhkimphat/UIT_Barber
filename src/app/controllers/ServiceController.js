@@ -5,7 +5,13 @@ class ServiceController {
     show(req, res, next) {
         (async() => {
             let result = await service.show();
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
+                res.render("admin/services/showServices", {
+                    service: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status != 0) {
                 res.render("services/showServices", {
                     service: result,
                     status: process.env.status,
@@ -48,11 +54,9 @@ class ServiceController {
     edit(req, res, next) {
         (async() => {
             let result = await service.show(req.params.id);
-            let timePeriod = await time.show();
-            console.log(timePeriod);
-            res.render("service/updateService", {
-                service: result,
-                timePeriod: timePeriod,
+            console.log(result);
+            res.render("admin/services/updateServices", {
+                service: result[0],
                 status: process.env.status,
                 username: process.env.username,
             });
