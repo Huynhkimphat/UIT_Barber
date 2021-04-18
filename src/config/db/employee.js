@@ -8,14 +8,14 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaSP = :condition ";
+        let exec = "UPDATE NHANVIEN SET TINHTRANG = 0 WHERE MANV = :id";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -46,7 +46,7 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV";
+            let exec = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.TINHTRANG = 1 AND NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV";
             const result = await conn.execute(exec);
             let temp = formatDate(result);
             if (conn) {
@@ -55,7 +55,7 @@ async function show(id = -1) {
             return temp.rows;
         } else {
             let exec =
-                "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV AND NHANVIEN.MANV =" +
+                "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANVIEN,LUONG,NHANLUONG WHERE NHANVIEN.TINHTRANG = 1 AND NHANVIEN.MANV =LUONG.MANV AND    NHANVIEN.MANV = NHANLUONG.MANV AND NHANVIEN.MANV =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {

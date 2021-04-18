@@ -60,7 +60,7 @@ class CustomerController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("KHACHHANG", req.params.id);
+            let result = await customer.destroy(req.params.id);
         })();
         res.redirect("/customer");
     }

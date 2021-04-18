@@ -83,7 +83,7 @@ class BillController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("HOADON", req.params.id);
+            let result = await bill.destroy(req.params.id);
         })();
         res.redirect("/bill");
     }

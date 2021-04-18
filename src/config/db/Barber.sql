@@ -17,11 +17,12 @@ DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
+DROP TABLE CTHD;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
-DROP TABLE DANHGIA;
+drop table DANHGIA;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
@@ -36,6 +37,7 @@ DROP SEQUENCE MASP_SEQ8;
 DROP SEQUENCE MAGD_SEQ9;
 DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
+DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
 DROP SEQUENCE MADGNV_SEQ12;
 DROP SEQUENCE MADGSP_SEQ13;
 
@@ -258,8 +260,13 @@ SELECT * FROM LoaiKhachHang
 SELECT * FROM NhanVien
 -- Tai Khoan
 SELECT * FROM TaiKhoan
+
 -- Luong
 SELECT * FROM Luong
+-- Luong Thuong
+SELECT * FROM LuongThuong
+-- Tang Luong
+SELECT * FROM TangLuong
 -- Nhan Luong
 SELECT * FROM NhanLuong
 -- Dich Vu
@@ -274,20 +281,12 @@ SELECT * FROM GioDat
 SELECT * FROM DatLich
 -- Hoa Don
 SELECT * FROM HoaDon
--- CTHDDV
-SELECT * FROM CTHDDV
--- CTHDSP
-SELECT * FROM CTHDSP
--- Danh Gia Nhan Vien
-SELECT * FROM DanhGiaNhanVien
--- Danh Gia San Pham
-SELECT * FROM DanhGiaSanPham
+-- CTHD
+SELECT * FROM CTHD
+-- Danh Gia
+SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
 ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
--- Khach Hang
-
--- Loai Khach Hang
-INSERT INTO LOAIKHACHHANG(MALKH,MAKH) VALUES(MALKH_SEQ2.NEXTVAL,MAKH_SEQ1.CURRVAL);
 -- GioDat
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'8h30-10h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'10h00-11h30');
@@ -297,6 +296,17 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
+<<<<<<< HEAD
+
+
+
+--------------------------------------------ALTER CHECKS---------------------------------------------------------
+-- ALTER TABLE KHACHHANG
+-- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
+
+-- ALTER TABLE KHACHHANG
+-- ADD CONSTRAINT check_constraint_name CHECK(expression);
+=======
 -- Loai San Pham
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1);			
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1);			
@@ -349,6 +359,7 @@ INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',300
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
+>>>>>>> master
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
@@ -475,7 +486,44 @@ BEGIN
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
     END IF;
 END;
+<<<<<<< HEAD
+--------------------------------------------INSERT TABLE: SANPHAM---------------------------------------------------------
+DESCRIBE SANPHAM;
+INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'GÔM XỊT TÓC LADY KILLER',130000,'Khả năng giữ nếp vượt trội, tạo độ cứng vừa phải mà vẫn đảm bảo mái tóc có độ bồng nhất định. Ngay cả khi đội mũ bảo hiểm ra đường, gôm xịt tóc Lady Killer vẫn giữ được nếp tóc đẹp như mới.','Việt Nam','',1,100,1);												
+=======
 DROP TRIGGER TRIGGER_19_DATLICH;
+-- Trigger 23
+-- Khách hàng VIP sẽ được giảm 10% trên tổng mỗi hoá đơn. 
+-- Khach Hang Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_23_KHACHHANG
+AFTER UPDATE OF LOAIKH ON KHACHHANG
+FOR EACH ROW
+DECLARE
+BEGIN 
+END;
+DROP TRIGGER TRIGGER_23_KHACHHANG;
+-- Hoa Don Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_23_HOADON
+AFTER INSERT OR UPDATE ON HOADON
+FOR EACH ROW
+DECLARE
+    v_loaiKH LOAIKHACHHANG.LOAIKH%TYPE;
+BEGIN 
+    SELECT lkh.LoaiKH into v_loaiKH
+    FROM LOAIKHACHHANG lkh
+    WHERE lkh.MaKH=:NEW.MaKH;
+
+    IF(v_loaiKH!='Member')
+    THEN 
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+    END IF;
+END;
+DROP TRIGGER TRIGGER_23_HOADON;
+
+
+
 
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
@@ -488,17 +536,75 @@ DECLARE
     var_ngaysinh NHANVIEN.NgaySinh%TYPE
 BEGIN
     var_ngaysinh =:NEW.NgaySinh
+>>>>>>> master
 
-    SELECT nv.NgaySinh into var_ngaysinh
-    FROM NHANVIEN nv
-    WHERE nv.MaNV=:NEW.MaNV;
 
-    IF (var_ngaysinh>CURRENT_DATE())
-    THEN 
-        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
-        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
-END;
+INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
+    MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức',1);
+INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
+    MASP_SEQ8.NEXTVAL, 'ACSYS', 289000, 'Sữa Rửa Mặt trị mụn - Phiên bản đặc biệt','Hàn Quốc',3);
 
+
+--------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
+DESCRIBE LOAISANPHAM;
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare','1')	
+--------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)','70000','Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào?','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước','40000','1. Massage khai huyệt điều hòa','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp','349000','Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','','1');				
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn','260000','Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','','1');
+SELECT * From KhachHang
+
+DESCRIBE DANHGIANHANVIEN
+SELECT * FROM DANHGIANHANVIEN
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,2,1,To_Date('04-04-2021','dd-mm-yyyy'),4,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,3,2,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+
+
+SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG
+FROM NHANVIEN,LUONG,NHANLUONG
+WHERE NHANVIEN.MANV =LUONG.MANV
+AND    NHANVIEN.MANV = NHANLUONG.MANV
+
+SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP
+
+DESCRIBE HOADON
+INSERT INtO HOADON VALUES (MAHD_SEQ11.NEXTVAL,1,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,2,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,3,0,50000,0);
+SELECT * FROM CTHDSP
+DESCRIBE CTHDDV
+DESCRIBE CTHDSP
+INSERT INTO CTHDDV VALUES (1, 1);
+INSERT INTO CTHDDV VALUES (3, 1);
+INSERT INTO CTHDSP VALUES (2 ,3,1);
+
+
+SELECT HOADON.MAHD,MAKH,MADV,MASP,SOLUONG,KHUYENMAI,TONGTIEN,TINHTRANG 
+FROM HOADON,CTHDSP,CTHDDV
+WHERE  CTHDSP.MAHD =  CTHDDV.MAHD
+
+SELECT * FROM DICHVU
+SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG
+FROM DICHVU, CTHDDV
+WHERE CTHDDV.MAHD = 2
+
+<<<<<<< HEAD
+SELECT MASP, SOLUONG FROM CTHDSP WHERE MAHD = 1
+
+ALTER TABLE NHANVIEN
+DROP COLUMN TEST;
+INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
+select * from dichvu
+SELECT * from SANPHAM
+
+SELECT * FROM SANPHAM
+=======
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
+>>>>>>> master

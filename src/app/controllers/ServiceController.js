@@ -5,11 +5,17 @@ class ServiceController {
     show(req, res, next) {
         (async() => {
             let result = await service.show();
-            res.render("services/showServices", {
-                service: result,
-                status: process.env.status,
-                username: process.env.username,
-            });
+            if (process.env.status != 0) {
+                res.render("services/showServices", {
+                    service: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.render("services/showServices", {
+                    service: result,
+                });
+            }
         })();
     }
     add(req, res, next) {
@@ -54,7 +60,7 @@ class ServiceController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await service.destroy("DICHVU", req.params.id);
+            let result = await service.destroy(req.params.id);
         })();
         res.redirect("/service");
     }

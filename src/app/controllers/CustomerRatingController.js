@@ -73,9 +73,9 @@ class CustomerRatingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await customerRating.destroy("DANHGIANHANVIEN", req.params.id);
+            let result = await customerRating.destroy(req.params.id);
         })();
-        res.redirect("/booking");
+        res.redirect("/customerRating");
     }
 }
 
