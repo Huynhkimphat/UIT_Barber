@@ -492,6 +492,38 @@ DESCRIBE SANPHAM;
 INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'GÔM XỊT TÓC LADY KILLER',130000,'Khả năng giữ nếp vượt trội, tạo độ cứng vừa phải mà vẫn đảm bảo mái tóc có độ bồng nhất định. Ngay cả khi đội mũ bảo hiểm ra đường, gôm xịt tóc Lady Killer vẫn giữ được nếp tóc đẹp như mới.','Việt Nam','',1,100,1);												
 =======
 DROP TRIGGER TRIGGER_19_DATLICH;
+-- Trigger 23
+-- Khách hàng VIP sẽ được giảm 10% trên tổng mỗi hoá đơn. 
+-- Khach Hang Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_23_KHACHHANG
+AFTER UPDATE OF LOAIKH ON KHACHHANG
+FOR EACH ROW
+DECLARE
+BEGIN 
+END;
+DROP TRIGGER TRIGGER_23_KHACHHANG;
+-- Hoa Don Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_23_HOADON
+AFTER INSERT OR UPDATE ON HOADON
+FOR EACH ROW
+DECLARE
+    v_loaiKH LOAIKHACHHANG.LOAIKH%TYPE;
+BEGIN 
+    SELECT lkh.LoaiKH into v_loaiKH
+    FROM LOAIKHACHHANG lkh
+    WHERE lkh.MaKH=:NEW.MaKH;
+
+    IF(v_loaiKH!='Member')
+    THEN 
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+    END IF;
+END;
+DROP TRIGGER TRIGGER_23_HOADON;
+
+
+
 
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
