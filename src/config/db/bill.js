@@ -32,13 +32,23 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec =
-                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1";
-            const result = await conn.execute(exec);
-            if (conn) {
-                await conn.close();
+            if (process.env.status != 3) {
+                let exec =
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1";
+                const result = await conn.execute(exec);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
+            } else {
+                let exec =
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON";
+                const result = await conn.execute(exec);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
             }
-            return result.rows;
         } else {
             let exec =
                 "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1 AND MAHD =" +
