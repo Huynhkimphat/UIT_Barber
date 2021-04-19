@@ -1,0 +1,81 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">MaKH</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Số đt</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Điểm tích lũy</th>
+            <th scope="col">Email</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    {{#each customer}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MAKH}}</th>
+            <td>{{HO}} {{TEN}}</td>
+            <td>{{NGAYSINH}}</td>
+            <td>{{GIOITINH}}</td>
+            <td>{{SODT}}</td>
+            <td>{{DIACHI}}</td>
+            <td>{{DIEMTICHLUY}}</td>
+            <td>{{EMAIL}}</td>
+            <td>
+                <a href="/customer/{{MAKH}}/edit" class="btn btn-link">Update</a>
+            </td>
+            <td>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{MAKH}}>Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>
+<button class="btn btn-primary"><a href="/customer/add">Add</a></button>
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete customer?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-customer">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-customer-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let customerId;
+        let deleteForm = document.forms['delete-customer-form'];
+        let btnDeleteCustomer = document.getElementById('btn-delete-customer');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            customerId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteCustomer.onclick = function () {
+            deleteForm.action = '/customer/' + customerId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>

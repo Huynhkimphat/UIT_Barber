@@ -46,14 +46,14 @@ async function add(name, price, describe, img) {
         console.log("Ouch!", err);
     }
 }
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDV = :condition ";
+        let exec = "UPDATE DICHVU SET TINHTRANG = 0 WHERE MADV = :id ";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -70,7 +70,7 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT * FROM DICHVU";
+            let exec = "SELECT * FROM DICHVU WHERE TINHTRANG = 1";
             const result = await conn.execute(exec);
 
             if (conn) {
@@ -78,7 +78,7 @@ async function show(id = -1) {
             }
             return result.rows;
         } else {
-            let exec = "SELECT * FROM DICHVU WHERE MADV =" + id;
+            let exec = "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();

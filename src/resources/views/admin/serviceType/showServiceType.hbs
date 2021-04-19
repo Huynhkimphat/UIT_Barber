@@ -1,0 +1,69 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mã loại dịch vụ</th>
+            <th scope="col">Tên loại dịch vụ</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    {{#each serviceType}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MALDV}}</th>
+            <td>{{TENLOAIDICHVU}}</td>
+
+            <td><a href="/serviceType/{{MALDV}}/edit" class="btn btn-link">Update</a></td>
+
+            <td>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{MALDV}}>Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>
+<button class="btn btn-primary"><a href="/serviceType/add">Add</a></button>
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete serviceType</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete serviceType?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-serviceType">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-serviceType-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let serviceTypeId;
+        let deleteForm = document.forms['delete-service-form'];
+        let btnDeleteserviceType = document.getElementById('btn-delete-serviceType');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            serviceTypeId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteserviceType.onclick = function () {
+            deleteForm.action = '/serviceType/' + serviceTypeId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>

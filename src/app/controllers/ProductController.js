@@ -4,6 +4,7 @@ class ProductController {
     show(req, res, next) {
         (async() => {
             let result = await product.show();
+            console.log(result);
             if (process.env.status == 3) {
                 res.render("admin/products/showProduct", {
                     product: result,
@@ -88,9 +89,9 @@ class ProductController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await product.destroy("SANPHAM", req.params.id);
+            await product.destroy(req.params.id);
         })();
-        res.redirect("/product");
+        res.redirect("/products");
     }
 }
 

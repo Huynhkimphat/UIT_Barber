@@ -1,24 +1,24 @@
-const { productType, time } = require("../../config/db");
-class ProductTypeController {
+const { serviceType, time } = require("../../config/db");
+class ServiceTypeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            let result = await productType.show();
+            let result = await serviceType.show();
             if (process.env.status == 3) {
-                res.render("admin/productType/showProductType", {
-                    productType: result,
+                res.render("admin/serviceType/showServiceType", {
+                    serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
             } else if (process.env.status != 0) {
-                res.render("productType/showProductType", {
-                    productType: result,
+                res.render("serviceType/showServiceType", {
+                    serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
             } else {
-                res.render("productType/showProductType", {
-                    productType: result,
+                res.render("serviceType/showServiceType", {
+                    serviceType: result,
                 });
             }
         })();
@@ -26,22 +26,22 @@ class ProductTypeController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                res.render("productType/addProductType", {
+                res.render("serviceType/addServiceType", {
                     status: process.env.status,
                     username: process.env.username,
                 });
             } else {
-                res.redirect("/productType");
+                res.redirect("/serviceType");
             }
         })();
     }
     edit(req, res, next) {
         (async() => {
-            let result = await booking.show(req.params.id);
+            let result = await serviceType.show(req.params.id);
             let timePeriod = await time.show();
             let temp = formatDate(result);
-            res.render("productType/updateProductType", {
-                productType: temp,
+            res.render("serviceType/updateServiceType", {
+                serviceType: temp,
                 timePeriod: timePeriod,
                 status: process.env.status,
                 username: process.env.username,
@@ -50,17 +50,17 @@ class ProductTypeController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await productType.destroy(
+            let result = await serviceType.destroy(
                 req.params.id
             );
         })();
-        res.redirect("/productType");
+        res.redirect("/serviceType");
     }
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                await productType.add(req.body.name);
-                res.redirect("/productType/add");
+                await serviceType.add(req.body.name);
+                res.redirect("/serviceType/add");
             } else {
                 res.redirect("/");
             }
@@ -68,4 +68,4 @@ class ProductTypeController {
     }
 }
 
-module.exports = new ProductTypeController();
+module.exports = new ServiceTypeController();

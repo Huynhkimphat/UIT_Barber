@@ -8,6 +8,26 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
+async function destroy(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALSP = :id";
+        await conn.execute(
+            exec, {
+                id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+
 async function showToAdd() {
     let conn;
     try {
@@ -27,6 +47,7 @@ async function add(name) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
+
             "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
         await conn.execute(
             exec, {
@@ -47,7 +68,7 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT * FROM LOAIDICHVU";
+            let exec = "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1";
             const result = await conn.execute(exec);
 
             if (conn) {
@@ -55,7 +76,7 @@ async function show(id = -1) {
             }
             return result.rows;
         } else {
-            let exec = "SELECT * FROM LOAIDICHVU WHERE MALDV =" + id;
+            let exec = "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1 AND MALSP =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -66,4 +87,25 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, showToAdd, add };
+async function add(name) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
+        await conn.execute(
+            exec, {
+                name,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+
+module.exports = { show, destroy, showToAdd, add };
