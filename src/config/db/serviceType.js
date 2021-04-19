@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -26,6 +27,7 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
+
 async function showToAdd() {
     let conn;
     try {
@@ -45,7 +47,8 @@ async function add(name) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO LOAIDICHVU(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
+
+            "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
         await conn.execute(
             exec, {
                 name,
@@ -89,7 +92,6 @@ async function show(id = -1) {
                 await conn.close();
             }
             return result.rows;
-
         }
     } catch (err) {
         console.log("Ouch!", err);
