@@ -12,7 +12,6 @@ const product = require("./product");
 const employee = require("./employee");
 const customer = require("./customer");
 const productType = require("./productType");
-const serviceType = require("./serviceType");
 const bill = require("./bill");
 const customerRating = require("./customerRating");
 const time = require("./time");
