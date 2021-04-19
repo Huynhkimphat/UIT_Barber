@@ -44,6 +44,7 @@ async function show(id = -1) {
             let exec =
                 "SELECT * FROM KHACHHANG WHERE TINHTRANG = 1 AND MAKH =" +
                 id;
+
             const result = await conn.execute(exec);
             let temp = formatDate(result);
             if (conn) {
