@@ -4,11 +4,23 @@ class CustomerRatingController {
     show(req, res, next) {
         (async() => {
             let result = await customerRating.show();
-            res.render("CustomerRating/showCustomerRating", {
-                customerRating: result,
-                status: process.env.status,
-                username: process.env.username,
-            });
+            if (process.env.status == 3) {
+                res.render("admin/CustomerRating/showCustomerRating", {
+                    customerRating: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status != 0) {
+                res.render("CustomerRating/showCustomerRating", {
+                    customerRating: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.render("CustomerRating/showCustomerRating", {
+                    customerRating: result,
+                });
+            }
         })();
     }
     add(req, res, next) {

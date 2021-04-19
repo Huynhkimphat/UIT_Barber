@@ -4,15 +4,21 @@ class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await booking.show();
+            let result = await booking.show();
+            if (process.env.status == 3) {
+                res.render("admin/booking/showBooking", {
+                    booking: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status == 0) {
+                res.redirect("/");
+            } else {
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
-            } else {
-                res.redirect("/");
             }
         })();
     }

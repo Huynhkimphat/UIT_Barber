@@ -1,12 +1,14 @@
-const { show } = require("../../config/db");
+const { account } = require("../../config/db");
+
 class accountController {
     //* [GET]/
     show(req, res, next) {
-        (async () => {
-            let result = await show("TAIKHOAN", 0);
-            if (process.env.status != 0) {
-                res.render("account/showAccounts", {
-                    account: result.rows,
+        (async() => {
+            let result = await account.show();
+            console.log(result);
+            if (process.env.status == 3) {
+                res.render("admin/account/showAccounts", {
+                    account: result,
                     status: process.env.status,
                     username: process.env.username,
                 });

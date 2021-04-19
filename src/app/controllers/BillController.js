@@ -4,15 +4,21 @@ class BillController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await bill.show();
+            let result = await bill.show();
+            if (process.env.status == 3) {
+                res.render("admin/bill/showBill", {
+                    bill: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status == 0 || process.env.status == 2) {
+                res.redirect("/");
+            } else {
                 res.render("bill/showBill", {
                     bill: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
-            } else {
-                res.redirect("/");
             }
         })();
     }

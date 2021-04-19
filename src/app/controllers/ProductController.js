@@ -4,6 +4,7 @@ class ProductController {
     show(req, res, next) {
         (async() => {
             let result = await product.show();
+            console.log(result);
             if (process.env.status == 3) {
                 res.render("admin/products/showProduct", {
                     product: result,
