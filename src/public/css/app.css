@@ -11,3 +11,7 @@ body {
 hr {
     border-width: 3px
 }
+
+.txt-center {
+    text-align: center;
+}
