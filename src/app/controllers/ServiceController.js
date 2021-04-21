@@ -3,7 +3,7 @@ const { service, serviceType } = require("../../config/db");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
-        (async() => {
+        (async () => {
             let result = await service.show();
             if (process.env.status == 3) {
                 res.render("admin/services/showServices", {
@@ -25,7 +25,7 @@ class ServiceController {
         })();
     }
     add(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status != 0) {
                 res.render("services/addService", {
                     status: process.env.status,
@@ -37,7 +37,7 @@ class ServiceController {
         })();
     }
     adding(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status != 0) {
                 await service.add(
                     req.body.name,
@@ -52,10 +52,9 @@ class ServiceController {
         })();
     }
     edit(req, res, next) {
-        (async() => {
+        (async () => {
             let result = await service.show(req.params.id);
             let result2 = await serviceType.show();
-            console.log(result2);
             res.render("admin/services/updateServices", {
                 service: result[0],
                 serviceType: result2,
@@ -65,7 +64,7 @@ class ServiceController {
         })();
     }
     destroy(req, res, next) {
-        (async() => {
+        (async () => {
             let result = await service.destroy(req.params.id);
         })();
         res.redirect("/service");

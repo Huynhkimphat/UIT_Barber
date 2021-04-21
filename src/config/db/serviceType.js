@@ -14,9 +14,11 @@ async function destroy(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 id,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -47,12 +49,13 @@ async function add(name) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-
             "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 name,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -86,7 +89,8 @@ async function show(id = -1) {
                 return result.rows;
             }
         } else {
-            let exec = "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1 AND MALSP =" + id;
+            let exec =
+                "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1 AND MALSP =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -104,9 +108,11 @@ async function add(name) {
         let exec =
             "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 name,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );

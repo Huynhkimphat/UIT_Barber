@@ -48,5 +48,4 @@ module.exports = {
     bill,
     customerRating,
     time,
-    serviceType,
 };
