@@ -12,7 +12,7 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALSP = :id";
+        let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id";
         await conn.execute(
             exec, {
                 id,

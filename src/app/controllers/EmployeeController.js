@@ -61,7 +61,7 @@ class EmployeeController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await employee.destroy("NHANVIEN", req.params.id);
+            let result = await employee.destroy(req.params.id);
         })();
         res.redirect("/employee");
     }
