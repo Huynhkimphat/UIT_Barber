@@ -60,7 +60,7 @@
 
         // When delete button clicked
         btnDeleteProduct.onclick = function () {
-            deleteForm.action = '/product/' + productId + '?_method=DELETE';
+            deleteForm.action = '/products/' + productId + '?_method=DELETE';
             deleteForm.submit();
         };
     })

@@ -52,8 +52,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let productTypeId;
-        let deleteForm = document.forms['delete-booking-form'];
-        let btnDeleteproductType = document.getElementById('btn-delete-productType');
+        let deleteForm = document.forms['delete-productType-form'];
+        let btnDeleteProductType = document.getElementById('btn-delete-productType');
 
         // When dialog confirm clicked
         $('#deleteRecord').on('show.bs.modal', function (event) {
@@ -62,7 +62,7 @@
         });
 
         // When delete button clicked
-        btnDeleteproductType.onclick = function () {
+        btnDeleteProductType.onclick = function () {
             deleteForm.action = '/productType/' + productTypeId + '?_method=DELETE';
             deleteForm.submit();
         };

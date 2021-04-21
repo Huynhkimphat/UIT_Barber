@@ -52,8 +52,8 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         let serviceTypeId;
-        let deleteForm = document.forms['delete-service-form'];
-        let btnDeleteserviceType = document.getElementById('btn-delete-serviceType');
+        let deleteForm = document.forms['delete-serviceType-form'];
+        let btnDeleteServiceType = document.getElementById('btn-delete-serviceType');
 
         // When dialog confirm clicked
         $('#deleteRecord').on('show.bs.modal', function (event) {
@@ -62,7 +62,7 @@
         });
 
         // When delete button clicked
-        btnDeleteserviceType.onclick = function () {
+        btnDeleteServiceType.onclick = function () {
             deleteForm.action = '/serviceType/' + serviceTypeId + '?_method=DELETE';
             deleteForm.submit();
         };
