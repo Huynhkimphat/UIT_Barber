@@ -513,7 +513,8 @@ BEGIN
     END IF;
 END;
 DROP TRIGGER TRIGGER_23_HOADON;
-
+-- Trigger 27
+-- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
 
 
 

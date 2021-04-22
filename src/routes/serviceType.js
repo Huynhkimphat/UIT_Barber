@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const serviceTypeController = require("../app/controllers/serviceTypeController");
+const serviceTypeController = require("../app/controllers/ServiceTypeController");
 
 router.get("/", serviceTypeController.show);
 router.get("/add", serviceTypeController.add);
