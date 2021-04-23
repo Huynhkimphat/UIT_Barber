@@ -596,3 +596,4 @@ UPDATE DICHVU SET TINHTRANG = 1
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
+SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;

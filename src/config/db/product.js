@@ -77,9 +77,7 @@ async function show(id = -1) {
                 return result.rows;
             }
         } else {
-            let exec =
-                "SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.TINHTRANG = 1 AND SANPHAM.MALSP = LOAISANPHAM.MALSP AND SANPHAM.MASP =" +
-                id;
+            let exec = "SELECT * FROM SANPHAM WHERE SANPHAM.MASP =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
