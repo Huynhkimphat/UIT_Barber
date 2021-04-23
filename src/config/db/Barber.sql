@@ -125,7 +125,15 @@ CREATE TABLE NhanLuong
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
-
+--------------------------------------------BANG LOAI DICH VU-----------------------------------------------------  
+CREATE  TABLE LOAIDICHVU
+(
+    MaLDV           NUMBER              NOT NULL,
+    TenLoaiDichVu  VARCHAR2(255)       NOT NULL,
+    TinhTrang       NUMBER              DEFAULT 1,
+    CONSTRAINT      PK_LOAIDICHVU      PRIMARY KEY (MaLDV)
+);
+CREATE SEQUENCE MALDV_SEQ14 START WITH 1;
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
 (
@@ -138,6 +146,9 @@ CREATE TABLE DichVu
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
+
+ALTER  TABLE DICHVU
+    ADD MaLDV           NUMBER NOT NULL,
 --------------------------------------------BANG LOAI SAN PHAM----------------------------------------------------
 CREATE  TABLE LOAISANPHAM
 (
@@ -327,7 +338,7 @@ INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Ráy Tai',40000,'Lấy Ráy T
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',30000,'Giường Massage Nhật Bản','https://image-us.24h.com.vn/upload/4-2019/images/2019-11-07/hj-1573121560-842-width640height480.jpg',1);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.

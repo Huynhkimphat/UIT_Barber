@@ -1,4 +1,6 @@
-<div class="container">
+<link rel="stylesheet" href="/css/services.css">
+
+<div  class="container">
     <div class="row">
         {{#each service}}
         <div class="col-2">
@@ -19,6 +21,39 @@
     </div>
 </div>
 
+{{!-- <div class="bg-dark vh-100 d-flex justify-content-center align-items-center">
+    {{#each service}}
+    <div class="container d-flex justify-content-center">
+        
+        <div class="card p-2">
+            
+            <div class="p-info px-3 py-3">
+                <div>
+                    <h5 class="mb-0 card-title">{{1}}</h5> <span></span>
+                </div>
+                <div class="p-price d-flex flex-row price"> <span></span>
+                    <h1>{{2}}</h1>
+                </div>
+                <div class="heart"> <i class="bx bx-heart"></i> </div>
+            </div>
+            <div class="text-center p-image card-img"> <img src="{{4}}" alt="Card image cap" width="50px" height="100px"> </div>
+            <div class="p-about card-text">
+                <p>{{3}}</p>
+            </div>
+            <div class="buttons d-flex flex-row gap-4 px-4">
+                 {{!-- <button class="btn btn-danger w-100">View</button>  --}}
+                 <button class="btn btn-primary btn-outline-danger w-100">Booking Now</button> 
+                 <a href="/service/{{0}}/edit" class="btn btn-link">Update</a>
+                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{0}}>Delete
+                </a>
+            </div>
+             
+        </div>
+       
+    </div>
+    {{/each}}
+</div> --}}
 
 {{!-- Delete Model --}}
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
