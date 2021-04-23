@@ -2,7 +2,7 @@ const { serviceType, time } = require("../../config/db");
 class ServiceTypeController {
     //* [GET]/
     show(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await serviceType.show();
             if (process.env.status == 3) {
                 res.render("admin/serviceType/showServiceType", {
@@ -24,7 +24,7 @@ class ServiceTypeController {
         })();
     }
     add(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status != 0) {
                 res.render("serviceType/addServiceType", {
                     status: process.env.status,
@@ -36,7 +36,7 @@ class ServiceTypeController {
         })();
     }
     edit(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await serviceType.show(req.params.id);
             let timePeriod = await time.show();
             let temp = formatDate(result);
@@ -49,13 +49,13 @@ class ServiceTypeController {
         })();
     }
     destroy(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await serviceType.destroy(req.params.id);
         })();
         res.redirect("/serviceType");
     }
     adding(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status != 0) {
                 await serviceType.add(req.body.name);
                 res.redirect("/serviceType/add");
