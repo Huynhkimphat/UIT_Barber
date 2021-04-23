@@ -88,7 +88,8 @@ async function show(id = -1) {
                 return result.rows;
             }
         } else {
-            let exec = "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
+            let exec =
+                "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -99,9 +100,35 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function update(id, name, price, describe, img, typeService) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "UPDATE DICHVU SET TenDichVu = :name, Gia = :price, MOTADICHVU= :describe, HinhAnh= :img, MALDV= :typeService  WHERE MADV= :id";
+        await conn.execute(
+            exec, {
+                img,
+                name,
+                price,
+                typeService,
+                describe,
+                id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
     show,
     showToAdd,
     add,
     destroy,
+    update,
 };

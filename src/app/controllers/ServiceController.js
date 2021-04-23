@@ -3,7 +3,7 @@ const { service, serviceType } = require("../../config/db");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await service.show();
             if (process.env.status == 3) {
                 res.render("admin/services/showServices", {
@@ -25,7 +25,7 @@ class ServiceController {
         })();
     }
     add(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status != 0) {
                 res.render("services/addService", {
                     status: process.env.status,
@@ -37,7 +37,7 @@ class ServiceController {
         })();
     }
     adding(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status != 0) {
                 await service.add(
                     req.body.name,
@@ -51,8 +51,23 @@ class ServiceController {
             }
         })();
     }
+    update(req, res, next) {
+        if (process.env.status == 3) {
+            (async() => {
+                await service.update(
+                    req.params.id,
+                    req.body.name,
+                    req.body.price,
+                    req.body.describe,
+                    req.body.img,
+                    req.body.typeService
+                );
+                res.redirect("/service");
+            })();
+        }
+    }
     edit(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await service.show(req.params.id);
             let result2 = await serviceType.show();
             res.render("admin/services/updateServices", {
@@ -64,8 +79,8 @@ class ServiceController {
         })();
     }
     destroy(req, res, next) {
-        (async () => {
-            let result = await service.destroy(req.params.id);
+        (async() => {
+            await service.destroy(req.params.id);
         })();
         res.redirect("/service");
     }
