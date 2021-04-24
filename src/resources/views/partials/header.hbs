@@ -17,9 +17,9 @@
                 <input type="radio" name="check3" id="sp" class="headip">
                 <input type="radio" name="check3" id="lh" class="headip">
                 <a href="#" id="tc1" class="nav-link px-2 text-white"> <label for="tc">Trang chủ</label> </a>
-                <a href="#" id="dv1" class="nav-link px-2 text-white"> <label for="dv">Dịch vụ</label> </a>
-                <a href="#" id="sp1" class="nav-link px-2 text-white"> <label for="sp">Sản phẩm</label> </a>
-                <a href="#" id="lh1" class="nav-link px-2 text-white"> <label for="lh">Liên hệ</label> </a>
+                <a href="/service" id="dv1" class="nav-link px-2 text-white"> <label for="dv">Dịch vụ</label> </a>
+                <a href="/products" id="sp1" class="nav-link px-2 text-white"> <label for="sp">Sản phẩm</label> </a>
+                <a href="/about" id="lh1" class="nav-link px-2 text-white"> <label for="lh">Liên hệ</label> </a>
             </ul>
             <div class="text-end1">
                 {{#if status}}
@@ -45,42 +45,6 @@
                                             <a href=""> Xoá</a>
                                         </span>
                                     </li>
-                                    <li>
-                                        <img src="./assets/img/uppercut.jpg" alt="">
-                                        <span> Keo vuốt tóc uppercut</span>
-                                        <span> Giá:200.000</span>
-                                        <span> Số Lượng:20</span>
-                                        <span>
-                                            <a href=""> Xoá</a>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <img src="./assets/img/uppercut.jpg" alt="">
-                                        <span> Keo vuốt tóc uppercut</span>
-                                        <span> Giá:200.000</span>
-                                        <span> Số Lượng:20</span>
-                                        <span>
-                                            <a href=""> Xoá</a>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <img src="./assets/img/uppercut.jpg" alt="">
-                                        <span id="ten"> Keo vuốt tóc uppercut</span>
-                                        <span> Giá:200.000</span>
-                                        <span> Số Lượng:20</span>
-                                        <span>
-                                            <a href=""> Xoá</a>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <img src="./assets/img/uppercut.jpg" alt="">
-                                        <span> Keo vuốt tóc uppercut</span>
-                                        <span> Giá:200.000</span>
-                                        <span> Số Lượng:20</span>
-                                        <span>
-                                            <a href=""> Xoá</a>
-                                        </span>
-                                    </li>
                                 </ul>
                             </div> --}}
                         </div>
@@ -89,13 +53,13 @@
                 <div class="usa">
                     <input style="display:none" type="checkbox" name="check" id="use">
                     <label id="user2" for="use"> <img id="avata" src="./assets/img/avatar.png" alt=""> <b
-                            id="name"></b></label>
+                            id="name">{{username}}</b></label>
                     <div class="contentus">
                         <ul>
                             <li> Thông tin cá nhân</li>
-                            <li> Lịch đặt</li>
+                            <li><a href="./booking">Lịch đặt</a></li>
                             <li> Đơn hàng</li>
-                            <li> Thoát</li>
+                            <li><a href="/authenticate/logout">Thoát</a></li>
                         </ul>
                     </div>
                 </div>
