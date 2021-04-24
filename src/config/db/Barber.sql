@@ -129,8 +129,12 @@ CREATE TABLE NhanLuong
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
+<<<<<<< HEAD
+--------------------------------------------BANG LOAI DICH VU-----------------------------------------------------  
+=======
 --------------------------------------------BANG LOAI DICH VU-----------------------------------------------------
 
+>>>>>>> master
 CREATE  TABLE LOAIDICHVU
 (
     MaLDV           NUMBER              NOT NULL,
@@ -139,7 +143,10 @@ CREATE  TABLE LOAIDICHVU
     CONSTRAINT      PK_LOAIDICHVU      PRIMARY KEY (MaLDV)
 );
 CREATE SEQUENCE MALDV_SEQ14 START WITH 1;
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
 (
@@ -153,6 +160,9 @@ CREATE TABLE DichVu
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
+
+ALTER  TABLE DICHVU
+    ADD MaLDV           NUMBER NOT NULL,
 --------------------------------------------BANG LOAI SAN PHAM----------------------------------------------------
 CREATE  TABLE LOAISANPHAM
 (
@@ -331,6 +341,33 @@ INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Chăm Sóc Da',1);
 INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Dịch Vụ Khác',1);
 -- Dich Vu
 SET DEFINE OFF;
+<<<<<<< HEAD
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt',30000,'Tư vấn kiểu tóc hợp khuôn mặt  Cắt tóc tạo kiểu bởi stylist hàng đầu. Cạo mặt êm ái – xả sạch tóc con. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://s3-ap-southeast-1.amazonaws.com/we-xpats.com/articles/images/QvKRrjX7_gilU20RdXdQ1_ewaR_Ok3j4gnbIboc-Ww_ugF_1cmcuAuvjdHOUrzwGQIbRuXAzerPRooUEabykGw7Dk8unyWTyZjdCJSxu87gSpbavnOb4HsyLdAUxee2z2j8di0ew.jpeg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt Gội 10 bước (60 phút)',199000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn – phun nước hoa hồng công nghệ cao. 4. Gội đầu massage bấm huyệt. 5. Massage rửa tai bọt sảng khoái. 6. Kéo khăn giãn cơ cổ - xối nước thác đổ. 7. Tư vấn kiểu tóc hợp khuôn mặt. 8. Cắt tóc tạo kiểu bởi stylist hàng đầu. 9. Cạo mặt êm ái – xả sạch tóc con. 10. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://britishm.vn/wp-content/uploads/2019/02/cham-soc-toc-ma-mac-phai-6-sai-lam-nay-bao-sao-toc-nam-gioi-luon-kho-cung-xo-roi.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Cắt – Xả - Tạo kiểu (30 phút)',70000,'1. Gội đầu xả tóc. 2. Tư vấn kiểu tóc hợp khuôn mặt. 3. Cắt tóc tạo kiểu bởi stylist hàng đầu. 4. Cạo mặt êm ái – xả sạch tóc con. 5. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2019/12/3man-30shine-quang-ngai-320648.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)',70000,'Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào? QUY TRÌNH 5 BƯỚC. Bước 1: Gội đầu làm mềm tóc, sạch bụi bẩn. Bước 2: Tư vấn kiểu tóc gọn gàng, phù hợp với lứa tuổi, thể hiện cá tính, bản sắc riêng. Bước 3: Cắt tóc tạo kiểu. Bước 4: Gội xả kỹ càng sạch tóc con, giúp bé không cảm thấy khó chịu suốt cả ngày. Bước 5: Vuốt sáp đẹp trai.','https://st.quantrimang.com/photos/image/2020/04/08/cat-toc-cho-be-trai.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước',40000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn công nghệ cao. 4. Phun nước hoa hồng se khít lỗ chân lông. 5. Gội đầu massage, kết hợp loại bỏ gàu. 6. Massage rửa tai bọt sảng khoái. 7. Kéo khăn nóng giãn cơ cổ - Xối nước thác đổ giải tỏa căng thẳng. 8. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://htluxury.vn/wp-content/uploads/2019/04/kieu-toc-nam-vuot-nguoc-1.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp',349000,'Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','https://blog.hairbros.vn/wp-content/uploads/2019/01/kieu-toc-nam-uon-dep-nhat.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn',260000,'Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','https://hervietnam.com.vn/wp-content/uploads/2019/05/Lay-mac-ao-den-toc-cat-layer-uon-xoan-nhe.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Con Sâu',499000,'Là kiểu uốn hoàn toàn mới đang tạo trend khắp châu Á. Uốn con sâu đem lại hình tượng thời trang, hiện đại, khỏe khoắn. Giúp mái tóc trở nên bồng bềnh, dày dặn hơn. Uốn con sâu giúp tóc luôn vào nếp dù không cần vuốt sáp tạo kiểu.','https://hagona.com/upload/images/kieu-toc-con-sau-3.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn PREMLOCK',799000,'Là kiểu uốn tóc làm mưa làm gió trên khắp thế giới. Đây là kiểu tóc độc đáo, khác lạ đem lại phong cách khỏe khoắn, nam tính và hiện đại Châu Âu. Khi sở hữu Premlock anh sẽ không cần vuốt tóc tạo kiểu mỗi buổi sáng mà tóc vẫn luôn vào form chuẩn đẹp.','https://s4m.edu.vn/uploaded/73289672_402996823968583_4143822384626925568_n.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Đen Phủ Bạc',180000,'Nhuộm Đen Phủ Bạc','http://file.hstatic.net/1000260990/file/kieu_mau_nhuom_toc_dep_cho_nam_1_grande.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Nâu Cao Cấp',249000,'Nhuộm Nâu Cao Cấp','https://vn-test-11.slatic.net/original/255874af35cf1dcbcae8adbb9812ec6e.jpg_720x720q80.jpg_.webp',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Không Tẩy',289000,'Nhuộm Thời Trang Không Tẩy','https://hvn.cdnxbvn.com/wp-content/uploads/2019/01/Lee-Min-Ho-toc-nhuom-mau-nau-lanh-600x606.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Cần Tẩy',389000,'Nhuộm Thời Trang Cần Tẩy','https://tocnamdep.com/wp-content/uploads/2020/06/mau-toc-nam-dep-2.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Hấp Dưỡng Oliu',199000,'Là phương pháp dưỡng tóc bằng bơ dầu oliu chiết xuất hoàn toàn tự nhiên, rất tốt cho tóc. Giúp phục hồi tóc hư tổn, khô xơ, đem lại mái tóc bóng mượt, chắc khỏe. Phương pháp sử dụng biện pháp kích nhiệt để đưa dưỡng chất vào sâu bên trong sợi tóc và thẩm thấu vào da đầu đem lại hiệu quả lâu dài.','https://tinphongcach.vn/wp-content/uploads/2020/04/Kieu-nam-Han-Quoc-danh-cho-khuon-mat-tron.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Phục Hồi Nano',159000,'Là phương pháp dưỡng tóc hai lớp kết hợp với bắn súng nano công nghệ cao, hiệu quả siêu vượt trội. Lớp dưỡng đầu tiên giúp mở lớp biểu bì tóc và làm chắc khỏe lớp tóc từ bên ngoài. Lớp dưỡng thứ hai giúp nuôi dưỡng, phục hồi tóc từ sâu bên trong. Phương pháp bắn súng nano giúp đưa dưỡng chất vào sâu bên trong tủy tóc, giúp tóc khỏe từ bên trong, bóng mượt từ bên ngoài, hiệu quả lâu dài.','https://file.hstatic.net/1000096321/article/untitled-1.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy Da Chết',40000,'Tẩy Da Chết','https://leediors.com/wp-content/uploads/2020/04/cach-tay-te-bao-chet-cho-da-mat-tai-nha11.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Đắp Mặt Nạ Lạnh',40000,'Đắp Mặt Nạ Lạnh','https://www.boshop.vn/uploads/2019/11/26/5ddc9098e3ffd-tuyen-ba-nhon-hoat-dong-manh-o-tuoi-day-thi.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Mụn Mũi Chuyên Sâu',40000,'Lấy Mụn Mũi Chuyên Sâu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox Da Đầu',40000,'Detox Da Đầu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lột Mụn Than Tre',40000,'Lột Mụn Than Tre','https://ae01.alicdn.com/kf/He2c5663f0c0f499483a713ee228c70220/ROREC-Than-Tre-en-M-t-N-B-n-L-t-M-n-u-en-T.jpg_Q90.jpg_.webp',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Ráy Tai',40000,'Lấy Ráy Tai','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLvTC1BEP6Ffqa8n5qYhdjJmVZR_cypvBzs8j7Qj4rMJ1WgtXLYJSh3pcU4Q8pXTdSOmo&usqp=CAU',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',30000,'Giường Massage Nhật Bản','https://image-us.24h.com.vn/upload/4-2019/images/2019-11-07/hj-1573121560-842-width640height480.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
+=======
 DESCRIBE DICHVU
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt',30000,'Tư vấn kiểu tóc hợp khuôn mặt  Cắt tóc tạo kiểu bởi stylist hàng đầu. Cạo mặt êm ái – xả sạch tóc con. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://s3-ap-southeast-1.amazonaws.com/we-xpats.com/articles/images/QvKRrjX7_gilU20RdXdQ1_ewaR_Ok3j4gnbIboc-Ww_ugF_1cmcuAuvjdHOUrzwGQIbRuXAzerPRooUEabykGw7Dk8unyWTyZjdCJSxu87gSpbavnOb4HsyLdAUxee2z2j8di0ew.jpeg',1,1);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt Gội 10 bước (60 phút)',199000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn – phun nước hoa hồng công nghệ cao. 4. Gội đầu massage bấm huyệt. 5. Massage rửa tai bọt sảng khoái. 6. Kéo khăn giãn cơ cổ - xối nước thác đổ. 7. Tư vấn kiểu tóc hợp khuôn mặt. 8. Cắt tóc tạo kiểu bởi stylist hàng đầu. 9. Cạo mặt êm ái – xả sạch tóc con. 10. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://britishm.vn/wp-content/uploads/2019/02/cham-soc-toc-ma-mac-phai-6-sai-lam-nay-bao-sao-toc-nam-gioi-luon-kho-cung-xo-roi.jpg',1,1);
@@ -357,6 +394,7 @@ INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',300
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
+>>>>>>> master
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
