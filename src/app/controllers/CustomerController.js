@@ -1,14 +1,13 @@
 const { customer, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
+
 class CustomerController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 let result = await customer.show();
-                let temp = formatDate(result);
-                res.render("customer/showCustomer", {
-                    customer: temp,
+                res.render("admin/customer/showCustomer", {
+                    customer: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
@@ -48,7 +47,6 @@ class CustomerController {
             if (process.env.status != 0) {
                 let result = await customer.show(req.params.id);
                 let timePeriod = await time.show();
-                let temp = formatDate(result);
                 res.render("customer/updateCustomer", {
                     customer: temp,
                     timePeriod: timePeriod,
@@ -62,7 +60,7 @@ class CustomerController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("KHACHHANG", req.params.id);
+            let result = await customer.destroy(req.params.id);
         })();
         res.redirect("/customer");
     }

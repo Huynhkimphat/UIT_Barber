@@ -1,14 +1,13 @@
 const { employee, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
+
 class EmployeeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 let result = await employee.show();
-                let temp = formatDate(result);
-                res.render("employee/showEmployee", {
-                    employee: temp,
+                res.render("admin/employee/showEmployee", {
+                    employee: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
@@ -62,7 +61,7 @@ class EmployeeController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await employee.destroy("NHANVIEN", req.params.id);
+            let result = await employee.destroy(req.params.id);
         })();
         res.redirect("/employee");
     }

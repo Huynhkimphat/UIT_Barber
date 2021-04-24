@@ -1,0 +1,27 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mã hóa đơn</th>
+            <th scope="col">Mã khách hàng</th>
+            <th scope="col">Khuyến mãi</th>
+            <th scope="col">Tổng tiền</th>
+            <th scope="col">MORE</th>
+        </tr>
+    </thead>
+    {{#each bill}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MAHD}}</th>
+            <td>{{MAKH}}</td>
+            <td>{{KHUYENMAI}}</td>
+            <td>{{TONGTIEN}} </td>
+            <td>
+                <a href="/bill/{{MAHD}}/view" class="btn btn-link">View more</a>
+            </td>
+        </tr>
+
+    </tbody>
+
+    {{/each}}
+
+</table>

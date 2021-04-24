@@ -2,9 +2,11 @@ const authenticateRouter = require("./authenticate");
 const productRouter = require("./product");
 const bookingRouter = require("./booking");
 const serviceRouter = require("./service");
+const serviceTypeRouter = require("./serviceType");
 const employeeRouter = require("./employee");
 const productTypeRouter = require("./productType");
 const customerRouter = require("./customer");
+const customerRatingRouter = require("./customerRating");
 const accountRouter = require("./account");
 const billRouter = require("./bill");
 const adminRouter = require("./admin");
@@ -29,6 +31,10 @@ function route(app) {
     app.use("/service", serviceRouter);
     // Route Customer
     app.use("/customer", customerRouter);
+    // Route ServiceType
+    app.use("/serviceType", serviceTypeRouter);
+    // Route CustomerRating
+    app.use("/customerRating", customerRatingRouter);
     // Route Account
     app.use("/account", accountRouter);
     // Route employee

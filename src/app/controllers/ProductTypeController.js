@@ -1,16 +1,26 @@
 const { productType, time } = require("../../config/db");
-const { formatDate } = require("../../utils/formatDate");
 class ProductTypeController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await productType.show();
-            let temp = formatDate(result);
-            res.render("productType/showProductType", {
-                productType: temp,
-                status: process.env.status,
-                username: process.env.username,
-            });
+            if (process.env.status == 3) {
+                res.render("admin/productType/showProductType", {
+                    productType: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status != 0) {
+                res.render("productType/showProductType", {
+                    productType: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.render("productType/showProductType", {
+                    productType: result,
+                });
+            }
         })();
     }
     add(req, res, next) {
@@ -41,7 +51,6 @@ class ProductTypeController {
     destroy(req, res, next) {
         (async() => {
             let result = await productType.destroy(
-                "LOAISANPHAM",
                 req.params.id
             );
         })();

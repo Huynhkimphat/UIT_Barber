@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -13,6 +14,7 @@ async function showToAdd() {
         conn = await oracledb.getConnection(config);
         let exec = "SELECT MaDV,TenDichVu FROM DichVu";
         const result = await conn.execute(exec);
+
         if (conn) {
             await conn.close();
         }
@@ -44,14 +46,14 @@ async function add(name, price, describe, img) {
         console.log("Ouch!", err);
     }
 }
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaDV = :condition ";
+        let exec = "UPDATE DICHVU SET TINHTRANG = 0 WHERE MADV = :id ";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -68,14 +70,26 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec = "SELECT * FROM DICHVU";
-            const result = await conn.execute(exec);
-            if (conn) {
-                await conn.close();
+            if (process.env.status != 3) {
+                let exec = "SELECT * FROM DICHVU WHERE TINHTRANG = 1";
+                const result = await conn.execute(exec);
+
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
+            } else {
+                let exec = "SELECT * FROM DICHVU";
+                const result = await conn.execute(exec);
+
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
             }
-            return result.rows;
         } else {
-            let exec = "SELECT * FROM DICHVU WHERE MADV =" + id;
+            let exec =
+                "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -86,9 +100,35 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function update(id, name, price, describe, img, typeService) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "UPDATE DICHVU SET TenDichVu = :name, Gia = :price, MOTADICHVU= :describe, HinhAnh= :img, MALDV= :typeService  WHERE MADV= :id";
+        await conn.execute(
+            exec, {
+                img,
+                name,
+                price,
+                typeService,
+                describe,
+                id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
     show,
     showToAdd,
     add,
     destroy,
+    update,
 };

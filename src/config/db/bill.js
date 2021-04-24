@@ -1,4 +1,5 @@
 const oracledb = require("oracledb");
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -7,14 +8,14 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MaKH = :condition ";
+        let exec = "UPDATE HOADON SET TINHTRANG = 0 WHERE MAHD = :id";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -31,25 +32,26 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV";
-            const result = await conn.execute(exec);
-            if (conn) {
-                await conn.close();
+            if (process.env.status != 3) {
+                let exec =
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1";
+                const result = await conn.execute(exec);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
+            } else {
+                let exec =
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON";
+                const result = await conn.execute(exec);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
             }
-            return result.rows;
         } else {
             let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV\n" +
-                "AND dl.MADL=" +
+                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1 AND MAHD =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {
@@ -61,5 +63,37 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function viewProducts(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
+            id;
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function viewServices(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG FROM DICHVU, CTHDDV WHERE CTHDDV.MAHD =" +
+            id;
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 
-module.exports = { show, destroy };
+module.exports = { show, destroy, viewProducts, viewServices };

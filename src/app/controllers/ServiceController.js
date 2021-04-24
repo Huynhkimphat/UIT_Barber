@@ -1,15 +1,27 @@
-const { service, time } = require("../../config/db");
+const { service, serviceType } = require("../../config/db");
 
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await service.show();
-            res.render("services/showServices", {
-                service: result,
-                status: process.env.status,
-                username: process.env.username,
-            });
+            if (process.env.status == 3) {
+                res.render("admin/services/showServices", {
+                    service: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status != 0) {
+                res.render("services/showServices", {
+                    service: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.render("services/showServices", {
+                    service: result,
+                });
+            }
         })();
     }
     add(req, res, next) {
@@ -39,14 +51,28 @@ class ServiceController {
             }
         })();
     }
+    update(req, res, next) {
+        if (process.env.status == 3) {
+            (async() => {
+                await service.update(
+                    req.params.id,
+                    req.body.name,
+                    req.body.price,
+                    req.body.describe,
+                    req.body.img,
+                    req.body.typeService
+                );
+                res.redirect("/service");
+            })();
+        }
+    }
     edit(req, res, next) {
         (async() => {
             let result = await service.show(req.params.id);
-            let timePeriod = await time.show();
-            console.log(timePeriod);
-            res.render("service/updateService", {
-                service: result,
-                timePeriod: timePeriod,
+            let result2 = await serviceType.show();
+            res.render("admin/services/updateServices", {
+                service: result[0],
+                serviceType: result2,
                 status: process.env.status,
                 username: process.env.username,
             });
@@ -54,7 +80,7 @@ class ServiceController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await service.destroy("DICHVU", req.params.id);
+            await service.destroy(req.params.id);
         })();
         res.redirect("/service");
     }
