@@ -102,43 +102,6 @@
     grid-column-gap: 0.8em;
     justify-items: center;
   }
-  /* .back .info {
-    position: relative;
-    display: flex;
-    align-items: center;
-    color: #FF1E56;
-    grid-row: 3;
-  } */
-  /* .back .info:not(:first-of-type):before {
-    content: '';
-    position: absolute;
-    left: -0.9em;
-    height: 18px;
-    width: 1px;
-    background-color: #ccc;
-  }
-  .back .info span {
-    font-size: 2em;
-    font-weight: 700;
-  }
-  .back .info i {
-    font-size: 1.2em;
-  }
-  .back .info i:before {
-    background: linear-gradient(40deg, #355cc9, #438af3);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-  }
-  .back .info .icon {
-    margin-left: 0.3em;
-  }
-  .back .info .icon span {
-    display: block;
-    margin-top: -0.25em;
-    font-size: 0.8em;
-    font-weight: 600;
-    white-space: nowrap;
-  } */
   .back .description {
     grid-row: 5;
     grid-column: 1 / span 6;
