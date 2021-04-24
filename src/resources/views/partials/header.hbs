@@ -1,70 +1,121 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<link rel="stylesheet" href="/css/header.css">
+<header class="p-3 bg-dark text-white">
+
     <div class="container">
-        <a href="/" class="navbar-brand">
-            <img src="/images/logo.ico" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size:16px;margin-left:10px;">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="/service">Services</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="/products">Products</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Explore</a>
-                </li>
-                <li class="nav-item mx-3">
-                    <a class="nav-link" href="/about">About</a>
-                </li>
-
+        <div class="logo">
+            <a href="/"><img src="/images/logoheader.png" alt=""></a>
+        </div>
+        <div id="content" class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap" />
+                </svg>
+            </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <input type="radio" name="check3" id="tc" class="headip" checked>
+                <input type="radio" name="check3" id="dv" class="headip">
+                <input type="radio" name="check3" id="sp" class="headip">
+                <input type="radio" name="check3" id="lh" class="headip">
+                <a href="#" id="tc1" class="nav-link px-2 text-white"> <label for="tc">Trang chủ</label> </a>
+                <a href="#" id="dv1" class="nav-link px-2 text-white"> <label for="dv">Dịch vụ</label> </a>
+                <a href="#" id="sp1" class="nav-link px-2 text-white"> <label for="sp">Sản phẩm</label> </a>
+                <a href="#" id="lh1" class="nav-link px-2 text-white"> <label for="lh">Liên hệ</label> </a>
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item" style="position:relative"><i class="fas fa-shopping-cart"></i></li>
-            </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item" style="position:relative">
-                    {{#if status}}
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{username}}
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Your Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="./booking">Booking</a></li>
-                        <li><a class="dropdown-item" href="#">Order</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="/authenticate/logout">Log out</a></li>
-                    </ul>
-
-                    {{else}}
-                    <div class="authen__block d-flex">
-                        <a class="nav-link" href="/authenticate/register">
-                            Register
-                        </a>
-                        <a class="nav-link" href="/authenticate/login">
-                            Login
-                        </a>
+            <div class="text-end1">
+                {{#if status}}
+                <div id="user" class="me-2">
+                    <div class="shop">
+                        <i id="shopping" class="fas fa-shopping-cart"></i>
+                        <div class="nosh">
+                            <div>
+                                <img id="noshop" src="./assets/img/no.png" alt="">
+                                <b>Hiện tại không có đơn hàng</b>
+                            </div>
+                            {{!-- <div class="noempty">
+                                <ul class="listsp">
+                                    <li>
+                                        <h6> Sản phẩm đã thêm</h6>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/img/uppercut.jpg" alt="">
+                                        <span> Keo vuốt tóc uppercut</span>
+                                        <span> Giá:200.000</span>
+                                        <span> Số Lượng:20</span>
+                                        <span>
+                                            <a href=""> Xoá</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/img/uppercut.jpg" alt="">
+                                        <span> Keo vuốt tóc uppercut</span>
+                                        <span> Giá:200.000</span>
+                                        <span> Số Lượng:20</span>
+                                        <span>
+                                            <a href=""> Xoá</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/img/uppercut.jpg" alt="">
+                                        <span> Keo vuốt tóc uppercut</span>
+                                        <span> Giá:200.000</span>
+                                        <span> Số Lượng:20</span>
+                                        <span>
+                                            <a href=""> Xoá</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/img/uppercut.jpg" alt="">
+                                        <span id="ten"> Keo vuốt tóc uppercut</span>
+                                        <span> Giá:200.000</span>
+                                        <span> Số Lượng:20</span>
+                                        <span>
+                                            <a href=""> Xoá</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <img src="./assets/img/uppercut.jpg" alt="">
+                                        <span> Keo vuốt tóc uppercut</span>
+                                        <span> Giá:200.000</span>
+                                        <span> Số Lượng:20</span>
+                                        <span>
+                                            <a href=""> Xoá</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div> --}}
+                        </div>
                     </div>
-                    {{/if}}
-                </li>
-            </ul>
+                </div>
+                <div class="usa">
+                    <input style="display:none" type="checkbox" name="check" id="use">
+                    <label id="user2" for="use"> <img id="avata" src="./assets/img/avatar.png" alt=""> <b
+                            id="name"></b></label>
+                    <div class="contentus">
+                        <ul>
+                            <li> Thông tin cá nhân</li>
+                            <li> Lịch đặt</li>
+                            <li> Đơn hàng</li>
+                            <li> Thoát</li>
+                        </ul>
+                    </div>
+                </div>
+                {{else}}
+                <div>
+                    <a href="/authenticate/register" type="button" class="btn btn-warning">Sign-up</a>
+                    <a href="/authenticate/login" type="button" class="btn btn-outline-light me-2">Login</a>
+                </div>
+                {{/if}}
+
+            </div>
+
+
         </div>
     </div>
-</nav>
+    </div>
+
+</header>
+<script>
+    document.querySelector('.shop').onmouseover = function () {
+        document.querySelector('#use').checked = false;
+    }
+</script>
