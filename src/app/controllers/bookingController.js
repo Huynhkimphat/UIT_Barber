@@ -34,6 +34,7 @@ class BookingController {
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
+                console.log(day);
                 res.render("booking/addBooking", {
                     // booking: temp,
                     day: day,
