@@ -23,7 +23,6 @@ class BookingController {
                 let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
-                let listBooking = await booking.showToAdd();
                 let d = new Date();
                 let dayString = d.toLocaleDateString("en-GB");
                 let day = [
@@ -41,7 +40,6 @@ class BookingController {
                     timePeriod: timePeriod,
                     employeeName: employeeName,
                     serviceName: serviceName,
-                    listBooking: listBooking,
                     status: process.env.status,
                     username: process.env.username,
                 });
