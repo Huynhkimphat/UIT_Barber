@@ -11,33 +11,91 @@
             </p>
         </div>
         <div class="form-group">
-            <label for="time">Time :</label>
-            <p class="booking_type">
-            {{#each timePeriod}}
-                <label><input type="radio" name="time" value="{{0}}" onclick="addEmployee()"><span>{{1}}</span></label>
-            {{/each}}
-            </p>
+            <label for="employee">employee:</label>
+                <p class="booking_type">
+                {{#each employeeName}}
+                    <label><input type="radio" name="employee" value="{{MANV}}" onclick="addTimePeriod({{MANV}})"><span>{{HO}} {{TEN}}</span></label>
+                {{/each}}
+                </p>
         </div>
+        <div id="addTime"></div>
         <div class="form-group">
             <label for="serviceName">Service:</label>
                 <p class="booking_type">
                 {{#each serviceName}}
-                    <label><input type="radio" name="service" value="{{0}}"><span>{{1}}</span></label>
+                    <label><input type="checkbox" name="service" value="{{MADV}}" onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
                 {{/each}}
                 </p>
         </div>
         <div id="addEmployee"></div>
+        <div class="form-group">
+            <p class="booking_type">
+                <div>
+                    <label >TOTAL: </label>
+                    <label id="showTotal"></label>
+                </div>
+            </p>
+        </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
-<script>
-    function addEmployee() {
+<script >
+    let money = 0;
+    let lstMoney = [];
+    async function show(MANV) {
+        let conn;
+        try {
+            conn = await oracledb.getConnection(config);
+            let exec = ```SELECT GIODAT.MAGIO 
+            FROM GIODAT 
+            WHERE GIODAT.MAGIO NOT IN(
+                SELECT  GIODAT.MAGIO 
+                FROM DatLich,GIODAT 
+                WHERE GIODAT.MAGIO = DATLICH.MAGIO 
+                AND DATLICH.MANV=21)```;
+            const result = await conn.execute(exec);
+            if (conn) {
+                await conn.close();
+            }
+            return result.rows;
+        } catch (err) {
+            console.log("Ouch!", err);
+        }
+    }
+    function addEmployee(MAGIO) {
         let cform = '<label for="employee">employee:</label>'
                 +'<p class="booking_type">'
                 +'{{#each employeeName}}'
-                +'    <label><input type="radio" name="employee" value="{{0}}" ><span>{{1}} {{2}}</span></label>'
+                +'    <label><input type="radio" name="employee" value="{{MANV}}" ><span>{{HO}} {{TEN}}</span></label>'
                 +'{{/each}}'
                 +'</p>';
         document.getElementById("addEmployee").innerHTML = cform;
     }
+    async function addTimePeriod(MANV){
+        let timeArray=await show(MANV);
+        let cform = '<label for="time">Time :</label>'
+            + '<p class="booking_type">'
+            + '{{#each timePeriod}}'
+            +    '<label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>'
+            + '{{/each}}'
+            + '</p>';
+        document.getElementById("addTime").innerHTML = cform;
+    }
+    function total(GIA){
+            function checkMoney(money) {
+            return money == GIA;
+        }
+        if(lstMoney.findIndex(checkMoney) == -1){
+            money = money + GIA
+            lstMoney.push(GIA);
+            document.getElementById("showTotal").innerHTML = money;
+            
+        }
+        else{
+            money = money - GIA
+            delete lstMoney[lstMoney.findIndex(checkMoney)];
+            document.getElementById("showTotal").innerHTML = money;
+        }
+    }
+    
 </script>

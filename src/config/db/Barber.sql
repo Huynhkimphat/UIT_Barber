@@ -92,7 +92,6 @@ CREATE TABLE NhanVien
     CONSTRAINT      CHK_NHANVIEN3   CHECK   (NgaySinh <  NgayVaoLam)
 );
 CREATE SEQUENCE MANV_SEQ3 START WITH 1;
-
 ---------------------------------------------BANG TAI KHOAN-------------------------------------------------------
 CREATE TABLE TaiKhoan
 (
@@ -479,3 +478,24 @@ DROP TRIGGER TRIGGER_16_NHANVIEN;
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
 
 
+
+-----Xuân Trường làm ajax-----
+
+SELECT * FROM KHACHHANG
+SELECT * FROM DATLICH
+SELECT * FROM NHANVIEN
+INSERT INTO NhanVien(MaNV,Ho,Ten,NgaySinh,SoDT,NgayVaoLam,Email) VALUES (MANV_SEQ3.NEXTVAL,'B','PHAN',TO_DATE('02-02-2001','dd-mm-yyyy'),10100,TO_DATE('02-02-2020','dd-mm-yyyy'),'a12345.com')
+
+
+SELECT GIODAT.MAGIO FROM GIODAT WHERE GIODAT.MAGIO NOT IN(
+    SELECT  GIODAT.MAGIO
+    FROM DatLich,GIODAT
+    WHERE GIODAT.MAGIO = DATLICH.MAGIO
+    AND DATLICH.MANV=21
+)
+
+
+
+
+
+--------------------------------

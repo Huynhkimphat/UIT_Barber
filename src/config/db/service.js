@@ -12,7 +12,7 @@ async function showToAdd() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MaDV,TenDichVu FROM DichVu";
+        let exec = "SELECT MaDV,TenDichVu,Gia FROM DichVu";
         const result = await conn.execute(exec);
 
         if (conn) {
