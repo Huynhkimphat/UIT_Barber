@@ -4,24 +4,24 @@
   - [ ] Fix bug PC
   - [ ] Responsive for Mobile
 - Tran Thi Thu Oanh
-  - [ ] Header
+  - [x] Header
 - Luong Tuong Quy
   - [ ] README : Introduction, Acknowledgements
   - [ ] Trigger (very very important)
   - [ ] Fix bug register and login form
-  - [ ] Design for Service(include Responsive)
+  - [ ] Design for Service(include Responsive)-> Sunday 
 - Huynh Kim Phat
   - [ ] Trigger
-  - [ ] Add account for customers
-  - [ ] Role: Customer, Admin, Staff
+  - [x] Add account for customers
+  - [x] Role: Customer, Admin, Staff
 - Le Duy Hoang
-  - [ ] Delete
-  - [ ] Soft Delete
+  - [x] Delete
+  - [x] Soft Delete
   - [ ] Trigger
 
 - Phan Le Xuan Truong
   - [ ] Update 
-  - [ ] Ajax
+  - [x] Ajax
   - [ ] Trigger
 
 - Nguyen Dinh Sang

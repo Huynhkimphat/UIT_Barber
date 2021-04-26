@@ -9,14 +9,14 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-async function destroy(type, condition) {
+async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM " + type + " WHERE MADGNV = :condition ";
+        let exec = "UPDATE DANHGIANHANVIEN SET TINHTRANG = 0 WHERE MADGNV = :id";
         await conn.execute(
             exec, {
-                condition,
+                id,
             }, {
                 autoCommit: true,
             }
@@ -59,17 +59,28 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            let exec =
-                "SELECT * FROM DANHGIANHANVIEN";
-            const result = await conn.execute(exec);
-            let temp = formatDate(result);
-            if (conn) {
-                await conn.close();
+            if (process.env.status != 3) {
+                let exec =
+                    "SELECT * FROM DANHGIANHANVIEN WHERE TINHTRANG = 1";
+                const result = await conn.execute(exec);
+                let temp = formatDate(result);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
+            } else {
+                let exec =
+                    "SELECT * FROM DANHGIANHANVIEN";
+                const result = await conn.execute(exec);
+                let temp = formatDate(result);
+                if (conn) {
+                    await conn.close();
+                }
+                return result.rows;
             }
-            return result.rows;
         } else {
             let exec =
-                "SELECT * FROM DANHGIANHANVIEN WHERE MADGNV=" +
+                "SELECT * FROM DANHGIANHANVIEN WHERE TINHTRANG = 1 AND MADGNV=" +
                 id;
             const result = await conn.execute(exec);
             let temp = formatDate(result);

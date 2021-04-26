@@ -5,41 +5,43 @@
         <div class="form-group">
             <label for="date">Date :</label>
             <p class="booking_type">
-            {{#each day}}
+                {{#each day}}
                 <label><input type="radio" name="date" value="{{0}}"><span>{{0}}</span></label>
-            {{/each}}
+                {{/each}}
             </p>
         </div>
         <div class="form-group">
             <label for="employee">employee:</label>
-                <p class="booking_type">
+            <p class="booking_type">
                 {{#each employeeName}}
-                    <label><input type="radio" name="employee" value="{{MANV}}" onclick="addTimePeriod({{MANV}})"><span>{{HO}} {{TEN}}</span></label>
+                <label><input type="radio" name="employee" value="{{MANV}}"
+                        onclick="addTimePeriod({{MANV}})"><span>{{HO}} {{TEN}}</span></label>
                 {{/each}}
-                </p>
+            </p>
         </div>
         <div id="addTime"></div>
         <div class="form-group">
             <label for="serviceName">Service:</label>
-                <p class="booking_type">
+            <p class="booking_type">
                 {{#each serviceName}}
-                    <label><input type="checkbox" name="service" value="{{MADV}}" onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
+                <label><input type="checkbox" name="service" value="{{MADV}}"
+                        onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
                 {{/each}}
-                </p>
+            </p>
         </div>
         <div id="addEmployee"></div>
         <div class="form-group">
             <p class="booking_type">
-                <div>
-                    <label >TOTAL: </label>
-                    <label id="showTotal"></label>
-                </div>
+            <div>
+                <label>TOTAL: </label>
+                <label id="showTotal"></label>
+            </div>
             </p>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
-<script >
+<script>
     let money = 0;
     let lstMoney = [];
     async function show(MANV) {
@@ -64,38 +66,38 @@
     }
     function addEmployee(MAGIO) {
         let cform = '<label for="employee">employee:</label>'
-                +'<p class="booking_type">'
-                +'{{#each employeeName}}'
-                +'    <label><input type="radio" name="employee" value="{{MANV}}" ><span>{{HO}} {{TEN}}</span></label>'
-                +'{{/each}}'
-                +'</p>';
+            + '<p class="booking_type">'
+            + '{{#each employeeName}}'
+            + '    <label><input type="radio" name="employee" value="{{MANV}}" ><span>{{HO}} {{TEN}}</span></label>'
+            + '{{/each}}'
+            + '</p>';
         document.getElementById("addEmployee").innerHTML = cform;
     }
-    async function addTimePeriod(MANV){
-        let timeArray=await show(MANV);
+    async function addTimePeriod(MANV) {
+        let timeArray = await show(MANV);
         let cform = '<label for="time">Time :</label>'
             + '<p class="booking_type">'
             + '{{#each timePeriod}}'
-            +    '<label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>'
+            + '<label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>'
             + '{{/each}}'
             + '</p>';
         document.getElementById("addTime").innerHTML = cform;
     }
-    function total(GIA){
-            function checkMoney(money) {
+    function total(GIA) {
+        function checkMoney(money) {
             return money == GIA;
         }
-        if(lstMoney.findIndex(checkMoney) == -1){
+        if (lstMoney.findIndex(checkMoney) == -1) {
             money = money + GIA
             lstMoney.push(GIA);
             document.getElementById("showTotal").innerHTML = money;
-            
+
         }
-        else{
+        else {
             money = money - GIA
             delete lstMoney[lstMoney.findIndex(checkMoney)];
             document.getElementById("showTotal").innerHTML = money;
         }
     }
-    
+
 </script>

@@ -5,7 +5,9 @@ const adminAuthenticate = require("./admin/adminAuthenticate");
 const create = require("./admin/create");
 const authenticate = require("./authenticate");
 const booking = require("./booking");
+const account = require("./account");
 const service = require("./service");
+const serviceType = require("./serviceType");
 const product = require("./product");
 const employee = require("./employee");
 const customer = require("./customer");
@@ -32,10 +34,12 @@ async function connect() {
 
 module.exports = {
     connect,
+    account,
     adminAuthenticate,
     create,
     authenticate,
     booking,
+    serviceType,
     service,
     product,
     employee,

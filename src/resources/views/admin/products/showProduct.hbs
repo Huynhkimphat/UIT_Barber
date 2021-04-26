@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        {{#each product}}
+        <div class="col-6">
+            <img class="card-img-top" src={{HINHANH}} alt="Card-image-cap">
+            <div class="card-body">
+                <h5 class="card-title">{{MASP}}</h5>
+                <p class="card-text">{{TENSANPHAM}}</p>
+                <p class="card-text">Giá: {{GIA}}</p>
+                <p class="card-text">Xuất xứ: {{XUATXU}}</p>
+                <p class="card-text">Status: {{TINHTRANG}}</p>
+                <p class="card-text product-status" data-id={{SOLUONG}}></p>
+                <p class="card-text">Mã loại sản phẩm: {{MALSP}}</p>
+                <a href="#" class="btn btn-primary">Buy now</a>
+                <a href="/products/{{MASP}}/edit" class="btn btn-link">Update</a>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{MASP}}>Delete
+                </a>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+
+
+
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete product?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-product">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-product-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let productId;
+        let deleteForm = document.forms['delete-product-form'];
+        let btnDeleteProduct = document.getElementById('btn-delete-product');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            productId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteProduct.onclick = function () {
+            deleteForm.action = '/products/' + productId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+    let x = document.querySelectorAll(".product-status")
+    x.forEach(elem => {
+        let remain = elem.getAttribute('data-id')
+        elem.innerHTML = elem.getAttribute('data-id') == '0' ? 'Het hang (' + remain + ')' : 'Con hang (' + remain + ')';
+    });
+
+
+</script>

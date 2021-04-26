@@ -7,8 +7,6 @@
             <th scope="col">Ngày đánh giá</th>
             <th scope="col">Đánh giá</th>
             <th scope="col">Chi tiết đánh giá</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
         </tr>
     </thead>
     {{#each customerRating}}
@@ -20,13 +18,6 @@
             <td>{{NGAYDANHGIA}}</td>
             <td>{{DANHGIA}}⭐</td>
             <td>{{CHITIETDANHGIA}}</td>
-            <td>
-                <a href="/customerRating/{{MADGNV}}/edit" class="btn btn-link">Update</a>
-            </td>
-            <td>
-                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{MADGNV}}>Delete
-                </a>
             </td>
         </tr>
     </tbody>
@@ -34,44 +25,3 @@
     {{/each}}
 
 </table>
-<button class="btn btn-primary"><a href="/customerRating/add">Add</a></button>
-{{!-- Delete Model --}}
-<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteRecordLabel">Delete customerRating</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Do you want to delete customerRating?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-warning" id="btn-delete-customerRating">Yes</button>
-            </div>
-        </div>
-    </div>
-</div>
-{{!-- Delete hidden Form --}}
-<form name="delete-customerRating-form" method="POST" action=""></form>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let customerRatingId;
-        let deleteForm = document.forms['delete-customerRating-form'];
-        let btnDeleteCustomerRating = document.getElementById('btn-delete-customerRating');
-
-        // When dialog confirm clicked
-        $('#deleteRecord').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            customerRatingId = button.data('id');
-        });
-
-        // When delete button clicked
-        btnDeleteCustomerRating.onclick = function () {
-            deleteForm.action = '/customerRating/' + customerRatingId + '?_method=DELETE';
-            deleteForm.submit();
-        };
-    })
-</script>
