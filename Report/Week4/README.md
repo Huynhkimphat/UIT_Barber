@@ -5,26 +5,26 @@
   - [ ] Rating Product
   - [ ] Modal
 - Tran Thi Thu Oanh
-  - [ ] Product Description
-  - [ ] Fix header
+  - [x] Product Description
+  - [x] Fix header
 
 - Luong Tuong Quy
-  - [ ] Service Cards(Sunday 18/4)
-  - [ ] Script For Service And Service's Type(21h 17/4)
+  - [x] Service Cards(Sunday 18/4)
+  - [x] Script For Service And Service's Type(21h 17/4)
   - [ ] Rating Service
   - [ ] Trigger(Very Very Very Important)
 
 - Huynh Kim Phat
-  - [ ] Add Service's Type Table
-  - [ ] Demo Update
+  - [x] Add Service's Type Table
+  - [x] Demo Update
   - [ ] Role for staff
-  - [ ] Trigger
+  - [x] Trigger
 
 - Le Duy Hoang
   - [ ] Trigger
-  - [ ] Soft Delete + Delete 
-  - [ ] Show for Admin
-  - [ ] Update
+  - [x] Soft Delete + Delete 
+  - [x] Show for Admin
+  - [x] Update
 - Phan Le Xuan Truong
   - [ ] Ajax => Add
   - [ ] Trigger
