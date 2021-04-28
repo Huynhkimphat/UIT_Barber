@@ -4,7 +4,7 @@ module.exports = {
             const keys = Object.keys(object.rows[i]);
             keys.forEach((key, index) => {
                 if (object.rows[i][key] === null) {
-                    console.log("null detected");
+                    object.rows[i][key] = null;
                 } else if (typeof object.rows[i][key] === "object") {
                     object.rows[i][key] = object.rows[i][key].toDateString();
                 }

@@ -1,6 +1,7 @@
 const oracledb = require("oracledb");
-const { formatDate } = require("../../utils/formatDate");
 const dotenv = require("dotenv");
+const { formatDate } = require("../../utils/formatDate");
+const e = require("express");
 dotenv.config();
 
 const config = {
@@ -12,7 +13,7 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM DATLICH WHERE MADL = :id";
+        let exec = "UPDATE DANHGIASANPHAM SET TINHTRANG = 0 WHERE MADGSP = :id";
         await conn.execute(
             exec, {
                 id,
@@ -31,18 +32,17 @@ async function add(date, time, employee, service) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let day = date.split("/").join("-");
-        let customer = process.env.id;
+        // let bookingDate = new Date(date)
+        // console.log(bookingDate);
+        let day = date.split('/').join('-');
         console.log(day, time, employee, service);
-        let exec =
-            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
+        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
         await conn.execute(
             exec, {
                 day,
                 time,
-                customer,
                 employee,
-                service,
+                service
             }, {
                 autoCommit: true,
             }
@@ -61,11 +61,7 @@ async function show(id = -1) {
         if (id == -1) {
             if (process.env.status != 3) {
                 let exec =
-                    "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                    "WHERE dl.MANV=nv.MANV \n" +
-                    "AND dl.MAKH=kh.MAKH \n" +
-                    "AND dl.MAGIO=gd.MAGIO \n" +
-                    "AND dl.MADV=dv.MADV";
+                    "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -74,11 +70,7 @@ async function show(id = -1) {
                 return result.rows;
             } else {
                 let exec =
-                    "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                    "WHERE dl.MANV=nv.MANV \n" +
-                    "AND dl.MAKH=kh.MAKH \n" +
-                    "AND dl.MAGIO=gd.MAGIO \n" +
-                    "AND dl.MADV=dv.MADV";
+                    "SELECT * FROM DANHGIASANPHAM";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -88,15 +80,10 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV\n" +
-                "AND dl.MADL=" +
+                "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1 AND MASP=" +
                 id;
-            let result = await conn.execute(exec);
-            result = formatDate(result);
+            const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }

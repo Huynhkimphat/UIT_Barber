@@ -5,7 +5,6 @@ class accountController {
     show(req, res, next) {
         (async() => {
             let result = await account.show();
-            console.log(result);
             if (process.env.status == 3) {
                 res.render("admin/account/showAccounts", {
                     account: result,
