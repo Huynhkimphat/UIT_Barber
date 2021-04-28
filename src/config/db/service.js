@@ -89,7 +89,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
+                "SELECT * FROM DICHVU WHERE MADV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
