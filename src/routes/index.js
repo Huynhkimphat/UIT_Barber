@@ -1,5 +1,6 @@
 const authenticateRouter = require("./authenticate");
 const productRouter = require("./product");
+const productRatingRouter = require("./productRating");
 const bookingRouter = require("./booking");
 const serviceRouter = require("./service");
 const serviceTypeRouter = require("./serviceType");
@@ -25,6 +26,8 @@ function route(app) {
     app.use("/booking", bookingRouter);
     // Route Product
     app.use("/products", productRouter);
+    // Route ProductRating
+    app.use("/productRating", productRatingRouter);
     // Route productType
     app.use("/productType", productTypeRouter);
     // Route Service
