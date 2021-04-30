@@ -126,7 +126,7 @@
 }
 
 .back .price {
-    grid-column: -1;
+    grid-column: 6;
     justify-self: right;
 }
 
