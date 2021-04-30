@@ -1,4 +1,9 @@
-const { booking, time, employee, service } = require("../../config/db");
+const {
+    booking,
+    time,
+    employee,
+    service
+} = require("../../config/db");
 
 class BookingController {
     //* [GET]/
@@ -10,6 +15,8 @@ class BookingController {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status == 0) {
                 res.redirect("/");
@@ -18,6 +25,8 @@ class BookingController {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             }
         })();
@@ -46,6 +55,8 @@ class BookingController {
                     serviceName: serviceName,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/");
@@ -78,6 +89,7 @@ class BookingController {
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");

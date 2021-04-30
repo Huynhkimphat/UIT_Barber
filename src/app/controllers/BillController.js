@@ -1,4 +1,7 @@
-const { bill, time } = require("../../config/db");
+const {
+    bill,
+    time
+} = require("../../config/db");
 
 class BillController {
     //* [GET]/
@@ -10,6 +13,8 @@ class BillController {
                     bill: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status == 0 || process.env.status == 2) {
                 res.redirect("/");
@@ -18,6 +23,8 @@ class BillController {
                     bill: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             }
         })();
@@ -38,6 +45,7 @@ class BillController {
                     Services: resultSe,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
@@ -55,6 +63,7 @@ class BillController {
                         // timePeriod: timePeriod,
                         status: process.env.status,
                         username: process.env.username,
+                        img: process.env.img,
                     });
                 } else {
                     res.redirect("/");
@@ -81,6 +90,8 @@ class BillController {
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/");

@@ -1,4 +1,9 @@
-const { product, time, productType, productRating } = require("../../config/db");
+const {
+    product,
+    time,
+    productType,
+    productRating
+} = require("../../config/db");
 class ProductController {
     //* [GET]/
     show(req, res, next) {
@@ -9,16 +14,21 @@ class ProductController {
                     product: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("products/showProduct", {
                     product: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("products/showProduct", {
                     product: result,
+
                 });
             }
         })();
@@ -33,6 +43,8 @@ class ProductController {
                     typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             })();
         }
@@ -62,6 +74,8 @@ class ProductController {
                     typeProduct: typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/products");
@@ -100,12 +114,16 @@ class ProductController {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("productRating/showProductRating", {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("productRating/showProductRating", {

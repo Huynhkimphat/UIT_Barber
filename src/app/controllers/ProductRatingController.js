@@ -1,4 +1,7 @@
-const { productRating, time } = require("../../config/db");
+const {
+    productRating,
+    time
+} = require("../../config/db");
 class ProductRatingController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +12,16 @@ class ProductRatingController {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("productRating/showProductRating", {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("productRating/showProductRating", {
@@ -32,6 +39,8 @@ class ProductRatingController {
                     typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             })();
         }
@@ -61,6 +70,8 @@ class ProductRatingController {
                     typeProduct: typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/products");
