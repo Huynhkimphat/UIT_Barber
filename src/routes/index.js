@@ -11,6 +11,7 @@ const customerRatingRouter = require("./customerRating");
 const accountRouter = require("./account");
 const billRouter = require("./bill");
 const adminRouter = require("./admin");
+const aboutRouter = require("./about");
 
 function route(app) {
     // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
@@ -19,9 +20,7 @@ function route(app) {
     // Route Admin
     app.use("/admin", adminRouter);
     // Route About
-    app.use("/about", (req, res) => {
-        res.render("about");
-    });
+    app.use("/about", aboutRouter);
     // Route booking
     app.use("/booking", bookingRouter);
     // Route Product
@@ -50,6 +49,8 @@ function route(app) {
             res.render("home", {
                 status: process.env.status,
                 username: process.env.username,
+                img: process.env.img,
+
             });
         } else {
             res.render("home");
