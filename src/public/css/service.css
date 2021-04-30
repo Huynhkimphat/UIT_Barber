@@ -157,20 +157,23 @@
     height: 3em;
     line-height: 2.9em;
     min-width: 3em;
-    border: solid 2px #fff;
     color: #fff;
     border-radius: 4px;
     text-align: center;
     left: 50%;
 }
 
-.buttons:hover {
+.btn-custom {
+    border: solid 2px #fff;
+}
+
+.btn-custom:hover {
     background-color: #fff;
     text-shadow: none;
     color: #5B6D5B;
 }
 
-.buttons.return {
+.btn-custom.return {
     line-height: 3em;
     color: #49444D;
     border-color: #49444D;
@@ -179,7 +182,7 @@
     grid-column: end;
 }
 
-.buttons.return:hover {
+.btn-custom.return:hover {
     background-color: #5B6D5B;
     color: #fff;
     box-shadow: none;
