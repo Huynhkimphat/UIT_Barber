@@ -2,7 +2,7 @@ const {
     product,
     time,
     productType,
-    productRating
+    productRating,
 } = require("../../config/db");
 class ProductController {
     //* [GET]/
@@ -15,7 +15,7 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             } else if (process.env.status != 0) {
                 res.render("products/showProduct", {
@@ -23,12 +23,12 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             } else {
                 res.render("products/showProduct", {
                     product: result,
-
+                    header: 2,
                 });
             }
         })();
@@ -44,7 +44,7 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             })();
         }
@@ -75,7 +75,7 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             } else {
                 res.redirect("/products");
@@ -115,7 +115,7 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             } else if (process.env.status != 0) {
                 res.render("productRating/showProductRating", {
@@ -123,11 +123,12 @@ class ProductController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 2,
                 });
             } else {
                 res.render("productRating/showProductRating", {
                     productRating: result,
+                    header: 2,
                 });
             }
         })();

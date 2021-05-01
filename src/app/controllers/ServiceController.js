@@ -1,7 +1,4 @@
-const {
-    service,
-    serviceType
-} = require("../../config/db");
+const { service, serviceType } = require("../../config/db");
 
 class ServiceController {
     //* [GET]/
@@ -14,7 +11,7 @@ class ServiceController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 1,
                 });
             } else if (process.env.status != 0) {
                 res.render("services/showServices", {
@@ -22,11 +19,12 @@ class ServiceController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 1,
                 });
             } else {
                 res.render("services/showServices", {
                     service: result,
+                    header: 1,
                 });
             }
         })();
@@ -38,7 +36,7 @@ class ServiceController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
+                    header: 1,
                 });
             } else {
                 res.redirect("/services");
@@ -85,7 +83,7 @@ class ServiceController {
                 status: process.env.status,
                 username: process.env.username,
                 img: process.env.img,
-
+                header: 1,
             });
         })();
     }

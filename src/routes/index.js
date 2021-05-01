@@ -20,17 +20,17 @@ function route(app) {
     // Route Admin
     app.use("/admin", adminRouter);
     // Route About
-    app.use("/about", aboutRouter);
+    app.use("/about", aboutRouter); //header-item:3 => About
     // Route booking
     app.use("/booking", bookingRouter);
     // Route Product
-    app.use("/products", productRouter);
+    app.use("/products", productRouter); // header-item:2 => Product
     // Route ProductRating
     app.use("/productRating", productRatingRouter);
     // Route productType
     app.use("/productType", productTypeRouter);
     // Route Service
-    app.use("/service", serviceRouter);
+    app.use("/service", serviceRouter); //header-item:1 => Service
     // Route Customer
     app.use("/customer", customerRouter);
     // Route ServiceType
@@ -50,7 +50,6 @@ function route(app) {
                 status: process.env.status,
                 username: process.env.username,
                 img: process.env.img,
-
             });
         } else {
             res.render("home");

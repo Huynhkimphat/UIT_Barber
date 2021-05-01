@@ -11,7 +11,7 @@
                     <use xlink:href="#bootstrap" />
                 </svg>
             </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 header" data-id={{header}}>
                 <a href="/" id="tc1" class="nav-link px-2 text-white header_item header_item--active">
                     <label for="tc">Home</label>
                 </a>
@@ -83,7 +83,19 @@
 
 </header>
 <script>
-    document.querySelector('.shop').onmouseover = function () {
-        document.querySelector('#use').checked = false;
+    try {
+        document.querySelector('.shop').onmouseover = function () {
+            document.querySelector('#use').checked = false;
+        }
+    } catch (e) {
+        //pass;
+    };
+    let headerItemsActiveID = document.querySelector('.header').getAttribute('data-id');
+    let headerItems = document.querySelectorAll('.header_item');
+    headerItemsActiveID && document.querySelector('.header_item--active').classList.remove("header_item--active");
+    for (let i = 0; i < headerItems.length; i++) {
+        if (headerItemsActiveID == i) {
+            headerItems[i].classList.add('header_item--active');
+        }
     }
 </script>
