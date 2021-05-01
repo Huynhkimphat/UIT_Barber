@@ -12,6 +12,7 @@ const accountRouter = require("./account");
 const billRouter = require("./bill");
 const adminRouter = require("./admin");
 const aboutRouter = require("./about");
+const homeRouter = require("./home");
 
 function route(app) {
     // about status : 0 <=> not login , 1 <=> login with customer , 2 <=> login with staff , 3 <=> login with admin
@@ -44,17 +45,7 @@ function route(app) {
     // Route Bill
     app.use("/bill", billRouter);
     // Route Home
-    app.use("/", (req, res) => {
-        if (process.env.status != 0) {
-            res.render("home", {
-                status: process.env.status,
-                username: process.env.username,
-                img: process.env.img,
-            });
-        } else {
-            res.render("home");
-        }
-    });
+    app.use("/", homeRouter);
 }
 
 module.exports = route;
