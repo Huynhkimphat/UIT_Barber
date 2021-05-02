@@ -45,6 +45,7 @@
 - Luong Tuong Quy
   - [ ] Form for rating Service/Product + Box Rating Service/Product
   - [ ] General Form For Adding =>  (need all var in DB)
+  - [ ] Booking UI <booked>(Incoming + History)
 
 - Huynh Kim Phat
   - [ ] Role for staff
