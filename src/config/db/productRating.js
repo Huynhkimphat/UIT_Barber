@@ -34,15 +34,16 @@ async function add(date, time, employee, service) {
         conn = await oracledb.getConnection(config);
         // let bookingDate = new Date(date)
         // console.log(bookingDate);
-        let day = date.split('/').join('-');
+        let day = date.split("/").join("-");
         console.log(day, time, employee, service);
-        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
+        let exec =
+            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
         await conn.execute(
             exec, {
                 day,
                 time,
                 employee,
-                service
+                service,
             }, {
                 autoCommit: true,
             }
@@ -60,8 +61,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             if (process.env.status != 3) {
-                let exec =
-                    "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
+                let exec = "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -69,8 +69,7 @@ async function show(id = -1) {
                 }
                 return result.rows;
             } else {
-                let exec =
-                    "SELECT * FROM DANHGIASANPHAM";
+                let exec = "SELECT * FROM DANHGIASANPHAM";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {

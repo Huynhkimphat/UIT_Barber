@@ -10,16 +10,21 @@ class ServiceController {
                     service: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
                 });
             } else if (process.env.status != 0) {
                 res.render("services/showServices", {
                     service: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
                 });
             } else {
                 res.render("services/showServices", {
                     service: result,
+                    header: 1,
                 });
             }
         })();
@@ -30,6 +35,8 @@ class ServiceController {
                 res.render("services/addService", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
                 });
             } else {
                 res.redirect("/services");
@@ -75,6 +82,8 @@ class ServiceController {
                 serviceType: result2,
                 status: process.env.status,
                 username: process.env.username,
+                img: process.env.img,
+                header: 1,
             });
         })();
     }

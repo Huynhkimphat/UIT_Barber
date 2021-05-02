@@ -1,4 +1,7 @@
-const { employee, time } = require("../../config/db");
+const {
+    employee,
+    time
+} = require("../../config/db");
 
 class EmployeeController {
     //* [GET]/
@@ -10,6 +13,8 @@ class EmployeeController {
                     employee: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/");
@@ -27,6 +32,8 @@ class EmployeeController {
                         // timePeriod: timePeriod,
                         status: process.env.status,
                         username: process.env.username,
+                        img: process.env.img,
+
                     });
                 } else {
                     res.redirect("/");
@@ -53,6 +60,8 @@ class EmployeeController {
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/");

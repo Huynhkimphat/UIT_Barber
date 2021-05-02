@@ -1,4 +1,6 @@
-const { account } = require("../../config/db");
+const {
+    account
+} = require("../../config/db");
 
 class accountController {
     //* [GET]/
@@ -10,6 +12,7 @@ class accountController {
                     account: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");

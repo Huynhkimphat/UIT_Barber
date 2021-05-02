@@ -1,8 +1,45 @@
-<link rel="stylesheet" href="/css/services.css">
+<link rel="stylesheet" href="/css/service.css">
 <div class="container">
     <div class="row">
         {{#each service}}
-        <div class="col-2">
+        <div class="service_card col-12 col-md-6 col-lg-4 mt-4">
+            <input type="checkbox" id="card{{MADV}}" class="more" aria-hidden="true">
+            <div class="content">
+                <div class="front" style="background-image: url('{{HINHANH}}')">
+                    <div class="inner">
+                        <h2>{{TENDICHVU}}</h2>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <label for="card{{MADV}}" class="buttons btn-custom" aria-hidden="true">
+                            Details
+                        </label>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="inner">
+                        <div class="description">
+                            <p>{{MOTADICHVU}}</p>
+                        </div>
+                        <div class="typeOfService">{{TENDICHVU}}</div>
+                        <div class="price">{{GIA}} VND</div>
+                        <label for="card{{MADV}}" class="buttons booking_btn" aria-hidden="true">
+                            <button class="buttons btn-outline-danger w-100">
+                                <a href="#" style="text-decoration:none;">Booking Now</a></button>
+                        </label>
+                        <label for="card{{MADV}}" class="buttons btn-custom return btn-outline-danger w-100"
+                            aria-hidden="true">
+                            <i class="fas fa-arrow-left"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{!-- <div class="col-2">
             <img class="card-img-top" src="{{HINHANH}}" alt="Card image cap" width="50px" height="100px">
             <div class="card-body">
                 <h5 class="card-title">{{MADV}}</h5>
@@ -10,7 +47,7 @@
                 <a href="#" class="btn btn-primary">{{GIA}}</a>
                 <a href="#" class="btn btn-primary">Booking now</a>
             </div>
-        </div>
+        </div> --}}
         {{/each}}
     </div>
 </div>

@@ -1,4 +1,7 @@
-const { serviceType, time } = require("../../config/db");
+const {
+    serviceType,
+    time
+} = require("../../config/db");
 class ServiceTypeController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +12,16 @@ class ServiceTypeController {
                     serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("serviceType/showServiceType", {
                     serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("serviceType/showServiceType", {
@@ -29,6 +36,8 @@ class ServiceTypeController {
                 res.render("serviceType/addServiceType", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/serviceType");

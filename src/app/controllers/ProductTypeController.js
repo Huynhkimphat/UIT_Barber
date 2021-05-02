@@ -1,4 +1,7 @@
-const { productType, time } = require("../../config/db");
+const {
+    productType,
+    time
+} = require("../../config/db");
 class ProductTypeController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +12,16 @@ class ProductTypeController {
                     productType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("productType/showProductType", {
                     productType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("productType/showProductType", {
@@ -29,6 +36,8 @@ class ProductTypeController {
                 res.render("productType/addProductType", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/productType");
@@ -44,6 +53,8 @@ class ProductTypeController {
                 timePeriod: timePeriod,
                 status: process.env.status,
                 username: process.env.username,
+                img: process.env.img,
+
             });
         })();
     }
