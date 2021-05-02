@@ -1,9 +1,4 @@
-const {
-    booking,
-    time,
-    employee,
-    service
-} = require("../../config/db");
+const { booking, time, employee, service } = require("../../config/db");
 
 class BookingController {
     //* [GET]/
@@ -16,17 +11,15 @@ class BookingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status == 0) {
-                res.redirect("/");
+                res.redirect("/authenticate/login");
             } else {
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             }
         })();
@@ -56,7 +49,6 @@ class BookingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");
