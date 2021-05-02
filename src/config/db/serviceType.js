@@ -14,11 +14,9 @@ async function destroy(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -51,11 +49,9 @@ async function add(name) {
         let exec =
             "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 name,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -90,7 +86,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1 AND MALSP =" + id;
+                "SELECT * FROM LOAIDICHVU WHERE MALDV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -108,11 +104,9 @@ async function add(name) {
         let exec =
             "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 name,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -123,5 +117,30 @@ async function add(name) {
         console.log("Ouch!", err);
     }
 }
-
-module.exports = { show, destroy, showToAdd, add };
+async function update(
+    id,
+    name,
+    status
+) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "UPDATE LOAIDICHVU SET TENLOAIDICHVU = :name, TINHTRANG=:status  WHERE MALDV= :id";
+        await conn.execute(
+            exec, {
+                id,
+                name,
+                status,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { show, destroy, showToAdd, add, update };

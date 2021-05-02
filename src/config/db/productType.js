@@ -83,7 +83,7 @@ async function show(id = -1) {
                 return result.rows;
             }
         } else {
-            let exec = "SELECT * FROM LOAISANPHAM WHERE TINHTRANG = 1 AND MALSP =" + id;
+            let exec = "SELECT * FROM LOAISANPHAM WHERE MALSP =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -94,4 +94,30 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, showToAdd, add };
+async function update(
+    id,
+    name,
+    status
+) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "UPDATE LOAISANPHAM SET TENLOAISANPHAM = :name, TINHTRANG=:status  WHERE MALSP= :id";
+        await conn.execute(
+            exec, {
+                id,
+                name,
+                status,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { show, destroy, showToAdd, add, update };

@@ -49,7 +49,7 @@ class EmployeeController {
                 let timePeriod = await time.show();
                 let temp = formatDate(result);
                 res.render("employee/updateEmployee", {
-                    employee: temp,
+                    employee: temp[0],
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
@@ -65,6 +65,24 @@ class EmployeeController {
         })();
         res.redirect("/employee");
     }
+    update(req, res, next) {
+        if (process.env.status == 3) {
+            (async() => {
+                await employee.update(
+                    req.params.id,
+                    req.body.name,
+                    req.body.price,
+                    req.body.describe,
+                    req.body.country,
+                    req.body.img,
+                    req.body.count,
+                    req.body.typeProduct
+                );
+                res.redirect("/products");
+            })();
+        }
+    }
 }
+
 
 module.exports = new EmployeeController();

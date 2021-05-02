@@ -77,8 +77,45 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function update(
+    id,
+    name,
+    price,
+    describe,
+    country,
+    img,
+    count,
+    typeProduct
+) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "UPDATE SANPHAM SET TenSanPham = :name, Gia = :price, MOTASANPHAM= :describe, XuatXu= :country, HinhAnh= :img, SOLUONG= :count, MALSP= :typeProduct  WHERE MASP= :id";
+        await conn.execute(
+            exec, {
+                img,
+                name,
+                price,
+                country,
+                count,
+                typeProduct,
+                describe,
+                id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
     show,
     showToAdd,
-    destroy
+    destroy,
+    update
 };
