@@ -14,16 +14,7 @@ class AuthenticateController {
     }
     register(req, res) {
         if (process.env.status == 0) {
-            // res.render("authenticate/register", {
-            //     layout: "authenticate_layout",
-            // });
-            res.render("messages", {
-                box: "error",
-                face: "face2",
-                mouth: "sad",
-                heading: "Error!",
-                desc: "oh no, something went wrong.",
-                btn: "red",
+            res.render("authenticate/register", {
                 layout: "authenticate_layout",
             });
         } else {
@@ -37,7 +28,7 @@ class AuthenticateController {
         let encryptedPassword = "";
         if (process.env.status == 0) {
             if (!req.body.firstName) {
-                (async () => {
+                (async() => {
                     let result = await authenticate.login(req.body.email);
                     pass = result.PASSWORD;
                     id = result.MAKH;
@@ -45,9 +36,19 @@ class AuthenticateController {
                     bcrypt.compare(
                         req.body.password,
                         pass,
-                        function (err, result) {
+                        function(err, result) {
                             if (err) {
                                 console.log(err);
+                                res.render("messages", {
+                                    box: "error",
+                                    face: "face2",
+                                    mouth: "sad",
+                                    heading: "Error!",
+                                    desc: "oh no, something went wrong.",
+                                    btn: "red",
+                                    page: "./login",
+                                    layout: "authenticate_layout",
+                                });
                             } else {
                                 if (result) {
                                     process.env.username = req.body.email.split(
@@ -58,17 +59,26 @@ class AuthenticateController {
                                     process.env.img = img;
                                     res.redirect("/");
                                 } else {
-                                    res.redirect("/authenticate/login");
+                                    res.render("messages", {
+                                        box: "error",
+                                        face: "face2",
+                                        mouth: "sad",
+                                        heading: "Error!",
+                                        desc: "oh no, something went wrong.",
+                                        btn: "red",
+                                        page: "./login",
+                                        layout: "authenticate_layout",
+                                    });
                                 }
                             }
                         }
                     );
                 })();
             } else {
-                bcrypt.genSalt(saltRounds, function (err, salt) {
-                    bcrypt.hash(req.body.password, salt, function (err, hash) {
+                bcrypt.genSalt(saltRounds, function(err, salt) {
+                    bcrypt.hash(req.body.password, salt, function(err, hash) {
                         encryptedPassword = hash;
-                        (async () => {
+                        (async() => {
                             await authenticate.register(
                                 req.body.email,
                                 encryptedPassword,
