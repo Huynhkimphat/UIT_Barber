@@ -200,6 +200,7 @@ CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
     MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
+    Ngay        DATE        NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
