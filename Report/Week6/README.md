@@ -12,7 +12,7 @@
     - About Me
     - Change Profile Button -> Form to change details
     - Salary
-    - Current Rating 
+    - Current Rating
     - Review About Me
     - Booking History
   - [ ] Account Admin Page
@@ -66,5 +66,3 @@
 - Nguyen Dinh Sang
 
 - Nguyen Thua An Thai
-    
-

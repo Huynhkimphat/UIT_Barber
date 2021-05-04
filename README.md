@@ -3,7 +3,7 @@
 ![logo](https://user-images.githubusercontent.com/30569818/113259711-a2bffa80-92f7-11eb-8771-304248752a41.jpg)
 
 <div align="center">
-   Solution for a challenge from  <a href="https://www.uit.edu.vn/" target="_blank">UIT</a>.
+   Solution for a challenge from  <a href="https://www.uit.edu.vn/" target="_blank">University Of Informations Technology</a>.
 </div>
 
 <div align="center">
@@ -93,6 +93,7 @@
 ## About Us
 ### Project Manger 
   - [Nguyen Minh Nhut]()
+  - [Huynh Kim Phat](https://github.com/Huynhkimphat)
 ### FrontEnd Developer 
    - [Phan Tung](https://github.com/PhanTung-06)
    - [Huynh Thi My Duyen](https://github.com/HuynhThiMyDuyen/)
