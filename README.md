@@ -93,6 +93,7 @@
 ## About Us
 ### Project Manger 
   - [Nguyen Minh Nhut]()
+  - [Huynh Kim Phat](https://github.com/Huynhkimphat)
 ### FrontEnd Developer 
    - [Phan Tung](https://github.com/PhanTung-06)
    - [Huynh Thi My Duyen](https://github.com/HuynhThiMyDuyen/)
