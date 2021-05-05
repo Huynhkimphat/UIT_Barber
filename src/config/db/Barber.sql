@@ -507,13 +507,26 @@ BEGIN
 
     IF(v_loaiKH!='Member')
     THEN 
-        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien * 0.9 WHERE HOADON.MAHD=:NEW.MaHD;
     END IF;
 END;
 DROP TRIGGER TRIGGER_23_HOADON;
 -- Trigger 27
 -- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_NHANLUONG
+AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
 
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= NhanLuong.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
