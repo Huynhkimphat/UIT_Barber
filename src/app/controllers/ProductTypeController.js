@@ -4,11 +4,23 @@ class ProductTypeController {
     show(req, res, next) {
         (async() => {
             let result = await productType.show();
-            res.render("productType/showProductType", {
-                productType: result,
-                status: process.env.status,
-                username: process.env.username,
-            });
+            if (process.env.status == 3) {
+                res.render("admin/productType/showProductType", {
+                    productType: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status != 0) {
+                res.render("productType/showProductType", {
+                    productType: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else {
+                res.render("productType/showProductType", {
+                    productType: result,
+                });
+            }
         })();
     }
     add(req, res, next) {
@@ -39,7 +51,6 @@ class ProductTypeController {
     destroy(req, res, next) {
         (async() => {
             let result = await productType.destroy(
-                "LOAISANPHAM",
                 req.params.id
             );
         })();

@@ -10,17 +10,19 @@ DROP TABLE NhanVien;
 DROP TABLE TaiKhoan;
 DROP TABLE Luong;
 DROP TABLE NhanLuong;-- Super_primary_key
+DROP TABLE LoaiDichVu
 DROP TABLE DichVu;
 DROP TABLE LoaiSanPham;
 DROP TABLE SanPham;
 DROP TABLE GioDat;
 DROP TABLE DatLich;
 DROP TABLE HoaDon;
+DROP TABLE CTHD;
 DROP TABLE CTHDDV; -- Super_primary_key
 DROP TABLE CTHDSP; -- Super_primary_key
 DROP TABLE DANHGIANHANVIEN;
 DROP TABLE DANHGIASANPHAM;
-DROP TABLE DANHGIA;
+drop table DANHGIA;
 
 ----------------------------------------------DELETE SEQUENCE----------------------------------------------------
 DROP SEQUENCE MAKH_SEQ1;
@@ -28,12 +30,14 @@ DROP SEQUENCE MALKH_SEQ2;
 DROP SEQUENCE MANV_SEQ3;
 DROP SEQUENCE MATK_SEQ4;
 DROP SEQUENCE MALUONG_SEQ5;
+DROP SEQUENCE MALDV_SEQ14;
 DROP SEQUENCE MADV_SEQ6;
 DROP SEQUENCE MALSP_SEQ7;
 DROP SEQUENCE MASP_SEQ8;
 DROP SEQUENCE MAGD_SEQ9;
 DROP SEQUENCE MADL_SEQ10;
 DROP SEQUENCE MAHD_SEQ11;
+DROP SEQUENCE MADG_SEQ12;--mn nho chay dong nay de xoa di identity
 DROP SEQUENCE MADGNV_SEQ12;
 DROP SEQUENCE MADGSP_SEQ13;
 
@@ -124,7 +128,15 @@ CREATE TABLE NhanLuong
     LuongDuocNhan   NUMBER              NOT NULL,
     CONSTRAINT      PK_NHANLUONG        PRIMARY KEY(MaLuong,MaNV,NgayNhanLuong)
 );
-
+--------------------------------------------BANG LOAI DICH VU-----------------------------------------------------
+CREATE  TABLE LOAIDICHVU
+(
+    MaLDV           NUMBER              NOT NULL,
+    TenLoaiDichVu  VARCHAR2(255)       NOT NULL,
+    TinhTrang       NUMBER              DEFAULT 1,
+    CONSTRAINT      PK_LOAIDICHVU      PRIMARY KEY (MaLDV)
+);
+CREATE SEQUENCE MALDV_SEQ14 START WITH 1;
 --------------------------------------------BANG DICH VU----------------------------------------------------------
 CREATE TABLE DichVu
 (
@@ -133,7 +145,8 @@ CREATE TABLE DichVu
     Gia         NUMBER          default 0,
     MotaDichVu  VARCHAR2(4000)  NOT NULL,
     HinhAnh     VARCHAR2(4000)  DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg',
-    TinhTrang       NUMBER      DEFAULT 1,
+    TinhTrang   NUMBER          DEFAULT 1,
+    MALDV       NUMBER          CONSTRAINT FK_DICHVU_LOAIDICHVU    REFERENCES LOAIDICHVU(MaLDV)   NOT NULL,
     CONSTRAINT  PK_DICHVU       PRIMARY KEY(MaDV)
 );
 CREATE SEQUENCE MADV_SEQ6 START WITH 1;
@@ -146,7 +159,6 @@ CREATE  TABLE LOAISANPHAM
     CONSTRAINT      PK_LOAISANPHAM      PRIMARY KEY (MaLSP)
 );
 CREATE SEQUENCE MALSP_SEQ7 START WITH 1;
-
 ---------------------------------------------BANG SAN PHAM--------------------------------------------------------
 CREATE  TABLE SanPham
 (
@@ -191,7 +203,13 @@ CREATE TABLE HoaDon
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
+    -- NGSDDV
+    INSERT INTO HoaDon VALUES(MaHD_SEQ11.NEXTVAL,1,0,200000,1);
+    UPDATE HoaDon 
+    SET TongTien =300000
+    WHERE MaHD = 2;
 );
+SELECT * FROM HoaDon
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
 --------------------------------------------BANG CTHDDV-----------------------------------------------------------
 CREATE TABLE CTHDDV
@@ -244,8 +262,13 @@ SELECT * FROM LoaiKhachHang
 SELECT * FROM NhanVien
 -- Tai Khoan
 SELECT * FROM TaiKhoan
+
 -- Luong
 SELECT * FROM Luong
+-- Luong Thuong
+SELECT * FROM LuongThuong
+-- Tang Luong
+SELECT * FROM TangLuong
 -- Nhan Luong
 SELECT * FROM NhanLuong
 -- Dich Vu
@@ -260,20 +283,12 @@ SELECT * FROM GioDat
 SELECT * FROM DatLich
 -- Hoa Don
 SELECT * FROM HoaDon
--- CTHDDV
-SELECT * FROM CTHDDV
--- CTHDSP
-SELECT * FROM CTHDSP
--- Danh Gia Nhan Vien
-SELECT * FROM DanhGiaNhanVien
--- Danh Gia San Pham
-SELECT * FROM DanhGiaSanPham
+-- CTHD
+SELECT * FROM CTHD
+-- Danh Gia
+SELECT * FROM DanhGia
 --------------------------------------------INSERT RECORDS-------------------------------------------------------
 ALTER SESSION SET NLS_DATE_FORMAT ='DD-MM-YYYY HH24:MI:SS';
--- Khach Hang
-
--- Loai Khach Hang
-INSERT INTO LOAIKHACHHANG(MALKH,MAKH) VALUES(MALKH_SEQ2.NEXTVAL,MAKH_SEQ1.CURRVAL);
 -- GioDat
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'8h30-10h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'10h00-11h30');
@@ -283,6 +298,15 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'16h00-17h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
+
+
+
+--------------------------------------------ALTER CHECKS---------------------------------------------------------
+-- ALTER TABLE KHACHHANG
+-- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
+
+-- ALTER TABLE KHACHHANG
+-- ADD CONSTRAINT check_constraint_name CHECK(expression);
 -- Loai San Pham
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1);			
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1);			
@@ -300,98 +324,106 @@ INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'Glanzen Box Chăm Sóc Tóc Uốn/
 INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'Tông Đơ Cắt Tóc Không Dây Chuyên Nghiệp Kemei KM-809A',249000,'Sản phẩm có màn hình LCD hiển thị dung lượng pin lưỡi thép không gỉ. Được trang bị với 4 cữ dài khác nhau (3mm, 6 mm, 10 mm, 13 mm). Sử dụng được cả dây và không dây sử dụng kép, không còn lo lắng về không có điện, thuận tiện hơn.Có bản LED hiển thị dung lượng pin.Tông đơ sử dụng pin sạc ( không dây). Thời gian sạc 4giờ sử dụng 140 phút. Lưỡi bằng thép chuyên dụng mài sử dụng nhiều lần. Điện Áp đầu vào: AC 110-240v 50/60 hz. Công suất Tiêu Thụ: 5w','HongKong','https://cf.shopee.vn/file/8cc3de7a9ff92698f1cee6c09e661994',1,20,3);
 INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'Máy Rửa Mặt Foreo Luna Mini',2590000,'Một chiếc máy rửa mặt kute nhỏ gọn, xinh xắn mà theo như mô tả trên trang chủ của hãng Foreo thì nó “cho trải nhiệm như ở spa”.','Thuỵ Điển','https://cf.shopee.vn/file/94b33f549301bb9e2b4ad963de40027f',1,10,4);						
 INSERT INTO SANPHAM VALUES(MASP_SEQ8.NEXTVAL,'Máy Cạo Râu Mini Cầm Tay Siêu Nhỏ Có Thể Sạc Lại Runwe RS89',350000,'Tốc đầu cắt siêu tốc độ thiết kế kiểu cong vòm có thể ôm sát mọi góc cạnh, cắt sạch mọi loại râu cứng đầu nhất, đầu máy cạo râu có thể tháo rời và rửa với nước. Chức năng sạc lại thông minh sạc 2h có thể sử dụng đến 20 ngày cạo, đảm bảo an toàn, thích hợp mang theo khi đi du lịch, công tác. Tốc độ quay cao lên tới 4500 vòng, giúp lưỡi dao cạo có thể cạo sạch râu trên mặt một cách nhanh chóng, đồng thời không làm trầy xước da mặt bạn.','Trung Quốc','https://salt.tikicdn.com/cache/w444/ts/product/a2/6b/7f/0dd88ff7d371ea9312df1061a85979c8.jpg',1,10,3);
+-- Loai Dich Vu
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Combo Cắt Gội',1);
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Dịch Vụ Uốn',1);
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Dịch Vụ Nhuộm',1);
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Dưỡng Và Phục Hồi Tóc',1);
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Chăm Sóc Da',1);
+INSERT INTO LOAIDICHVU VALUES(MALDV_SEQ14.NEXTVAL,'Dịch Vụ Khác',1);
 -- Dich Vu
 SET DEFINE OFF;
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt',30000,'Tư vấn kiểu tóc hợp khuôn mặt  Cắt tóc tạo kiểu bởi stylist hàng đầu. Cạo mặt êm ái – xả sạch tóc con. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://s3-ap-southeast-1.amazonaws.com/we-xpats.com/articles/images/QvKRrjX7_gilU20RdXdQ1_ewaR_Ok3j4gnbIboc-Ww_ugF_1cmcuAuvjdHOUrzwGQIbRuXAzerPRooUEabykGw7Dk8unyWTyZjdCJSxu87gSpbavnOb4HsyLdAUxee2z2j8di0ew.jpeg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt Gội 10 bước (60 phút)',199000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn – phun nước hoa hồng công nghệ cao. 4. Gội đầu massage bấm huyệt. 5. Massage rửa tai bọt sảng khoái. 6. Kéo khăn giãn cơ cổ - xối nước thác đổ. 7. Tư vấn kiểu tóc hợp khuôn mặt. 8. Cắt tóc tạo kiểu bởi stylist hàng đầu. 9. Cạo mặt êm ái – xả sạch tóc con. 10. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://britishm.vn/wp-content/uploads/2019/02/cham-soc-toc-ma-mac-phai-6-sai-lam-nay-bao-sao-toc-nam-gioi-luon-kho-cung-xo-roi.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Cắt – Xả - Tạo kiểu (30 phút)',70000,'1. Gội đầu xả tóc. 2. Tư vấn kiểu tóc hợp khuôn mặt. 3. Cắt tóc tạo kiểu bởi stylist hàng đầu. 4. Cạo mặt êm ái – xả sạch tóc con. 5. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2019/12/3man-30shine-quang-ngai-320648.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)',70000,'Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào? QUY TRÌNH 5 BƯỚC. Bước 1: Gội đầu làm mềm tóc, sạch bụi bẩn. Bước 2: Tư vấn kiểu tóc gọn gàng, phù hợp với lứa tuổi, thể hiện cá tính, bản sắc riêng. Bước 3: Cắt tóc tạo kiểu. Bước 4: Gội xả kỹ càng sạch tóc con, giúp bé không cảm thấy khó chịu suốt cả ngày. Bước 5: Vuốt sáp đẹp trai.','https://st.quantrimang.com/photos/image/2020/04/08/cat-toc-cho-be-trai.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước',40000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn công nghệ cao. 4. Phun nước hoa hồng se khít lỗ chân lông. 5. Gội đầu massage, kết hợp loại bỏ gàu. 6. Massage rửa tai bọt sảng khoái. 7. Kéo khăn nóng giãn cơ cổ - Xối nước thác đổ giải tỏa căng thẳng. 8. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://htluxury.vn/wp-content/uploads/2019/04/kieu-toc-nam-vuot-nguoc-1.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp',349000,'Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','https://blog.hairbros.vn/wp-content/uploads/2019/01/kieu-toc-nam-uon-dep-nhat.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn',260000,'Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','https://hervietnam.com.vn/wp-content/uploads/2019/05/Lay-mac-ao-den-toc-cat-layer-uon-xoan-nhe.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Con Sâu',499000,'Là kiểu uốn hoàn toàn mới đang tạo trend khắp châu Á. Uốn con sâu đem lại hình tượng thời trang, hiện đại, khỏe khoắn. Giúp mái tóc trở nên bồng bềnh, dày dặn hơn. Uốn con sâu giúp tóc luôn vào nếp dù không cần vuốt sáp tạo kiểu.','https://hagona.com/upload/images/kieu-toc-con-sau-3.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn PREMLOCK',799000,'Là kiểu uốn tóc làm mưa làm gió trên khắp thế giới. Đây là kiểu tóc độc đáo, khác lạ đem lại phong cách khỏe khoắn, nam tính và hiện đại Châu Âu. Khi sở hữu Premlock anh sẽ không cần vuốt tóc tạo kiểu mỗi buổi sáng mà tóc vẫn luôn vào form chuẩn đẹp.','https://s4m.edu.vn/uploaded/73289672_402996823968583_4143822384626925568_n.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Đen Phủ Bạc',180000,'Nhuộm Đen Phủ Bạc','http://file.hstatic.net/1000260990/file/kieu_mau_nhuom_toc_dep_cho_nam_1_grande.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Nâu Cao Cấp',249000,'Nhuộm Nâu Cao Cấp','https://vn-test-11.slatic.net/original/255874af35cf1dcbcae8adbb9812ec6e.jpg_720x720q80.jpg_.webp',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Không Tẩy',289000,'Nhuộm Thời Trang Không Tẩy','https://hvn.cdnxbvn.com/wp-content/uploads/2019/01/Lee-Min-Ho-toc-nhuom-mau-nau-lanh-600x606.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Cần Tẩy',389000,'Nhuộm Thời Trang Cần Tẩy','https://tocnamdep.com/wp-content/uploads/2020/06/mau-toc-nam-dep-2.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Hấp Dưỡng Oliu',199000,'Là phương pháp dưỡng tóc bằng bơ dầu oliu chiết xuất hoàn toàn tự nhiên, rất tốt cho tóc. Giúp phục hồi tóc hư tổn, khô xơ, đem lại mái tóc bóng mượt, chắc khỏe. Phương pháp sử dụng biện pháp kích nhiệt để đưa dưỡng chất vào sâu bên trong sợi tóc và thẩm thấu vào da đầu đem lại hiệu quả lâu dài.','https://tinphongcach.vn/wp-content/uploads/2020/04/Kieu-nam-Han-Quoc-danh-cho-khuon-mat-tron.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Phục Hồi Nano',159000,'Là phương pháp dưỡng tóc hai lớp kết hợp với bắn súng nano công nghệ cao, hiệu quả siêu vượt trội. Lớp dưỡng đầu tiên giúp mở lớp biểu bì tóc và làm chắc khỏe lớp tóc từ bên ngoài. Lớp dưỡng thứ hai giúp nuôi dưỡng, phục hồi tóc từ sâu bên trong. Phương pháp bắn súng nano giúp đưa dưỡng chất vào sâu bên trong tủy tóc, giúp tóc khỏe từ bên trong, bóng mượt từ bên ngoài, hiệu quả lâu dài.','https://file.hstatic.net/1000096321/article/untitled-1.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy Da Chết',40000,'Tẩy Da Chết','https://leediors.com/wp-content/uploads/2020/04/cach-tay-te-bao-chet-cho-da-mat-tai-nha11.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Đắp Mặt Nạ Lạnh',40000,'Đắp Mặt Nạ Lạnh','https://www.boshop.vn/uploads/2019/11/26/5ddc9098e3ffd-tuyen-ba-nhon-hoat-dong-manh-o-tuoi-day-thi.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Mụn Mũi Chuyên Sâu',40000,'Lấy Mụn Mũi Chuyên Sâu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox Da Đầu',40000,'Detox Da Đầu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lột Mụn Than Tre',40000,'Lột Mụn Than Tre','https://ae01.alicdn.com/kf/He2c5663f0c0f499483a713ee228c70220/ROREC-Than-Tre-en-M-t-N-B-n-L-t-M-n-u-en-T.jpg_Q90.jpg_.webp',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Ráy Tai',40000,'Lấy Ráy Tai','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLvTC1BEP6Ffqa8n5qYhdjJmVZR_cypvBzs8j7Qj4rMJ1WgtXLYJSh3pcU4Q8pXTdSOmo&usqp=CAU',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',30000,'Giường Massage Nhật Bản','https://image-us.24h.com.vn/upload/4-2019/images/2019-11-07/hj-1573121560-842-width640height480.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1);
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',1);
+DESCRIBE DICHVU
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt',30000,'Tư vấn kiểu tóc hợp khuôn mặt  Cắt tóc tạo kiểu bởi stylist hàng đầu. Cạo mặt êm ái – xả sạch tóc con. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://s3-ap-southeast-1.amazonaws.com/we-xpats.com/articles/images/QvKRrjX7_gilU20RdXdQ1_ewaR_Ok3j4gnbIboc-Ww_ugF_1cmcuAuvjdHOUrzwGQIbRuXAzerPRooUEabykGw7Dk8unyWTyZjdCJSxu87gSpbavnOb4HsyLdAUxee2z2j8di0ew.jpeg',1,1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Combo Cắt Gội 10 bước (60 phút)',199000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn – phun nước hoa hồng công nghệ cao. 4. Gội đầu massage bấm huyệt. 5. Massage rửa tai bọt sảng khoái. 6. Kéo khăn giãn cơ cổ - xối nước thác đổ. 7. Tư vấn kiểu tóc hợp khuôn mặt. 8. Cắt tóc tạo kiểu bởi stylist hàng đầu. 9. Cạo mặt êm ái – xả sạch tóc con. 10. Vuốt sáp – xịt gôm tạo kiểu cao cấp','https://britishm.vn/wp-content/uploads/2019/02/cham-soc-toc-ma-mac-phai-6-sai-lam-nay-bao-sao-toc-nam-gioi-luon-kho-cung-xo-roi.jpg',1,1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Cắt – Xả - Tạo kiểu (30 phút)',70000,'1. Gội đầu xả tóc. 2. Tư vấn kiểu tóc hợp khuôn mặt. 3. Cắt tóc tạo kiểu bởi stylist hàng đầu. 4. Cạo mặt êm ái – xả sạch tóc con. 5. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2019/12/3man-30shine-quang-ngai-320648.jpg',1,1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)',70000,'Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào? QUY TRÌNH 5 BƯỚC. Bước 1: Gội đầu làm mềm tóc, sạch bụi bẩn. Bước 2: Tư vấn kiểu tóc gọn gàng, phù hợp với lứa tuổi, thể hiện cá tính, bản sắc riêng. Bước 3: Cắt tóc tạo kiểu. Bước 4: Gội xả kỹ càng sạch tóc con, giúp bé không cảm thấy khó chịu suốt cả ngày. Bước 5: Vuốt sáp đẹp trai.','https://st.quantrimang.com/photos/image/2020/04/08/cat-toc-cho-be-trai.jpg',1,1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước',40000,'1. Massage khai huyệt điều hòa. 2. Rửa mặt – massage tinh chất nha đam thẩm thấu. 3. Hút mụn công nghệ cao. 4. Phun nước hoa hồng se khít lỗ chân lông. 5. Gội đầu massage, kết hợp loại bỏ gàu. 6. Massage rửa tai bọt sảng khoái. 7. Kéo khăn nóng giãn cơ cổ - Xối nước thác đổ giải tỏa căng thẳng. 8. Vuốt sáp – xịt gôm tạo kiểu cao cấp.','https://htluxury.vn/wp-content/uploads/2019/04/kieu-toc-nam-vuot-nguoc-1.jpg',1,1);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp',349000,'Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','https://blog.hairbros.vn/wp-content/uploads/2019/01/kieu-toc-nam-uon-dep-nhat.jpg',1,2);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn',260000,'Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','https://hervietnam.com.vn/wp-content/uploads/2019/05/Lay-mac-ao-den-toc-cat-layer-uon-xoan-nhe.jpg',1,2);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Con Sâu',499000,'Là kiểu uốn hoàn toàn mới đang tạo trend khắp châu Á. Uốn con sâu đem lại hình tượng thời trang, hiện đại, khỏe khoắn. Giúp mái tóc trở nên bồng bềnh, dày dặn hơn. Uốn con sâu giúp tóc luôn vào nếp dù không cần vuốt sáp tạo kiểu.','https://hagona.com/upload/images/kieu-toc-con-sau-3.jpg',1,2);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn PREMLOCK',799000,'Là kiểu uốn tóc làm mưa làm gió trên khắp thế giới. Đây là kiểu tóc độc đáo, khác lạ đem lại phong cách khỏe khoắn, nam tính và hiện đại Châu Âu. Khi sở hữu Premlock anh sẽ không cần vuốt tóc tạo kiểu mỗi buổi sáng mà tóc vẫn luôn vào form chuẩn đẹp.','https://s4m.edu.vn/uploaded/73289672_402996823968583_4143822384626925568_n.jpg',1,2);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Đen Phủ Bạc',180000,'Nhuộm Đen Phủ Bạc','http://file.hstatic.net/1000260990/file/kieu_mau_nhuom_toc_dep_cho_nam_1_grande.jpg',1,3);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Nâu Cao Cấp',249000,'Nhuộm Nâu Cao Cấp','https://vn-test-11.slatic.net/original/255874af35cf1dcbcae8adbb9812ec6e.jpg_720x720q80.jpg_.webp',1,3);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Không Tẩy',289000,'Nhuộm Thời Trang Không Tẩy','https://hvn.cdnxbvn.com/wp-content/uploads/2019/01/Lee-Min-Ho-toc-nhuom-mau-nau-lanh-600x606.jpg',1,3);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Nhuộm Thời Trang Cần Tẩy',389000,'Nhuộm Thời Trang Cần Tẩy','https://tocnamdep.com/wp-content/uploads/2020/06/mau-toc-nam-dep-2.jpg',1,3);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Hấp Dưỡng Oliu',199000,'Là phương pháp dưỡng tóc bằng bơ dầu oliu chiết xuất hoàn toàn tự nhiên, rất tốt cho tóc. Giúp phục hồi tóc hư tổn, khô xơ, đem lại mái tóc bóng mượt, chắc khỏe. Phương pháp sử dụng biện pháp kích nhiệt để đưa dưỡng chất vào sâu bên trong sợi tóc và thẩm thấu vào da đầu đem lại hiệu quả lâu dài.','https://tinphongcach.vn/wp-content/uploads/2020/04/Kieu-nam-Han-Quoc-danh-cho-khuon-mat-tron.jpg',1,4);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Phục Hồi Nano',159000,'Là phương pháp dưỡng tóc hai lớp kết hợp với bắn súng nano công nghệ cao, hiệu quả siêu vượt trội. Lớp dưỡng đầu tiên giúp mở lớp biểu bì tóc và làm chắc khỏe lớp tóc từ bên ngoài. Lớp dưỡng thứ hai giúp nuôi dưỡng, phục hồi tóc từ sâu bên trong. Phương pháp bắn súng nano giúp đưa dưỡng chất vào sâu bên trong tủy tóc, giúp tóc khỏe từ bên trong, bóng mượt từ bên ngoài, hiệu quả lâu dài.','https://file.hstatic.net/1000096321/article/untitled-1.jpg',1,4);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy Da Chết',40000,'Tẩy Da Chết','https://leediors.com/wp-content/uploads/2020/04/cach-tay-te-bao-chet-cho-da-mat-tai-nha11.jpg',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Đắp Mặt Nạ Lạnh',40000,'Đắp Mặt Nạ Lạnh','https://www.boshop.vn/uploads/2019/11/26/5ddc9098e3ffd-tuyen-ba-nhon-hoat-dong-manh-o-tuoi-day-thi.jpg',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Mụn Mũi Chuyên Sâu',40000,'Lấy Mụn Mũi Chuyên Sâu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox Da Đầu',40000,'Detox Da Đầu','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,4);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lột Mụn Than Tre',40000,'Lột Mụn Than Tre','https://ae01.alicdn.com/kf/He2c5663f0c0f499483a713ee228c70220/ROREC-Than-Tre-en-M-t-N-B-n-L-t-M-n-u-en-T.jpg_Q90.jpg_.webp',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Lấy Ráy Tai',40000,'Lấy Ráy Tai','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLvTC1BEP6Ffqa8n5qYhdjJmVZR_cypvBzs8j7Qj4rMJ1WgtXLYJSh3pcU4Q8pXTdSOmo&usqp=CAU',1,6);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Giường Massage Nhật Bản',30000,'Giường Massage Nhật Bản','https://image-us.24h.com.vn/upload/4-2019/images/2019-11-07/hj-1573121560-842-width640height480.jpg',1,6);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Tẩy da chết – Đắp Mặt Nạ',50000,'Tẩy da chết – Đắp Mặt Nạ','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.',65000,'Chăm Sóc Mụn. Lột Mụn Than Tre. Tẩy da chết. Đắp Mặt Nạ.','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm',68000,'Detox “muối lộc”. Tẩy Da Chết. Đắp Mặt Nạ Dưỡng Ẩm','https://toixanh.com/wp-content/uploads/2019/03/cac-buoc-skincare-cho-nam-gioi-1280x720.jpg',1,5);
 --------------------------------------------TRIGGER--------------------------------------------------------------
 -- TRIGGER 15
 -- Ngày đặt lịch lớn hơn ngày sinh của khách hàng và nhân viên.
 -- Khach Hang Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_KHACHHANG
-AFTER UPDATE ON KHACHHANG
+AFTER UPDATE OF NGAYSINH ON KHACHHANG
 FOR EACH ROW
 DECLARE
-    t_ngaysinh KHACHHANG.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE;
 BEGIN 
-    t_ngaysinh := :NEW.ngaysinh
-
-    SELECT dl.ngay into t_ngaydatlich
+    SELECT NGAY INTO t_ngaydatlich
     FROM (
-        SELECT dl.ngay from DATLICH dl 
+        SELECT dl.ngay 
+        from DATLICH dl 
         WHERE dl.MaKH=:NEW.MaKH
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngaysinh>t_ngaydatlich)
+    IF(:NEW.ngaysinh>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_15_KHACHHANG;
+-- Test
+UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
+
 -- Nhan VIen Sua
 
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_NHANVIEN
-AFTER UPDATE ON NHANVIEN
+AFTER UPDATE OF NGAYSINH ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    t_ngaysinh NHANVIEN.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
-BEGIN 
-    t_ngaysinh := :NEW.ngaysinh
-
-    SELECT dl.ngay into t_ngaydatlich
+    t_ngaydatlich DATLICH.Ngay%TYPE;
+BEGIN
+    SELECT NGAY INTO t_ngaydatlich
     FROM (
-        SELECT dl.ngay from DATLICH dl 
+        SELECT dl.ngay 
+        from DATLICH dl 
         WHERE dl.MaNV=:NEW.MaNV
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngaysinh>t_ngaydatlich)
+    IF(:NEW.ngaysinh>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_15_NHANVIEN;
+
 -- Dat Lich Them Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_DATLICH
-AFTER INSERT,UPDATE ON DATLICH
+AFTER INSERT OR UPDATE ON DATLICH
 FOR EACH ROW
 DECLARE
-    t_ngaysinhKH KHACHHANG.ngaysinh%TYPE
-    t_ngaysinhNV NHANVIEN.ngaysinh%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaysinhKH KHACHHANG.ngaysinh%TYPE;
+    t_ngaysinhNV NHANVIEN.ngaysinh%TYPE;
 BEGIN 
-    t_ngaydatlich := :NEW.ngay
-    
-
     SELECT nv.ngaysinh into t_ngaysinhNV
     FROM NHANVIEN nv
     WHERE nv.MANV=:NEW.MANV;
@@ -400,57 +432,91 @@ BEGIN
     FROM KHACHHANG kh
     WHERE kh.MaKH=:NEW.MaKH;
 
-    IF(t_ngaysinhNV>t_ngaydatlich or t_ngaysinhKH>t_ngaydatlich)
+    IF(t_ngaysinhNV>=:NEW.ngay or t_ngaysinhKH>=:NEW.ngay)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_15_DATLICH;
+
 -- TRIGGER 19
 -- Ngày vào làm của một nhân viên phải nhỏ hơn hoặc bằng ngày đặt lịch.
 -- Nhan Vien Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_19_NHANVIEN
-AFTER UPDATE ON NHANVIEN
+AFTER UPDATE OF NGAYVAOLAM ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngaydatlich DATLICH.Ngay%TYPE;
 BEGIN
-    t_ngayvaolam := :NEW.NgayVaoLam
-
-    SELECT dl.ngay into t_ngaydatlich
+    SELECT NGAY into t_ngaydatlich
     FROM (
-        SELECT dl.ngay from DATLICH dl 
+        SELECT dl.ngay 
+        FROM DATLICH dl 
         WHERE dl.MaNV=:NEW.MaNV
         ORDER BY dl.ngay ASC
     )
-    WHERE ROWNUM=1
+    WHERE ROWNUM=1;
 
-    IF(t_ngayvaolam>t_ngaydatlich)
+    IF(:NEW.NgayVaoLam>=t_ngaydatlich)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_19_NHANVIEN;
+
 -- Dat Lich Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_19_DATLICH
-AFTER UPDATE ON DATLICH
+AFTER UPDATE OF NGAY ON DATLICH
 FOR EACH ROW
 DECLARE
-    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE
-    t_ngaydatlich DATLICH.Ngay%TYPE
+    t_ngayvaolam NHANVIEN.NgayVaoLam%TYPE;
 BEGIN 
-    t_ngaydatlich := :NEW.ngay
-
     SELECT nv.NgayVaoLam into t_ngayvaolam
     FROM NHANVIEN nv
     WHERE nv.MaNV=:NEW.MaNV;
 
-    IF(t_ngayvaolam>t_ngaydatlich)
+    IF(t_ngayvaolam>=:NEW.ngay)
     THEN 
         DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
         RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
 END;
+DROP TRIGGER TRIGGER_19_DATLICH;
+-- Trigger 23
+-- Khách hàng VIP sẽ được giảm 10% trên tổng mỗi hoá đơn. 
+-- Khach Hang Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_23_KHACHHANG
+AFTER UPDATE OF LOAIKH ON KHACHHANG
+FOR EACH ROW
+DECLARE
+BEGIN 
+END;
+DROP TRIGGER TRIGGER_23_KHACHHANG;
+-- Hoa Don Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_2x3_HOADON
+AFTER INSERT OR UPDATE ON HOADON
+FOR EACH ROW
+DECLARE
+    v_loaiKH LOAIKHACHHANG.LOAIKH%TYPE;
+BEGIN 
+    SELECT lkh.LoaiKH into v_loaiKH
+    FROM LOAIKHACHHANG lkh
+    WHERE lkh.MaKH=:NEW.MaKH;
+
+    IF(v_loaiKH!='Member')
+    THEN 
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+    END IF;
+END;
+DROP TRIGGER TRIGGER_23_HOADON;
+-- Trigger 27
+-- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
@@ -463,16 +529,70 @@ DECLARE
 BEGIN
     var_ngaysinh =:NEW.NgaySinh
 
-    SELECT nv.NgaySinh into var_ngaysinh
-    FROM NHANVIEN nv
-    WHERE nv.MaNV=:NEW.MaNV;
 
-    IF (var_ngaysinh>CURRENT_DATE())
-    THEN 
-        DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
-        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
-END;
+INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
+    MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức',1);
+INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
+    MASP_SEQ8.NEXTVAL, 'ACSYS', 289000, 'Sữa Rửa Mặt trị mụn - Phiên bản đặc biệt','Hàn Quốc',3);
 
+
+--------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
+DESCRIBE LOAISANPHAM;
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc','1')			
+INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare','1')	
+--------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)','70000','Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào?','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước','40000','1. Massage khai huyệt điều hòa','','1');
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp','349000','Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','','1');				
+INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn','260000','Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','','1');
+SELECT * From KhachHang
+
+DESCRIBE DANHGIANHANVIEN
+SELECT * FROM DANHGIANHANVIEN
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,2,1,To_Date('04-04-2021','dd-mm-yyyy'),4,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,3,2,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+
+
+SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG
+FROM NHANVIEN,LUONG,NHANLUONG
+WHERE NHANVIEN.MANV =LUONG.MANV
+AND    NHANVIEN.MANV = NHANLUONG.MANV
+
+SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP
+
+DESCRIBE HOADON
+INSERT INtO HOADON VALUES (MAHD_SEQ11.NEXTVAL,1,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,2,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,3,0,50000,0);
+SELECT * FROM CTHDSP
+DESCRIBE CTHDDV
+DESCRIBE CTHDSP
+INSERT INTO CTHDDV VALUES (1, 1);
+INSERT INTO CTHDDV VALUES (3, 1);
+INSERT INTO CTHDSP VALUES (2 ,3,1);
+
+
+SELECT HOADON.MAHD,MAKH,MADV,MASP,SOLUONG,KHUYENMAI,TONGTIEN,TINHTRANG 
+FROM HOADON,CTHDSP,CTHDDV
+WHERE  CTHDSP.MAHD =  CTHDDV.MAHD
+
+SELECT * FROM TAIKHOAN
+SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG
+FROM DICHVU, CTHDDV
+WHERE CTHDDV.MAHD = 2
+
+SELECT MASP, SOLUONG FROM CTHDSP WHERE MAHD = 1
+
+ALTER TABLE NHANVIEN
+DROP COLUMN TEST;
+INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
+select * from dichvu
+SELECT * from LOAIDICHVU
+DESCRIBE LOAIDICHVU
+UPDATE DICHVU SET TINHTRANG = 1
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
@@ -499,3 +619,4 @@ SELECT GIODAT.MAGIO FROM GIODAT WHERE GIODAT.MAGIO NOT IN(
 
 
 --------------------------------
+SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;

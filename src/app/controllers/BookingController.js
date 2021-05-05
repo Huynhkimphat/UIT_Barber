@@ -4,22 +4,27 @@ class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await booking.show();
+            let result = await booking.show();
+            if (process.env.status == 3) {
+                res.render("admin/booking/showBooking", {
+                    booking: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            } else if (process.env.status == 0) {
+                res.redirect("/");
+            } else {
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
                 });
-            } else {
-                res.redirect("/");
             }
         })();
     }
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                // let result = await booking.show(req.params.id);
                 let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
@@ -34,9 +39,7 @@ class BookingController {
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
-                console.log(day);
                 res.render("booking/addBooking", {
-                    // booking: temp,
                     day: day,
                     timePeriod: timePeriod,
                     employeeName: employeeName,
@@ -49,21 +52,21 @@ class BookingController {
             }
         })();
     }
-    adding(req, res, next) {
-        (async() => {
-            if (process.env.status != 0) {
-                await booking.add(
-                    req.body.date,
-                    req.body.time,
-                    req.body.employee,
-                    req.body.service
-                );
-                res.redirect("/booking");
-            } else {
-                res.redirect("/");
-            }
-        })();
-    }
+    // adding(req, res, next) {
+    //     (async() => {
+    //         if (process.env.status != 0) {
+    //             await booking.add(
+    //                 .body.time,
+    //                 req.bodyreq.body.date,
+    //                 req.employee,
+    //                 req.body.service
+    //             );
+    //             res.redirect("/booking");
+    //         } else {
+    //             res.redirect("/");
+    //         }
+    //     })();
+    // }
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
@@ -83,7 +86,7 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await booking.destroy(req.params.id);
         })();
         res.redirect("/booking");
     }

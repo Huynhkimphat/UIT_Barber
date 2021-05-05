@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row">
+        {{#each service}}
+        <div class="col-2">
+            <img class="card-img-top" src="{{HINHANH}}" alt="Card image cap" width="50px" height="100px">
+            <div class="card-body">
+                <h5 class="card-title">{{MADV}}</h5>
+                <p class="card-text">{{TENDICHVU}}</p>
+                <p class="card-text">Status: {{TINHTRANG}}</p>
+                <a href="#" class="btn btn-primary">{{GIA}}</a>
+                <a href="#" class="btn btn-primary">Booking now</a>
+                <a href="/service/{{MADV}}/edit" class="btn btn-link">Update</a>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{MADV}}>Delete
+                </a>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+
+
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete service?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-service">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-service-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let serviceId;
+        let deleteForm = document.forms['delete-service-form'];
+        let btnDeleteService = document.getElementById('btn-delete-service');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            serviceId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteService.onclick = function () {
+            deleteForm.action = '/service/' + serviceId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>

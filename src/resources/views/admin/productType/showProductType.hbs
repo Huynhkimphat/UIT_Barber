@@ -1,0 +1,70 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mã loại sản phẩm</th>
+            <th scope="col">Tên loại sản phẩm</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    {{#each productType}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MALSP}}</th>
+            <td>{{TENLOAISANPHAM}}</td>
+            <td>{{TINHTRANG}}</td>
+            <td><a href="/productType/{{MALSP}}/edit" class="btn btn-link">Update</a></td>
+
+            <td>
+                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                    data-id={{MALSP}}>Delete
+                </a>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>
+<button class="btn btn-primary"><a href="/productType/add">Add</a></button>
+{{!-- Delete Model --}}
+<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRecordLabel">Delete productType</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete productType?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-warning" id="btn-delete-productType">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{!-- Delete hidden Form --}}
+<form name="delete-productType-form" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let productTypeId;
+        let deleteForm = document.forms['delete-productType-form'];
+        let btnDeleteProductType = document.getElementById('btn-delete-productType');
+
+        // When dialog confirm clicked
+        $('#deleteRecord').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            productTypeId = button.data('id');
+        });
+
+        // When delete button clicked
+        btnDeleteProductType.onclick = function () {
+            deleteForm.action = '/productType/' + productTypeId + '?_method=DELETE';
+            deleteForm.submit();
+        };
+    })
+</script>
