@@ -513,6 +513,7 @@ END;
 DROP TRIGGER TRIGGER_23_HOADON;
 -- Trigger 27
 -- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
+-- Nhan Luong Them Sua
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_27_NHANLUONG
 AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
@@ -525,7 +526,22 @@ BEGIN
     WHERE dgnv.MaNV=:NEW.MaNV
     GROUP BY dgnv.MaNV;
 
-    UPDATE NhanLuong SET NhanLuong.LuongThuong= NhanLuong.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+-- DanhGiaNhanVien Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_DanhGiaNhanVien
+AFTER INSERT OR UPDATE OF DanhGia ON DanhGiaNhanVien
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
