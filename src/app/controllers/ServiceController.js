@@ -31,7 +31,7 @@ class ServiceController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 res.render("services/addService", {
                     status: process.env.status,
                     username: process.env.username,
@@ -39,7 +39,7 @@ class ServiceController {
                     header: 1,
                 });
             } else {
-                res.redirect("/services");
+                res.redirect("/service");
             }
         })();
     }
