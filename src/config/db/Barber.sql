@@ -516,20 +516,101 @@ DROP TRIGGER TRIGGER_23_HOADON;
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
+SET SERVEROUTPUT ON;
 SET DEFINE OFF;
 CREATE OR REPLACE TRIGGER TRIGGER_16_NHANVIEN 
 AFTER INSERT OR UPDATE ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    var_ngaysinh NHANVIEN.NgaySinh%TYPE
+    var_ngaysinh NHANVIEN.NgaySinh%TYPE;
 BEGIN
-    var_ngaysinh =:NEW.NgaySinh
+    SELECT NHANVIEN.NgaySinh into var_ngaysinh
+    FROM NHANVIEN
+    WHERE NHANVIEN.MaNV=:NEW.MaNV;
+    IF (:NEW.NgaySinh > CURRENT_DATE)
+    THEN 
+    RAISE_APPLICATION_ERROR(-20002, 'Ngay sinh cua nhan vien phai be hon ngay hien tai');
+    ELSE 
+        DBMS_OUTPUT.PUT_LINE('Them thanh cong');
+    END IF;
+END;
+select * from user_errors;
 DROP TRIGGER TRIGGER_16_NHANVIEN;
+
+--TRIGGER 17
+-- Ngày sinh của khách hàng nhỏ hơn ngày hiện tại.
+-- ALTER TABLE KHACHHANG ADD CONSTRAINT CHK_KHACHHANG2 CHECK (KhachHang.NgaySinh < CURRENT_DATE);
+SET SERVEROUTPUT ON;
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_17_KHACHHANG 
+AFTER INSERT OR UPDATE ON KHACHHANG
+FOR EACH ROW
+DECLARE
+    var_ngaysinh KHACHHANG.NgaySinh%TYPE;
+BEGIN
+    SELECT KHACHHANG.NgaySinh into var_ngaysinh
+    FROM KHACHHANG
+    WHERE KHACHHANG.MaKH=:NEW.MaKH;
+    IF (:NEW.NgaySinh > CURRENT_DATE)
+    THEN 
+    RAISE_APPLICATION_ERROR(-20002, 'Ngay sinh cua khach hang phai be hon ngay hien tai');
+    ELSE 
+        DBMS_OUTPUT.PUT_LINE('Them thanh cong');
+    END IF;
+END;
 
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
+-- San pham sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_20_SANPHAM
+AFTER UPDATE ON SANPHAM
+FOR EACH ROW
+DECLARE
+BEGIN
 
+END;
 
+-- Dich vu Sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_20_DICHVU
+AFTER UPDATE ON DICHVU
+FOR EACH ROW
+DECLARE
+BEGIN
+
+END;
+
+-- Chi tiet hoa don dich vu them sua
+
+-- Chi tiet hoa don dich vu xoa
+
+-- Chi tiet hoa don san pham them sua
+
+-- Chi tiet hoa don san pham xoa
+
+-- Hoa don sua
+
+-- CHECK 24 
+--Loại khách hàng VIP sẽ hết hạn sau 1 năm kể từ ngày kích hoạt VIP.
+ALTER TABLE LOAIKHACHHANG ADD CONSTRAINT CHK_LOAIKHACHHANG3 CHECK (
+    (EXTRACT(DAY FROM NgayKichHoatVip) = EXTRACT(DAY FROM NgayHetHanVip)) 
+    AND (EXTRACT(MONTH FROM NgayKichHoatVip) = EXTRACT(MONTH FROM NgayHetHanVip)) 
+    AND (EXTRACT(YEAR FROM NgayHetHanVip) - EXTRACT(YEAR FROM NgayKichHoatVip) = 1));
+
+--TRIGGER 28 
+--Lương thưởng tháng 12 sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,1.
+-- Nhan luong Sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_28_NHANLUONG
+AFTER UPDATE ON NHANLUONG
+FOR EACH ROW
+DECLARE
+BEGIN
+
+END;
+
+------------------------------------------------------------------------------------------------------------------
 DESCRIBE DANHGIANHANVIEN
 SELECT * FROM DANHGIANHANVIEN
 INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
