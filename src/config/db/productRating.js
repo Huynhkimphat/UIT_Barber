@@ -79,7 +79,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1 AND MASP=" +
+                "SELECT * FROM DANHGIASANPHAM WHERE MASP=" +
                 id;
             const result = await conn.execute(exec);
             let temp = formatDate(result);
