@@ -34,9 +34,8 @@ class ProductRatingController {
         if (process.env.status == 3) {
             (async() => {
                 let result = await productRating.show(req.params.id);
-                res.render("admin/products/updateProduct", {
-                    product: result[0],
-                    typeProduct,
+                res.render("admin/productRating/updateProductRating", {
+                    productRating: result[0],
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
