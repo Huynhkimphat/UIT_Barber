@@ -3,7 +3,7 @@ const cpFile = require("cp-file");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await service.show();
             if (process.env.status == 3) {
                 res.render("admin/services/showServices", {
@@ -30,7 +30,7 @@ class ServiceController {
         })();
     }
     add(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status == 3) {
                 let result = await serviceType.show();
                 res.render("admin/services/addService", {
@@ -46,7 +46,7 @@ class ServiceController {
         })();
     }
     adding(req, res, next) {
-        (async () => {
+        (async() => {
             await cpFile(
                 process.env.imgRoute + req.body.img,
                 "./src/public/images/service/" + req.body.img
@@ -55,7 +55,7 @@ class ServiceController {
                 "File copied to ./src/public/images/service/" + req.body.img
             );
         })();
-        (async () => {
+        (async() => {
             if (process.env.status == 3) {
                 await service.add(
                     req.body.name,
@@ -72,7 +72,7 @@ class ServiceController {
     }
     update(req, res, next) {
         if (process.env.status == 3) {
-            (async () => {
+            (async() => {
                 await service.update(
                     req.params.id,
                     req.body.name,
@@ -86,7 +86,7 @@ class ServiceController {
         }
     }
     edit(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await service.show(req.params.id);
             let result2 = await serviceType.show();
             res.render("admin/services/updateServices", {
@@ -100,7 +100,7 @@ class ServiceController {
         })();
     }
     destroy(req, res, next) {
-        (async () => {
+        (async() => {
             await service.destroy(req.params.id);
         })();
         res.redirect("/service");
