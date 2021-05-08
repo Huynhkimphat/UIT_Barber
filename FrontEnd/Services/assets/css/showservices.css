@@ -46,7 +46,7 @@
 }
 
 .front:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -55,7 +55,7 @@
     display: block;
     border-radius: 6px;
     backface-visibility: hidden;
-    background: linear-gradient(40deg, rgba(98, 104, 56, 0.7), rgba(88, 82, 52, 0.7));
+    background: linear-gradient( 40deg, rgba(98, 104, 56, 0.7), rgba(88, 82, 52, 0.7));
 }
 
 .front .inner {
@@ -76,7 +76,7 @@
 
 .front .rating {
     grid-row: 3;
-    color: #FA9905;
+    color: #fa9905;
     font-size: 14px;
     display: flex;
     flex-flow: row nowrap;
@@ -107,7 +107,7 @@
     font-weight: 600;
     line-height: 1.4em;
     overflow: auto;
-    color: #FF1E56;
+    color: #ff1e56;
     padding-right: 25px;
     margin-top: -15px;
 }
@@ -115,7 +115,7 @@
 .back .typeOfService,
 .back .price {
     font-weight: 600;
-    color: #FA9905;
+    color: #fa9905;
     grid-row: 1;
     font-size: 1em;
 }
@@ -167,36 +167,36 @@
 .buttons:hover {
     background-color: #fff;
     text-shadow: none;
-    color: #5B6D5B;
+    color: #5b6d5b;
 }
 
 .buttons.return {
     line-height: 3em;
-    color: #49444D;
-    border-color: #49444D;
+    color: #49444d;
+    border-color: #49444d;
     text-shadow: none;
     margin-left: 0;
     grid-column: end;
 }
 
 .buttons.return:hover {
-    background-color: #5B6D5B;
+    background-color: #5b6d5b;
     color: #fff;
     box-shadow: none;
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 5px;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
- ::-webkit-scrollbar-thumb {
-    background: #49444D;
+::-webkit-scrollbar-thumb {
+    background: #49444d;
 }
 
- ::-webkit-scrollbar-thumb:hover {
-    background: #06070B;
+::-webkit-scrollbar-thumb:hover {
+    background: #06070b;
 }
