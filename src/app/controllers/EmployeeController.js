@@ -2,7 +2,6 @@ const {
     employee,
     time
 } = require("../../config/db");
-
 class EmployeeController {
     //* [GET]/
     show(req, res, next) {
@@ -51,12 +50,11 @@ class EmployeeController {
         // }
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 let result = await employee.show(req.params.id);
                 let timePeriod = await time.show();
-                let temp = formatDate(result);
-                res.render("employee/updateEmployee", {
-                    employee: temp[0],
+                res.render("admin/employee/updateEmployee", {
+                    employee: result[0],
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
@@ -79,19 +77,27 @@ class EmployeeController {
             (async() => {
                 await employee.update(
                     req.params.id,
-                    req.body.name,
-                    req.body.price,
-                    req.body.describe,
-                    req.body.country,
+                    req.body.firstName,
+                    req.body.lastName,
+                    req.body.DateOfBirth,
+                    req.body.sex,
+                    req.body.phoneNumber,
+                    req.body.address,
+                    req.body.beginDate,
+                    req.body.typeEmployee,
                     req.body.img,
-                    req.body.count,
-                    req.body.typeProduct
+                    req.body.email,
+                    req.body.salaryId,
+                    req.body.basicSalary,
+                    req.body.bonusSalary,
+                    req.body.salary,
+                    req.body.payday,
+                    req.body.status
                 );
-                res.redirect("/products");
+                res.redirect("/employee");
             })();
         }
     }
 }
-
 
 module.exports = new EmployeeController();
