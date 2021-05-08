@@ -1,34 +1,31 @@
 const {
-    product,
-    time,
-    productType,
     productRating,
+    time
 } = require("../../config/db");
-class ProductController {
+class ProductRatingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            let result = await product.show();
+            let result = await productRating.show();
             if (process.env.status == 3) {
-                res.render("admin/products/showProduct", {
-                    product: result,
+                res.render("admin/productRating/showProductRating", {
+                    productRating: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                    header: 2,
+
                 });
             } else if (process.env.status != 0) {
-                res.render("products/showProduct", {
-                    product: result,
+                res.render("productRating/showProductRating", {
+                    productRating: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                    header: 2,
+
                 });
             } else {
-                res.render("products/showProduct", {
-                    product: result,
-                    header: 2,
+                res.render("productRating/showProductRating", {
+                    productRating: result,
                 });
             }
         })();
@@ -36,15 +33,14 @@ class ProductController {
     edit(req, res, next) {
         if (process.env.status == 3) {
             (async() => {
-                let result = await product.show(req.params.id);
-                let typeProduct = await productType.showToAdd();
+                let result = await productRating.show(req.params.id);
                 res.render("admin/products/updateProduct", {
                     product: result[0],
                     typeProduct,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                    header: 2,
+
                 });
             })();
         }
@@ -62,7 +58,7 @@ class ProductController {
                     req.body.count,
                     req.body.typeProduct
                 );
-                res.redirect("/products");
+                res.redirect("/productRating");
             })();
         }
     }
@@ -70,12 +66,12 @@ class ProductController {
         (async() => {
             if (process.env.status == 3) {
                 let typeProduct = await productType.showToAdd();
-                res.render("admin/products/addProduct", {
+                res.render("admin/productRating/addProductRating", {
                     typeProduct: typeProduct,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                    header: 2,
+
                 });
             } else {
                 res.redirect("/products");
@@ -102,37 +98,10 @@ class ProductController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await product.destroy(req.params.id);
+            let result = await productRating.destroy(req.params.id);
         })();
-        res.redirect("/products");
-    }
-    viewRating(req, res, next) {
-        (async() => {
-            let result = await productRating.show(req.params.id);
-            if (process.env.status == 3) {
-                res.render("admin/productRating/showProductRating", {
-                    productRating: result,
-                    status: process.env.status,
-                    username: process.env.username,
-                    img: process.env.img,
-                    header: 2,
-                });
-            } else if (process.env.status != 0) {
-                res.render("productRating/showProductRating", {
-                    productRating: result,
-                    status: process.env.status,
-                    username: process.env.username,
-                    img: process.env.img,
-                    header: 2,
-                });
-            } else {
-                res.render("productRating/showProductRating", {
-                    productRating: result,
-                    header: 2,
-                });
-            }
-        })();
+        res.redirect("/productRating");
     }
 }
 
-module.exports = new ProductController();
+module.exports = new ProductRatingController();

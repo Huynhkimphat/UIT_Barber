@@ -200,6 +200,7 @@ CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
     MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
+    Ngay        DATE        NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
@@ -506,13 +507,42 @@ BEGIN
 
     IF(v_loaiKH!='Member')
     THEN 
-        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien * 0.9 WHERE HOADON.MAHD=:NEW.MaHD;
     END IF;
 END;
 DROP TRIGGER TRIGGER_23_HOADON;
 -- Trigger 27
 -- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
+-- Nhan Luong Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_NHANLUONG
+AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
 
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+-- DanhGiaNhanVien Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_DanhGiaNhanVien
+AFTER INSERT OR UPDATE OF DanhGia ON DanhGiaNhanVien
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
@@ -600,14 +630,37 @@ ALTER TABLE LOAIKHACHHANG ADD CONSTRAINT CHK_LOAIKHACHHANG3 CHECK (
 
 --TRIGGER 28 
 --Lương thưởng tháng 12 sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,1.
--- Nhan luong Sua
+-- Nhan luong  Them Sua
 SET DEFINE OFF;
-CREATE OR REPLACE TRIGGER TRIGGER_28_NHANLUONG
-AFTER UPDATE ON NHANLUONG
+CREATE TRIGGER TRIGGER_28_NHANLUONG
+AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
 FOR EACH ROW
 DECLARE
-BEGIN
+    var_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into var_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    AND EXTRACT (MONTH FROM NgayDanhGia)=12
+    GROUP BY dgnv.MaNV;
 
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+-- DanhGiaNhanVien Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_28_DanhGiaNhanVien
+AFTER INSERT OR UPDATE OF DanhGia ON DanhGiaNhanVien
+FOR EACH ROW
+DECLARE
+    var_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into var_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    AND EXTRACT (MONTH FROM NgayDanhGia)=12
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 
 ------------------------------------------------------------------------------------------------------------------
@@ -627,3 +680,4 @@ INSERT INTO CTHDDV VALUES (1, 1);
 INSERT INTO CTHDDV VALUES (3, 1);
 INSERT INTO CTHDSP VALUES (2 ,3,1);
 
+SELECT * FROM DICHVU

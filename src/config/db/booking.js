@@ -12,7 +12,7 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE DATLICH SET WHERE MADL = :id";
+        let exec = "DELETE FROM DATLICH WHERE MADL = :id";
         await conn.execute(
             exec, {
                 id,

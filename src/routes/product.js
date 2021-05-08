@@ -8,5 +8,5 @@ router.get("/", productController.show);
 router.get("/:id/edit", productController.edit);
 router.post("/:id/edit", productController.update);
 router.delete("/:id/", productController.destroy);
-
+router.get("/:id/viewRating", productController.viewRating);
 module.exports = router;

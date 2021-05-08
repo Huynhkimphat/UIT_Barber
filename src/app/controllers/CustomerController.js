@@ -3,13 +3,14 @@ const { customer, time } = require("../../config/db");
 class CustomerController {
     //* [GET]/
     show(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status == 3) {
                 let result = await customer.show();
                 res.render("admin/customer/showCustomer", {
                     customer: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
@@ -17,33 +18,34 @@ class CustomerController {
         })();
     }
     add(req, res, next) {
-            (async() => {
-                if (process.env.status != 0) {
-                    // let result = await booking.show(req.params.id);
-                    // let timePeriod = await time.show();
-                    // let temp = formatDate(result);
-                    res.render("customer/addCustomer", {
-                        // booking: temp,
-                        // timePeriod: timePeriod,
-                        status: process.env.status,
-                        username: process.env.username,
-                    });
-                } else {
-                    res.redirect("/");
-                }
-            })();
-        }
-        // AddBooking(req, res, next) {
-        //     res.render("booking/addBooking");
-        // }
-        // Adding(req, res, next) {
-        //     (async() => {
-        //         let result = await addBooking(req.body.date);
-        //     })();
-        //     res.redirect("/booking");
-        // }
+        (async () => {
+            if (process.env.status != 0) {
+                // let result = await booking.show(req.params.id);
+                // let timePeriod = await time.show();
+                // let temp = formatDate(result);
+                res.render("customer/addCustomer", {
+                    // booking: temp,
+                    // timePeriod: timePeriod,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
+    // AddBooking(req, res, next) {
+    //     res.render("booking/addBooking");
+    // }
+    // Adding(req, res, next) {
+    //     (async() => {
+    //         let result = await addBooking(req.body.date);
+    //     })();
+    //     res.redirect("/booking");
+    // }
     edit(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status != 0) {
                 let result = await customer.show(req.params.id);
                 let timePeriod = await time.show();
@@ -52,6 +54,7 @@ class CustomerController {
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
@@ -59,7 +62,7 @@ class CustomerController {
         })();
     }
     destroy(req, res, next) {
-        (async() => {
+        (async () => {
             let result = await customer.destroy(req.params.id);
         })();
         res.redirect("/customer");

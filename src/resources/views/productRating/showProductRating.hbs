@@ -1,0 +1,26 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Mã DGSP</th>
+            <th scope="col">MaKH</th>
+            <th scope="col">MASP</th>
+            <th scope="col">Ngày đánh giá</th>
+            <th scope="col">Đánh giá</th>
+            <th scope="col">Chi tiết đánh giá</th>
+        </tr>
+    </thead>
+    {{#each productRating}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MADGSP}}</th>
+            <td>{{MAKH}}</td>
+            <td>{{MASP}}</td>
+            <td>{{NGAYDANHGIA}}</td>
+            <td>{{DANHGIA}}⭐</td>
+            <td>{{CHITIETDANHGIA}}</td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>

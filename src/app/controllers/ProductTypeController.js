@@ -1,4 +1,7 @@
-const { productType, time } = require("../../config/db");
+const {
+    productType,
+    time
+} = require("../../config/db");
 class ProductTypeController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +12,16 @@ class ProductTypeController {
                     productType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("productType/showProductType", {
                     productType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("productType/showProductType", {
@@ -29,6 +36,8 @@ class ProductTypeController {
                 res.render("productType/addProductType", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/productType");
@@ -37,16 +46,29 @@ class ProductTypeController {
     }
     edit(req, res, next) {
         (async() => {
-            let result = await booking.show(req.params.id);
+            let result = await productType.show(req.params.id);
             let timePeriod = await time.show();
-            let temp = formatDate(result);
-            res.render("productType/updateProductType", {
-                productType: temp,
+            res.render("admin/productType/updateProductType", {
+                productType: result[0],
                 timePeriod: timePeriod,
                 status: process.env.status,
                 username: process.env.username,
+                img: process.env.img,
+
             });
         })();
+    }
+    update(req, res, next) {
+        if (process.env.status == 3) {
+            (async() => {
+                await productType.update(
+                    req.params.id,
+                    req.body.name,
+                    req.body.status
+                );
+                res.redirect("/productType");
+            })();
+        }
     }
     destroy(req, res, next) {
         (async() => {

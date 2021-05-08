@@ -21,9 +21,6 @@
                         <p class="card-text">Số lượng: {{SOLUONG}}</p>
                         <p class="card-text">Giá: {{GIA}}</p>
                         <a href="#" class="btn btn-primary">{{2}}</a>
-                        <a href="/bill/{{MASP}}/edit" class="btn btn-link">Update</a>
-                        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                            data-id={{MASP}}>Delete
                         </a>
                     </div>
                 </div>
@@ -56,12 +53,3 @@
         </div>
     </div>
 </div>
-<script>
-    if (document.getElementById("card-service-bill").innerHTML == "
-    ") {
-
-    document.getElementById("card-service-bill").innerHTML = "Khong su dung dich vu";
-    }
-
-
-</script>

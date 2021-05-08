@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/messages.css">
+<div id="container">
+    <div id="{{box}}-box">
+        <!-- success /  error  -->
+        <div class="dot"></div>
+        <div class="dot two"></div>
+        <div class="{{face}}">
+            <!-- face / face2   -->
+            <div class="eye"></div>
+            <div class="eye right"></div>
+            <div class="mouth {{mouth}}"></div><!-- happy / sad   -->
+        </div>
+        <div class="shadow scale"></div>
+        <div class="message">
+            <h1 class="alert">{{heading}}</h1>
+            <p>{{desc}}</p>
+        </div><!-- Success! / Error!   -->
+        <button class="button-box">
+            <h1 class="{{btn}}">continue</h1>
+        </button>
+        <!--green / red-->
+        <!-- continue / try again   -->
+    </div>
+</div>
+<script>
+    setTimeout(function () { window.location = "./login"; }, 10000);
+</script>

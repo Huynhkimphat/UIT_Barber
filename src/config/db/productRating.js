@@ -1,5 +1,7 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
+const { formatDate } = require("../../utils/formatDate");
+const e = require("express");
 dotenv.config();
 
 const config = {
@@ -11,7 +13,7 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE LOAISANPHAM SET TINHTRANG = 0 WHERE MALSP = :id";
+        let exec = "UPDATE DANHGIASANPHAM SET TINHTRANG = 0 WHERE MADGSP = :id";
         await conn.execute(
             exec, {
                 id,
@@ -26,29 +28,22 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function showToAdd() {
+async function add(date, time, employee, service) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT * FROM LOAISANPHAM";
-        const result = await conn.execute(exec);
-        if (conn) {
-            await conn.close();
-        }
-        return result.rows;
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
-async function add(name) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
+        // let bookingDate = new Date(date)
+        // console.log(bookingDate);
+        let day = date.split("/").join("-");
+        console.log(day, time, employee, service);
         let exec =
-            "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
+            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
         await conn.execute(
             exec, {
-                name,
+                day,
+                time,
+                employee,
+                service,
             }, {
                 autoCommit: true,
             }
@@ -66,25 +61,28 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             if (process.env.status != 3) {
-                let exec = "SELECT * FROM LOAISANPHAM WHERE TINHTRANG = 1";
+                let exec = "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
-
+                let temp = formatDate(result);
                 if (conn) {
                     await conn.close();
                 }
                 return result.rows;
             } else {
-                let exec = "SELECT * FROM LOAISANPHAM";
+                let exec = "SELECT * FROM DANHGIASANPHAM";
                 const result = await conn.execute(exec);
-
+                let temp = formatDate(result);
                 if (conn) {
                     await conn.close();
                 }
                 return result.rows;
             }
         } else {
-            let exec = "SELECT * FROM LOAISANPHAM WHERE MALSP =" + id;
+            let exec =
+                "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1 AND MASP=" +
+                id;
             const result = await conn.execute(exec);
+            let temp = formatDate(result);
             if (conn) {
                 await conn.close();
             }
@@ -94,30 +92,5 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-async function update(
-    id,
-    name,
-    status
-) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec =
-            "UPDATE LOAISANPHAM SET TENLOAISANPHAM = :name, TINHTRANG=:status  WHERE MALSP= :id";
-        await conn.execute(
-            exec, {
-                id,
-                name,
-                status,
-            }, {
-                autoCommit: true,
-            }
-        );
-        if (conn) {
-            await conn.close();
-        }
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
-module.exports = { show, destroy, showToAdd, add, update };
+
+module.exports = { show, destroy, add };

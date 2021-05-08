@@ -1,31 +1,4 @@
-<<<<<<< HEAD
-* {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-}
-
-.card {
-    width: 420px;
-=======
 .service_card {
->>>>>>> 9cdc11758fe1eaf1fc5e95024ff31649c09e0380
     height: 340px;
     perspective: 1500px;
 }
@@ -153,7 +126,7 @@ body {
 }
 
 .back .price {
-    grid-column: -1;
+    grid-column: 6;
     justify-self: right;
 }
 
@@ -184,20 +157,23 @@ body {
     height: 3em;
     line-height: 2.9em;
     min-width: 3em;
-    border: solid 2px #fff;
     color: #fff;
     border-radius: 4px;
     text-align: center;
     left: 50%;
 }
 
-.buttons:hover {
+.btn-custom {
+    border: solid 2px #fff;
+}
+
+.btn-custom:hover {
     background-color: #fff;
     text-shadow: none;
     color: #5B6D5B;
 }
 
-.buttons.return {
+.btn-custom.return {
     line-height: 3em;
     color: #49444D;
     border-color: #49444D;
@@ -206,7 +182,7 @@ body {
     grid-column: end;
 }
 
-.buttons.return:hover {
+.btn-custom.return:hover {
     background-color: #5B6D5B;
     color: #fff;
     box-shadow: none;
