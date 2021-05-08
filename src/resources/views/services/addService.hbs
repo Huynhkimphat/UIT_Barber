@@ -1,6 +1,4 @@
-<link rel="stylesheet" href="/css/product.css">
-
-<div class="mt-4 container">
+<div class="mt-4 ">
     <h3>ADD SERVICE</h3>
     <form class="mt-4 " method="POST" action="/service/?_method=PUT">
         <div>
@@ -18,15 +16,6 @@
         <div>
             <label for="img">Ảnh của dịch vu: </label>
             <input type="file" id="img" name="img">
-        </div>
-        <div class="form-group" id="typeServiceChosen">
-            <label for="typeProduct">Loại sản phẩm: </label>
-            <p class="typeProduct">
-                {{#each serviceType}}
-                <label><input type="radio" name="typeService" value="{{MALDV}}"
-                        id="typeService"><span>{{TENLOAIDICHVU}}</span></label>
-                {{/each}}
-            </p>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
