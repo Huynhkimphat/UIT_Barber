@@ -1,4 +1,7 @@
 .list-group {
     text-align: center;
-    
+}
+
+.form-control {
+    border-color: aquamarine;
 }
