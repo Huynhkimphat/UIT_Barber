@@ -514,6 +514,7 @@ END;
 DROP TRIGGER TRIGGER_23_HOADON;
 -- Trigger 27
 -- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
+
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
@@ -525,72 +526,8 @@ DECLARE
     var_ngaysinh NHANVIEN.NgaySinh%TYPE
 BEGIN
     var_ngaysinh =:NEW.NgaySinh
-
-
-INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
-    MASP_SEQ8.NEXTVAL, 'Glanzen Clay 60g', 329000, 'Sáp Chính Hãng Bán Chạy Số 1 Thị Trường','Đức',1);
-INSERT INTO SANPHAM(MaSP,TenSanPham,Gia,MOTASANPHAM,XuatXu,MaLSP) VALUES (
-    MASP_SEQ8.NEXTVAL, 'ACSYS', 289000, 'Sữa Rửa Mặt trị mụn - Phiên bản đặc biệt','Hàn Quốc',3);
-
-
---------------------------------------------INSERT TABLE: LOAISANPHAM---------------------------------------------------------
-DESCRIBE LOAISANPHAM;
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ làm tóc','1')			
-INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Dụng cụ skincare','1')	
---------------------------------------------INSERT TABLE: DICHVU---------------------------------------------------------
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Kid Combo (30 phút)','70000','Đẹp trai không phân biệt độ tuổi. Ai bảo các bạn nhỏ thì không thể "làm đẹp" nào?','','1');
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Gội Massage Dưỡng Sinh Vuốt Sáp Tạo Kiểu 8 bước','40000','1. Massage khai huyệt điều hòa','','1');
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Cao Cấp','349000','Uốn phồng là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Uốn phồng cao cấp được tăng cường thành phần Collagen và Keratin đem lại độ suôn mượt và độ bóng hoàn hảo cho tóc, phục hồi tóc hư tổn.','','1');				
-INSERT INTO DICHVU VALUES(MADV_SEQ6.NEXTVAL,'Uốn Tiêu Chuẩn','260000','Uốn tạo kiểu là bí quyết để mái tóc luôn bồng bềnh vào nếp, đẹp như được vuốt tại salon. Chỉ cần làm một lần, form tóc đẹp giữ được vài tháng. Nếu anh sở hữu một mái tóc thưa, mỏng, uốn tóc sẽ giúp mái tóc trở nên bồng bềnh, tạo hiệu ứng trông dày hơn.','','1');
-SELECT * From KhachHang
-
-DESCRIBE DANHGIANHANVIEN
-SELECT * FROM DANHGIANHANVIEN
-INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
-INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,2,1,To_Date('04-04-2021','dd-mm-yyyy'),4,'Good skill',1)
-INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,3,2,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
-
-
-SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN,LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG
-FROM NHANVIEN,LUONG,NHANLUONG
-WHERE NHANVIEN.MANV =LUONG.MANV
-AND    NHANVIEN.MANV = NHANLUONG.MANV
-
-SELECT MASP, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH, SANPHAM.TINHTRANG, SOLUONG, SANPHAM.MALSP, LOAISANPHAM.TENLOAISANPHAM FROM SANPHAM, LOAISANPHAM WHERE SANPHAM.MALSP = LOAISANPHAM.MALSP
-
-DESCRIBE HOADON
-INSERT INtO HOADON VALUES (MAHD_SEQ11.NEXTVAL,1,0,50000,1);
-INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,2,0,50000,1);
-INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,3,0,50000,0);
-SELECT * FROM CTHDSP
-DESCRIBE CTHDDV
-DESCRIBE CTHDSP
-INSERT INTO CTHDDV VALUES (1, 1);
-INSERT INTO CTHDDV VALUES (3, 1);
-INSERT INTO CTHDSP VALUES (2 ,3,1);
-
-
-SELECT HOADON.MAHD,MAKH,MADV,MASP,SOLUONG,KHUYENMAI,TONGTIEN,TINHTRANG 
-FROM HOADON,CTHDSP,CTHDDV
-WHERE  CTHDSP.MAHD =  CTHDDV.MAHD
-
-SELECT * FROM TAIKHOAN
-SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG
-FROM DICHVU, CTHDDV
-WHERE CTHDDV.MAHD = 2
-
-SELECT MASP, SOLUONG FROM CTHDSP WHERE MAHD = 1
-
-ALTER TABLE NHANVIEN
-DROP COLUMN TEST;
-INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date('07-04-2021','dd-mm-yyyy') , 1 , 2 , 1 , 1)
-select * from dichvu
-SELECT * from LOAIDICHVU
-DESCRIBE LOAIDICHVU
-UPDATE DICHVU SET TINHTRANG = 1
 DROP TRIGGER TRIGGER_16_NHANVIEN;
+
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
 
@@ -663,3 +600,20 @@ SELECT MaGio
     WHERE MaNV = 1
 SELECT KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = 43)
 select * from giodat
+--------------------------------
+DESCRIBE DANHGIANHANVIEN
+SELECT * FROM DANHGIANHANVIEN
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,2,1,To_Date('04-04-2021','dd-mm-yyyy'),4,'Good skill',1)
+INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,3,2,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
+DESCRIBE HOADON
+INSERT INtO HOADON VALUES (MAHD_SEQ11.NEXTVAL,1,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,2,0,50000,1);
+INSERT INtO HOADON VALUES(MAHD_SEQ11.NEXTVAL,3,0,50000,0);
+SELECT * FROM CTHDSP
+DESCRIBE CTHDDV
+DESCRIBE CTHDSP
+INSERT INTO CTHDDV VALUES (1, 1);
+INSERT INTO CTHDDV VALUES (3, 1);
+INSERT INTO CTHDSP VALUES (2 ,3,1);
+

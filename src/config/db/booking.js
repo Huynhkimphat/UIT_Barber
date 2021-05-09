@@ -14,9 +14,11 @@ async function destroy(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE DATLICH SET WHERE MADL = :id";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 id,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -37,13 +39,15 @@ async function add(date, time, employee, service) {
         let exec =
             "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 day,
                 time,
                 customer,
                 employee,
                 service,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -122,4 +126,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy, add, showToAdd};
+module.exports = { show, destroy, add, showToAdd };
