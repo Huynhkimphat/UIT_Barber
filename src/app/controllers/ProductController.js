@@ -1,4 +1,9 @@
-const { product, time, productType } = require("../../config/db");
+const {
+    product,
+    time,
+    productType,
+    productRating,
+} = require("../../config/db");
 class ProductController {
     //* [GET]/
     show(req, res, next) {
@@ -9,16 +14,21 @@ class ProductController {
                     product: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
                 });
             } else if (process.env.status != 0) {
                 res.render("products/showProduct", {
                     product: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
                 });
             } else {
                 res.render("products/showProduct", {
                     product: result,
+                    header: 2,
                 });
             }
         })();
@@ -33,6 +43,8 @@ class ProductController {
                     typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
                 });
             })();
         }
@@ -62,6 +74,8 @@ class ProductController {
                     typeProduct: typeProduct,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
                 });
             } else {
                 res.redirect("/products");
@@ -91,6 +105,33 @@ class ProductController {
             let result = await product.destroy(req.params.id);
         })();
         res.redirect("/products");
+    }
+    viewRating(req, res, next) {
+        (async() => {
+            let result = await productRating.show(req.params.id);
+            if (process.env.status == 3) {
+                res.render("admin/productRating/showProductRating", {
+                    productRating: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
+                });
+            } else if (process.env.status != 0) {
+                res.render("productRating/showProductRating", {
+                    productRating: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                    header: 2,
+                });
+            } else {
+                res.render("productRating/showProductRating", {
+                    productRating: result,
+                    header: 2,
+                });
+            }
+        })();
     }
 }
 

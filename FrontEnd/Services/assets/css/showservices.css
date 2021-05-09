@@ -1,31 +1,9 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-}
-
-.card {
-    width: 420px;
+.service_card {
     height: 340px;
-    margin: 1em;
     perspective: 1500px;
 }
 
-.card .content {
+.service_card .content {
     position: relative;
     width: 100%;
     height: 100%;
@@ -68,7 +46,7 @@ body {
 }
 
 .front:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -77,7 +55,7 @@ body {
     display: block;
     border-radius: 6px;
     backface-visibility: hidden;
-    background: linear-gradient(40deg, rgba(98, 104, 56, 0.7), rgba(88, 82, 52, 0.7));
+    background: linear-gradient( 40deg, rgba(98, 104, 56, 0.7), rgba(88, 82, 52, 0.7));
 }
 
 .front .inner {
@@ -98,7 +76,7 @@ body {
 
 .front .rating {
     grid-row: 3;
-    color: #FA9905;
+    color: #fa9905;
     font-size: 14px;
     display: flex;
     flex-flow: row nowrap;
@@ -116,7 +94,7 @@ body {
 
 .back .inner {
     grid-template-rows: 1fr 2fr 1fr 2fr 14fr 1fr 1fr;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: 0fr 20fr 0fr 0fr;
     grid-column-gap: 0.8em;
     justify-items: center;
 }
@@ -129,7 +107,7 @@ body {
     font-weight: 600;
     line-height: 1.4em;
     overflow: auto;
-    color: #FF1E56;
+    color: #ff1e56;
     padding-right: 25px;
     margin-top: -15px;
 }
@@ -137,7 +115,7 @@ body {
 .back .typeOfService,
 .back .price {
     font-weight: 600;
-    color: #FA9905;
+    color: #fa9905;
     grid-row: 1;
     font-size: 1em;
 }
@@ -166,6 +144,10 @@ body {
     min-width: 3em;
 }
 
+.booking_btn {
+    grid-column: 1 / span 5;
+}
+
 .buttons {
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -185,35 +167,36 @@ body {
 .buttons:hover {
     background-color: #fff;
     text-shadow: none;
-    color: #5B6D5B;
+    color: #5b6d5b;
 }
 
 .buttons.return {
     line-height: 3em;
-    color: #49444D;
-    border-color: #49444D;
+    color: #49444d;
+    border-color: #49444d;
     text-shadow: none;
     margin-left: 0;
+    grid-column: end;
 }
 
 .buttons.return:hover {
-    background-color: #5B6D5B;
+    background-color: #5b6d5b;
     color: #fff;
     box-shadow: none;
 }
 
- ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 5px;
 }
 
- ::-webkit-scrollbar-track {
+::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
- ::-webkit-scrollbar-thumb {
-    background: #49444D;
+::-webkit-scrollbar-thumb {
+    background: #49444d;
 }
 
- ::-webkit-scrollbar-thumb:hover {
-    background: #06070B;
+::-webkit-scrollbar-thumb:hover {
+    background: #06070b;
 }

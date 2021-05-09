@@ -1,21 +1,21 @@
 .footer {
-    background-color: #06070B;
+    background-color: #06070b;
 }
 
 .footer-card {
     padding: 2% 7%;
     color: #646771;
-    background-color: #06070B;
+    background-color: #06070b;
 }
 
 .footer-card-text {
     list-style-type: none;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 .footer-card-text>li {
-    padding: 4px
+    padding: 4px;
 }
 
 .center-image {
@@ -35,17 +35,21 @@
 }
 
 .social>i:hover {
-    color: #FF1E56;
+    color: #ff1e56;
     cursor: pointer;
 }
 
+.btn_footer:hover a {
+    color: #06070b !important;
+}
+
 .app-cash__item>i:hover {
-    color: #FF1E56;
+    color: #ff1e56;
     cursor: pointer;
 }
 
 .policy>div {
-    padding: 4px
+    padding: 4px;
 }
 
 .footer-heading {
@@ -90,16 +94,16 @@
 
 @keyframes color {
     0% {
-        color: #766C24;
+        color: #766c24;
     }
     50% {
-        color: #FF1E56;
+        color: #ff1e56;
     }
     75% {
-        color: #DC4C5A;
+        color: #dc4c5a;
     }
     100% {
-        color: #F7FF56
+        color: #f7ff56;
     }
 }
 

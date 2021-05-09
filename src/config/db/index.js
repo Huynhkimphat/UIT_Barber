@@ -14,6 +14,7 @@ const customer = require("./customer");
 const productType = require("./productType");
 const bill = require("./bill");
 const customerRating = require("./customerRating");
+const productRating = require("./productRating");
 const time = require("./time");
 dotenv.config();
 
@@ -48,4 +49,5 @@ module.exports = {
     bill,
     customerRating,
     time,
+    productRating,
 };

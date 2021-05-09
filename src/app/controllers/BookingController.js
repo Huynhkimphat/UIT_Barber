@@ -4,12 +4,22 @@ class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await booking.show();
+            let result = await booking.show();
+            if (process.env.status == 3) {
+                res.render("admin/booking/showBooking", {
+                    booking: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
+            } else if (process.env.status == 0) {
+                res.redirect("/authenticate/login");
+            } else {
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
@@ -43,6 +53,7 @@ class BookingController {
                     serviceName: serviceName,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
@@ -75,6 +86,7 @@ class BookingController {
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");

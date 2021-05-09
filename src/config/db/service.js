@@ -23,18 +23,19 @@ async function showToAdd() {
         console.log("Ouch!", err);
     }
 }
-async function add(name, price, describe, img) {
+async function add(name, price, describe, img, typeService) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO DICHVU(MADV,TENDICHVU, GIA, MOTADICHVU, HINHANH) VALUES (MADV_SEQ6.nextval , :name , :price, :describe, :img)";
+            "INSERT INTO DICHVU(MADV,TENDICHVU, GIA, MOTADICHVU, HINHANH , MALDV) VALUES (MADV_SEQ6.nextval , :name , :price, :describe, :img, :typeService)";
         await conn.execute(
             exec, {
                 img,
                 name,
                 price,
                 describe,
+                typeService,
             }, {
                 autoCommit: true,
             }
@@ -88,8 +89,7 @@ async function show(id = -1) {
                 return result.rows;
             }
         } else {
-            let exec =
-                "SELECT * FROM DICHVU WHERE TINHTRANG = 1 AND MADV =" + id;
+            let exec = "SELECT * FROM DICHVU WHERE MADV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();

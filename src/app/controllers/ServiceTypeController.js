@@ -1,4 +1,7 @@
-const { serviceType, time } = require("../../config/db");
+const {
+    serviceType,
+    time
+} = require("../../config/db");
 class ServiceTypeController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +12,16 @@ class ServiceTypeController {
                     serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else if (process.env.status != 0) {
                 res.render("serviceType/showServiceType", {
                     serviceType: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.render("serviceType/showServiceType", {
@@ -29,6 +36,8 @@ class ServiceTypeController {
                 res.render("serviceType/addServiceType", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+
                 });
             } else {
                 res.redirect("/serviceType");
@@ -36,17 +45,18 @@ class ServiceTypeController {
         })();
     }
     edit(req, res, next) {
-        (async() => {
-            let result = await serviceType.show(req.params.id);
-            let timePeriod = await time.show();
-            let temp = formatDate(result);
-            res.render("serviceType/updateServiceType", {
-                serviceType: temp,
-                timePeriod: timePeriod,
-                status: process.env.status,
-                username: process.env.username,
-            });
-        })();
+        if (process.env.status == 3) {
+            (async() => {
+                let result = await serviceType.show(req.params.id);
+                let timePeriod = await time.show();
+                res.render("admin/serviceType/updateServiceType", {
+                    serviceType: result[0],
+                    timePeriod: timePeriod,
+                    status: process.env.status,
+                    username: process.env.username,
+                });
+            })();
+        }
     }
     destroy(req, res, next) {
         (async() => {
@@ -63,6 +73,18 @@ class ServiceTypeController {
                 res.redirect("/");
             }
         })();
+    }
+    update(req, res, next) {
+        if (process.env.status == 3) {
+            (async() => {
+                await serviceType.update(
+                    req.params.id,
+                    req.body.name,
+                    req.body.status
+                );
+                res.redirect("/serviceType");
+            })();
+        }
     }
 }
 

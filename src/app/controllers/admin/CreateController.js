@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 class CreateController {
     register(req, res) {
-        console.log("h1");
         if (process.env.status == 3) {
             res.render("admin/create", {
                 layout: "authenticate_layout",

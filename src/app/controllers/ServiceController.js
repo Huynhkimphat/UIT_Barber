@@ -1,5 +1,5 @@
 const { service, serviceType } = require("../../config/db");
-
+const cpFile = require("cp-file");
 class ServiceController {
     //* [GET]/
     show(req, res, next) {
@@ -10,40 +10,59 @@ class ServiceController {
                     service: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
                 });
             } else if (process.env.status != 0) {
                 res.render("services/showServices", {
                     service: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
                 });
             } else {
                 res.render("services/showServices", {
                     service: result,
+                    header: 1,
                 });
             }
         })();
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                res.render("services/addService", {
+            if (process.env.status == 3) {
+                let result = await serviceType.show();
+                res.render("admin/services/addService", {
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
+                    header: 1,
+                    serviceType: result,
                 });
             } else {
-                res.redirect("/services");
+                res.redirect("/service");
             }
         })();
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            await cpFile(
+                process.env.imgRoute + req.body.img,
+                "./src/public/images/service/" + req.body.img
+            );
+            console.log(
+                "File copied to ./src/public/images/service/" + req.body.img
+            );
+        })();
+        (async() => {
+            if (process.env.status == 3) {
                 await service.add(
                     req.body.name,
                     req.body.price,
                     req.body.describe,
-                    req.body.img
+                    req.body.img,
+                    req.body.typeService
                 );
                 res.redirect("/service");
             } else {
@@ -75,6 +94,8 @@ class ServiceController {
                 serviceType: result2,
                 status: process.env.status,
                 username: process.env.username,
+                img: process.env.img,
+                header: 1,
             });
         })();
     }
