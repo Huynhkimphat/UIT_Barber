@@ -122,4 +122,4 @@ async function show(id = -1) {
     }
 }
 
-module.exports = { show, destroy, add, showToAdd };
+module.exports = { show, destroy, add, showToAdd};
