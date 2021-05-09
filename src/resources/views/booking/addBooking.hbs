@@ -84,7 +84,7 @@
                 type : "POST",
                 contentype : "application/x-www-form-urlencoded" ,
                 success: (res)=>{
-                    let data=JSON.parse(res);
+                    let data=res;
                     let renderString=[];
                     renderString.push('<label for="time">Time:</label>');
                     renderString.push('<p class="booking_type">');

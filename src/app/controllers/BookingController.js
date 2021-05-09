@@ -1,5 +1,4 @@
 const { booking, time, employee, service } = require("../../config/db");
-const httpMsgs = require("http-msgs");
 
 class BookingController {
     //* [GET]/
@@ -35,7 +34,9 @@ class BookingController {
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
+                console.log(day);
                 res.render("booking/addBooking", {
+                    // booking: temp,
                     day: day,
                     timePeriod: timePeriod,
                     employeeName: employeeName,
@@ -48,8 +49,6 @@ class BookingController {
             }
         })();
     }
-
-    
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
@@ -87,17 +86,6 @@ class BookingController {
             let result = await booking.destroy("DATLICH", req.params.id);
         })();
         res.redirect("/booking");
-    }
-    ajax(req,res){
-        
-        (async() => {
-            if (process.env.status != 0) {
-                let timePeriod1 = await employee.addTimePeriod(req.body.id);
-                let timePeriod2=JSON.stringify(timePeriod1)
-                res.send(timePeriod2);
-            }
-        })();
-        ;
     }
 }
 module.exports = new BookingController();
