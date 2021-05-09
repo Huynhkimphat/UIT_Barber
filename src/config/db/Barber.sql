@@ -543,6 +543,7 @@ BEGIN
 
     UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
+
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
@@ -551,15 +552,54 @@ CREATE OR REPLACE TRIGGER TRIGGER_16_NHANVIEN
 AFTER INSERT OR UPDATE ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    var_ngaysinh NHANVIEN.NgaySinh%TYPE
+    var_ngaysinh NHANVIEN.NgaySinh%TYPE;
+    var_date NHANVIEN.NgaySinh%TYPE;
 BEGIN
-    var_ngaysinh =:NEW.NgaySinh
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM NHANVIEN nv
+    WHERE nv.MaNV=:NEW.MaNV;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
+END;    
+SELECT SYSDATE FROM DUAL;
+SHOW ERRORS
 DROP TRIGGER TRIGGER_16_NHANVIEN;
+
+-- TRIGGER 17
+-- Ngày sinh của khách hàng nhỏ hơn ngày hiện tại.
+--Khach hang them sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_17_KHACHHANG 
+BEFORE INSERT OR UPDATE ON KHACHHANG
+FOR EACH ROW
+DECLARE
+    var_ngaysinh KHACHHANG.NgaySinh%TYPE;
+    var_date KHACHHANG.NgaySinh%TYPE;
+BEGIN
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+    
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
+END;    
 
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
 
-<<<<<<< HEAD
 -- Chi tiet hoa don san pham xoa
 
 -- Hoa don sua
@@ -605,8 +645,6 @@ BEGIN
 
     UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
-=======
->>>>>>> parent of f400801 (Updating Trigger)
 
 DESCRIBE DANHGIANHANVIEN
 SELECT * FROM DANHGIANHANVIEN
