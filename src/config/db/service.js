@@ -125,10 +125,52 @@ async function update(id, name, price, describe, img, typeService) {
         console.log("Ouch!", err);
     }
 }
+async function addNameService(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT TENDICHVU,MADV,GIA FROM DICHVU WHERE MALDV = :id"
+        const result = await conn.execute(
+            exec, {
+                id,
+            },{
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function showDetail(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT MADV,TENDICHVU,GIA FROM DICHVU WHERE MADV in (SELECT MADV From DatLich WHERE MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id ) and MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id ) and MANV =  ( SELECT MANV FROM DATLICH WHERE MADL = :id ))";
+        const result = await conn.execute(
+            exec, {
+                id,
+            },{
+                autoCommit:true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
     show,
     showToAdd,
     add,
     destroy,
     update,
+    addNameService,
+    showDetail,
 };

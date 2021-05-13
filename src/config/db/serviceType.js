@@ -33,6 +33,7 @@ async function showToAdd() {
     try {
         conn = await oracledb.getConnection(config);
         let exec = "SELECT * FROM LOAIDICHVU";
+        console.log(exec);
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -97,26 +98,26 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-async function add(name) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec =
-            "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
-        await conn.execute(
-            exec, {
-                name,
-            }, {
-                autoCommit: true,
-            }
-        );
-        if (conn) {
-            await conn.close();
-        }
-    } catch (err) {
-        console.log("Ouch!", err);
-    }
-}
+// async function add(name) {
+//     let conn;
+//     try {
+//         conn = await oracledb.getConnection(config);
+//         let exec =
+//             "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
+//         await conn.execute(
+//             exec, {
+//                 name,
+//             }, {
+//                 autoCommit: true,
+//             }
+//         );
+//         if (conn) {
+//             await conn.close();
+//         }
+//     } catch (err) {
+//         console.log("Ouch!", err);
+//     }
+// }
 async function update(
     id,
     name,

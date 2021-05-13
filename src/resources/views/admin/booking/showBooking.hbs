@@ -6,8 +6,7 @@
             <th scope="col">Khung giờ</th>
             <th scope="col">Khách hàng</th>
             <th scope="col">Nhân viên</th>
-            <th scope="col">Dịch vụ</th>
-            <th scope="col">Giá</th>
+            <th scope="col">Chi Tiết</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
         </tr>
@@ -20,8 +19,9 @@
             <td>{{KHUNGGIO}}</td>
             <td>{{HO}} {{TEN}}</td>
             <td>{{HO_1}} {{TEN_1}}</td>
-            <td>{{TENDICHVU}}</td>
-            <td>{{GIA}}</td>
+            <td>
+                <button><a href="/booking/{{MADL}}/showDetail" >Chi tiết</a></button>
+            </td>
             <td>
                 <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
             </td>
