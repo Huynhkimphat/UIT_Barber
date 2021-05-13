@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eee;
+    font-family: 'Poppins', sans-serif
+}
+
+.badge {
+    font-size: 25px;
+    font-weight: 200
+}
+
+.badge i {
+    font-size: 20px;
+    font-weight: 200
+}
+
+.about-rating {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px
+}
+
+.total-ratings {
+    font-size: 12px
+}
+
+.bg-custom {
+    background-color: #b7dd29 !important
+}
+
+.progress {
+    margin-top: 10px
+}
+
+.card {
+    border: none;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03)
+}
+
+.comment-text {
+    font-size: 12px
+}
+
+.fs-10 {
+    font-size: 12px
+}
+
+.star-active {
+    color: #FBC02D;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.star-active:hover {
+    color: #F9A825;
+    cursor: pointer
+}
+
+.star-inactive {
+    color: #CFD8DC;
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.customer-reviews__heading{
+    margin-top: 20px;
+    font-size:20px;
+}
+
+.comment-detail {
+	margin:0;
+}
+
+.comment-detail li {
+	color:#AAAAAA;
+	font-size:12px;
+	padding-right: 10px;
+	font-weight:600;
+}
+
+.comment-detail a:hover {
+	text-decoration:underline;
+}
+
+.comment-detail li:last-child {
+	padding-right:0;
+}
+
+.comment-detail li i {
+	color:#666666;
+	font-size:15px;
+	margin-right:10px;
+}
