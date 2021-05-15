@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/css/booking.css">
+
 <div class="mt-4 ">
+    <h1 id="ok"></h1>
     <h3>Add Booking</h3>
-    <form class="mt-4" method="POST" action="/booking/?_method=PUT">
+    <form class="mt-4" method="POST" action="/booking/?_method=PUT" >
         <div class="form-group">
             <label for="date">Date :</label>
             <p class="booking_type">
@@ -10,32 +12,173 @@
                 {{/each}}
             </p>
         </div>
-
-        <div class="form-group">
-            <label for="time">Time :</label>
+        <div class="form-group" >
+            <label for="typeService">Type Service :</label>
             <p class="booking_type">
-                {{#each timePeriod}}
-                <label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>
+                {{#each typeService}}
+                    <label><input type="checkbox" class="serviceType" name="typeService" value="{{MALDV}}"><span>{{TENLOAIDICHVU}}</span></label>
                 {{/each}}
             </p>
         </div>
-        <div class="form-group">
-
+        <div class="form-group" id="serviceSelect">
+            <label for="serviceName">Service:</label>
+            {{!-- <label for="serviceName">Service:</label>
+            <p class="booking_type">
+                {{#each serviceName}}
+                <label><input type="checkbox" name="service" value="{{MADV}}"
+                        onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
+                {{/each}}
+            </p> --}}
+        </div>
+        <div class="form-group" >
             <label for="employeeName">Employee:</label>
             <p class="booking_type">
                 {{#each employeeName}}
-                <label><input type="radio" name="employee" value="{{MANV}}"><span>{{HO}} {{TEN}}</span></label>
+                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" ><span>{{HO}}
+                        {{TEN}}</span></label>
                 {{/each}}
             </p>
         </div>
-        <div class="form-group">
-            <label for="serviceName">Service:</label>
+        <div class="form-group" id="timeSelect">
+             {{!-- <label for="time">Time:</label>
+                        <p class="booking_type">
+                            {{#each timePeriod}}
+                                <label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>
+                            {{/each}}
+                        </p> --}}
+        </div>
+        {{!-- <div class="form-group">
             <p class="booking_type">
-                {{#each serviceName}}
-                <label><input type="radio" name="service" value="{{MADV}}"><span>{{TENDICHVU}}</span></label>
-                {{/each}}
+            <div>
+                <label>TOTAL: </label>
+                <label id="showTotal"></label>
+            </div>
             </p>
+        </div> --}}
+        <div id="timePeriod" class="form-group">
+
         </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button id="addBooking" type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+</script>
+<script>
+    /*let money = 0;
+    let lstMoney = [];
+    function total(GIA) {
+        function checkMoney(money) {
+            return money == GIA;
+        }
+        if (lstMoney.findIndex(checkMoney) == -1) {
+            money = money + GIA
+            lstMoney.push(GIA);
+            document.getElementById("showTotal").innerHTML = money;
+        }
+        else {
+            money = money - GIA
+            delete lstMoney[lstMoney.findIndex(checkMoney)];
+            document.getElementById("showTotal").innerHTML = money;
+        }
+    }*/
+    //add timePeriod
+    $(document).ready(function () {
+        $(".employee").on("click", function () {
+            let employee = $(this).val();
+            $(this).attr('checked', true);
+            $.ajax({
+                url: "/booking/addTimePeriod",
+                data : {id:employee},
+                method : "POST",
+                type : "POST",
+                contentype : "application/x-www-form-urlencoded" ,
+                success: (res)=>{
+                    let data=res;
+                    let renderString=[];
+                    renderString.push('<label for="time">Time:</label>');
+                    renderString.push('<p class="booking_type">');
+                    data.forEach(data=>{
+                        renderString.push(`
+                                <label><input type="radio" name="time" value="${data.MAGIO}"><span>${data.KHUNGGIO}</span></label>`);
+                    })
+                    renderString.push(`</p>`);
+                    $('#timeSelect').html(renderString.join(''));
+                }
+            });
+        });
+        let renderString1=[];
+        renderString1.push(`<label for="service">Service:</label>`);
+        let checkTypeService = [];
+        let renderString=[];
+        $(".serviceType").on("click", function () {
+            renderString = [];
+            let typeService = $(this).val();
+            function checkType(type) {
+                return type == typeService;
+            }
+            function checkString(string) {
+                return string == renderString;
+            }
+            if (checkTypeService.find(checkType)){
+                $(this).attr('checked', false);
+                $.ajax({
+                    url: "/booking/addService",
+                    data : {id:typeService},
+                    method : "POST",
+                    type : "POST",
+                    contentype : "application/x-www-form-urlencoded" ,
+                    success: (res)=>{
+                        let data=res;
+                        //renderString.push(`<label for="service">Service:</label>`);
+                        renderString.push('<p class="booking_type">');
+                        data.forEach(data=>{
+                            renderString.push(`
+                                    <label><input type="radio" name="${typeService}" value="${data.MADV}"><span>${data.TENDICHVU}</span></label>`);
+                        })
+                        renderString.push(`</p>`);
+                        renderString = renderString.join('');
+                        delete renderString1[renderString1.findIndex(checkString)];
+                        $('#serviceSelect').html(renderString1.join(''));
+                    }
+                });
+                delete checkTypeService[checkTypeService.findIndex(checkType)];
+            }
+            else{
+                $(this).attr('checked', true);
+                $.ajax({
+                    url: "/booking/addService",
+                    data : {id:typeService},
+                    method : "POST",
+                    type : "POST",
+                    contentype : "application/x-www-form-urlencoded" ,
+                    success: (res)=>{
+                        let data=res;
+                        let renderString=[];
+                        //renderString.push('<label for="service">Service:</label>');
+                        renderString.push('<p class="booking_type">');
+                        data.forEach(data=>{
+                            renderString.push(`
+                                    <label><input type="radio" name="${typeService}" value="${data.MADV}"><span>${data.TENDICHVU}</span></label>`);
+                        })
+                        renderString.push(`</p>`);
+                        renderString = renderString.join('');
+                        renderString1.push(renderString);
+                        $('#serviceSelect').html(renderString1.join(''));
+                    }
+                });
+                checkTypeService.push(typeService);
+            }
+        });
+    });
+</script>
+{{!-- .done(function(data){
+                alert(data);
+                /* let cform =  '<label for="time">Time:</label>'
+                            +'<p class="booking_type">'
+                            +    '{{#each timePeriod1}}'
+                            +        '<label><input type="radio" name="time"><span>{{KHUNGGIO}}</span></label>'
+                            +    '{{/each}}'
+                            +'</p>'*/; 
+                //document.getElementById("timePeriod").innerHTML = cform;
+            }) --}}
+

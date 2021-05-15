@@ -96,7 +96,6 @@ CREATE TABLE NhanVien
     CONSTRAINT      CHK_NHANVIEN3   CHECK   (NgaySinh <  NgayVaoLam)
 );
 CREATE SEQUENCE MANV_SEQ3 START WITH 1;
-
 ---------------------------------------------BANG TAI KHOAN-------------------------------------------------------
 CREATE TABLE TaiKhoan
 (
@@ -205,7 +204,10 @@ CREATE TABLE HoaDon
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
+    -- NGSDDV
+    
 );
+SELECT * FROM HoaDon
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
 --------------------------------------------BANG CTHDDV-----------------------------------------------------------
 CREATE TABLE CTHDDV
@@ -663,7 +665,75 @@ BEGIN
     UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 
-------------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------
+SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;
+
+
+
+---XUÂN TRƯỜNG
+---- Trigger 18 ----
+---- tuổi của nhân viên phải từ 15 tuổi trở lên
+ALTER TABLE NhanVien
+ADD CONSTRAINT CHK_NHANVIEN_AGE
+        CHECK(EXTRACT(YEAR FROM NGAYVAOLAM) - EXTRACT(YEAR FROM NgaySinh) >= 15);
+
+ALTER TABLE NhanVien DROP CONSTRAINT CHK_NHANVIEN_AGE;
+---- Trigger 22 ----
+--- cứ mỗi 100000 trong hóa đơn sẽ +10 điểm vào điểm tích lũy
+
+-- thêm trên bảng HOADON
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_22_INSERTHOADON
+AFTER INSERT ON HOADON
+FOR EACH ROW 
+DECLARE
+       
+BEGIN
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                + TRUNC(:NEW.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;       
+END;    
+
+DROP TRIGGER TRIGGER_22_INSERTHOADON;
+
+
+-- cập nhật trên bảng hóa đơn
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_22_UPDATEHOADON
+AFTER UPDATE OF TONGTIEN ON HOADON
+FOR EACH ROW 
+DECLARE
+BEGIN
+
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                 - TRUNC(:OLD.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;
+    
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                + TRUNC(:NEW.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;  
+END;    
+DROP TRIGGER TRIGGER_22_UPDATEHOADON;
+
+
+----trigger 26
+
+SELECT KhungGio 
+FROM GioDat
+WHERE MaGio not in (
+    SELECT MaGio 
+    FROM DatLich
+    WHERE MaNV = 1
+);
+SELECT MaGio 
+    FROM DatLich
+    WHERE MaNV = 1
+SELECT KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = 43)
+select * from giodat
+--------------------------------
 DESCRIBE DANHGIANHANVIEN
 SELECT * FROM DANHGIANHANVIEN
 INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
@@ -680,3 +750,9 @@ INSERT INTO CTHDDV VALUES (1, 1);
 INSERT INTO CTHDDV VALUES (3, 1);
 INSERT INTO CTHDSP VALUES (2 ,3,1);
 
+SELECT * FROM LOAIDICHVU
+ALTER TABLE DICHVU
+    ADD MALDV       NUMBER  NOT NULL;
+SELECT TENDICHVU,MADV,GIA FROM DICHVU
+WHERE MALDV =3
+DELETE FROM DatLich

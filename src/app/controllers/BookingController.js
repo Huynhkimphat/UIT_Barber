@@ -1,4 +1,5 @@
-const { booking, time, employee, service } = require("../../config/db");
+const { CLOB } = require("oracledb");
+const { booking, time, employee, service, serviceType } = require("../../config/db");
 
 class BookingController {
     //* [GET]/
@@ -20,18 +21,20 @@ class BookingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                });
+                }); 
             }
         })();
     }
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
+                // let result = await booking.show(req.params.id);
                 let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
                 let d = new Date();
                 let dayString = d.toLocaleDateString("en-GB");
+                let typeService = await serviceType.showToAdd();
                 let day = [
                     [dayString]
                 ];
@@ -42,6 +45,8 @@ class BookingController {
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
                 res.render("booking/addBooking", {
+                    // booking: temp,
+                    typeService: typeService,
                     day: day,
                     timePeriod: timePeriod,
                     employeeName: employeeName,
@@ -58,11 +63,16 @@ class BookingController {
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
+                let lstService = [];
+                let i;
+                for (i =0;i<req.body.typeService.length;i++){
+                    lstService.push(req.body[req.body.typeService[i]]);
+                }
                 await booking.add(
+                    lstService,
                     req.body.date,
                     req.body.time,
                     req.body.employee,
-                    req.body.service
                 );
                 res.redirect("/booking");
             } else {
@@ -90,9 +100,41 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy(req.params.id);
+            let result = await booking.destroy("DATLICH", req.params.id);
         })();
         res.redirect("/booking");
+    }
+    addTimePeriod(req,res){
+        (async() => {
+            if (process.env.status != 0) {
+                let timePeriod = await employee.addTimePeriod(req.body.id);
+                res.send(timePeriod);
+            }
+        })();
+    }
+    addService(req,res){
+        (async() => {
+            if (process.env.status != 0) {
+                let serviceName = await service.addNameService(req.body.id);
+                res.send(serviceName);
+            }
+        })();
+    }
+    showDetail(req,res){
+        (async() => {
+            if (process.env.status != 0) {
+                let lstService = await service.showDetail(req.params.id);
+                let bookingDetail = await booking.showDetail(req.params.id);
+                res.render("booking/showDetail", {
+                    // booking: temp,
+                    lstService: lstService,
+                    bookingDetail: bookingDetail,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
+            }
+        })();
     }
 }
 module.exports = new BookingController();
