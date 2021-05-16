@@ -98,9 +98,6 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     border-color: rgba(24,28,33,0.03) !important;
 }
 
-.text-right {
-    text-align: right;
-}
 
 .media {
     display: flex;
@@ -111,6 +108,5 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 }
 
 .card-body .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
-
