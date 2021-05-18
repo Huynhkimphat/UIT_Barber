@@ -54,6 +54,7 @@
   - [ ] Ajax => Update Booking => Last check
   - [ ] Delete Booking
   - [ ] Check routes/booking.js : Demo AJAX?
+  - [ ] Check Booking View : renderString && renderString1?? + Total
 - Nguyen Dinh Sang
   - [ ] 404 page
   - [ ] Checkout Page
