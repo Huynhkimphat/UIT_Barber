@@ -1,9 +1,4 @@
-const {
-    product,
-    time,
-    productType,
-    productRating,
-} = require("../../config/db");
+const { product, productType, productRating } = require("../../config/db");
 class ProductController {
     //* [GET]/
     show(req, res, next) {

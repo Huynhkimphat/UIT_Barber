@@ -1,7 +1,6 @@
 const { product } = require("../../config/db");
 
 class HomeController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await product.show();

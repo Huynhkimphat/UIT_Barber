@@ -2,7 +2,6 @@ const { adminAuthenticate } = require("../../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 class AdminAuthenticateController {
-    //* [GET]/
     login(req, res, next) {
         if (process.env.status == 0) {
             res.render("admin/authenticate/login", {
@@ -50,7 +49,6 @@ class AdminAuthenticateController {
                 bcrypt.genSalt(saltRounds, function(err, salt) {
                     bcrypt.hash(req.body.password, salt, function(err, hash) {
                         encryptedPassword = hash;
-                        console.log("Dang Ky Tai Khoan Admin");
                         (async() => {
                             await adminAuthenticate.register(
                                 req.body.email,

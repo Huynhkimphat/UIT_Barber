@@ -1,9 +1,5 @@
-const {
-    customerRating,
-    time
-} = require("../../config/db");
+const { customerRating, time } = require("../../config/db");
 class CustomerRatingController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await customerRating.show();
@@ -13,7 +9,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status != 0) {
                 res.render("CustomerRating/showCustomerRating", {
@@ -21,12 +16,10 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.render("CustomerRating/showCustomerRating", {
                     customerRating: result,
-
                 });
             }
         })();
@@ -34,20 +27,19 @@ class CustomerRatingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                // let result = await booking.show(req.params.id);
                 let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
                 let serviceName = await service.showToAdd();
                 let d = new Date();
-                let dayString = d.toLocaleDateString('en-GB');
+                let dayString = d.toLocaleDateString("en-GB");
                 let day = [
                     [dayString]
                 ];
                 d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString('en-GB');
+                dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
                 d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString('en-GB');
+                dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
                 res.render("booking/addBooking", {
                     // booking: temp,
@@ -58,8 +50,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
-
                 });
             } else {
                 res.redirect("/");
@@ -69,7 +59,12 @@ class CustomerRatingController {
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                await booking.add(req.body.date, req.body.time, req.body.employee, req.body.service);
+                await booking.add(
+                    req.body.date,
+                    req.body.time,
+                    req.body.employee,
+                    req.body.service
+                );
                 res.redirect("/booking");
             } else {
                 res.redirect("/");
@@ -88,7 +83,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");

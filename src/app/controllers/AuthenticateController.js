@@ -2,7 +2,6 @@ const { authenticate } = require("../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 class AuthenticateController {
-    //* [GET]/
     login(req, res, next) {
         if (process.env.status == 0) {
             res.render("authenticate/login", {
@@ -51,9 +50,8 @@ class AuthenticateController {
                                 });
                             } else {
                                 if (result) {
-                                    process.env.username = req.body.email.split(
-                                        "@"
-                                    )[0];
+                                    process.env.username =
+                                        req.body.email.split("@")[0];
                                     process.env.status = 1;
                                     process.env.id = id;
                                     process.env.img = img;
