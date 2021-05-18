@@ -1,0 +1,54 @@
+# Week7: 17/5-24/5
+
+- Phan Tung + Huynh Thi My Duyen
+  - [ ] Account Customer Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Role : Member / Vip (if Member => Need how many point to Vip)(if Vip -> Time Start/End?)
+    - Cart
+    - Booking History
+    - Order History
+  - [ ] Account Staff Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Salary
+    - Current Rating
+    - Review About Me
+    - Booking History
+  - [ ] Account Admin Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Salary
+    - Booking History
+    - Order History
+    - Revenue(=> specific)
+    - Customer =>(History Booking/Order/Role)
+    - Staff=>(History Booking/Review)
+    - Product=>(History Oder/Review)
+- Tran Thi Thu Oanh
+  - [ ] Booking Schedule UI
+    - Date
+    - Employee(All + the last stylist customer book)<Work/Absent>
+    - Time<Empty/Occupied>
+    - Service->MultiService
+  - [ ] Checkout Page
+    - Payment Page
+- Luong Tuong Quy
+  - [ ] General Form For Adding + Update =>  (need all var in DB)
+  - [ ] Booking UI (Incoming + History)
+- Huynh Kim Phat
+  - [ ] Role for staff
+  - [ ] Manage Project
+- Le Duy Hoang
+  - [ ] Add for Customer + Add for admin => Last check
+  - [ ] Checkout Page
+    - Cart Page
+- Phan Le Xuan Truong
+  - [ ] Ajax => Update Booking => Last check
+  - [ ] Delete Booking
+- Nguyen Dinh Sang
+  - [ ] 404 page
+  - [ ] Checkout Page
+    - No Cart Page
+- Nguyen Thua An Thai
+  - [ ] Add product to cart
