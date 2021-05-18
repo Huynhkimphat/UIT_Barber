@@ -28,21 +28,19 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(date, time, employee, service) {
+async function add(customerId, employeeId, rateDay, ratePoint, cmt, Status) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        // let bookingDate = new Date(date)
-        // console.log(bookingDate);
-        let day = date.split('/').join('-');
-        console.log(day, time, employee, service);
-        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
+        let exec = "INSERT INTO DANHGIANHANVIEN(MADGNV,MAKH,MANV,NGAYDANHGIA,DANHGIA,CHITIETDANHGIA,TINHTRANG) VALUES (MADGNV_SEQ12.NEXTVAL,:customerId,:employeeId,TO_DATE(:rateDay,'yyyy-mm-dd'),:ratePoint,:cmt,:Status)";
         await conn.execute(
             exec, {
-                day,
-                time,
-                employee,
-                service
+                customerId,
+                employeeId,
+                rateDay,
+                ratePoint,
+                cmt,
+                Status,
             }, {
                 autoCommit: true,
             }
