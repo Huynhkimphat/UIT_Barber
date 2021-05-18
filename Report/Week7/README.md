@@ -39,6 +39,7 @@
 - Huynh Kim Phat
   - [ ] Role for staff
   - [ ] Check AdminAuthenticate.js
+  - [ ] Check Authenticate.js
   - [ ] Manage Project
 - Le Duy Hoang
   - [ ] Add for Customer + Add for admin => Last check
