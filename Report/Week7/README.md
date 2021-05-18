@@ -38,6 +38,7 @@
   - [ ] Booking UI (Incoming + History)
 - Huynh Kim Phat
   - [ ] Role for staff
+  - [ ] Check AdminAuthenticate.js
   - [ ] Manage Project
 - Le Duy Hoang
   - [ ] Add for Customer + Add for admin => Last check
