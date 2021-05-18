@@ -32,6 +32,7 @@
     - Time<Empty/Occupied>
     - Service->MultiService
   - [ ] Checkout Page
+    - Cart Page
     - Payment Page
 - Luong Tuong Quy
   - [ ] General Form For Adding + Update =>  (need all var in DB)
@@ -43,11 +44,16 @@
   - [ ] Manage Project
 - Le Duy Hoang
   - [ ] Add for Customer + Add for admin => Last check
-  - [ ] Checkout Page
-    - Cart Page
+  - [ ] Check customerRating : employeeRating?
+  - [ ] Check customer : Update Role(ADMIN) AND Password/Info(NOT EMAIL)(CUSTOMER)
+  - [ ] Check employee : Update Salary(ADMIN) AND Password/Info(NOT EMAIL)(EMPLOYEE)
+  - [ ] Check service : Too much functions ???
+  - [ ] Check loadTime.js : Need?
+  - [ ] Optimize formatDate.js
 - Phan Le Xuan Truong
   - [ ] Ajax => Update Booking => Last check
   - [ ] Delete Booking
+  - [ ] Check routes/booking.js : Demo AJAX?
 - Nguyen Dinh Sang
   - [ ] 404 page
   - [ ] Checkout Page
