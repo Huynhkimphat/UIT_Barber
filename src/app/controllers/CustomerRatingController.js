@@ -26,31 +26,12 @@ class CustomerRatingController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let timePeriod = await time.show();
-                let employeeName = await employee.showToAdd();
-                let serviceName = await service.showToAdd();
-                let d = new Date();
-                let dayString = d.toLocaleDateString("en-GB");
-                let day = [
-                    [dayString]
-                ];
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
-                day.push([dayString]);
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
-                day.push([dayString]);
-                res.render("booking/addBooking", {
-                    // booking: temp,
-                    day: day,
-                    timePeriod: timePeriod,
-                    employeeName: employeeName,
-                    serviceName: serviceName,
+            if (process.env.status == 3) {
+                res.render("admin/customerRating/addCustomerRating", {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                });
+                })
             } else {
                 res.redirect("/");
             }
@@ -58,14 +39,16 @@ class CustomerRatingController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await booking.add(
-                    req.body.date,
-                    req.body.time,
-                    req.body.employee,
-                    req.body.service
+            if (process.env.status == 3) {
+                await customerRating.add(
+                    req.body.customerId,
+                    req.body.employeeId,
+                    req.body.rateDay,
+                    req.body.ratePoint,
+                    req.body.cmt,
+                    req.body.Status
                 );
-                res.redirect("/booking");
+                res.redirect("/customerRating");
             } else {
                 res.redirect("/");
             }

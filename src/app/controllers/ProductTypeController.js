@@ -72,7 +72,7 @@ class ProductTypeController {
         (async() => {
             if (process.env.status != 0) {
                 await productType.add(req.body.name);
-                res.redirect("/productType/add");
+                res.redirect("/productType");
             } else {
                 res.redirect("/");
             }

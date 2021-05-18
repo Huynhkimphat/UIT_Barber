@@ -17,23 +17,36 @@ class EmployeeController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                // let result = await booking.show(req.params.id);
-                // let timePeriod = await time.show();
-                // let temp = formatDate(result);
-                res.render("employee/addEmployee", {
-                    // booking: temp,
-                    // timePeriod: timePeriod,
+            if (process.env.status == 3) {
+                res.render("admin/employee/addEmployee", {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
+                    header: 2,
                 });
             } else {
                 res.redirect("/");
             }
         })();
     }
-
+    adding(req, res, next) {
+        (async() => {
+            if (process.env.status != 0) {
+                await employee.add(
+                    req.body.name,
+                    req.body.price,
+                    req.body.describe,
+                    req.body.country,
+                    req.body.img,
+                    req.body.count,
+                    req.body.typeProduct
+                );
+                res.redirect("/employee");
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
     edit(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
