@@ -1,9 +1,5 @@
-const {
-    employee,
-    time
-} = require("../../config/db");
+const { employee, time } = require("../../config/db");
 class EmployeeController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
@@ -13,7 +9,6 @@ class EmployeeController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");
@@ -63,7 +58,6 @@ class EmployeeController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");

@@ -230,9 +230,34 @@ async function update(
         console.log("Ouch!", err);
     }
 }
+
+async function addTimePeriod(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id) ORDER BY MAGIO";
+        const result = await conn.execute(
+            exec, {
+                id,
+            },{
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+
+
+
 module.exports = {
     show,
     showToAdd,
     destroy,
-    update
+    update,
+    addTimePeriod
 };

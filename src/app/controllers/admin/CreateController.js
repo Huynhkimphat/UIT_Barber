@@ -12,13 +12,11 @@ class CreateController {
         }
     }
     check(req, res, next) {
-        console.log("hiii");
         let encryptedPassword = "";
         if (process.env.status == 3) {
             bcrypt.genSalt(saltRounds, function(err, salt) {
                 bcrypt.hash(req.body.password, salt, function(err, hash) {
                     encryptedPassword = hash;
-                    console.log("Tao Tai Khoan Nhan Vien");
                     (async() => {
                         await create.register(
                             req.body.email,

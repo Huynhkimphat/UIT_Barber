@@ -1,9 +1,5 @@
-const {
-    customerRating,
-    time
-} = require("../../config/db");
+const { customerRating, time } = require("../../config/db");
 class CustomerRatingController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await customerRating.show();
@@ -13,7 +9,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status != 0) {
                 res.render("CustomerRating/showCustomerRating", {
@@ -21,12 +16,10 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.render("CustomerRating/showCustomerRating", {
                     customerRating: result,
-
                 });
             }
         })();
@@ -73,7 +66,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");

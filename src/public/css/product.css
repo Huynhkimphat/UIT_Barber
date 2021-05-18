@@ -8,9 +8,9 @@
     display: inline-block;
     padding: 10px;
     text-transform: uppercase;
-    border: 2px solid blue;
+    border: 2px solid black;
     border-radius: 3px;
-    color: blue;
+    color: black;
 }
 
 .typeProduct input[type="radio"]:checked+span {
@@ -98,6 +98,5 @@
 .buy {
     background-color: yellow;
     color: black;
-    /* border-style: none; */
     border-radius: 8px;
 }

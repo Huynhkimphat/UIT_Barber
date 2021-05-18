@@ -13,7 +13,8 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE DANHGIANHANVIEN SET TINHTRANG = 0 WHERE MADGNV = :id";
+        let exec =
+            "UPDATE DANHGIANHANVIEN SET TINHTRANG = 0 WHERE MADGNV = :id";
         await conn.execute(
             exec, {
                 id,
@@ -58,8 +59,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             if (process.env.status != 3) {
-                let exec =
-                    "SELECT * FROM DANHGIANHANVIEN WHERE TINHTRANG = 1";
+                let exec = "SELECT * FROM DANHGIANHANVIEN WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -67,8 +67,7 @@ async function show(id = -1) {
                 }
                 return result.rows;
             } else {
-                let exec =
-                    "SELECT * FROM DANHGIANHANVIEN";
+                let exec = "SELECT * FROM DANHGIANHANVIEN";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {

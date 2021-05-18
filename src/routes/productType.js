@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const productTypeController = require("../app/controllers/ProductTypeController");
-const { route } = require("./authenticate");
 
 router.get("/", productTypeController.show);
 router.get("/add", productTypeController.add);

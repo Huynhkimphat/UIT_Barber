@@ -33,6 +33,7 @@ async function showToAdd() {
     try {
         conn = await oracledb.getConnection(config);
         let exec = "SELECT * FROM LOAIDICHVU";
+        console.log(exec);
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
