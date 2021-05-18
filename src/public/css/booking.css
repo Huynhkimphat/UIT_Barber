@@ -1,15 +1,19 @@
 .booking_type input[type="radio"] {
     display: none;
 }
-.booking_type input[type="checkbox"]{
+
+.booking_type input[type="checkbox"] {
     display: none;
 }
-.booking_type input[type="label"]{
+
+.booking_type input[type="label"] {
     display: none;
 }
-button{
+
+button {
     display: none;
 }
+
 .booking_type span {
     display: inline-block;
     padding: 10px;
@@ -20,7 +24,7 @@ button{
 }
 
 .booking_type input[type="radio"]:checked+span {
-    background-color:black;
+    background-color: black;
     color: white;
 }
 
@@ -28,7 +32,8 @@ button{
     background-color: black;
     color: white;
 }
-button{
+
+button {
     display: inline-block;
     padding: 3px;
     text-transform: uppercase;
@@ -36,7 +41,8 @@ button{
     border-radius: 1px;
     color: black;
 }
-a{
+
+a {
     text-decoration: none;
     text-align: none;
     color: black;
