@@ -22,13 +22,6 @@
         </div>
         <div class="form-group" id="serviceSelect">
             <label for="serviceName">Service:</label>
-            {{!-- <label for="serviceName">Service:</label>
-            <p class="booking_type">
-                {{#each serviceName}}
-                <label><input type="checkbox" name="service" value="{{MADV}}"
-                        onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
-                {{/each}}
-            </p> --}}
         </div>
         <div class="form-group" >
             <label for="employeeName">Employee:</label>
@@ -40,21 +33,8 @@
             </p>
         </div>
         <div class="form-group" id="timeSelect">
-             {{!-- <label for="time">Time:</label>
-                        <p class="booking_type">
-                            {{#each timePeriod}}
-                                <label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>
-                            {{/each}}
-                        </p> --}}
+   
         </div>
-        {{!-- <div class="form-group">
-            <p class="booking_type">
-            <div>
-                <label>TOTAL: </label>
-                <label id="showTotal"></label>
-            </div>
-            </p>
-        </div> --}}
         <div id="timePeriod" class="form-group">
 
         </div>
@@ -64,23 +44,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 <script>
-    /*let money = 0;
-    let lstMoney = [];
-    function total(GIA) {
-        function checkMoney(money) {
-            return money == GIA;
-        }
-        if (lstMoney.findIndex(checkMoney) == -1) {
-            money = money + GIA
-            lstMoney.push(GIA);
-            document.getElementById("showTotal").innerHTML = money;
-        }
-        else {
-            money = money - GIA
-            delete lstMoney[lstMoney.findIndex(checkMoney)];
-            document.getElementById("showTotal").innerHTML = money;
-        }
-    }*/
     //add timePeriod
     $(document).ready(function () {
         $(".employee").on("click", function () {
@@ -171,14 +134,3 @@
         });
     });
 </script>
-{{!-- .done(function(data){
-                alert(data);
-                /* let cform =  '<label for="time">Time:</label>'
-                            +'<p class="booking_type">'
-                            +    '{{#each timePeriod1}}'
-                            +        '<label><input type="radio" name="time"><span>{{KHUNGGIO}}</span></label>'
-                            +    '{{/each}}'
-                            +'</p>'*/; 
-                //document.getElementById("timePeriod").innerHTML = cform;
-            }) --}}
-
