@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" /> {{!--
+    <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <title>UIT BABER</title>
+</head>
+
+<body>
+    <div class="section over-hide z-bigger">
+        <input class="checkbox" type="checkbox" name="general" id="general">
+        <label class="for-checkbox" for="general"></label>
+        <div class="background-color"></div>
+        <div class="section over-hide z-bigger">
+            <div class="container">
+                <form class="mt-4" method="POST" action="/booking/?_method=PUT">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <p class="pickedDayChange">Pick A Day</p>
+                        </div>
+                        <div class="col-12 pickDay">
+                            <input class="checkbox-tools dayPick" type="radio" value="20/5/2021" name="days" id="day-1">
+                            <label class="for-checkbox-tools" for="day-1">
+                            <i class="far fa-calendar-alt mb-2"></i>
+                            20/5/2021
+                            </label>
+                            <input class="checkbox-tools dayPick" type="radio" value="21/5/2021" name="days" id="day-2">
+                            <label class="for-checkbox-tools" for="day-2">
+                            <i class="far fa-calendar-alt mb-2"></i>
+                            21/5/2021
+                            </label>
+                            <input class="checkbox-tools dayPick" type="radio" value="22/5/2021" name="days" id="day-3">
+                            <label class="for-checkbox-tools" for="day-3">
+                            <i class="far fa-calendar-alt mb-2"></i>
+                            22/5/2021
+                            </label>
+                        </div>
+                        <div class="col-12">
+                            <p>Pick Your Stylist</p>
+                        </div>
+                        <div class="col-12 pickStylist">
+                            <input class="checkbox-tools" type="radio" name="stylists" value="Huynh Kim Phat0" id="stylist-1">
+                            <label class="for-checkbox-tools" for="stylist-1">
+                                <i class="far fa-user"></i>
+                                Huynh Kim Phat
+                            </label>
+                            <input class="checkbox-tools" type="radio" name="stylists" value="Huynh Kim Phat1" id="stylist-2">
+                            <label class="for-checkbox-tools" for="stylist-2">
+                                <i class="far fa-user"></i>
+                                Huynh Kim Phat
+                            </label>
+                            <input class="checkbox-tools" type="radio" name="stylists" value="Huynh Kim Phat2" id="stylist-3">
+                            <label class="for-checkbox-tools" for="stylist-3">
+                                <i class="far fa-user"></i>
+                                Huynh Kim Phat
+                            </label>
+                            <input class="checkbox-tools" type="radio" name="stylists" value="Huynh Kim Phat3" id="stylist-4">
+                            <label class="for-checkbox-tools" for="stylist-4">
+                                <i class="far fa-user"></i>
+                                Huynh Kim Phat
+                            </label>
+                            <input class="checkbox-tools" type="radio" name="stylists" value="Huynh Kim Phat4" id="stylist-5">
+                            <label class="for-checkbox-tools" for="stylist-5">
+                                <i class="far fa-user"></i>
+                                Huynh Kim Phat
+                            </label>
+
+                        </div>
+                        <div class="col-12">
+                            <p>Pick A Time</p>
+                        </div>
+                        <div class="col-xl-10 pickTime">
+                            <input class="checkbox-budget" type="radio" name="time" value="8h30-10h00" id="time-1">
+                            <label class="for-checkbox-budget" for="time-1">
+                            <span data-hover="8h30-10h00">8h30-10h00</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="time" value="10h00-11h30" id="time-2">
+                            <label class="for-checkbox-budget" for="time-2">
+                            <span data-hover="10h00-11h30">10h00-11h30</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="time" value="13h00-14h30" id="time-3">
+                            <label class="for-checkbox-budget" for="time-3">
+                            <span data-hover="13h00-14h30">13h00-14h30</span>
+                        </div>
+                        <div class="col-12 ">
+                            <p>Choose Service Type</p>
+                        </div>
+                        <div class="col-12 pickServiceType">
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Combo Cắt Gội" id="booking-1">
+                            <label class="for-checkbox-booking" for="booking-1">
+                            <i class='uil uil-coffee mr-3'></i><span class="text">Combo Cắt Gội</span>
+                        </label>
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Dịch Vụ Uốn" id="booking-2">
+                            <label class="for-checkbox-booking" for="booking-2">
+                            <i class='uil uil-restaurant mr-3'></i><span class="text">Dịch Vụ Uốn</span>
+                        </label>
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Dịch Vụ Nhuộm" id="booking-3">
+                            <label class="for-checkbox-booking" for="booking-3">
+                            <i class='uil uil-car-sideview mr-3'></i><span class="text">Dịch Vụ Nhuộm</span>
+                        </label>
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Dưỡng Và Phục Hồi Tóc" id="booking-4">
+                            <label class="for-checkbox-booking" for="booking-4">
+                            <i class='uil uil-flower mr-3'></i><span class="text">Dưỡng Và Phục Hồi Tóc</span>
+                        </label>
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Chăm Sóc Da" id="booking-5">
+                            <label class="for-checkbox-booking" for="booking-5">
+                            <i class='uil uil-wifi mr-3'></i><span class="text">Chăm Sóc Da</span>
+                        </label>
+                            <input class="checkbox-booking" type="checkbox" name="booking" value="Dịch Vụ Khác" id="booking-6">
+                            <label class="for-checkbox-booking" for="booking-6">
+                            <i class='uil uil-parking-square mr-3'></i><span class="text">Dịch Vụ Khác</span>
+                        </label>
+                        </div>
+                        <div class="col-xl-10 pickService01">
+                            <input class="checkbox-budget" type="radio" name="service01" value="serviceName01-1" id="service-01-1">
+                            <label class="for-checkbox-budget" for="service-01-1">
+                            <span data-hover="Service Name 01">Service Name 01</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="service01" value="serviceName01-2" id="service-01-2">
+                            <label class="for-checkbox-budget" for="service-01-2">
+                            <span data-hover="Service Name 02">Service Name 02</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="service01" value="serviceName01-3" id="service-01-3">
+                            <label class="for-checkbox-budget" for="service-01-3">
+                            <span data-hover="Service Name 03">Service Name 03</span>
+                            </label>
+                        </div>
+                        <div class="col-xl-10 pickService02">
+                            <input class="checkbox-budget" type="radio" name="service02" value="serviceName02-1" id="service-02-1">
+                            <label class="for-checkbox-budget" for="service-02-1">
+                            <span data-hover="Service Name 01">Service Name 01</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="service02" value="serviceName02-2" id="service-02-2">
+                            <label class="for-checkbox-budget" for="service-02-2">
+                            <span data-hover="Service Name 02">Service Name 02</span>
+                            </label>
+                            <input class="checkbox-budget" type="radio" name="service02" value="serviceName02-3" id="service-02-3">
+                            <label class="for-checkbox-budget" for="service-02-3">
+                            <span data-hover="Service Name 03">Service Name 03</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="row justify-content-center">
+                    <div class="col-xl-10 pt-5">
+                        <input class="checkbox-budget" type="radio">
+                        <label class="submit"><span>Book</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+</script>
+<script>
+</script>
+
+</html>
