@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/css/product.css">
+<div class="mt-4 ">
+    <h3>Add Customer Rating</h3>
+    <form class="mt-4" method="POST" action="/customerRating/?_method=PUT">
+        <div>
+            <label for="customerId">Mã khách hàng: </label><br>
+            <input type="number" name="customerId" id="customerId" width="full"><br>
+        </div>
+        <div>
+            <label for="employeeId">Mã nhân viên: </label><br>
+            <input type="number" name="employeeId" id="employeeId" width="full"><br>
+        </div>
+        <div>
+            <label for="rateDay">Ngày đánh giá:</label><br>
+            <input type="date" name="rateDay" id="rateDay" width="full"><br>
+        </div>
+        <div>
+            <label for="ratePoint">Rate:</label><br>
+            <select name="ratePoint" id="ratePoint" width="full">
+                <option value="1" type="number">1⭐</option>
+                <option value="2" type="number">2⭐</option>
+                <option value="3" type="number">3⭐</option>
+                <option value="4" type="number">4⭐</option>
+                <option value="5" type="number">5⭐</option>
+            </select>
+        </div>
+        <div>
+            <label for="cmt">Đánh giá: </label><br>
+            <textarea type="text" name="cmt" id="cmt" cols="100" rows="10"></textarea><br>
+        </div>
+        <div>
+            <label for="Status">Nhập trạng thái: </label>
+            <select name="Status" id="Status">
+                <option value="1" type="number">1</option>
+                <option value="0" type="number">0</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

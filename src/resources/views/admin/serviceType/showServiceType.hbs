@@ -13,11 +13,11 @@
         <tr>
             <th scope="row">{{MALDV}}</th>
             <td>{{TENLOAIDICHVU}}</td>
-            <td>{{TINHTRANG}}</td>
+            <td class="status">{{TINHTRANG}}</td>
             <td><a href="/serviceType/{{MALDV}}/edit" class="btn btn-link">Update</a></td>
 
             <td>
-                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
+                <a  class="btn-delete" href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
                     data-id={{MALDV}}>Delete
                 </a>
             </td>
@@ -27,7 +27,11 @@
     {{/each}}
 
 </table>
-<button class="btn btn-primary"><a href="/serviceType/add">Add</a></button>
+<div class="row">
+    <div class="col-2">
+        <a href="./serviceType/add" type="button" class="btn btn-primary">Add</a>
+    </div>
+</div>
 {{!-- Delete Model --}}
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -66,5 +70,15 @@
             deleteForm.action = '/serviceType/' + serviceTypeId + '?_method=DELETE';
             deleteForm.submit();
         };
-    })
+    })  
+    let btnStatus = document.querySelectorAll(".status");
+    let btnDelete = document.querySelectorAll(".btn-delete");
+    for (i=0;i<btnStatus.length;i++) {
+        if (btnStatus[i].innerText == "0"){
+            btnDelete[i].innerText = "Recover";
+        }else{
+            btnDelete[i].innerText = "Delete";
+        }
+    }
+    
 </script>

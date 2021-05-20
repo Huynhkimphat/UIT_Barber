@@ -28,22 +28,26 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(date, time, employee, service) {
+async function add(customerID, productID, rateDay, ratePoint, cmt, Status) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        // let bookingDate = new Date(date)
-        // console.log(bookingDate);
-        let day = date.split("/").join("-");
-        console.log(day, time, employee, service);
+        console.log(customerID,
+            productID,
+            rateDay,
+            ratePoint,
+            cmt,
+            Status);
         let exec =
-            "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
+            "INSERT INTO DANHGIASANPHAM VALUES (MADGSP_SEQ13.NEXTVAL , :customerID, :productID, TO_DATE(:rateDay,'yyyy-mm-dd'), :ratePoint, :cmt, :Status)";
         await conn.execute(
             exec, {
-                day,
-                time,
-                employee,
-                service,
+                customerID,
+                productID,
+                rateDay,
+                ratePoint,
+                cmt,
+                Status
             }, {
                 autoCommit: true,
             }
@@ -82,7 +86,7 @@ async function show(id = -1) {
                 "SELECT * FROM DANHGIASANPHAM WHERE MASP=" +
                 id;
             const result = await conn.execute(exec);
-            let temp = formatDate(result);
+            result = formatDate(result);
             if (conn) {
                 await conn.close();
             }

@@ -78,6 +78,88 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function add(
+    firstName,
+    lastName,
+    DateOfBirth,
+    sex,
+    phoneNumber,
+    address,
+    beginDate,
+    typeEmployee,
+    img,
+    email,
+    password,
+    basicSalary,
+    bonusSalary,
+    salary,
+    payday
+) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+
+        let exec1 =
+            "INSERT INTO NHANVIEN VALUES(MANV_SEQ3.NEXTVAL,:firstName,:lastName,NGAYSINH = TO_DATE(:dateOfBirth,'yyyy-mm-dd'),:sex,:phoneNumber,:address,NGAYVAOLAM= TO_DATE(:beginDate,'yyyy-mm-dd'),:typeEmployee,:img,1,:email)";
+        await conn.execute(
+            exec1, {
+                firstName,
+                lastName,
+                DateOfBirth,
+                sex,
+                phoneNumber,
+                address,
+                beginDate,
+                typeEmployee,
+                img,
+                email,
+            }, {
+                autoCommit: true,
+            }
+        );
+        let execForID = "SELECT MANV FROM NHANVIEN WHERE SODT = :phoneNumber AND TEN = :lastName AND NGAYSINH = :dateOfBirth"
+        let resultForID = await conn.execute(execForID, {
+            phoneNumber,
+            lastName,
+            dateOfBirth
+        })
+        let id = resultForID.rows.MANV;
+
+        let exec2 =
+            "INSERT INTO LUONG VALUES(MALUONG_SEQ5.NEXTVAL,:id,:basicSalary)";
+        await conn.execute(
+            exec2, {
+                id,
+                basicSalary
+            }, {
+                autoCommit: true,
+            }
+        );
+        let execForSalary = "SELECT MALUONG FROM LUONG WHERE MANV = :id";
+        let resultForSalary = await conn.execute(execForSalary, { id });
+        let salaryID = resultForSalary.rows.MALUONG;
+        let exec3 =
+            "INSERT INTO NHANLUONG VALUES(:salaryID,:id,NGAYNHANLUONG = TO_DATE(:payday,'yyyy-mm-dd'),LUONGCOBAN = :basicSalary,LUONGTHUONG = :bonusSalary,LUONGDUOCNHAN = :salary)";
+        await conn.execute(
+            exec3, {
+                salaryID,
+                id,
+                payday,
+                basicSalary,
+                bonusSalary,
+                salary
+            }, {
+                autoCommit: true,
+            }
+        );
+        let exec4 = "INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL,)"
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function update(
     id,
     firstName,
