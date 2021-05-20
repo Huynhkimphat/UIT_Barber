@@ -467,6 +467,6 @@ mark {
     display: block;
 }
 
-.none {
-    display: none;
+.submit:hover {
+    background: linear-gradient(138deg, var(--red), var(--yellow));
 }
