@@ -79,7 +79,7 @@ class ProductController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 await product.add(
                     req.body.name,
                     req.body.price,

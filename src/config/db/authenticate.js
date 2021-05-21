@@ -14,10 +14,21 @@ async function login(email) {
         conn = await oracledb.getConnection(config);
         let exec = `SELECT tk.password,tk.makh,kh.hinhanh FROM KHACHHANG kh, TAIKHOAN tk where kh.makh=tk.makh and kh.Email='${email}'`;
         const result = await conn.execute(exec);
-        if (conn) {
-            await conn.close();
+        console.log(result);
+        if (result.rows[0] != null) {
+            if (conn) {
+                await conn.close();
+            }
+            return result.rows[0];
+        } else {
+            let exec = `SELECT tk.password,tk.manv,nv.hinhanh FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}'`;
+            const result = await conn.execute(exec);
+            if (conn) {
+                await conn.close();
+            }
+            return result.rows[0];
         }
-        return result.rows[0];
+
     } catch (err) {
         console.log("Ouch!", err);
     }
