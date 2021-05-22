@@ -31,7 +31,7 @@ async function showToAdd() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MaNV,Ho,Ten FROM NHANVIEN";
+        let exec = "SELECT MaNV,Ho,Ten FROM NHANVIEN WHERE LOAINHANVIEN != 'Admin'";
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -149,14 +149,15 @@ async function update(
     }
 }
 
-async function addTimePeriod(id) {
+async function addTimePeriod(id,day) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id) ORDER BY MAGIO";
+        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy')) ORDER BY MAGIO";
         const result = await conn.execute(
             exec, {
                 id,
+                day,
             },{
                 autoCommit: true,
             }

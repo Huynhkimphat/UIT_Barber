@@ -1,29 +1,73 @@
 <div class="mt-4">
-    <h3>Edit Booking</h3>
-    <form class="mt-4" method="POST" action="/booking/{{0}}?_method=PUT">
-        {{#each booking}}
-
+    <h3>UPDATEBOOKING</h3>
+    <h5>Old booking</h5>
+    <div>
+        {{#each bookingDetail}}
+            <label>Khách hàng: {{HO}} {{TEN}}</label><br>
+            <label>Giờ: {{KHUNGGIO}}</label><br>
+            <label>Tên nhân viên: {{HO_1}} {{TEN_1}}</label><br>
+            <label>Ngày đặt: {{DAY}}/{{MONTH}}/{{YEAR}}</label>
+        {{/each}}
+    </div>
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>bookingDetail</th>
+                    <th scope="col">Mã dịch vụ</th>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Xóa</th>
+                </tr>
+            </thead>
+            {{#each lstService}}
+                <tbody>
+                    <tr>
+                        <td>{{MADV}}</td>
+                        <td>{{TENDICHVU}}</td>
+                        <td>{{GIA}}</td>
+                        <td><button>Xóa</button></td>
+                    </tr>   
+                </tbody>
+            {{/each}}
+        </table>
+        
+    </div>
+    <h5>Add new Booking</h5>
+    <form class="mt-4" method="POST" action="/booking/?_method=PUT" >
         <div class="form-group">
-            <label for="date">Date : {{1}}</label>
-        </div>
-
-        <div class="form-group">
-            <label for="time">Time : </label>
-
-            <select name="time" id="time">
-                <option value="-1" selected disabled hidden>{{2}}</option>
+            <label for="date">Date :</label>
+            <p class="booking_type">
+                {{#each day}}
+                <label><input type="radio" name="date" value="{{0}}"><span>{{0}}</span></label>
                 {{/each}}
-                {{#each timePeriod}}
-                <option value="{{0}}">{{1}}</option>
+            </p>
+        </div>
+        <div class="form-group" >
+            <label for="typeService">Type Service :</label>
+            <p class="booking_type">
+                {{#each typeService}}
+                    <label><input type="checkbox" class="serviceType" name="typeService" value="{{MALDV}}"><span>{{TENLOAIDICHVU}}</span></label>
                 {{/each}}
-            </select>
+            </p>
+        </div>
+        <div class="form-group" id="serviceSelect">
+            <label for="serviceName">Service:</label>
+        </div>
+        <div class="form-group" >
+            <label for="employeeName">Employee:</label>
+            <p class="booking_type">
+                {{#each employeeName}}
+                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" ><span>{{HO}}
+                        {{TEN}}</span></label>
+                {{/each}}
+            </p>
+        </div>
+        <div class="form-group" id="timeSelect">
+        </div>
+        <div id="timePeriod" class="form-group">
 
         </div>
-        <div class="form-group">
-            <label for="level">Level</label>
-            <input type="text" class="form-control" value="Good Bye" id="level" name="level">
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
     </form>
-
+    <button type="submit" class="btn btn-primary">Save</button>
 </div>

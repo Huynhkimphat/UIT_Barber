@@ -5,17 +5,36 @@ class BookingController {
     //* [GET]/
     show(req, res, next) {
         (async() => {
-            let result = await booking.show();
             if (process.env.status == 3) {
-                res.render("admin/booking/showBooking", {
+                let result = await booking.show();
+                let i = 1;
+                while (i<result.length){
+                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
+                        result.splice(i,1);
+                    }
+                    else{
+                        i+=1;
+                    }
+                }
+                res.render("admin/booking/showBooking", {  
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
-                    img: process.env.img,
+                    img: process.env.mg,
                 });
             } else if (process.env.status == 0) {
                 res.redirect("/authenticate/login");
             } else {
+                let result = await booking.show(process.env.id);
+                let i = 1;
+                while (i<result.length){
+                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
+                        result.splice(i,1);
+                    }
+                    else{
+                        i+=1;
+                    }
+                }
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
@@ -29,9 +48,7 @@ class BookingController {
         (async() => {
             if (process.env.status != 0) {
                 // let result = await booking.show(req.params.id);
-                let timePeriod = await time.show();
                 let employeeName = await employee.showToAdd();
-                let serviceName = await service.showToAdd();
                 let d = new Date();
                 let dayString = d.toLocaleDateString("en-GB");
                 let typeService = await serviceType.showToAdd();
@@ -48,9 +65,7 @@ class BookingController {
                     // booking: temp,
                     typeService: typeService,
                     day: day,
-                    timePeriod: timePeriod,
                     employeeName: employeeName,
-                    serviceName: serviceName,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -83,12 +98,11 @@ class BookingController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.show(req.params.id);
-                let timePeriod = await time.show();
-                let temp = formatDate(result);
+                let lstService = await service.showDetail(req.params.id);
+                let bookingDetail = await booking.showDetail(req.params.id);
                 res.render("booking/updateBooking", {
-                    booking: temp,
-                    timePeriod: timePeriod,
+                    lstService: lstService,
+                    bookingDetail: bookingDetail,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -100,14 +114,14 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await booking.destroy( req.params.id);
         })();
         res.redirect("/booking");
     }
     addTimePeriod(req,res){
         (async() => {
             if (process.env.status != 0) {
-                let timePeriod = await employee.addTimePeriod(req.body.id);
+                let timePeriod = await employee.addTimePeriod(req.body.id,req.body.day);
                 res.send(timePeriod);
             }
         })();

@@ -8,9 +8,24 @@
             <label for="date">Date :</label>
             <p class="booking_type">
                 {{#each day}}
-                <label><input type="radio" name="date" value="{{0}}"><span>{{0}}</span></label>
+                    <label><input type="radio" name="date" value="{{0}}" onclick="getDay('{{0}}')"><span>{{0}}</span></label>
                 {{/each}}
             </p>
+        </div>
+        <div class="form-group" id="employeeName">
+            {{!-- <label for="employeeName">Employee:</label>
+            <p class="booking_type">
+                {{#each employeeName}}
+                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" ><span>{{HO}}
+                        {{TEN}}</span></label>
+                {{/each}}
+            </p> --}}
+        </div>
+        <div class="form-group" id="timeSelect">
+
+        </div>
+        <div id="timePeriod" class="form-group">
+
         </div>
         <div class="form-group" >
             <label for="typeService">Type Service :</label>
@@ -22,73 +37,34 @@
         </div>
         <div class="form-group" id="serviceSelect">
             <label for="serviceName">Service:</label>
-            {{!-- <label for="serviceName">Service:</label>
-            <p class="booking_type">
-                {{#each serviceName}}
-                <label><input type="checkbox" name="service" value="{{MADV}}"
-                        onclick="total({{GIA}})"><span>{{TENDICHVU}}</span></label>
-                {{/each}}
-            </p> --}}
         </div>
-        <div class="form-group" >
-            <label for="employeeName">Employee:</label>
-            <p class="booking_type">
-                {{#each employeeName}}
-                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" ><span>{{HO}}
-                        {{TEN}}</span></label>
-                {{/each}}
-            </p>
-        </div>
-        <div class="form-group" id="timeSelect">
-             {{!-- <label for="time">Time:</label>
-                        <p class="booking_type">
-                            {{#each timePeriod}}
-                                <label><input type="radio" name="time" value="{{MAGIO}}"><span>{{KHUNGGIO}}</span></label>
-                            {{/each}}
-                        </p> --}}
-        </div>
-        {{!-- <div class="form-group">
-            <p class="booking_type">
-            <div>
-                <label>TOTAL: </label>
-                <label id="showTotal"></label>
-            </div>
-            </p>
-        </div> --}}
-        <div id="timePeriod" class="form-group">
-
-        </div>
+        
         <button id="addBooking" type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </script>
 <script>
-    /*let money = 0;
-    let lstMoney = [];
-    function total(GIA) {
-        function checkMoney(money) {
-            return money == GIA;
-        }
-        if (lstMoney.findIndex(checkMoney) == -1) {
-            money = money + GIA
-            lstMoney.push(GIA);
-            document.getElementById("showTotal").innerHTML = money;
-        }
-        else {
-            money = money - GIA
-            delete lstMoney[lstMoney.findIndex(checkMoney)];
-            document.getElementById("showTotal").innerHTML = money;
-        }
-    }*/
-    //add timePeriod
-    $(document).ready(function () {
-        $(".employee").on("click", function () {
-            let employee = $(this).val();
-            $(this).attr('checked', true);
+    let day = -1;
+    function getDay(date) {
+        day = date;
+        document.getElementById("timeSelect").innerHTML = "";
+        let cform = `<label for="employeeName">Employee:</label>
+            <p class="booking_type">
+                {{#each employeeName}}
+                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" onclick="gettime({{MANV}})"><span>{{HO}}
+                        {{TEN}}</span></label>
+                {{/each}}
+            </p>`;
+        document.getElementById("employeeName").innerHTML= cform;
+    }
+    function gettime(MANV){
             $.ajax({
                 url: "/booking/addTimePeriod",
-                data : {id:employee},
+                data : {
+                    id:MANV,
+                    day: day,
+                },
                 method : "POST",
                 type : "POST",
                 contentype : "application/x-www-form-urlencoded" ,
@@ -99,17 +75,44 @@
                     renderString.push('<p class="booking_type">');
                     data.forEach(data=>{
                         renderString.push(`
-                                <label><input type="radio" name="time" value="${data.MAGIO}"><span>${data.KHUNGGIO}</span></label>`);
+                                <label><input type="radio" class="time" name="time" value="${data.MAGIO}" onclick="alert(1)"><span>${data.KHUNGGIO}</span></label>`);
                     })
                     renderString.push(`</p>`);
                     $('#timeSelect').html(renderString.join(''));
                 }
             });
-        });
+    }
+    //add timePeriod
+    $(document).ready(function () {
+        /*$(".employee").on("click", function () {
+            let employee = $(this).val();
+            $(this).attr('checked', true);
+            $.ajax({
+                url: "/booking/addTimePeriod",
+                data : {
+                    id:employee,
+                    day: day,
+                },
+                method : "POST",
+                type : "POST",
+                contentype : "application/x-www-form-urlencoded" ,
+                success: (res)=>{
+                    let data=res;
+                    let renderString=[];
+                    renderString.push('<label for="time">Time:</label>');
+                    renderString.push('<p class="booking_type">');
+                    data.forEach(data=>{
+                        renderString.push(`
+                                <label><input type="radio" class="time" name="time" value="${data.MAGIO}" onclick="alert(1)"><span>${data.KHUNGGIO}</span></label>`);
+                    })
+                    renderString.push(`</p>`);
+                    $('#timeSelect').html(renderString.join(''));
+                }
+            });
+        });*/
         let renderString1=[];
         renderString1.push(`<label for="service">Service:</label>`);
         let checkTypeService = [];
-        let renderString=[];
         $(".serviceType").on("click", function () {
             renderString = [];
             let typeService = $(this).val();
@@ -147,7 +150,9 @@
                 $(this).attr('checked', true);
                 $.ajax({
                     url: "/booking/addService",
-                    data : {id:typeService},
+                    data : {
+                        id: typeService,
+                    },
                     method : "POST",
                     type : "POST",
                     contentype : "application/x-www-form-urlencoded" ,

@@ -15,12 +15,12 @@
     <tbody>
         <tr>
             <th scope="row">{{MADL}}</th>
-            <td>{{NGAY}}</td>
-            <td>{{KHUNGGIO}}</td>
-            <td>{{HO}} {{TEN}}</td>
-            <td>{{HO_1}} {{TEN_1}}</td>
+            <td scope="row">{{DAY}}/{{MONTH}}/{{YEAR}}</td>
+            <td scope="row">{{KHUNGGIO}}</td>
+            <td scope="row">{{HO}} {{TEN}}</td>
+            <td scope="row">{{HO_1}} {{TEN_1}}</td>
             <td>
-                <button><a href="/booking/{{MADL}}/showDetail" >Chi tiết</a></button>
+                <a href="/booking/{{MADL}}/showDetail" class="btn btn-link">Chi tiết</a>
             </td>
             <td>
                 <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
@@ -45,8 +45,8 @@
                 <h5 class="modal-title" id="deleteRecordLabel">Delete booking</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Do you want to delete booking?
+            <div clas="modal-body">
+                Do you want sto delete booking?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
