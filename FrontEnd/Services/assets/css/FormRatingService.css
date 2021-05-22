@@ -48,10 +48,7 @@ label.radio input:checked+span {
     border-color: #D32F2F !important
 }
 
-.submit-button,
-.submit-button:active,
-.submit-button:visited,
-.submit-button:focus {
+.submit-button {
     background-color: #198754 !important;
     border-color: #198754 !important;
     color: #fff !important;

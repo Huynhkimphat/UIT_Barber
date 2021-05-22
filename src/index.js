@@ -26,7 +26,7 @@ app.use(express.json());
 // Using methods override
 app.use(methodOverride("_method"));
 // HTTP Logger
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 // Template Engine
 app.engine(
     "hbs",

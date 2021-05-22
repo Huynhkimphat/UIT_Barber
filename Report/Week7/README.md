@@ -1,0 +1,63 @@
+# Week7: 17/5-24/5
+
+- Phan Tung + Huynh Thi My Duyen
+  - [ ] Account Customer Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Role : Member / Vip (if Member => Need how many point to Vip)(if Vip -> Time Start/End?)
+    - Cart
+    - Booking History
+    - Order History
+  - [ ] Account Staff Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Salary
+    - Current Rating
+    - Review About Me
+    - Booking History
+  - [ ] Account Admin Page
+    - About Me
+    - Change Profile Button -> Form to change details
+    - Salary
+    - Booking History
+    - Order History
+    - Revenue(=> specific)
+    - Customer =>(History Booking/Order/Role)
+    - Staff=>(History Booking/Review)
+    - Product=>(History Oder/Review)
+- Tran Thi Thu Oanh
+  - [ ] Booking Schedule UI
+    - Date
+    - Employee(All + the last stylist customer book)<Work/Absent>
+    - Time<Empty/Occupied>
+    - Service->MultiService
+  - [ ] Checkout Page
+    - Cart Page
+    - Payment Page
+- Luong Tuong Quy
+  - [ ] General Form For Adding + Update =>  (need all var in DB)
+  - [ ] Booking UI (Incoming + History)
+- Huynh Kim Phat
+  - [ ] Role for staff
+  - [ ] Check AdminAuthenticate.js
+  - [ ] Check Authenticate.js
+  - [ ] Manage Project
+- Le Duy Hoang
+  - [ ] Add for Customer + Add for admin => Last check
+  - [ ] Check customerRating : employeeRating?
+  - [ ] Check customer : Update Role(ADMIN) AND Password/Info(NOT EMAIL)(CUSTOMER)
+  - [ ] Check employee : Update Salary(ADMIN) AND Password/Info(NOT EMAIL)(EMPLOYEE)
+  - [ ] Check service : Too much functions ???
+  - [ ] Check loadTime.js : Need?
+  - [ ] Optimize formatDate.js
+- Phan Le Xuan Truong
+  - [ ] Ajax => Update Booking => Last check
+  - [ ] Delete Booking
+  - [ ] Check routes/booking.js : Demo AJAX?
+  - [ ] Check Booking View : renderString && renderString1?? + Total
+- Nguyen Dinh Sang
+  - [ ] 404 page
+  - [ ] Checkout Page
+    - No Cart Page
+- Nguyen Thua An Thai
+  - [ ] Add product to cart

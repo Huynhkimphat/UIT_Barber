@@ -3,10 +3,15 @@ const router = express.Router();
 const bookingController = require("../app/controllers/BookingController");
 
 router.get("/", bookingController.show);
-router.get("/add", bookingController.add);
-router.put("/", bookingController.adding);
+
 router.get("/:id/edit", bookingController.edit);
 router.delete("/:id/", bookingController.destroy);
-// router.use('/search', siteController.search);
+router.get("/:id/showDetail", bookingController.showDetail);
+
+// demo AJAX
+router.get("/add", bookingController.add);
+router.post("/addTimePeriod", bookingController.addTimePeriod);
+router.post("/addService", bookingController.addService);
+router.put("/", bookingController.adding);
 
 module.exports = router;
