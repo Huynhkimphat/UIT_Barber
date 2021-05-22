@@ -1,74 +1,75 @@
 <link rel="stylesheet" href="/css/product.css">
 <div class="mt-4 ">
-    <h3>Update Employee {{employee.MANV}}</h3>
-    <form class="mt-4" method="POST" action="/employee/{{employee.MANV}}/edit">
+    <h3>Add Employee:</h3>
+    <form class="mt-4" method="POST" action="/employee/?_method=PUT">
         <div>
             <label for="firstName">Họ: </label><br>
-            <input type="text" name="firstName" id="firstName" width="full" value="{{employee.HO}} "><br>
+            <input type="text" name="firstName" id="firstName" width="full"><br>
         </div>
         <div>
             <label for="lastName">Tên: </label><br>
-            <input type="text" name="lastName" id="lastName" width="full" value="{{employee.TEN}}"><br>
+            <input type="text" name="lastName" id="lastName" width="full" ><br>
         </div>
         <div>
             <label for="DateOfBirth">Ngày sinh:</label><br>
-            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" value="{{employee.NGAYSINH}}"><br>
+            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" ><br>
         </div>
         <div>
             <label for="sex">Giới tính: </label>
             <select id="sex" name="sex">
-                <option value="{{employee.GIOITINH}}">{{employee.GIOITINH}}</option>
                 <option value="Nu">Nu</option>
-                <option value="Unknown">Unknown</option>
                 <option value="Nam">Nam</option>
+                <option value="Unknown">Unknown</option>
             </select>
         </div>
         <div>
             <label for="phoneNumber">Số điện thoại: </label><br>
-            <input type="text" name="phoneNumber" id="phoneNumber" width="full" value="{{employee.SODT}}"><br>
+            <input type="text" name="phoneNumber" id="phoneNumber" width="full"><br>
         </div>
         <div>
             <label for="address">Địa chỉ: </label><br>
-            <input type="text" name="address" id="address" width="full" value="{{employee.DIACHI}}"><br>
+            <input type="text" name="address" id="address" width="full"><br>
         </div>
         <div>
             <label for="beginDate">Ngày vào làm:</label><br>
-            <input type="date" name="beginDate" id="beginDate" width="full" value="{{employee.NGAYVAOLAM}}"><br>
+            <input type="date" name="beginDate" id="beginDate" width="full"><br>
         </div>
         <div>
             <label for="typeEmployee">Chọn loại nhân viên: </label>
             <select id="typeEmployee" name="typeEmployee">
-                <option value="{{employee.LOAINHANVIEN}}">{{employee.LOAINHANVIEN}}</option>
                 <option value="Staff">Staff</option>
                 <option value="Admin">Admin</option>
             </select>
         </div>
         <div>
             <label for="img">Link ảnh: </label><br>
-            <input type="text" name="img" id="img" width="full" value="{{employee.HINHANH}}"><br>
+            <input type="text" name="img" id="img" width="full"><br>
         </div>
+        <h4>Add Employee account:</h4>
         <div>
-            <label for="email" >Email:</label><br>
-            <input disabled type="text" name="email" id="email" width="full" value="{{employee.EMAIL}} "><br>
+            <label for="email">Email:</label><br>
+            <input type="text" name="email" id="email" width="full"><br>
         </div>
-        <h4>Update Employee salary id: {{employee.MALUONG}}</h4>
+            <label for="password">Mật khẩu: </label><br>
+            <input type="text" name="password" id="password" width="full"><br>
+        </div>
+        
+        <h4>Add Employee salary:</h4>
         <div>
             <label for="basicSalary">Lương cơ bản: </label><br>
-            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"
-                value="{{employee.LUONGCOBAN}}"><br>
+            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"><br>
         </div>
         <div>
             <label for="bonusSalary">Lương thưởng: </label><br>
-            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"
-                value="{{employee.LUONGTHUONG}}"><br>
+            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"><br>
         </div>
         <div>
             <label for="salary">Lương được nhận: </label><br>
-            <input type="text" name="salary" id="salary" width="full" value="{{employee.LUONGDUOCNHAN}}"><br>
+            <input type="text" name="salary" id="salary" width="full" ><br>
         </div>
         <div>
             <label for="payday">Ngày nhận lương:</label><br>
-            <input type="date" name="payday" id="payday" width="full" value="{{employee.NGAYNHANLUONG}}"><br>
+            <input type="date" name="payday" id="payday" width="full"><br>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>

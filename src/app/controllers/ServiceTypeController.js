@@ -27,8 +27,8 @@ class ServiceTypeController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                res.render("serviceType/addServiceType", {
+            if (process.env.status == 3) {
+                res.render("admin/serviceType/addServiceType", {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -60,9 +60,9 @@ class ServiceTypeController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await serviceType.add(req.body.name);
-                res.redirect("/serviceType/add");
+            if (process.env.status == 3) {
+                await serviceType.add(req.body.name, req.body.status);
+                res.redirect("/serviceType");
             } else {
                 res.redirect("/");
             }

@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/css/product.css">
+
+<div class="mt-4 container">
+    <h3>ADD SERVICETYPE</h3>
+    <form class="mt-4 " method="POST" action="/serviceType/?_method=PUT">
+        <div>
+            <label for="name">Nhập tên loại dịch vụ: </label><br>
+            <input type="text" name="name" id="name" width="full"><br>
+        </div>
+        <div>
+            <label for="status">Nhập trạng thái: </label>
+            <select name="status" id="status">
+                <option value="1" type="number">1</option>
+                <option value="0" type="number">0</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

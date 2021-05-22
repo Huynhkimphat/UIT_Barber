@@ -12,7 +12,7 @@ async function login(email) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = `SELECT tk.password FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}'`;
+        let exec = `SELECT tk.password FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}' and nv.LoaiNhanVien='Admin'`;
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
