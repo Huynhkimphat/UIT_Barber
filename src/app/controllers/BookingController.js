@@ -1,4 +1,5 @@
 const { getStatus } = require("../../utils/statusBooking");
+const { convertCurrentTime } = require("../../utils/convertTime");
 const {
     booking,
     employee,
@@ -22,8 +23,6 @@ class BookingController {
                     }
                 }
                 result = getStatus(result);
-                console.log("ok");
-                console.log(result);
                 res.render("admin/booking/showBooking", {  
                     booking: result,
                     status: process.env.status,
@@ -44,8 +43,6 @@ class BookingController {
                     }
                 }
                 result = getStatus(result);
-                console.log("ok");
-                console.log(result);
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
@@ -131,7 +128,20 @@ class BookingController {
     addTimePeriod(req, res) {
         (async() => {
             if (process.env.status != 0) {
+                let currentDay = new Date()
+                let date = currentDay.toLocaleDateString("en-GB");
                 let timePeriod = await employee.addTimePeriod(req.body.id,req.body.day);
+                if (date == req.body.day){
+                    let i = 0;
+                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes()/60);
+                    while (i < timePeriod.length){
+                        if( timePeriod[i].MAGIO <= time){
+                            timePeriod.splice(i,1);
+                        } else{
+                            i+=1;
+                        }
+                    }
+                }
                 res.send(timePeriod);
             }
         })();

@@ -1,25 +1,6 @@
+const { convertCurrentTime } = require("./convertTime");
+
 module.exports = {
-    convertCurrentTime: function(timeCurrent){
-        if (timeCurrent <= 10) {
-            return 1;
-        } else if (timeCurrent <= 11,5) {
-            return 2;
-        } else if (timeCurrent <= 14,5) {
-            return 3;
-        } else if (timeCurrent <= 16) {
-            return 4;
-        } else if (timeCurrent <= 17,5) {
-            return 5;
-        } else if (timeCurrent <= 19) {
-            return 6;
-        } else if (timeCurrent <= 20,5) {
-            return 7;
-        } else if (timeCurrent <= 22) {
-            return 8;
-        } else{
-            return 0;
-        }
-    },
     getStatus: function(result) {
         let dayCurrent = new Date();
         let i =0;
@@ -34,7 +15,7 @@ module.exports = {
                     if(result[i].DAY < dayCurrent.getDate()){
                         result[i].status = 1;
                     } else if (result[i].DAY == dayCurrent.getDate()){
-                        if (result[i].magio <= this.convertCurrentTime(dayCurrent.getHours() + dayCurrent.getMinutes())){
+                        if (result[i].magio <= convertCurrentTime(dayCurrent.getHours() + dayCurrent.getMinutes()/60)){
                             result[i].status = 1;
                         }
                     }                        
