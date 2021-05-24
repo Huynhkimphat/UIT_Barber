@@ -1,9 +1,4 @@
-const {
-    product,
-    time,
-    productType,
-    productRating,
-} = require("../../config/db");
+const { product, productType, productRating } = require("../../config/db");
 class ProductController {
     //* [GET]/
     show(req, res, next) {
@@ -84,7 +79,7 @@ class ProductController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status == 3) {
                 await product.add(
                     req.body.name,
                     req.body.price,

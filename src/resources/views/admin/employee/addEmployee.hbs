@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="/css/product.css">
+<div class="mt-4 ">
+    <h3>Add Employee:</h3>
+    <form class="mt-4" method="POST" action="/employee/?_method=PUT">
+        <div>
+            <label for="firstName">Họ: </label><br>
+            <input type="text" name="firstName" id="firstName" width="full"><br>
+        </div>
+        <div>
+            <label for="lastName">Tên: </label><br>
+            <input type="text" name="lastName" id="lastName" width="full" ><br>
+        </div>
+        <div>
+            <label for="DateOfBirth">Ngày sinh:</label><br>
+            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" ><br>
+        </div>
+        <div>
+            <label for="sex">Giới tính: </label>
+            <select id="sex" name="sex">
+                <option value="Nu">Nu</option>
+                <option value="Nam">Nam</option>
+                <option value="Unknown">Unknown</option>
+            </select>
+        </div>
+        <div>
+            <label for="phoneNumber">Số điện thoại: </label><br>
+            <input type="text" name="phoneNumber" id="phoneNumber" width="full"><br>
+        </div>
+        <div>
+            <label for="address">Địa chỉ: </label><br>
+            <input type="text" name="address" id="address" width="full"><br>
+        </div>
+        <div>
+            <label for="beginDate">Ngày vào làm:</label><br>
+            <input type="date" name="beginDate" id="beginDate" width="full"><br>
+        </div>
+        <div>
+            <label for="typeEmployee">Chọn loại nhân viên: </label>
+            <select id="typeEmployee" name="typeEmployee">
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <div>
+            <label for="img">Link ảnh: </label><br>
+            <input type="text" name="img" id="img" width="full"><br>
+        </div>
+        <h4>Add Employee account:</h4>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="text" name="email" id="email" width="full"><br>
+        </div>
+            <label for="password">Mật khẩu: </label><br>
+            <input type="text" name="password" id="password" width="full"><br>
+        </div>
+        
+        <h4>Add Employee salary:</h4>
+        <div>
+            <label for="basicSalary">Lương cơ bản: </label><br>
+            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"><br>
+        </div>
+        <div>
+            <label for="bonusSalary">Lương thưởng: </label><br>
+            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"><br>
+        </div>
+        <div>
+            <label for="salary">Lương được nhận: </label><br>
+            <input type="text" name="salary" id="salary" width="full" ><br>
+        </div>
+        <div>
+            <label for="payday">Ngày nhận lương:</label><br>
+            <input type="date" name="payday" id="payday" width="full"><br>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+    function salarySum() {
+        document.getElementById('salary').value = Number(document.getElementById('basicSalary').value) + Number(document.getElementById('bonusSalary').value);
+    }
+
+</script>

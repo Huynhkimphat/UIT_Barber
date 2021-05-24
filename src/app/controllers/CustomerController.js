@@ -1,7 +1,6 @@
 const { customer, time } = require("../../config/db");
 
 class CustomerController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
@@ -18,32 +17,18 @@ class CustomerController {
         })();
     }
     add(req, res, next) {
-            (async() => {
-                if (process.env.status != 0) {
-                    // let result = await booking.show(req.params.id);
-                    // let timePeriod = await time.show();
-                    // let temp = formatDate(result);
-                    res.render("customer/addCustomer", {
-                        // booking: temp,
-                        // timePeriod: timePeriod,
-                        status: process.env.status,
-                        username: process.env.username,
-                        img: process.env.img,
-                    });
-                } else {
-                    res.redirect("/");
-                }
-            })();
-        }
-        // AddBooking(req, res, next) {
-        //     res.render("booking/addBooking");
-        // }
-        // Adding(req, res, next) {
-        //     (async() => {
-        //         let result = await addBooking(req.body.date);
-        //     })();
-        //     res.redirect("/booking");
-        // }
+        (async() => {
+            if (process.env.status != 0) {
+                res.render("customer/addCustomer", {
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+    }
     edit(req, res, next) {
         (async() => {
             if (process.env.status == 3) {

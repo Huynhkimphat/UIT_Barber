@@ -1,6 +1,72 @@
-<link rel="stylesheet" href="/css/booking.css">
+<link rel="stylesheet" href="/css/bookingCart.css">
 
-<table class="table">
+
+<div class="content">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stylist</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Update</th>
+                        </tr>
+                    </thead>
+                    {{#each booking}}
+                    <tbody>
+                        <tr scope="row">
+                            <td>{{MADL}}</td>
+                            <td>
+                                {{DAY}}/{{MONTH}}/{{YEAR}}
+                                <small class="d-block">{{KHUNGGIO}}</small>
+                            </td>
+                            <td>{{HO}} {{TEN}}</td>
+                            <td>{{HO_1}} {{TEN_1}}</td>
+                            {{#if status}}
+                                <td class="done">
+                                    <i class="fas fa-circle"></i> Done
+                                </td>
+                            {{else}}
+                                <td class="incoming">
+                                    <i class="fas fa-circle"></i> Incoming
+                                </td>
+                            {{/if}}
+                            {{!-- <td class="incoming">
+                                <i class="fas fa-circle"></i> Incoming
+                                <small class="d-block">In 1 hours</small>
+                            </td> --}}
+                            <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                            <td>
+                                <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script>
+    function show(){
+        let cform=`<td class="incoming">
+                                <i class="fas fa-circle"></i> Incoming
+                                <small class="d-block">In 1 hours</small>
+        </td>`
+        document.getElementById("aaaaa").innerHTML = cform;
+    }
+</script>
+{{!-- 
+ <table class="table">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Ngày</th>
@@ -9,7 +75,7 @@
             <th scope="col">Nhân viên</th>
             <th scope="col">Chi Tiết</th>
             <th scope="col">Update</th>
-            {{!-- <th scope="col">Delete</th> --}}
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     {{#each booking}}
@@ -25,17 +91,17 @@
             <td>
                 <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
             </td>
-            {{!-- <td>
+            <td>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
                     data-id={{MADL}}>Delete
                 </a>
-            </td> --}}
+            </td>
         </tr>   
     </tbody>
 
     {{/each}}
 
-</table>
+</table>*/ --}}
 {{!-- 
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

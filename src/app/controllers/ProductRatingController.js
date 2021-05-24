@@ -1,7 +1,4 @@
-const {
-    productRating,
-    time
-} = require("../../config/db");
+const { productRating } = require("../../config/db");
 class ProductRatingController {
     //* [GET]/
     show(req, res, next) {
@@ -13,7 +10,6 @@ class ProductRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status != 0) {
                 res.render("productRating/showProductRating", {
@@ -21,7 +17,6 @@ class ProductRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.render("productRating/showProductRating", {
@@ -39,7 +34,6 @@ class ProductRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             })();
         }
@@ -64,32 +58,28 @@ class ProductRatingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
-                let typeProduct = await productType.showToAdd();
                 res.render("admin/productRating/addProductRating", {
-                    typeProduct: typeProduct,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
-                res.redirect("/products");
+                res.redirect("/productRating");
             }
         })();
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await product.add(
-                    req.body.name,
-                    req.body.price,
-                    req.body.describe,
-                    req.body.country,
-                    req.body.img,
-                    req.body.count,
-                    req.body.typeProduct
+            if (process.env.status == 3 || process.env.status == 2) {
+                await productRating.add(
+                    req.body.customerID,
+                    req.body.productID,
+                    req.body.rateDay,
+                    req.body.ratePoint,
+                    req.body.cmt,
+                    req.body.Status
                 );
-                res.redirect("/products");
+                res.redirect("/productRating");
             } else {
                 res.redirect("/");
             }

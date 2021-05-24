@@ -204,8 +204,6 @@ CREATE TABLE HoaDon
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
     CONSTRAINT  PK_HD       PRIMARY KEY(MaHD)
-    -- NGSDDV
-    
 );
 SELECT * FROM HoaDon
 CREATE SEQUENCE MAHD_SEQ11 START WITH 1;
@@ -297,14 +295,7 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
 
-
-
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
--- ALTER TABLE KHACHHANG
--- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
-
--- ALTER TABLE KHACHHANG
--- ADD CONSTRAINT check_constraint_name CHECK(expression);
 -- Loai San Pham
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1);			
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1);			
@@ -387,7 +378,7 @@ DROP TRIGGER TRIGGER_15_KHACHHANG;
 -- Test
 UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
 
--- Nhan VIen Sua
+-- Nhan Vien Sua
 
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_NHANVIEN
@@ -664,26 +655,17 @@ BEGIN
 
     UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
-
-
-
-
 --------------------------------
 SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;
 
-
-
----XUÂN TRƯỜNG
 ---- Trigger 18 ----
 ---- tuổi của nhân viên phải từ 15 tuổi trở lên
 ALTER TABLE NhanVien
 ADD CONSTRAINT CHK_NHANVIEN_AGE
         CHECK(EXTRACT(YEAR FROM NGAYVAOLAM) - EXTRACT(YEAR FROM NgaySinh) >= 15);
-
 ALTER TABLE NhanVien DROP CONSTRAINT CHK_NHANVIEN_AGE;
 ---- Trigger 22 ----
 --- cứ mỗi 100000 trong hóa đơn sẽ +10 điểm vào điểm tích lũy
-
 -- thêm trên bảng HOADON
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_22_INSERTHOADON
@@ -698,8 +680,6 @@ BEGIN
 END;    
 
 DROP TRIGGER TRIGGER_22_INSERTHOADON;
-
-
 -- cập nhật trên bảng hóa đơn
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_22_UPDATEHOADON
@@ -718,9 +698,7 @@ BEGIN
 END;    
 DROP TRIGGER TRIGGER_22_UPDATEHOADON;
 
-
 ----trigger 26
-
 SELECT KhungGio 
 FROM GioDat
 WHERE MaGio not in (

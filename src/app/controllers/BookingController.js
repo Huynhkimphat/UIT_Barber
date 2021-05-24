@@ -1,8 +1,13 @@
-const { CLOB } = require("oracledb");
-const { booking, time, employee, service, serviceType } = require("../../config/db");
+const { getStatus } = require("../../utils/statusBooking");
+const {
+    booking,
+    employee,
+    service,
+    serviceType,
+} = require("../../config/db");
+
 
 class BookingController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
@@ -16,6 +21,9 @@ class BookingController {
                         i+=1;
                     }
                 }
+                result = getStatus(result);
+                console.log("ok");
+                console.log(result);
                 res.render("admin/booking/showBooking", {  
                     booking: result,
                     status: process.env.status,
@@ -35,12 +43,15 @@ class BookingController {
                         i+=1;
                     }
                 }
+                result = getStatus(result);
+                console.log("ok");
+                console.log(result);
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                }); 
+                });
             }
         })();
     }
@@ -62,7 +73,6 @@ class BookingController {
                 dayString = d.toLocaleDateString("en-GB");
                 day.push([dayString]);
                 res.render("booking/addBooking", {
-                    // booking: temp,
                     typeService: typeService,
                     day: day,
                     employeeName: employeeName,
@@ -80,14 +90,14 @@ class BookingController {
             if (process.env.status != 0) {
                 let lstService = [];
                 let i;
-                for (i =0;i<req.body.typeService.length;i++){
-                    lstService.push(req.body[req.body.typeService[i]]);
-                }
+                for (i = 0; i < req.body.serviceType.length; i++) {
+                    lstService.push(req.body[req.body.serviceType[i]]);
+                };
                 await booking.add(
                     lstService,
                     req.body.date,
                     req.body.time,
-                    req.body.employee,
+                    req.body.employee
                 );
                 res.redirect("/booking");
             } else {
@@ -118,7 +128,7 @@ class BookingController {
         })();
         res.redirect("/booking");
     }
-    addTimePeriod(req,res){
+    addTimePeriod(req, res) {
         (async() => {
             if (process.env.status != 0) {
                 let timePeriod = await employee.addTimePeriod(req.body.id,req.body.day);
@@ -126,7 +136,7 @@ class BookingController {
             }
         })();
     }
-    addService(req,res){
+    addService(req, res) {
         (async() => {
             if (process.env.status != 0) {
                 let serviceName = await service.addNameService(req.body.id);
@@ -134,13 +144,12 @@ class BookingController {
             }
         })();
     }
-    showDetail(req,res){
+    showDetail(req, res) {
         (async() => {
             if (process.env.status != 0) {
                 let lstService = await service.showDetail(req.params.id);
                 let bookingDetail = await booking.showDetail(req.params.id);
                 res.render("booking/showDetail", {
-                    // booking: temp,
                     lstService: lstService,
                     bookingDetail: bookingDetail,
                     status: process.env.status,

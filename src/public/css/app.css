@@ -1,15 +1,15 @@
-/* * {
+* {
     padding: 0;
     margin: 0;
     box-sizing: border;
-} */
+}
 
 body {
-    /* font-family: 'Poppins', sans-serif; */
+    font-family: "Poppins", sans-serif;
 }
 
 hr {
-    border-width: 3px
+    border-width: 3px;
 }
 
 .txt-center {

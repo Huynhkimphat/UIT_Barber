@@ -1,9 +1,6 @@
-const {
-    account
-} = require("../../config/db");
+const { account } = require("../../config/db");
 
 class accountController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await account.show();

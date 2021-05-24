@@ -1,7 +1,6 @@
 const { service, serviceType } = require("../../config/db");
 const cpFile = require("cp-file");
 class ServiceController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await service.show();

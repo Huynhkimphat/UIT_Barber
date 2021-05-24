@@ -1,9 +1,5 @@
-const {
-    productType,
-    time
-} = require("../../config/db");
+const { productType, time } = require("../../config/db");
 class ProductTypeController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await productType.show();
@@ -13,7 +9,6 @@ class ProductTypeController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status != 0) {
                 res.render("productType/showProductType", {
@@ -21,7 +16,6 @@ class ProductTypeController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.render("productType/showProductType", {
@@ -37,7 +31,6 @@ class ProductTypeController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/productType");
@@ -54,7 +47,6 @@ class ProductTypeController {
                 status: process.env.status,
                 username: process.env.username,
                 img: process.env.img,
-
             });
         })();
     }
@@ -72,9 +64,7 @@ class ProductTypeController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await productType.destroy(
-                req.params.id
-            );
+            let result = await productType.destroy(req.params.id);
         })();
         res.redirect("/productType");
     }
@@ -82,7 +72,7 @@ class ProductTypeController {
         (async() => {
             if (process.env.status != 0) {
                 await productType.add(req.body.name);
-                res.redirect("/productType/add");
+                res.redirect("/productType");
             } else {
                 res.redirect("/");
             }

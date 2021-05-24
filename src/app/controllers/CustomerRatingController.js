@@ -1,9 +1,5 @@
-const {
-    customerRating,
-    time
-} = require("../../config/db");
+const { customerRating, time } = require("../../config/db");
 class CustomerRatingController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await customerRating.show();
@@ -13,7 +9,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else if (process.env.status != 0) {
                 res.render("CustomerRating/showCustomerRating", {
@@ -21,46 +16,22 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.render("CustomerRating/showCustomerRating", {
                     customerRating: result,
-
                 });
             }
         })();
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                // let result = await booking.show(req.params.id);
-                let timePeriod = await time.show();
-                let employeeName = await employee.showToAdd();
-                let serviceName = await service.showToAdd();
-                let d = new Date();
-                let dayString = d.toLocaleDateString('en-GB');
-                let day = [
-                    [dayString]
-                ];
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString('en-GB');
-                day.push([dayString]);
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString('en-GB');
-                day.push([dayString]);
-                res.render("booking/addBooking", {
-                    // booking: temp,
-                    day: day,
-                    timePeriod: timePeriod,
-                    employeeName: employeeName,
-                    serviceName: serviceName,
+            if (process.env.status == 3) {
+                res.render("admin/customerRating/addCustomerRating", {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
-
-                });
+                })
             } else {
                 res.redirect("/");
             }
@@ -68,9 +39,16 @@ class CustomerRatingController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await booking.add(req.body.date, req.body.time, req.body.employee, req.body.service);
-                res.redirect("/booking");
+            if (process.env.status == 3) {
+                await customerRating.add(
+                    req.body.customerId,
+                    req.body.employeeId,
+                    req.body.rateDay,
+                    req.body.ratePoint,
+                    req.body.cmt,
+                    req.body.Status
+                );
+                res.redirect("/customerRating");
             } else {
                 res.redirect("/");
             }
@@ -88,7 +66,6 @@ class CustomerRatingController {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-
                 });
             } else {
                 res.redirect("/");
