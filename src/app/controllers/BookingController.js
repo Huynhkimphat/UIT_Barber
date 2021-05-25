@@ -1,25 +1,48 @@
+const { getStatus } = require("../../utils/statusBooking");
+const { convertCurrentTime } = require("../../utils/convertTime");
 const {
     booking,
-    time,
     employee,
     service,
     serviceType,
 } = require("../../config/db");
 
+
 class BookingController {
     show(req, res, next) {
         (async() => {
-            let result = await booking.show();
             if (process.env.status == 3) {
-                res.render("admin/booking/showBooking", {
+                let result = await booking.show();
+                let i = 1;
+                while (i<result.length){
+                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
+                        result.splice(i,1);
+                    }
+                    else{
+                        i+=1;
+                    }
+                }
+                result = getStatus(result);
+                res.render("admin/booking/showBooking", {  
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
-                    img: process.env.img,
+                    img: process.env.mg,
                 });
             } else if (process.env.status == 0) {
                 res.redirect("/authenticate/login");
             } else {
+                let result = await booking.show(process.env.id);
+                let i = 1;
+                while (i<result.length){
+                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
+                        result.splice(i,1);
+                    }
+                    else{
+                        i+=1;
+                    }
+                }
+                result = getStatus(result);
                 res.render("booking/showBooking", {
                     booking: result,
                     status: process.env.status,
@@ -32,9 +55,8 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let timePeriod = await time.show();
+                // let result = await booking.show(req.params.id);
                 let employeeName = await employee.showToAdd();
-                let serviceName = await service.showToAdd();
                 let d = new Date();
                 let dayString = d.toLocaleDateString("en-GB");
                 let typeService = await serviceType.showToAdd();
@@ -50,9 +72,7 @@ class BookingController {
                 res.render("booking/addBooking", {
                     typeService: typeService,
                     day: day,
-                    timePeriod: timePeriod,
                     employeeName: employeeName,
-                    serviceName: serviceName,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -67,9 +87,9 @@ class BookingController {
             if (process.env.status != 0) {
                 let lstService = [];
                 let i;
-                for (i = 0; i < req.body.typeService.length; i++) {
-                    lstService.push(req.body[req.body.typeService[i]]);
-                }
+                for (i = 0; i < req.body.serviceType.length; i++) {
+                    lstService.push(req.body[req.body.serviceType[i]]);
+                };
                 await booking.add(
                     lstService,
                     req.body.date,
@@ -85,12 +105,11 @@ class BookingController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.show(req.params.id);
-                let timePeriod = await time.show();
-                let temp = formatDate(result);
+                let lstService = await service.showDetail(req.params.id);
+                let bookingDetail = await booking.showDetail(req.params.id);
                 res.render("booking/updateBooking", {
-                    booking: temp,
-                    timePeriod: timePeriod,
+                    lstService: lstService,
+                    bookingDetail: bookingDetail,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -102,14 +121,27 @@ class BookingController {
     }
     destroy(req, res, next) {
         (async() => {
-            let result = await booking.destroy("DATLICH", req.params.id);
+            let result = await booking.destroy( req.params.id);
         })();
         res.redirect("/booking");
     }
     addTimePeriod(req, res) {
         (async() => {
             if (process.env.status != 0) {
-                let timePeriod = await employee.addTimePeriod(req.body.id);
+                let currentDay = new Date()
+                let date = currentDay.toLocaleDateString("en-GB");
+                let timePeriod = await employee.addTimePeriod(req.body.id,req.body.day);
+                if (date == req.body.day){
+                    let i = 0;
+                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes()/60);
+                    while (i < timePeriod.length){
+                        if( timePeriod[i].MAGIO <= time){
+                            timePeriod.splice(i,1);
+                        } else{
+                            i+=1;
+                        }
+                    }
+                }
                 res.send(timePeriod);
             }
         })();

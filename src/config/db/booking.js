@@ -13,13 +13,18 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "DELETE FROM DATLICH WHERE MADL = :id";
+        let exec = "UPDATE DATLICH SET TINHTRANG = 0 "+
+                    "WHERE MADL in ( " +
+                    "SELECT MADL FROM DATLICH " +
+                    "WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id) " +
+                    "AND     NGAY = (SELECT NGAY FROM DATLICH WHERE MADL = :id) " +
+                    "AND     MANV = (SELECT MANV FROM DATLICH WHERE MADL = :id) " +
+                    "AND     MAGIO = (SELECT MAGIO FROM DATLICH WHERE MADL = :id) " +
+                    ")";
         await conn.execute(
-            exec,
-            {
+            exec,{
                 id,
-            },
-            {
+            },{
                 autoCommit: true,
             }
         );
@@ -41,7 +46,6 @@ async function add(lstService, date, time, employee,) {
         for (i = 0;i < lstService.length; i++){
             conn = await oracledb.getConnection(config);
             service = lstService[i];
-            console.log(service);
             let exec =
                 "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
             await conn.execute(
@@ -85,44 +89,38 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            if (process.env.status != 3) {
                 let exec =
-                    "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
+                    "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio, gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
                     "WHERE dl.MANV=nv.MANV \n" +
                     "AND dl.MAKH=kh.MAKH \n" +
                     "AND dl.MAGIO=gd.MAGIO \n" +
-                    "AND dl.MADV=dv.MADV";
+                    "AND dl.MADV=dv.MADV\n" +
+                    "AND dl.TINHTRANG = 1\n" +
+                    "ORDER BY YEAR DESC,MONTH DESC,DAY DESC,KHUNGGIO DESC";
                 const result = await conn.execute(exec);
-                let temp = formatDate(result);
+                // result = formatDate(result);
                 if (conn) {
                     await conn.close();
                 }
                 return result.rows;
-            } else {
-                let exec =
-                    "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                    "WHERE dl.MANV=nv.MANV \n" +
-                    "AND dl.MAKH=kh.MAKH \n" +
-                    "AND dl.MAGIO=gd.MAGIO \n" +
-                    "AND dl.MADV=dv.MADV";
-                const result = await conn.execute(exec);
-                let temp = formatDate(result);
-                if (conn) {
-                    await conn.close();
-                }
-                return result.rows;
-            }
         } else {
             let exec =
-                "SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten, dv.tendichvu, dv.gia FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
+                "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
                 "WHERE dl.MANV=nv.MANV \n" +
                 "AND dl.MAKH=kh.MAKH \n" +
                 "AND dl.MAGIO=gd.MAGIO \n" +
                 "AND dl.MADV=dv.MADV\n" +
-                "AND dl.MADL=" +
-                id;
-            let result = await conn.execute(exec);
-            result = formatDate(result);
+                "AND dl.MAKH= :id \n" +
+                "AND dl.TINHTRANG = 1\n" +
+                "ORDER BY YEAR DESC,MONTH DESC,DAY DESC,KHUNGGIO DESC";
+            let result = await conn.execute(
+                exec, {
+                    id,
+                },{
+                    autoCommit:true,
+                }
+            );   
+            // result = formatDate(result);
             if (conn) {
                 await conn.close();
             }

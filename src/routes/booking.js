@@ -8,10 +8,12 @@ router.get("/:id/edit", bookingController.edit);
 router.delete("/:id/", bookingController.destroy);
 router.get("/:id/showDetail", bookingController.showDetail);
 
-// demo AJAX
+//add
 router.get("/add", bookingController.add);
 router.post("/addTimePeriod", bookingController.addTimePeriod);
 router.post("/addService", bookingController.addService);
 router.put("/", bookingController.adding);
+// not time
+// router.use('/search', siteController.search);
 
 module.exports = router;

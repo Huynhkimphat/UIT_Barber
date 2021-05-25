@@ -255,7 +255,7 @@ SELECT * FROM KhachHang
 -- Loai Khach Hang
 SELECT * FROM LoaiKhachHang
 -- Nhan Vien
-SELECT * FROM NhanVien
+SELECT * FROM NhanVien;
 -- Tai Khoan
 SELECT * FROM TaiKhoan
 
@@ -734,3 +734,80 @@ ALTER TABLE DICHVU
 SELECT TENDICHVU,MADV,GIA FROM DICHVU
 WHERE MALDV =3
 DELETE FROM DatLich
+SELECT MADV,TENDICHVU,GIA FROM DICHVU
+WHERE MADV in(
+    SELECT MADV From DatLich
+    WHERE   MAKH =  (
+                        SELECT MAKH FROM DATLICH
+                        WHERE MADL = 5
+                    ) 
+        and MAGIO = (
+                        SELECT MAGIO FROM DATLICH
+                        WHERE MADL = 5
+                    )
+        and MANV =  (
+                        SELECT MANV FROM DATLICH
+                        WHERE MADL = 5
+                    )    
+)        
+SELECT KHACHHANG.TEN,KHACHHANG.HO, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN
+FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN
+WHERE   KHACHHANG.MAKH =    (
+                                SELECT MAKH FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and GIODAT.MAGIO =      (
+                                SELECT MAGIO FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and NHANVIEN.MANV =    (
+                                SELECT MANV FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and DATLICH.MADL = 4;
+SELECT * FROM DATLICH
+SELECT KHACHHANG.TEN,KHACHHANG.HO, GIODAT.KHUNGGIO, DATLICH.MADL, TO_DATE(DATLICH.NGAY,'dd-mm-yyyy'), NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = 5 ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = 5)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = 5 ) and DATLICH.MADL = 5
+
+SELECT EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY FROM DATLICH
+WHERE MADL = 5;
+DELETE FROM NHANVIEN 
+WHERE MANV =8
+SELECT LOAINHANVIEN FROM NHANVIEN WHERE MANV = 9
+SELECT  DISTINCT dl.ngay,gd.khunggio, ROW_NUMBER() FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.NGAY;
+SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.NGAY;
+SELECT DISTINCT NGAY,MAGIO,MAKH FROM DATLICH
+ORDER BY NGAY,MAGIO;
+
+SELECT NGAY, MAGIO, MAKH FROM DATLICH
+ORDER BY NGAY,MAGIO;
+-- SELECT column_name(s)
+-- FROM table_name
+-- ORDER BY column_name(s)
+-- FETCH FIRST number ROWS ONLY;
+
+SELECT DISTINCT dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO 
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.Ngay;
+SELECT  dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO 
+                    AND dl.MADV=dv.MADV
+GROUP BY dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten
+ORDER BY dl.Ngay;
+SELECT * FROM DATLICH;
+ALTER TABLE DATLICH
+ADD TINHTRANG number DEFAULT 1;
