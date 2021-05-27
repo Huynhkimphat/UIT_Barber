@@ -1,72 +1,153 @@
-<div class="mt-4">
-    <h3>UPDATEBOOKING</h3>
-    <h5>Old booking</h5>
-    <div>
-        {{#each bookingDetail}}
-            <label>Khách hàng: {{HO}} {{TEN}}</label><br>
-            <label>Giờ: {{KHUNGGIO}}</label><br>
-            <label>Tên nhân viên: {{HO_1}} {{TEN_1}}</label><br>
-            <label>Ngày đặt: {{DAY}}/{{MONTH}}/{{YEAR}}</label>
-        {{/each}}
-    </div>
-    <div>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Mã dịch vụ</th>
-                    <th scope="col">Tên dịch vụ</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Xóa</th>
-                </tr>
-            </thead>
-            {{#each lstService}}
-                <tbody>
-                    <tr>
-                        <td>{{MADV}}</td>
-                        <td>{{TENDICHVU}}</td>
-                        <td>{{GIA}}</td>
-                        <td><button>Xóa</button></td>
-                    </tr>   
-                </tbody>
-            {{/each}}
-        </table>
-        
-    </div>
-    <h5>Add new Booking</h5>
-    <form class="mt-4" method="POST" action="/booking/?_method=PUT" >
-        <div class="form-group">
-            <label for="date">Date :</label>
-            <p class="booking_type">
-                {{#each day}}
-                <label><input type="radio" name="date" value="{{0}}"><span>{{0}}</span></label>
-                {{/each}}
-            </p>
-        </div>
-        <div class="form-group" >
-            <label for="typeService">Type Service :</label>
-            <p class="booking_type">
-                {{#each typeService}}
-                    <label><input type="checkbox" class="serviceType" name="typeService" value="{{MALDV}}"><span>{{TENLOAIDICHVU}}</span></label>
-                {{/each}}
-            </p>
-        </div>
-        <div class="form-group" id="serviceSelect">
-            <label for="serviceName">Service:</label>
-        </div>
-        <div class="form-group" >
-            <label for="employeeName">Employee:</label>
-            <p class="booking_type">
-                {{#each employeeName}}
-                <label><input type="radio" class="employee" name="employee" value="{{MANV}}" ><span>{{HO}}
-                        {{TEN}}</span></label>
-                {{/each}}
-            </p>
-        </div>
-        <div class="form-group" id="timeSelect">
-        </div>
-        <div id="timePeriod" class="form-group">
+<link rel="stylesheet" href="/css/bookingAdd.css">
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" /> 
+    <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-        </div>
-    </form>
-    <button type="submit" class="btn btn-primary">Save</button>
+<div class="section over-hide z-bigger">
+    <input class="checkbox" type="checkbox" name="general" id="general">
+    <label class="for-checkbox" for="general"></label>
+    <div class="background-color"></div>
+    <div class="section over-hide z-bigger">
+    <div class="container">
+        <form class="mt-4" method="POST" action="/booking/?_method=PUT" >
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <p class="bookingHeading">Update Booking</p>
+                </div>
+                <div class="col-12">
+                            <p class="pickedDayChange">Pick A Day</p>
+                </div>
+                <div class="col-12 pickDay" id="Day">
+                    {{#each day}}
+                        {{#if check}}
+                            <input class="checkbox-tools dayPick" type="radio" value="{{day}}" name="date" id="{{day}}" onclick="getDay('{{day}}')" checked=true>
+                                <label class="for-checkbox-tools" for="{{day}}">
+                                    <i class="far fa-calendar-alt mb-2"></i>
+                                    {{day}}
+                                </label>
+                        {{else}}
+                            <input class="checkbox-tools dayPick" type="radio" value="{{day}}" name="date" id="{{day}}" onclick="getDay('{{day}}')">
+                                <label class="for-checkbox-tools" for="{{day}}">
+                                    <i class="far fa-calendar-alt mb-2"></i>
+                                    {{day}}
+                                </label>
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <div class="col-12 pickStylist" id="employeeName">
+                    <div class="col-12">
+                            <p>Pick Your Stylist</p>
+                    </div>
+                    {{#each employeeBooking}}
+                        {{#if check}}
+                            <input class="checkbox-tools" type="radio" name="employee" value="{{MANV}}" id="{{MANV}}{{HO}}{{TEN}}" onclick="gettime({{MANV}},{{day}})" checked=true>
+                            <label class="for-checkbox-tools" for="{{MANV}}{{HO}}{{TEN}}">
+                                <i class="far fa-user"></i>
+                                {{HO}} {{TEN}}
+                            </label>
+                        {{else}}
+                            <input class="checkbox-tools" type="radio" name="employee" value="{{MANV}}" id="{{MANV}}{{HO}}{{TEN}}" onclick="gettime({{MANV}},'{{day}}')">
+                            <label class="for-checkbox-tools" for="{{MANV}}{{HO}}{{TEN}}">
+                                <i class="far fa-user"></i>
+                                {{HO}} {{TEN}}
+                            </label>
+                        {{/if}}
+                    {{/each}}
+                </div>
+                <div class="col-xl-10 pickTime" id="timeSelect"></div>
+            
+                {{!-- <div class="col-12 pickStylist" id="employeeName"></div>
+                <div class="col-xl-10 pickTime" id="timeSelect"></div>
+                <div class="col-12 ">
+                    <p>Choose Service Type</p>
+                </div> --}}
+                {{!-- <div class="col-12 pickServiceType" >
+                        {{#each typeService}}
+                            <input class="checkbox-booking" type="checkbox" name="serviceType" value="{{MALDV}}" id="{{TENLOAIDICHVU}}" onclick="getService({{MALDV}})">
+                            <label class="for-checkbox-booking" for="{{TENLOAIDICHVU}}">
+                            <i class='uil uil-coffee mr-3'></i><span class="text">{{TENLOAIDICHVU}}</span>
+                            </label>
+                        {{/each}}
+                </div> --}}
+                {{!-- <div class="col-12 ">
+                            <p>Choose Service Type</p>
+                        </div>
+                <div class="col-12 pickServiceType" id="serviceSelect"></div> --}}
+            </div>
+        </form>
+        {{!-- <div class="row justify-content-center">
+            <div class="col-xl-10 pt-5">
+                <input class="checkbox-budget" type="radio">
+                    <label class="submit"><span>SAVE</span></label>
+            </div>
+        </div> --}}
+    </div>
+    </div>    
 </div>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<script>
+    let day = -1;
+    let employee;
+    function getDay(date) {
+        if (day != date){
+            day = date;
+            employee = -1;
+            document.getElementById("timeSelect").innerHTML = "";
+            let cform =`<div class="col-12">
+                                <p>Pick Your Stylist</p>
+                        </div>
+                        {{#each employeeBooking}}
+                            <input class="checkbox-tools" type="radio" name="employee" value="{{MANV}}" id="{{MANV}}{{HO}}{{TEN}}" onclick="gettime({{MANV}})">
+                            <label class="for-checkbox-tools" for="{{MANV}}{{HO}}{{TEN}}">
+                                <i class="far fa-user"></i>
+                                {{HO}} {{TEN}}
+                            </label>
+                        {{/each}}`;
+            document.getElementById("employeeName").innerHTML= cform;
+        }
+    }
+    function gettime(MANV,date){
+        if (day == -1){
+            day = date;
+        }
+        if (employee != MANV){
+            employee = MANV
+            $.ajax({
+                url: "/booking/addTimePeriod",
+                data : {
+                    id:employee,
+                    day: day,
+                },
+                method : "POST",
+                type : "POST",
+                contentype : "application/x-www-form-urlencoded" ,
+                success: (res)=>{
+                    let data=res;
+                    let renderTime=[];
+                    renderTime.push(`<div class="col-12">
+                                        <p>Pick A Time</p>
+                                    </div>`);
+                    data.forEach(data=>{
+                        renderTime.push(`<input class="checkbox-budget" type="radio" name="time" value="${data.MAGIO}" id="${data.KHUNGGIO}">
+                                            <label class="for-checkbox-budget" for="${data.KHUNGGIO}">
+                                                <span data-hover="${data.KHUNGGIO}">${data.KHUNGGIO}</span>
+                                            </label>`);
+                    })
+                    $('#timeSelect').html(renderTime.join(''));
+                }
+            });
+        }
+    }
+</script>

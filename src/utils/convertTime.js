@@ -1,9 +1,13 @@
 module.exports = {
     convertCurrentTime: function(timeCurrent){
-        if (timeCurrent <= 10 || timeCurrent > 22) {
+        if (timeCurrent <= 8.5 && timeCurrent > 0){
+            return 0;
+        } else if (timeCurrent <= 10) {
             return 1;
         } else if (timeCurrent <= 11.5) {
             return 2;
+        } else if (timeCurrent <= 13) {
+            return 2.5;    
         } else if (timeCurrent <= 14.5) {
             return 3;
         } else if (timeCurrent <= 16) {
@@ -16,6 +20,8 @@ module.exports = {
             return 7;
         } else if (timeCurrent <= 22) {
             return 8;
+        } else if (timeCurrent > 22 && timeCurrent <= 24 ) {
+            return 9; 
         }
     },
 }

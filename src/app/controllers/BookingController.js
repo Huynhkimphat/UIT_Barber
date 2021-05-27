@@ -6,6 +6,7 @@ const {
     service,
     serviceType,
 } = require("../../config/db");
+const { compare } = require("bcrypt");
 
 
 class BookingController {
@@ -105,11 +106,41 @@ class BookingController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let lstService = await service.showDetail(req.params.id);
-                let bookingDetail = await booking.showDetail(req.params.id);
+                let d = new Date();
+                let dayString = d.toLocaleDateString("en-GB");
+                let day = [
+                    {day: dayString},
+                ];
+                d.setDate(d.getDate() + 1);
+                dayString = d.toLocaleDateString("en-GB");
+                day.push({day: dayString});
+                d.setDate(d.getDate() + 1);
+                dayString = d.toLocaleDateString("en-GB");
+                day.push({day: dayString});
+                let lstService = await service.getDetail(req.params.id);
+                let bookingDetail = await booking.getDetail(req.params.id);
+                let employeeBooking = await employee.showToAdd();
+                let i;
+                for (i = 0; i < employeeBooking.length; i++){
+                    if (employeeBooking[i].MANV == bookingDetail[0].MANV){ 
+                        employeeBooking[i] = Object.assign(employeeBooking[i],{check: 1});
+                        employeeBooking[i] = Object.assign(employeeBooking[i],{day:bookingDetail[0].NGAY});
+                    } else{
+                        employeeBooking[i] = Object.assign(employeeBooking[i],{check: 0});
+                        employeeBooking[i] = Object.assign(employeeBooking[i],{day:bookingDetail[0].NGAY});
+                    }
+                }
+                for (i = 0; i<3;i++){
+                    if (day[i].day == bookingDetail[0].NGAY){ 
+                        day[i] = Object.assign(day[i],{check: 1});
+                    } else{
+                        day[i] = Object.assign(day[i],{check: 0});
+                    }
+                }
+
                 res.render("booking/updateBooking", {
-                    lstService: lstService,
-                    bookingDetail: bookingDetail,
+                    employeeBooking : employeeBooking,
+                    day: day,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -157,8 +188,8 @@ class BookingController {
     showDetail(req, res) {
         (async() => {
             if (process.env.status != 0) {
-                let lstService = await service.showDetail(req.params.id);
-                let bookingDetail = await booking.showDetail(req.params.id);
+                let lstService = await service.getDetail(req.params.id);
+                let bookingDetail = await booking.getDetail(req.params.id);
                 res.render("booking/showDetail", {
                     lstService: lstService,
                     bookingDetail: bookingDetail,
@@ -166,7 +197,9 @@ class BookingController {
                     username: process.env.username,
                     img: process.env.img,
                 });
-            }
+            } else {
+                res.redirect("/");
+        }
         })();
     }
 }
