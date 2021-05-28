@@ -73,27 +73,33 @@
         $('form').submit();
     })
     let day = -1;
+    let employee;
     function getDay(date) {
-        day = date;
-        document.getElementById("timeSelect").innerHTML = "";
-        let cform = `
-                    <div class="col-12">
-                            <p>Pick Your Stylist</p>
-                    </div>
-                    {{#each employeeName}}
-                    <input class="checkbox-tools" type="radio" name="employee" value="{{MANV}}" id="{{MANV}}{{HO}}{{TEN}}" onclick="gettime({{MANV}})">
-                    <label class="for-checkbox-tools" for="{{MANV}}{{HO}}{{TEN}}"">
-                        <i class="far fa-user"></i>
-                        {{HO}} {{TEN}}
-                    </label>
-                    {{/each}}`;
-        document.getElementById("employeeName").innerHTML= cform;
+        if (day != date){
+            employee = -1;
+            day = date;
+            document.getElementById("timeSelect").innerHTML = "";
+            let cform = `
+                        <div class="col-12">
+                                <p>Pick Your Stylist</p>
+                        </div>
+                        {{#each employeeName}}
+                        <input class="checkbox-tools" type="radio" name="employee" value="{{MANV}}" id="{{MANV}}{{HO}}{{TEN}}" onclick="gettime({{MANV}})">
+                        <label class="for-checkbox-tools" for="{{MANV}}{{HO}}{{TEN}}">
+                            <i class="far fa-user"></i>
+                            {{HO}} {{TEN}}
+                        </label>
+                        {{/each}}`;
+            document.getElementById("employeeName").innerHTML= cform;
+        }
     }
     function gettime(MANV){
+        if (employee != MANV){
+            employee = MANV;
             $.ajax({
                 url: "/booking/addTimePeriod",
                 data : {
-                    id:MANV,
+                    id:employee,
                     day: day,
                 },
                 method : "POST",
@@ -114,6 +120,7 @@
                     $('#timeSelect').html(renderTime.join(''));
                 }
             });
+        }
     }
     //add service
         let renderService=[];

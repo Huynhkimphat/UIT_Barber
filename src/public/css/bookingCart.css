@@ -91,7 +91,14 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 0.2rem;
 }
-
+.custom-table tbody th .update,
+.custom-table tbody td .update {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
 .custom-table tbody tr {
     -webkit-transition: 0.3s all ease;
     -o-transition: 0.3s all ease;
@@ -112,7 +119,10 @@ h2 {
 .custom-table tbody tr:focus td .more {
     color: #fdd114;
 }
-
+.custom-table tbody tr:hover td .update,
+.custom-table tbody tr:focus td .update {
+    color: #fdd114;
+}
 .custom-table .td-box-wrap {
     padding: 0;
 }
@@ -130,9 +140,9 @@ h2 {
 }
 
 .incoming {
-    color: greenyellow !important;
+    color: rgb(153, 255, 0) !important;
 }
-
+.in-progress small,
 .incoming small,
 .done small {
     padding-left: 20px;
@@ -140,4 +150,7 @@ h2 {
 
 .done {
     color: red !important;
+}
+.in-progress{
+    color: rgb(214, 183, 8) !important;
 }

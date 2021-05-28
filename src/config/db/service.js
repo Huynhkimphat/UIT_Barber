@@ -145,7 +145,7 @@ async function addNameService(id) {
         console.log("Ouch!", err);
     }
 }
-async function showDetail(id) {
+async function getDetail(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
@@ -172,5 +172,5 @@ module.exports = {
     destroy,
     update,
     addNameService,
-    showDetail,
+    getDetail,
 };

@@ -30,19 +30,18 @@
                                 <td class="done">
                                     <i class="fas fa-circle"></i> Done
                                 </td>
+                                <td>
+                                    <a href="#!" class="update"></a>
+                                </td>
                             {{else}}
                                 <td class="incoming">
                                     <i class="fas fa-circle"></i> Incoming
                                 </td>
+                                <td>
+                                    <a href="/booking/{{MADL}}/edit" class="update">Update</a>
+                                </td>
                             {{/if}}
-                            {{!-- <td class="incoming">
-                                <i class="fas fa-circle"></i> Incoming
-                                <small class="d-block">In 1 hours</small>
-                            </td> --}}
                             <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
-                            <td>
-                                <a href="/booking/{{MADL}}/edit" class="btn btn-link">Update</a>
-                            </td>
                         </tr>
                     </tbody>
                     {{/each}}

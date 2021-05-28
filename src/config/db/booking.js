@@ -90,7 +90,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
                 let exec =
-                    "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio, gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
+                    "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio, gd.khunggio, kh.ho, dl.manv, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
                     "WHERE dl.MANV=nv.MANV \n" +
                     "AND dl.MAKH=kh.MAKH \n" +
                     "AND dl.MAGIO=gd.MAGIO \n" +
@@ -105,7 +105,7 @@ async function show(id = -1) {
                 return result.rows;
         } else {
             let exec =
-                "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
+                "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio,gd.khunggio, kh.ho, kh.ten, dl.manv, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
                 "WHERE dl.MANV=nv.MANV \n" +
                 "AND dl.MAKH=kh.MAKH \n" +
                 "AND dl.MAGIO=gd.MAGIO \n" +
@@ -130,11 +130,11 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-async function showDetail(id) {
+async function getDetail(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT KHACHHANG.TEN,KHACHHANG.HO,EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = :id ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = :id ) and DATLICH.MADL = :id";
+        let exec = "SELECT KHACHHANG.TEN,KHACHHANG.HO,EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY, TO_CHAR(NGAY,'dd/mm/yyyy') AS NGAY,DATLICH.MANV, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = :id ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = :id ) and DATLICH.MADL = :id";
         const result = await conn.execute(
             exec, {
                 id,
@@ -150,4 +150,4 @@ async function showDetail(id) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, add, showToAdd, showDetail};
+module.exports = { show, destroy, add, showToAdd, getDetail};
