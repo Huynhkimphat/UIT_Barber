@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
 
 body {
   background-color: #eee;
@@ -98,14 +103,16 @@ body {
   margin-right: 10px;
 }
 
-/* Form rating */
-/* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap');
-body {
-    background-color: #f7f6f6
-} */
-
-.cardForm {
-  width: 800px;
+/* Add comment */
+.overlay {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow-x: hidden;
+  transition: 0.5s;
 }
 
 label.radio {
@@ -167,7 +174,6 @@ label.radio input:checked + span {
 /* rating */
 .text-white {
   color: #fff !important;
-  padding: 317px;
 }
 .rate {
   border-bottom-right-radius: 12px;
@@ -253,43 +259,45 @@ label.radio input:checked + span {
   }
 }
 
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
+.paginate-pagination ul {
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
 }
 
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  transition: 200ms ease-in-out;
-  border: 1px solid black;
-  border-radius: 10px;
-  z-index: 10;
-  background-color: white;
-  width: 500px;
-  max-width: 80%;
+.paginate-pagination ul:after {
+  content: " ";
+  display: table;
+  clear: both;
 }
 
-.modal.active {
-  transform: translate(-50%, -50%) scale(1);
+.paginate-pagination ul > li {
+  float: left;
+  margin-right: 3px;
 }
 
-#overlay {
-  position: fixed;
-  opacity: 0;
-  transition: 200ms ease-in-out;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  pointer-events: none;
+.paginate-pagination ul > li > a.page {
+  display: block;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid #ddd;
+  background: white;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-#overlay.active {
-  opacity: 1;
-  pointer-events: all;
+.paginate-pagination ul > li > a.page:hover {
+  opacity: 0.7;
+}
+.paginate-pagination ul > li > a.page.active {
+  opacity: 0.7;
+  cursor: default;
+}
+
+.paginate-pagination ul > li > a.page-next.deactive,
+.paginate-pagination ul > li > a.page-prev.deactive {
+  opacity: 0.7;
+  cursor: default;
 }

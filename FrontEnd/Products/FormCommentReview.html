@@ -22,7 +22,23 @@
     <!-- Link to CSS -->
     <link rel="stylesheet" href="/FrontEnd/Products/assets/css/FormCommentReview.css">
     <!-- Link to js -->
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="jquery.paginate.js"></script>
     <script src="/FrontEnd/Products/assets/js/addComment.js"></script>
+
+    <style>
+        .paginate {
+            padding: 0;
+            margin: 0;
+        }
+
+        .paginate>li {
+            list-style: none;
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+    </style>
 </head>
 
 <body>
@@ -77,389 +93,319 @@
                         </div>
                         <!-- Button add comment -->
                         <div class="button text-right mb-3"> <button class="btn btn-outline-success"
-                                data-modal-target="#modal">Add Comment</button>
+                                onclick="openModal()">Add Comment</button>
                         </div>
 
                         <!-- Form Rating  -->
-                        <div class="container mt-5 mb-5 d-flex justify-content-center" class="modal" id="modal">
-                            <div class="cardForm">
-                                <div class="p-3">
-                                    <div class="btn cross">
-                                        <button type="button" class="btn-close" aria-label=" Close" data-close-button
-                                            class="close-button"></button>
-                                    </div>
-                                    <div class="first text-center"> <img
-                                            src="/FrontEnd/Products/assets/images/done_icon.png" width="80">
-                                        <h3 class="mt-2">Thank you!!!</h3>
-                                        <p class="text-black-50">Thanks for your order, will be delivered soon</p>
-                                    </div>
+                        <!-- <div class="container mt-5 mb-5 d-flex justify-content-center"> -->
+                        <div class="cardForm" style="display: none; padding: 0px 80px;" class="overlay" id="modal">
+                            <div class="p-3">
+                                <div class="btn cross">
+                                    <button type="button" class="btn-close" aria-label=" Close" data-close-button
+                                        class="close-button" onclick="closeModal()"></button>
+                                </div>
+                                <div class="first text-center"> <img
+                                        src="/FrontEnd/Products/assets/images/done_icon.png" width="80">
+                                    <h3 class="mt-2">Thank you!!!</h3>
+                                    <p class="text-black-50">Thanks for your order, will be delivered soon</p>
+                                </div>
 
-                                    <div class="rate bg-success py-3 text-white mt-5">
-                                        <h6 class="mt-2">Rate your product</h6>
-                                        <div class="rating"> <input type="radio" name="rating" value="5" id="5"><label
-                                                for="5">☆</label>
-                                            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
-                                            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
-                                            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
-                                            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                <div class="rate bg-success py-3 text-white mt-5">
+                                    <p style="text-align:center;" class="mt-2">Rate your product</p>
+                                    <div class="rating" style="text-align:center;"> <input type="radio" name="rating"
+                                            value="5" id="5"><label for="5">☆</label>
+                                        <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+                                        <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                                        <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                                        <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4"> <textarea class="area form-control" rows="7"
+                                        placeholder="Add comments"> </textarea>
+                                </div>
+
+                                <div class="button mt-4 text-center"> <button
+                                        class="btn btn-success submit-button">Submit</button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- </div> -->
+
+                        <ul id="example">
+                            <li class="card p-3 mb-2" id="list-1">
+                                <div class="d-flex flex-row"> <img src="/FrontEnd/Products/assets/images/done_icon.png"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Emma</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
                                         </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="card p-3 mb-2" id="list-2">
+                                <div class="d-flex flex-row"> <img
+                                        src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Morne Micheal</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
+                                        </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
 
-                                    <div class="mt-4"> <textarea class="area form-control" rows="7"
-                                            placeholder="Add comments"> </textarea>
+                            <li class="card p-3 mb-2" id="list-3">
+                                <div class="d-flex flex-row"> <img
+                                        src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Tommy Hifig</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
+                                        </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
                                     </div>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
 
-                                    <div class="button mt-4 text-center"> <button
-                                            class="btn btn-success submit-button">Submit</button>
+                            <li class="card p-3 mb-2" id="list-4">
+                                <div class="d-flex flex-row"> <img
+                                        src="https://i.pinimg.com/originals/58/1c/5e/581c5ec4c434e4918198fc8be1c13f95.jpg"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Emma</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
+                                        </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
                                     </div>
-
                                 </div>
-                            </div>
-                        </div>
-                        <div id="overlay"></div>
-
-                        <div class="card p-3 mb-2" id="list-1">
-                            <div class="d-flex flex-row"> <img src="/FrontEnd/Products/assets/images/done_icon.png"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Emma</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card p-3 mb-2" id="list-2">
-                            <div class="d-flex flex-row"> <img
-                                    src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Morne Micheal</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card p-3 mb-2" id="list-3">
-                            <div class="d-flex flex-row"> <img
-                                    src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Tommy Hifig</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                            </li>
+                            <li class="card p-3 mb-2" id="list-5">
+                                <div class="d-flex flex-row"> <img
+                                        src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Tommy Hifig</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
+                                        </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="card p-3 mb-2" id="list-4">
-                            <div class="d-flex flex-row"> <img
-                                    src="https://i.pinimg.com/originals/58/1c/5e/581c5ec4c434e4918198fc8be1c13f95.jpg"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Emma</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card p-3 mb-2" id="list-5">
-                            <div class="d-flex flex-row"> <img
-                                    src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Tommy Hifig</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card p-3 mb-2" id="list-6">
-                            <div class="d-flex flex-row"> <img
-                                    src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
-                                    height="40" width="40" class="rounded-circle">
-                                <div class="d-flex flex-column ms-2">
-                                    <h6 class="mb-1 text-primary">Tommy Hifig</h6>
-                                    <div>
-                                        <p class="text-left"><span class="text-muted">4.0</span> <span
-                                                class="fa fa-star star-active ml-3"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-active"></span> <span
-                                                class="fa fa-star star-inactive"></span></p>
+                            </li>
+                            <li class="card p-3 mb-2" id="list-6">
+                                <div class="d-flex flex-row"> <img
+                                        src="https://i.pinimg.com/236x/c2/e8/43/c2e843b3a8223c8416dbdf24cc84c799.jpg"
+                                        height="40" width="40" class="rounded-circle">
+                                    <div class="d-flex flex-column ms-2">
+                                        <h6 class="mb-1 text-primary">Tommy Hifig</h6>
+                                        <div>
+                                            <p class="text-left"><span class="text-muted">4.0</span> <span
+                                                    class="fa fa-star star-active ml-3"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-active"></span> <span
+                                                    class="fa fa-star star-inactive"></span></p>
+                                        </div>
+                                        <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Sed
+                                            lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
+                                            facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
+                                            taciti sociosqu ad litora torquent per conubia nostra, per inceptos
+                                            himenaeos.
+                                            Quisque risus mauris</p>
                                     </div>
-                                    <p class="comment-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                        Sed
-                                        lectus nibh, efficitur in bibendum id, pellentesque quis nibh. Ut dictum
-                                        facilisis dui, non faucibus dolor sit amet lorem auctor vitae. Class aptent
-                                        taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-                                        himenaeos.
-                                        Quisque risus mauris</p>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
-                                        <li><i class="fa fa-calendar"></i>27/02/2014</li>
-                                        <li><i class="fa fa-thumbs-up"></i>13</li>
-                                    </ul>
+                                <div class="d-flex justify-content-between">
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-left d-flex align-items-center">
+                                            <li><i class="fa fa-calendar"></i>27/02/2014</li>
+                                            <li><i class="fa fa-thumbs-up"></i>13</li>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex flex-row gap-3 align-items-center">
+                                        <ul
+                                            class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
+                                            <li class=""><a href="">Like</a></li>
+                                            <!-- <li class=""><a href="">Reply</a></li> -->
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="d-flex flex-row gap-3 align-items-center">
-                                    <ul
-                                        class="list-unstyled list-inline comment-detail pull-right d-flex align-items-center">
-                                        <li class=""><a href="">Like</a></li>
-                                        <li class=""><a href="">Reply</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> -->
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="customer-reviews__pagination">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-end">
-                <li class="page-item ">
-                    <a class="page-link" href="#" id="previous" onclick="previousPage()" value="previous">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#" id="page1" onclick="page1()" value="page1">1</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#" id="page2" onclick="page2()" value="page2">2</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#" id="page3" onclick="page3()" value="page3">3</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#" id="next" onclick="nextPage()" value="next">Next</a>
-                </li>
-            </ul>
-        </nav>
     </div>
     </div>
-    </div>
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../Products/assets/js/pagination.js"></script>
 
-    <!-- JS pagination -->
-    <!-- <script type="text/javascript">
-        var list = new Array();
-        var pageList = new Array();
-        var currentPage = 1;
-        var numberPerPage = 3;
-        var numberOfPages = 0;
+    <script>
+        //call paginate
+        $('#example').paginate();
+    </script>
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-36251023-1']);
+        _gaq.push(['_setDomainName', 'jqueryscript.net']);
+        _gaq.push(['_trackPageview']);
 
-        function makeList() {
-            for (x = 0; x < 200; x++)
-                list.push(x);
-
-            numberOfPages = getNumberOfPages();
-        }
-
-        function getNumberOfPages() {
-            return Math.ceil(list.length / numberPerPage);
-        }
-
-        function nextPage() {
-            currentPage += 1;
-            loadList();
-        }
-
-        function previousPage() {
-            currentPage -= 1;
-            loadList();
-        }
-
-        function page1() {
-            currentPage = 1;
-            loadList();
-        }
-
-        function page2() {
-            currentPage = 2;
-            loadList();
-        }
-
-        function page3() {
-            currentPage = 3;
-            loadList();
-        }
-
-        function loadList() {
-            var begin = ((currentPage - 1) * numberPerPage);
-            var end = begin + numberPerPage;
-
-            pageList = list.slice(begin, end);
-            drawList();
-            check();
-        }
-
-        function drawList() {
-            document.getElementsByClassName("list").innerHTML = "";
-            for (r = 0; r < pageList.length; r++) {
-                document.getElementsByClassName("list").innerHTML += pageList[r] + "<br/>";
-            }
-        }
-
-        function check() {
-            document.getElementById("next").disabled = currentPage == numberOfPages ? true : false;
-            document.getElementById("previous").disabled = currentPage == 1 ? true : false;
-            document.getElementById("page1").disabled = currentPage == 1 ? true : false;
-            document.getElementById("page2").disabled = currentPage == 2 ? true : false;
-            document.getElementById("page3").disabled = currentPage == 3 ? true : false;
-        }
-
-        function load() {
-            makeList();
-            loadList();
-        }
-
-        window.onload = load;
-    </script> -->
-
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
+                '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </body>
 
 </html>
