@@ -20,25 +20,8 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <!-- Link to CSS -->
-    <link rel="stylesheet" href="/FrontEnd/Products/assets/css/FormCommentReview.css">
-    <!-- Link to js -->
-    <script src="//code.jquery.com/jquery.min.js"></script>
-    <script src="jquery.paginate.js"></script>
-    <script src="/FrontEnd/Products/assets/js/addComment.js"></script>
+    <link rel="stylesheet" href="../Products/assets/css/FormCommentReview.css">
 
-    <style>
-        .paginate {
-            padding: 0;
-            margin: 0;
-        }
-
-        .paginate>li {
-            list-style: none;
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            margin: 10px 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -104,16 +87,16 @@
                                     <button type="button" class="btn-close" aria-label=" Close" data-close-button
                                         class="close-button" onclick="closeModal()"></button>
                                 </div>
-                                <div class="first text-center"> <img
-                                        src="/FrontEnd/Products/assets/images/done_icon.png" width="80">
+                                <div class="first text-center"> <img src="../Products/assets/images/done_icon.png"
+                                        width="80">
                                     <h3 class="mt-2">Thank you!!!</h3>
                                     <p class="text-black-50">Thanks for your order, will be delivered soon</p>
                                 </div>
 
                                 <div class="rate bg-success py-3 text-white mt-5">
                                     <p style="text-align:center;" class="mt-2">Rate your product</p>
-                                    <div class="rating" style="text-align:center;"> <input type="radio" name="rating"
-                                            value="5" id="5"><label for="5">☆</label>
+                                    <div class="rating" id="inputRating" style="text-align:center;"> <input type="radio"
+                                            name="rating" value="5" id="5"><label for="5">☆</label>
                                         <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
                                         <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
                                         <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
@@ -122,11 +105,11 @@
                                 </div>
 
                                 <div class="mt-4"> <textarea class="area form-control" rows="7"
-                                        placeholder="Add comments"> </textarea>
+                                        placeholder="Add comments" id="inputStatus"> </textarea>
                                 </div>
 
-                                <div class="button mt-4 text-center"> <button
-                                        class="btn btn-success submit-button">Submit</button>
+                                <div class="button mt-4 text-center"> <button class="btn btn-success submit-button"
+                                        onclick="closeModal()">Submit</button>
                                 </div>
 
                             </div>
@@ -135,7 +118,7 @@
 
                         <ul id="example">
                             <li class="card p-3 mb-2" id="list-1">
-                                <div class="d-flex flex-row"> <img src="/FrontEnd/Products/assets/images/done_icon.png"
+                                <div class="d-flex flex-row"> <img src="../Products/assets/images/done_icon.png"
                                         height="40" width="40" class="rounded-circle">
                                     <div class="d-flex flex-column ms-2">
                                         <h6 class="mb-1 text-primary">Emma</h6>
@@ -375,6 +358,7 @@
                                     </div>
                                 </div>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -383,28 +367,16 @@
     </div>
     </div>
     </div>
+    <!-- Link to js -->
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="jquery.paginate.js"></script>
+    <script src="../Products/assets/js/addComment.js"></script>
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="../Products/assets/js/pagination.js"></script>
 
     <script>
         //call paginate
         $('#example').paginate();
-    </script>
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-36251023-1']);
-        _gaq.push(['_setDomainName', 'jqueryscript.net']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') +
-                '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
     </script>
 </body>
 

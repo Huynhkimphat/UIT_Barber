@@ -259,6 +259,18 @@ label.radio input:checked + span {
   }
 }
 
+.paginate {
+  padding: 0;
+  margin: 0;
+}
+
+.paginate > li {
+  list-style: none;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  margin: 10px 0;
+}
+
 .paginate-pagination ul {
   margin: 20px 0;
   padding: 0;

@@ -38,7 +38,7 @@
             items =  $element.children(plugin.settings.scope);
             maxPage = Math.ceil( items.length / plugin.settings.perPage ); //determines how many pages exist
 
-            var paginationHTML = generatePagination(); //generate HTML for pageination
+            var paginationHTML = generatePagination(); //generate HTML for pagination
 
             if($.inArray('top', plugin.settings.paginatePosition) > -1) {
                 $element.before(paginationHTML);
