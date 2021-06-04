@@ -118,3 +118,8 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     text-decoration: none;
     color:green;
 }
+
+#account-Salary .card-body .form-group .table tbody tr td a {
+    text-decoration: none;
+    color: green;
+}
