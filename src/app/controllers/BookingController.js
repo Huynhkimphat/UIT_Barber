@@ -58,28 +58,32 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
+                if(process.env.id){
                 // let result = await booking.show(req.params.id);
-                let employeeName = await employee.showToAdd();
-                let d = new Date();
-                let dayString = d.toLocaleDateString("en-GB");
-                let typeService = await serviceType.showToAdd();
-                let day = [
-                    [dayString]
-                ];
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
-                day.push([dayString]);
-                d.setDate(d.getDate() + 1);
-                dayString = d.toLocaleDateString("en-GB");
-                day.push([dayString]);
-                res.render("booking/addBooking", {
-                    typeService: typeService,
-                    day: day,
-                    employeeName: employeeName,
-                    status: process.env.status,
-                    username: process.env.username,
-                    img: process.env.img,
-                });
+                    let employeeName = await employee.showToAdd();
+                    let d = new Date();
+                    let dayString = d.toLocaleDateString("en-GB");
+                    let typeService = await serviceType.showToAdd();
+                    let day = [
+                        [dayString]
+                    ];
+                    d.setDate(d.getDate() + 1);
+                    dayString = d.toLocaleDateString("en-GB");
+                    day.push([dayString]);
+                    d.setDate(d.getDate() + 1);
+                    dayString = d.toLocaleDateString("en-GB");
+                    day.push([dayString]);
+                    res.render("booking/addBooking", {
+                        typeService: typeService,
+                        day: day,
+                        employeeName: employeeName,
+                        status: process.env.status,
+                        username: process.env.username,
+                        img: process.env.img,
+                    });
+                } else{
+                    res.redirect("/");
+                }
             } else {
                 res.redirect("/");
             }
@@ -88,17 +92,21 @@ class BookingController {
     adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let lstService = [];
-                let i;
-                for (i = 0; i < req.body.serviceType.length; i++) {
-                    lstService.push(req.body[req.body.serviceType[i]]);
-                };
-                await booking.add(
-                    lstService,
-                    req.body.date,
-                    req.body.time,
-                    req.body.employee
-                );
+                let customer = process.env.id;
+                if(customer){
+                    let lstService = [];
+                    let i;
+                    for (i = 0; i < req.body.serviceType.length; i++) {
+                        lstService.push(req.body[req.body.serviceType[i]]);
+                    };
+                    await booking.add(
+                        customer,
+                        lstService,
+                        req.body.date,
+                        req.body.time,
+                        req.body.employee
+                    );
+                }
                 res.redirect("/booking");
             } else {
                 res.redirect("/");
@@ -188,6 +196,7 @@ class BookingController {
     update(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
+                let bookingDetail = await booking.getDetail(req.params.id);
                 let result = await booking.destroy( req.params.id);
                 let lstService = [];
                 let i;
@@ -195,6 +204,7 @@ class BookingController {
                     lstService.push(req.body[req.body.serviceType[i]]);
                 };
                 await booking.add(
+                    bookingDetail[0].MAKH,
                     lstService,
                     req.body.date,
                     req.body.time,
