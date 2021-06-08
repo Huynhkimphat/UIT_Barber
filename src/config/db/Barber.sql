@@ -499,7 +499,8 @@ BEGIN
 
     IF(v_loaiKH!='Member')
     THEN 
-        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien * 0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien * 0.9 
+        WHERE HOADON.MAHD=:NEW.MaHD;
     END IF;
 END;
 DROP TRIGGER TRIGGER_23_HOADON;
@@ -518,7 +519,8 @@ BEGIN
     WHERE dgnv.MaNV=:NEW.MaNV
     GROUP BY dgnv.MaNV;
 
-    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 -- DanhGiaNhanVien Them Sua
 SET DEFINE OFF;
@@ -533,81 +535,65 @@ BEGIN
     WHERE dgnv.MaNV=:NEW.MaNV
     GROUP BY dgnv.MaNV;
 
-    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 WHERE NhanLuong.MANV=:NEW.MaNV;
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
+
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
 -- Nhan vien them sua
-SET SERVEROUTPUT ON;
 SET DEFINE OFF;
 CREATE OR REPLACE TRIGGER TRIGGER_16_NHANVIEN 
 AFTER INSERT OR UPDATE ON NHANVIEN
 FOR EACH ROW
 DECLARE
     var_ngaysinh NHANVIEN.NgaySinh%TYPE;
+    var_date NHANVIEN.NgaySinh%TYPE;
 BEGIN
-    SELECT NHANVIEN.NgaySinh into var_ngaysinh
-    FROM NHANVIEN
-    WHERE NHANVIEN.MaNV=:NEW.MaNV;
-    IF (:NEW.NgaySinh > CURRENT_DATE)
-    THEN 
-    RAISE_APPLICATION_ERROR(-20002, 'Ngay sinh cua nhan vien phai be hon ngay hien tai');
-    ELSE 
-        DBMS_OUTPUT.PUT_LINE('Them thanh cong');
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM NHANVIEN nv
+    WHERE nv.MaNV=:NEW.MaNV;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
     END IF;
-END;
-select * from user_errors;
+END;    
+SELECT SYSDATE FROM DUAL;
+SHOW ERRORS
 DROP TRIGGER TRIGGER_16_NHANVIEN;
 
---TRIGGER 17
+-- TRIGGER 17
 -- Ngày sinh của khách hàng nhỏ hơn ngày hiện tại.
--- ALTER TABLE KHACHHANG ADD CONSTRAINT CHK_KHACHHANG2 CHECK (KhachHang.NgaySinh < CURRENT_DATE);
-SET SERVEROUTPUT ON;
+--Khach hang them sua
 SET DEFINE OFF;
 CREATE OR REPLACE TRIGGER TRIGGER_17_KHACHHANG 
-AFTER INSERT OR UPDATE ON KHACHHANG
+BEFORE INSERT OR UPDATE ON KHACHHANG
 FOR EACH ROW
 DECLARE
     var_ngaysinh KHACHHANG.NgaySinh%TYPE;
+    var_date KHACHHANG.NgaySinh%TYPE;
 BEGIN
-    SELECT KHACHHANG.NgaySinh into var_ngaysinh
-    FROM KHACHHANG
-    WHERE KHACHHANG.MaKH=:NEW.MaKH;
-    IF (:NEW.NgaySinh > CURRENT_DATE)
-    THEN 
-    RAISE_APPLICATION_ERROR(-20002, 'Ngay sinh cua khach hang phai be hon ngay hien tai');
-    ELSE 
-        DBMS_OUTPUT.PUT_LINE('Them thanh cong');
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+    
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
     END IF;
-END;
+END;    
 
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
--- San pham sua
-SET DEFINE OFF;
-CREATE OR REPLACE TRIGGER TRIGGER_20_SANPHAM
-AFTER UPDATE ON SANPHAM
-FOR EACH ROW
-DECLARE
-BEGIN
-
-END;
-
--- Dich vu Sua
-SET DEFINE OFF;
-CREATE OR REPLACE TRIGGER TRIGGER_20_DICHVU
-AFTER UPDATE ON DICHVU
-FOR EACH ROW
-DECLARE
-BEGIN
-
-END;
-
--- Chi tiet hoa don dich vu them sua
-
--- Chi tiet hoa don dich vu xoa
-
--- Chi tiet hoa don san pham them sua
 
 -- Chi tiet hoa don san pham xoa
 
@@ -636,7 +622,8 @@ BEGIN
     AND EXTRACT (MONTH FROM NgayDanhGia)=12
     GROUP BY dgnv.MaNV;
 
-    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*var_danhgia*0.1 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 -- DanhGiaNhanVien Them Sua
 SET DEFINE OFF;
@@ -652,7 +639,8 @@ BEGIN
     AND EXTRACT (MONTH FROM NgayDanhGia)=12
     GROUP BY dgnv.MaNV;
 
-    UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 WHERE NhanLuong.MANV=:NEW.MaNV;
+    UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
 END;
 --------------------------------
 SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;
