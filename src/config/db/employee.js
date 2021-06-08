@@ -235,7 +235,7 @@ async function addTimePeriod(id,day) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy')) ORDER BY MAGIO";
+        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy') AND TINHTRANG = 1) ORDER BY MAGIO";
         const result = await conn.execute(
             exec, {
                 id,

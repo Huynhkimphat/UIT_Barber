@@ -149,7 +149,7 @@ async function getDetail(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MADV,TENDICHVU,GIA FROM DICHVU WHERE MADV in (SELECT MADV From DatLich WHERE MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id ) and MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id ) and MANV =  ( SELECT MANV FROM DATLICH WHERE MADL = :id ))";
+        let exec = "SELECT MALDV,MADV,TENDICHVU,GIA FROM DICHVU WHERE MADV in (SELECT MADV From DatLich WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id ) and MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id ) and MANV =  ( SELECT MANV FROM DATLICH WHERE MADL = :id )and NGAY = (SELECT NGAY FROM DATLICH WHERE MADL =: id) and TINHTRANG = 1)";
         const result = await conn.execute(
             exec, {
                 id,
