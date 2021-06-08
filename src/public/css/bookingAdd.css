@@ -466,3 +466,6 @@ mark {
 .submit:hover {
     background: linear-gradient(138deg, var(--red), var(--yellow));
 }
+.delete:label{
+    color: red;
+}
