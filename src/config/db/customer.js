@@ -80,33 +80,62 @@ async function update(
     status,
     email,
 ) {
-    let conn;
-    try {
-        conn = await oracledb.getConnection(config);
-        let exec1 =
-            "UPDATE KHACHHANG SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, DIEMTICHLUY= :point, HINHANH=:img, TINHTRANG=:status, EMAIL=:email WHERE MAKH= :id";
-        await conn.execute(
-            exec1, {
-                id,
-                firstName,
-                lastName,
-                DateOfBirth,
-                sex,
-                phoneNumber,
-                address,
-                point,
-                img,
-                status,
-                email,
-            }, {
-                autoCommit: true,
+    if (process.env.status == 3) {
+        let conn;
+        try {
+            conn = await oracledb.getConnection(config);
+            let exec1 =
+                "UPDATE KHACHHANG SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, DIEMTICHLUY= :point, HINHANH=:img, TINHTRANG=:status, EMAIL=:email WHERE MAKH= :id";
+            await conn.execute(
+                exec1, {
+                    id,
+                    firstName,
+                    lastName,
+                    DateOfBirth,
+                    sex,
+                    phoneNumber,
+                    address,
+                    point,
+                    img,
+                    status,
+                    email,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            if (conn) {
+                await conn.close();
             }
-        );
-        if (conn) {
-            await conn.close();
+        } catch (err) {
+            console.log("Ouch!", err);
         }
-    } catch (err) {
-        console.log("Ouch!", err);
+    } else if (process.env.status == 1) {
+        let conn;
+        try {
+            conn = await oracledb.getConnection(config);
+            let exec1 =
+                "UPDATE KHACHHANG SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, HINHANH=:img WHERE MAKH= :id";
+            await conn.execute(
+                exec1, {
+                    id,
+                    firstName,
+                    lastName,
+                    DateOfBirth,
+                    sex,
+                    phoneNumber,
+                    address,
+                    img,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            if (conn) {
+                await conn.close();
+            }
+        } catch (err) {
+            console.log("Ouch!", err);
+        }
     }
+
 }
 module.exports = { show, destroy, update };

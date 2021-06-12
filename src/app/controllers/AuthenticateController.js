@@ -33,7 +33,6 @@ class AuthenticateController {
                     img = result.HINHANH;
                     id = result.MAKH;
                     if (id) {
-                        console.log('HERE!!!!');
                         bcrypt.compare(
                             req.body.password,
                             pass,
@@ -74,7 +73,6 @@ class AuthenticateController {
                             }
                         );
                     } else {
-                        console.log('OKAYYYY!!!');
                         id = result.MANV;
                         bcrypt.compare(
                             req.body.password,

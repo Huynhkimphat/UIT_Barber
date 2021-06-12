@@ -10,6 +10,14 @@ class EmployeeController {
                     username: process.env.username,
                     img: process.env.img,
                 });
+            } else if (process.env.status == 2) {
+                let result = await employee.show(process.env.id);
+                res.render("Employee/showCurrentEmployee", {
+                    employee: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             } else {
                 res.redirect("/");
             }
@@ -59,8 +67,16 @@ class EmployeeController {
                     username: process.env.username,
                     img: process.env.img,
                 });
-            } else {
-                res.redirect("/");
+            } else if (process.env.status == 2) {
+                let result = await employee.show(req.params.id);
+                let timePeriod = await time.show();
+                res.render("employee/updateEmployee", {
+                    employee: result[0],
+                    timePeriod: timePeriod,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             }
         })();
     }
@@ -71,7 +87,7 @@ class EmployeeController {
         res.redirect("/employee");
     }
     update(req, res, next) {
-        if (process.env.status == 3) {
+        if (process.env.status == 3 || process.env.status == 2) {
             (async() => {
                 await employee.update(
                     req.params.id,
