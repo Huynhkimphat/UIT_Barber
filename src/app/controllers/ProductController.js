@@ -1,4 +1,5 @@
 const { product, productType, productRating } = require("../../config/db");
+const cpFile = require("cp-file");
 class ProductController {
     //* [GET]/
     show(req, res, next) {
@@ -78,6 +79,15 @@ class ProductController {
         })();
     }
     adding(req, res, next) {
+        (async() => {
+            await cpFile(
+                process.env.imgRoute + req.body.img,
+                "./src/public/images/product/" + req.body.img
+            );
+            console.log(
+                "File copied to ./src/public/images/product/" + req.body.img
+            );
+        })();
         (async() => {
             if (process.env.status == 3) {
                 await product.add(
