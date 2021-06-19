@@ -11,6 +11,14 @@ class CustomerController {
                     username: process.env.username,
                     img: process.env.img,
                 });
+            } else if (process.env.status == 1) {
+                let result = await customer.show(process.env.id);
+                res.render("customer/showCurrentCustomer", {
+                    customer: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             } else {
                 res.redirect("/");
             }
@@ -41,13 +49,21 @@ class CustomerController {
                     username: process.env.username,
                     img: process.env.img,
                 });
-            } else {
-                res.redirect("/");
+            } else if (process.env.status == 1) {
+                let result = await customer.show(req.params.id);
+                let timePeriod = await time.show();
+                res.render("customer/updateCustomer", {
+                    customer: result[0],
+                    timePeriod: timePeriod,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             }
         })();
     }
     update(req, res, next) {
-        if (process.env.status == 3) {
+        if (process.env.status == 3 || process.env.status == 1) {
             (async() => {
                 await customer.update(
                     req.params.id,
