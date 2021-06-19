@@ -1,0 +1,34 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">MaKH</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Số đt</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Điểm tích lũy</th>
+            <th scope="col">Email</th>
+            <th scope="col">Update</th>
+        </tr>
+    </thead>
+    {{#each customer}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MAKH}}</th>
+            <td>{{HO}} {{TEN}}</td>
+            <td>{{NGAYSINH}}</td>
+            <td>{{GIOITINH}}</td>
+            <td>{{SODT}}</td>
+            <td>{{DIACHI}}</td>
+            <td>{{DIEMTICHLUY}}</td>
+            <td>{{EMAIL}}</td>
+            <td>
+                <a href="/customer/{{MAKH}}/edit" class="btn btn-link">Update</a>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>
