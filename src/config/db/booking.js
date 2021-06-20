@@ -35,12 +35,11 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(lstService, date, time, employee,) {
+async function add(customer,lstService, date, time, employee) {
     let conn;
     try {
         // conn = await oracledb.getConnection(config);
         let day = date.split("/").join("-");
-        let customer = process.env.id;
         let i;
         let service;
         for (i = 0;i < lstService.length; i++){
@@ -134,7 +133,7 @@ async function getDetail(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT KHACHHANG.TEN,KHACHHANG.HO,EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY, TO_CHAR(NGAY,'dd/mm/yyyy') AS NGAY,DATLICH.MANV, DATLICH.MAGIO, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = :id ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = :id ) and DATLICH.MADL = :id";
+        let exec = "SELECT KHACHHANG.TEN,KHACHHANG.MAKH,KHACHHANG.HO,EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY, TO_CHAR(NGAY,'dd/mm/yyyy') AS NGAY,DATLICH.MANV, DATLICH.MAGIO, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = :id ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = :id)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = :id ) and DATLICH.MADL = :id";
         const result = await conn.execute(
             exec, {
                 id,
