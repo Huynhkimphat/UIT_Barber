@@ -26,8 +26,8 @@ class ProductTypeController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                res.render("productType/addProductType", {
+            if (process.env.status == 3) {
+                res.render("admin/productType/addProductType", {
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
