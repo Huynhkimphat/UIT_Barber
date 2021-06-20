@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ProductRatingController = require("../app/controllers/ProductRatingController");
 
-router.get("/add", ProductRatingController.add);
+router.get("/:id/add", ProductRatingController.add);
 router.put("/", ProductRatingController.adding);
 router.get("/", ProductRatingController.show);
 router.get("/:id/edit", ProductRatingController.edit);

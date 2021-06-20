@@ -7,7 +7,29 @@ const config = {
     password: process.env.API_PASSWORD,
     connectString: process.env.API_STRING,
 };
-
+async function registerForAdmin(
+    Password,
+    employeeID
+) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let execAccount = "INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL, :Password, null, :employeeID)";
+        await conn.execute(
+            execAccount, {
+                Password,
+                employeeID
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function login(email) {
     let conn;
     try {
@@ -90,4 +112,5 @@ async function register(
 module.exports = {
     login,
     register,
+    registerForAdmin
 };

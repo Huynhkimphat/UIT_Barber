@@ -1,9 +1,8 @@
 const oracledb = require("oracledb");
 const { formatDate } = require("../../utils/formatDate");
 const { mergeEmpInfo } = require("../../utils/mergeEmpInfo");
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-let Pass;
+
+
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -104,6 +103,7 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+
 async function add(
     firstName,
     lastName,
@@ -160,29 +160,10 @@ async function add(
                 autoCommit: true,
             }
         );
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
-                Pass = hash;
-                (async() => {
-
-                })();
-            });
-        });
-        console.log(Pass);
-        let PW = String(Pass);
-        let execAccount = "INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL, :PW, null, :id)";
-
-        await conn.execute(
-            execAccount, {
-                PW,
-                id
-            }, {
-                autoCommit: true,
-            }
-        );
         if (conn) {
             await conn.close();
         }
+        return id;
     } catch (err) {
         console.log("Ouch!", err);
     }
