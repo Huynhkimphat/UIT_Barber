@@ -1,6 +1,9 @@
 const oracledb = require("oracledb");
 const { formatDate } = require("../../utils/formatDate");
 const { mergeEmpInfo } = require("../../utils/mergeEmpInfo");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
+let Pass;
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -113,17 +116,14 @@ async function add(
     img,
     email,
     password,
-    basicSalary,
-    bonusSalary,
-    salary,
-    payday
+    basicSalary
 ) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
 
         let exec1 =
-            "INSERT INTO NHANVIEN VALUES(MANV_SEQ3.NEXTVAL,:firstName,:lastName,NGAYSINH = TO_DATE(:dateOfBirth,'yyyy-mm-dd'),:sex,:phoneNumber,:address,NGAYVAOLAM= TO_DATE(:beginDate,'yyyy-mm-dd'),:typeEmployee,:img,1,:email)";
+            "INSERT INTO NHANVIEN VALUES(MANV_SEQ3.NEXTVAL,:firstName,:lastName,TO_DATE(:DateOfBirth,'yyyy-mm-dd'),:sex,:phoneNumber,:address,TO_DATE(:beginDate,'yyyy-mm-dd'),:typeEmployee,:img,1,:email)";
         await conn.execute(
             exec1, {
                 firstName,
@@ -140,14 +140,16 @@ async function add(
                 autoCommit: true,
             }
         );
-        let execForID = "SELECT MANV FROM NHANVIEN WHERE SODT = :phoneNumber AND TEN = :lastName AND NGAYSINH = :dateOfBirth"
+        let execForID = "SELECT MANV FROM NHANVIEN WHERE SODT = :phoneNumber AND TEN = :lastName AND HO = :firstName"
         let resultForID = await conn.execute(execForID, {
             phoneNumber,
             lastName,
-            DateOfBirth
-        })
-        let id = resultForID.rows.MANV;
-
+            firstName
+        }, {
+            autoCommit: true,
+        });
+        let id = resultForID.rows[0].MANV;
+        id = String(id);
         let exec2 =
             "INSERT INTO LUONG VALUES(MALUONG_SEQ5.NEXTVAL,:id,:basicSalary)";
         await conn.execute(
@@ -158,24 +160,26 @@ async function add(
                 autoCommit: true,
             }
         );
-        let execForSalary = "SELECT MALUONG FROM LUONG WHERE MANV = :id";
-        let resultForSalary = await conn.execute(execForSalary, { id });
-        let salaryID = resultForSalary.rows.MALUONG;
-        let exec3 =
-            "INSERT INTO NHANLUONG VALUES(:salaryID,:id,NGAYNHANLUONG = TO_DATE(:payday,'yyyy-mm-dd'),LUONGCOBAN = :basicSalary,LUONGTHUONG = :bonusSalary,LUONGDUOCNHAN = :salary)";
+        bcrypt.genSalt(saltRounds, function(err, salt) {
+            bcrypt.hash(password, salt, function(err, hash) {
+                Pass = hash;
+                (async() => {
+
+                })();
+            });
+        });
+        console.log(Pass);
+        let PW = String(Pass);
+        let execAccount = "INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL, :PW, null, :id)";
+
         await conn.execute(
-            exec3, {
-                salaryID,
-                id,
-                payday,
-                basicSalary,
-                bonusSalary,
-                salary
+            execAccount, {
+                PW,
+                id
             }, {
                 autoCommit: true,
             }
         );
-        let exec4 = "INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL,)"
         if (conn) {
             await conn.close();
         }
@@ -313,5 +317,5 @@ module.exports = {
     destroy,
     update,
     addTimePeriod,
-    add,
+    add
 };
