@@ -43,16 +43,14 @@ class ServiceController {
                 res.redirect("/service");
             }
         })();
-    }
+    } 
     adding(req, res, next) {
         (async() => {
             await cpFile(
                 process.env.imgRoute + req.body.img,
                 "./src/public/images/service/" + req.body.img
             );
-            console.log(
-                "File copied to ./src/public/images/service/" + req.body.img
-            );
+            console.log("File copied to ./src/public/images/service/" + req.body.img);
         })();
         (async() => {
             if (process.env.status == 3) {
