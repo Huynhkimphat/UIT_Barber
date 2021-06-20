@@ -1,40 +1,71 @@
-<link rel="stylesheet" href="/css/product.css">
-<div class="mt-4 ">
-    <h3>Add Product Rating</h3>
-    <form class="mt-4" method="POST" action="/productRating/?_method=PUT">
-        <div>
-            <label for="customerID">Mã khách hàng: </label><br>
-            <input type="text" name="customerID" id="customerID" width="full"><br>
+<link rel="stylesheet" href="/css/Adding_Update.css">
+
+<body>
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">   
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Thêm đánh giá sản phẩm</h3>
+                        <p>Điền vào khung bên dưới</p>
+                        <form class="requires-validation"  method="POST" action="/productRating/?_method=PUT">
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Mã khách hàng:
+                                    <input class="form-control" type="text"  name="customerId" id="customerId" placeholder="customerId"  required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Mã sản phẩm:
+                                    <input class="form-control" type="text"  name="productID" id="productID" placeholder="productId"  required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày đánh giá:
+                                    <input type="date" class="form-control" name="rateDay" id="rateDay" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                    <div class="invalid-feedback">This field cannot be blank!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-8 mt-3">Đánh giá:
+                                    <select  name="ratePoint" id="ratePoint">
+                                        <option value="1" type="number">1⭐</option>
+                                        <option value="2" type="number">2⭐</option>
+                                        <option value="3" type="number">3⭐</option>
+                                        <option value="4" type="number">4⭐</option>
+                                        <option value="5" type="number">5⭐</option>
+                                    </select>
+                                </div>
+                            </span><br><br>
+                            <div class="col-md-12 mt-6">Chi tiết đánh giá:
+                                <textarea name="Comment" id="Comment" cols="100" rows="10">Describe something about...</textarea>
+                            </div>
+                            <span class="items-group">
+                                <div class="col-sm-8 mt-3">Trạng thái:
+                                    <select name="Status" id="Status">
+                                        <option value="1" type="number">1</option>
+                                        <option value="0" type="number">0</option>
+                                    </select>
+                                </div>
+                            </span><br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label">I confirm that all data are correct</label>
+                                <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
+                            </div>
+                            <span class="items-group">
+                                <div class="col-sm-8 form-button mt-3">
+                                    <button id="Adding" type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </span>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="productID">Mã sản phẩm: </label><br>
-            <input type="text" name="productID" id="productID" width="full"><br>
-        </div>
-        <div>
-            <label for="rateDay">Ngày đánh giá:</label><br>
-            <input type="date" name="rateDay" id="rateDay" width="full"><br>
-        </div>
-        <div>
-            <label for="ratePoint">Rate:</label><br>
-            <select name="ratePoint" id="ratePoint" width="full">
-                <option value="1" type="number">1⭐</option>
-                <option value="2" type="number">2⭐</option>
-                <option value="3" type="number">3⭐</option>
-                <option value="4" type="number">4⭐</option>
-                <option value="5" type="number">5⭐</option>
-            </select>
-        </div>
-        <div>
-            <label for="Comment">Đánh giá: </label><br>
-            <textarea name="Comment" id="Comment" cols="100" rows="10"></textarea><br>
-        </div>
-        <div>
-            <label for="Status">Nhập trạng thái: </label>
-            <select name="Status" id="Status">
-                <option value="1" type="number">1</option>
-                <option value="0" type="number">0</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</div>
+    </div>
+</body>
+<script src="/js/submitForm.js"></script>

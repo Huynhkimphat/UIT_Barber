@@ -12,38 +12,36 @@
                         <p>Điền vào khung bên dưới</p>
                         <form class="requires-validation" method="POST" action="/service/?_method=PUT">
                             <span class="items-group">
-                                <div class="col-sm-8 mt-3">Name Service:
-                                    <input class="form-control" type="text" id="name" name="name" placeholder="Name">
+                                <div class="col-sm-16 mt-3">Name Service:
+                                    <input class="form-control" type="text" id="name" name="name" placeholder="Name"required>
                                     <div class="valid-feedback">This field is valid!</div>
                                 </div>
                             </span>
                             <br>
                             <span class="items-group">
                                 <div class="col-sm-8 mt-3">Price:(VND)
-                                    <input class="form-control currency" type="number" id="price" value="10000" min="10000" step="1000" name="price">
+                                    <input class="form-control currency" type="number" id="price" value="10000" min="10000" step="1000" name="price" required>
                                     <div class="valid-feedback">This field is valid!</div>
                                 </div>
                             </span>
                             <div class="col-md-12 mt-3">Images for service:
-                                <input class="form-control" type="file" name="img">
+                                <input class="form-control" type="file" name="img" required>
                             </div><br>
                             <div class="col-md-12 mt-6">
-                                <label class="mb-3 mr-1" for="tinhTrang">Type Service</label>
+                                <label class="mb-3 mr-1" for="typeService">Type Service</label>
                                 {{#each serviceType}}
-                                    <input type="radio" class="btn-check" name="typeService" id="{{MALDV}}" autocomplete="off" value="{{MALDV}}">
+                                    <input type="radio" class="btn-check" name="typeService" id="{{MALDV}}" autocomplete="off" value="{{MALDV}}" required>
                                     <label class="btn btn-sm btn-outline-secondary" for="{{MALDV}}">{{TENLOAIDICHVU}}</label>
                                 {{/each}}
-                                <div class="valid-feedback mv-up">You selected a status!</div>
-                                <div class="invalid-feedback mv-up">Please select a status!</div>
+                                <div class="invalid-feedback mv-up">Please select a type service!</div>
                             </div>
                             <div class="col-md-12 mt-6">Describe:
-                                <textarea name="describe" cols="20" rows="4">Describe something about...</textarea>
+                                <textarea name="describe" cols="20" rows="4" required>Describe something about...</textarea>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                 <label class="form-check-label">I confirm that all data are correct</label>
-                                <div class="invalid-feedback">Please confirm that the entered data are all correct!
-                                </div>
+                                <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
                             </div>
 
 
@@ -60,3 +58,4 @@
         </div>
     </div>
 </body>
+<script src="/js/submitForm.js"></script>

@@ -144,7 +144,7 @@ async function add(
         let resultForID = await conn.execute(execForID, {
             phoneNumber,
             lastName,
-            dateOfBirth
+            DateOfBirth
         })
         let id = resultForID.rows.MANV;
 
@@ -312,5 +312,6 @@ module.exports = {
     showToAdd,
     destroy,
     update,
-    addTimePeriod
+    addTimePeriod,
+    add,
 };
