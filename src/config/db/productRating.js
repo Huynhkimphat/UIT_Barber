@@ -32,12 +32,6 @@ async function add(customerID, productID, rateDay, ratePoint, cmt, Status) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        console.log(customerID,
-            productID,
-            rateDay,
-            ratePoint,
-            cmt,
-            Status);
         let exec =
             "INSERT INTO DANHGIASANPHAM VALUES (MADGSP_SEQ13.NEXTVAL , :customerID, :productID, TO_DATE(:rateDay,'yyyy-mm-dd'), :ratePoint, :cmt, :Status)";
         await conn.execute(
