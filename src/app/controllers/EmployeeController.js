@@ -41,13 +41,18 @@ class EmployeeController {
         (async() => {
             if (process.env.status != 0) {
                 await employee.add(
-                    req.body.name,
-                    req.body.price,
-                    req.body.describe,
-                    req.body.country,
+                    req.body.firstName,
+                    req.body.lastName,
+                    req.body.DateOfBirth,
+                    req.body.sex,
+                    req.body.phoneNumber,
+                    req.body.address,
+                    req.body.beginDate,
+                    req.body.typeEmployee,
                     req.body.img,
-                    req.body.count,
-                    req.body.typeProduct
+                    req.body.email,
+                    req.body.password,
+                    req.body.basicSalary
                 );
                 res.redirect("/employee");
             } else {

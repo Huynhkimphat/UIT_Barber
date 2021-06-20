@@ -59,24 +59,6 @@
             <label for="basicSalary">Lương cơ bản: </label><br>
             <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"><br>
         </div>
-        <div>
-            <label for="bonusSalary">Lương thưởng: </label><br>
-            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"><br>
-        </div>
-        <div>
-            <label for="salary">Lương được nhận: </label><br>
-            <input type="text" name="salary" id="salary" width="full" ><br>
-        </div>
-        <div>
-            <label for="payday">Ngày nhận lương:</label><br>
-            <input type="date" name="payday" id="payday" width="full"><br>
-        </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
-<script>
-    function salarySum() {
-        document.getElementById('salary').value = Number(document.getElementById('basicSalary').value) + Number(document.getElementById('bonusSalary').value);
-    }
-
-</script>
