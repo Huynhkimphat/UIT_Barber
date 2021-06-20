@@ -10,7 +10,7 @@ class CustomerRatingController {
                     username: process.env.username,
                     img: process.env.img,
                 });
-            } else if (process.env.status != 0) {
+            } else if (process.env.status == 1) {
                 res.render("CustomerRating/showCustomerRating", {
                     customerRating: result,
                     status: process.env.status,
@@ -26,8 +26,9 @@ class CustomerRatingController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status == 3) {
-                res.render("admin/customerRating/addCustomerRating", {
+            if (process.env.status == 1) {
+                res.render("customerRating/addCustomerRating", {
+                    id: process.env.id,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -39,14 +40,12 @@ class CustomerRatingController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status == 3) {
+            if (process.env.status == 1) {
                 await customerRating.add(
-                    req.body.customerId,
+                    process.env.id,
                     req.body.employeeId,
-                    req.body.rateDay,
                     req.body.ratePoint,
-                    req.body.cmt,
-                    req.body.Status
+                    req.body.Comment
                 );
                 res.redirect("/customerRating");
             } else {
