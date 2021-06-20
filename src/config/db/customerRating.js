@@ -29,19 +29,17 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(customerId, employeeId, rateDay, ratePoint, cmt, Status) {
+async function add(customerId, employeeId, ratePoint, cmt) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "INSERT INTO DANHGIANHANVIEN(MADGNV,MAKH,MANV,NGAYDANHGIA,DANHGIA,CHITIETDANHGIA,TINHTRANG) VALUES (MADGNV_SEQ12.NEXTVAL,:customerId,:employeeId,TO_DATE(:rateDay,'yyyy-mm-dd'),:ratePoint,:cmt,:Status)";
+        let exec = "INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,:customerId,:employeeId,TO_DATE(SYSDATE,'yyyy-mm-dd'),:ratePoint,:cmt,1)";
         await conn.execute(
             exec, {
                 customerId,
                 employeeId,
-                rateDay,
                 ratePoint,
-                cmt,
-                Status,
+                cmt
             }, {
                 autoCommit: true,
             }
