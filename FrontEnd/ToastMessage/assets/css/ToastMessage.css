@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: block;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 50px;
+}
+
+.successToast-header {
+  background-color: #71be34;
+}
+.errorToast-header {
+  background-color: #ee5e5e;
+}
+.infoToast-header {
+  background-color: #4fa1b9;
+}
+.warningToast-header {
+  background-color: #f7c64b;
+}
