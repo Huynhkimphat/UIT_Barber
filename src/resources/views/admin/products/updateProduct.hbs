@@ -36,8 +36,13 @@
                             <div class="col-md-12 mt-6">
                                 <label class="mb-3 mr-1" for="typeService">Loại sản phẩm</label>
                                 {{#each typeProduct}}
-                                    <input type="radio" class="btn-check" name="typeProduct" id="{{MALSP}}" autocomplete="off" value="{{MALSP}}" required>
-                                    <label class="btn btn-sm btn-outline-secondary" for="{{MALSP}}">{{TENLOAISANPHAM}}</label>
+                                    {{#if check}}
+                                        <input type="radio" class="btn-check" name="typeProduct" id="{{MALSP}}" autocomplete="off" value="{{MALSP}}" checked=true required>
+                                        <label class="btn btn-sm btn-outline-secondary" for="{{MALSP}}">{{TENLOAISANPHAM}}</label>
+                                    {{else}}
+                                        <input type="radio" class="btn-check" name="typeProduct" id="{{MALSP}}" autocomplete="off" value="{{MALSP}}" required>
+                                        <label class="btn btn-sm btn-outline-secondary" for="{{MALSP}}">{{TENLOAISANPHAM}}</label>
+                                    {{/if}}
                                 {{/each}}
                                 <div class="invalid-feedback mv-up">Please select a type service!</div>
                             </div>

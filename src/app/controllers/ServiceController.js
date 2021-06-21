@@ -85,10 +85,16 @@ class ServiceController {
     edit(req, res, next) {
         (async() => {
             let result = await service.show(req.params.id);
-            let result2 = await serviceType.show();
+            let typeService = await serviceType.show();
+            for (let i = 0; i< typeService.length; i++){
+                typeService[i] = Object.assign(typeService[i],{check: 0});
+                if (typeService[i].MALDV == result[0].MALDV){
+                    typeService[i].check = 1;
+                }
+            }
             res.render("admin/services/updateServices", {
                 service: result[0],
-                serviceType: result2,
+                serviceType: typeService,
                 status: process.env.status,
                 username: process.env.username,
                 img: process.env.img,

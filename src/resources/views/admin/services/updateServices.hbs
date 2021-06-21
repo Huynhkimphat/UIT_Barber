@@ -32,8 +32,13 @@
                             <div class="col-md-12 mt-6" id="typeServiceChosen" data-id="{{service.MALDV}}">
                                 <label class="mb-3 mr-1" for="typeService">Type Service</label>
                                 {{#each serviceType}}
-                                    <input type="radio" class="btn-check" name="typeService" value="{{MALDV}}" id="{{MALDV}}" autocomplete="off" value="{{MALDV}}" required>
-                                    <label class="btn btn-sm btn-outline-secondary" for="{{MALDV}}">{{TENLOAIDICHVU}}</label>
+                                    {{#if check}}
+                                        <input type="radio" class="btn-check" name="typeService" value="{{MALDV}}" id="{{MALDV}}" autocomplete="off" value="{{MALDV}}" checked=true required>
+                                        <label class="btn btn-sm btn-outline-secondary" for="{{MALDV}}">{{TENLOAIDICHVU}}</label>
+                                    {{else}}
+                                        <input type="radio" class="btn-check" name="typeService" value="{{MALDV}}" id="{{MALDV}}" autocomplete="off" value="{{MALDV}}" required>
+                                        <label class="btn btn-sm btn-outline-secondary" for="{{MALDV}}">{{TENLOAIDICHVU}}</label>
+                                    {{/if}}
                                 {{/each}}
                                 <div class="invalid-feedback mv-up">Please select a type service!</div>
                             </div>
