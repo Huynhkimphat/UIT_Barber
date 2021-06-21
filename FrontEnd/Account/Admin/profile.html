@@ -23,12 +23,9 @@
             <a class="list-group-item list-group-item-action active" data-toggle="list" href="#about-me">About Me</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-change-password">Change password</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Salary">Salary</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Booking-History">Booking History</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Order-History">Order History</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Revenue">Revenue</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Customer">Customer</a>
             <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Staff">Staff</a>
-            <a class="list-group-item list-group-item-action" data-toggle="list" href="#account-Product">Product</a>
           </div>
         </div>
         <div class="col-md-9">
@@ -124,7 +121,7 @@
                                             <th scope="col">Month</th>
                                             <th scope="col" class="text-center">Number Customer</th>
                                             <th scope="col" class="text-center">Salary</th>
-                                            <!-- <th scope="col" class="text-center">Status</th> -->
+                                            <th scope="col" class="text-center">Salary date</th>
                                            
                                         </tr>
                                     </thead>
@@ -134,19 +131,21 @@
                                             <td>January</td>
                                             <td class="text-center">900</td>
                                             <td class="text-center">9.000.000 đ</td>
-                                            
+                                            <td class="text-center">28/1</td>
                                         </tr>
                                         <tr>
                                           <td><a href="#">AD01</a></td>
                                           <td>February</td>
                                           <td class="text-center">1000</td>
-                                          <td class="text-center">10.000.000 đ</td>  
+                                          <td class="text-center">10.000.000 đ</td> 
+                                          <td class="text-center">28/2</td> 
                                         </tr>
                                         <tr>
                                           <td><a href="#">AD01</a></td>
                                           <td>March</td>
                                           <td class="text-center">1100</td>
                                           <td class="text-center">11.000.000 đ</td>
+                                          <td class="text-center">28/3</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -158,57 +157,6 @@
               </div>
             </div>
 
-            <!-- Order History -->
-            <div class="tab-pane fade" id="account-Order-History">
-              <div class="card-body pb-2">
-                <div class="form-group">
-                  <div class="container mb-4">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col"></th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col" class="text-center">Total</th>
-                                            <th scope="col" class="text-center">Status</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
-                                            <td>Product Name Dada</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>pending</td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                            <td>Product Name Toto</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>rejected</td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                            <td>Product Name Titi</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>pending</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
-              </div>
-            </div>
 
             <!-- Revenue -->
 
@@ -261,8 +209,9 @@
             </div>
           
 
-            <!-- Product -->
-            <div class="tab-pane fade" id="account-Product">
+            <!-- Customer -->
+
+            <div class="tab-pane fade" id="account-Customer">
               <div class="card-body pb-2">
                 <div class="form-group">
                   <div class="container mb-4">
@@ -272,36 +221,32 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col"></th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col" class="text-center">Total</th>
-                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">ID</th>
+                                            <th scope="col" class="text-center">SĐT</th>
+                                            <th scope="col" class="text-center">Address</th>
+                                            <th scope="col" class="text-center"></th>
+                                            <!-- <th scope="col" class="text-center">Salary date</th> -->
                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /></td>
-                                            <td>Product Name Dada</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>pending</td>
+                                            <td class="text-center"><a href="#">KH01</a></td>
+                                            <td class="text-center">0914437734</td>
+                                            <td class="text-center">Tân Bình</td>
+                                            <td class="text-center"><a href="#">Detail>>></a></td>
                                         </tr>
                                         <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                            <td>Product Name Toto</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>rejected</td>
-                                            
+                                          <td class="text-center"><a href="#">KH02</a></td>
+                                          <td class="text-center">0387645455</td>
+                                          <td class="text-center">Thủ Đức</td>
+                                          <td class="text-center"><a href="#">Detail>>></a></td> 
                                         </tr>
                                         <tr>
-                                            <td><a href="#">#0102</a></td>
-                                            <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
-                                            <td>Product Name Titi</td>
-                                            <td class="text-center">124,90</td>
-                                            <td class = 'text-center'>pending</td>
+                                          <td class="text-center"><a href="#">KH03</a></td>
+                                          <td class="text-center">0912212112</td>
+                                          <td class="text-center">Q1</td>
+                                          <td class="text-center"><a href="#">Detail>>></a></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -312,6 +257,55 @@
                 </div>
               </div>
             </div>
+
+            <!-- Staff -->
+            <div class="tab-pane fade" id="account-Staff">
+              <div class="card-body pb-2">
+                <div class="form-group">
+                  <div class="container mb-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">ID</th>
+                                            <th scope="col" class="text-center">SĐT</th>
+                                            <th scope="col" class="text-center">Address</th>
+                                            <th scope="col" class="text-center"></th>
+                                            <!-- <th scope="col" class="text-center">Salary date</th> -->
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center"><a href="#">NV01</a></td>
+                                            <td class="text-center">0837444333</td>
+                                            <td class="text-center">Tân Bình</td>
+                                            <td class="text-center"><a href="#">Detail>>></a></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="text-center"><a href="#">NV02</a></td>
+                                          <td class="text-center">0387645455</td>
+                                          <td class="text-center">Thủ Đức</td>
+                                          <td class="text-center"><a href="#">Detail>>></a></td> 
+                                        </tr>
+                                        <tr>
+                                          <td class="text-center"><a href="#">NV03</a></td>
+                                          <td class="text-center">0912212112</td>
+                                          <td class="text-center">Q1</td>
+                                          <td class="text-center"><a href="#">Detail>>></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 body{
     /* background: #f5f5f5; */
     margin-top:20px;
+    padding: 20px;
 }
 
 .ui-w-80 {
@@ -123,3 +124,74 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     text-decoration: none;
     color: green;
 }
+
+
+#account-Current-Rating {
+    padding-right: 15px;
+}
+
+#account-Current-Rating .heading {
+    font-size: 25px;
+    margin-right: 25px;
+    font-weight: bold;
+  }
+
+#account-Current-Rating .checked{
+     
+    color: orange;
+}
+
+#account-Current-Rating .fa {
+    font-size: 25px;
+  }
+  
+  /* Three column layout */
+  #account-Current-Rating .side {
+    float: left;
+    width: 15%;
+    margin-top: 10px;
+  }
+  
+  #account-Current-Rating .middle {
+    float: left;
+    width: 70%;
+    margin-top: 10px;
+  }
+  
+  /* Place text to the right */
+  #account-Current-Rating  .right {
+    text-align: right;
+  }
+  
+  /* Clear floats after the columns */
+  #account-Current-Rating .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* The bar container */
+  #account-Current-Rating .bar-container {
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    color: white;
+  }
+  
+  /* Individual bars */
+  #account-Current-Rating .bar-5 {width: 60%; height: 18px; background-color: #04AA6D;}
+  #account-Current-Rating .bar-4 {width: 30%; height: 18px; background-color: #2196F3;}
+  #account-Current-Rating .bar-3 {width: 10%; height: 18px; background-color: #00bcd4;}
+  #account-Current-Rating .bar-2 {width: 4%; height: 18px; background-color: #ff9800;}
+  #account-Current-Rating .bar-1 {width: 15%; height: 18px; background-color: #f44336;}
+  
+  /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+  @media (max-width: 400px) {
+    #account-Current-Rating .side, .middle {
+      width: 100%;
+    }
+    /* Hide the right column on small screens */
+    #account-Current-Rating .right {
+      display: none;
+    }
+  }
