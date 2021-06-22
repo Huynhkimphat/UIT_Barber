@@ -39,7 +39,16 @@ class AdminAuthenticateController {
                                     process.env.status = 3;
                                     res.redirect("/");
                                 } else {
-                                    res.redirect("/admin/authenticate/login");
+                                    res.render("messages", {
+                                        box: "error",
+                                        face: "face2",
+                                        mouth: "sad",
+                                        heading: "Error!",
+                                        desc: "oh no, something went wrong.",
+                                        btn: "red",
+                                        page: "./login",
+                                        layout: "authenticate_layout",
+                                    });
                                 }
                             }
                         }

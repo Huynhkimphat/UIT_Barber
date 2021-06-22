@@ -3,7 +3,9 @@
 
 <div class="main">
     <div class="main-form">
-
+        {{#each existedEmail}}
+            <input type="hidden" name="existedEmail" class="existedEmail" value="{{EMAIL}}"></input>
+        {{/each}}
         <form method="POST" action="/authenticate/register" class="form" id="login-form">
             <h3 class="heading">Register</h3>
             <p class="desc">Be together at UIT's BABER ❤️❤️❤️</p>
@@ -11,10 +13,12 @@
             <div class="spacer"></div>
             <div class="form-group">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com"
+                <input onchange="checkEmail()"  id="email" name="email" type="text" placeholder="Example: luongquy.devcs@gmail.com"
                     class="form-control">
                 <span class="form-message"></span>
+                <span style="color: #f33a58" class="form-message" id="email-form-message"></span>
             </div>
+
             <div class="form-group">
                 <label for="password" class="form-label">Password</label>
                 <input id="password" name="password" type="password" placeholder="Enter your password: "
@@ -41,9 +45,10 @@
                 <input id="phone" name="phone" type="number" placeholder="Example: 0935589947" class="form-control">
                 <span class="form-message"></span>
             </div>
-            <button class="form-submit">Register</button>
+            <button class="form-submit" onclick="checkEmail()">Register</button>
             <a href="./login">Login</a>
         </form>
+        
     </div>
 
 </div>
@@ -69,5 +74,17 @@
         console.log(data);
     } --}}
     });
-
+    function checkEmail(){
+        document.querySelector("#email-form-message").innerHTML = "";
+        let existedEmail = document.querySelectorAll(".existedEmail");
+        let num = existedEmail.length;
+        for (i = 0; i < num; i++) {
+            if (document.querySelector("#email").value == existedEmail[i].value) {
+                document.querySelector("#email-form-message").innerHTML = "Existed email!";
+                
+            }
+        }
+    }
+    
+    
 </script>
