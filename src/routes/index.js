@@ -10,6 +10,7 @@ const customerRouter = require("./customer");
 const customerRatingRouter = require("./customerRating");
 const accountRouter = require("./account");
 const billRouter = require("./bill");
+const orderRouter = require("./order");
 const adminRouter = require("./admin");
 const aboutRouter = require("./about");
 const homeRouter = require("./home");
@@ -44,6 +45,8 @@ function route(app) {
     app.use("/employee", employeeRouter);
     // Route Bill
     app.use("/bill", billRouter);
+    // Route order
+    app.use("/order", orderRouter);
     // Route Home
     app.use("/", homeRouter);
 }

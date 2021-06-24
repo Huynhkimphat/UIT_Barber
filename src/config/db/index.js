@@ -13,6 +13,7 @@ const employee = require("./employee");
 const customer = require("./customer");
 const productType = require("./productType");
 const bill = require("./bill");
+const order = require("./order");
 const customerRating = require("./customerRating");
 const productRating = require("./productRating");
 const time = require("./time");
@@ -47,6 +48,7 @@ module.exports = {
     customer,
     productType,
     bill,
+    order,
     customerRating,
     time,
     productRating,

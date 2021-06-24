@@ -1,7 +1,10 @@
 <link rel="stylesheet" href="/css/service.css">
 <div class="container">
     <div class="row">
+        <form class="requires-validation" method="POST" action="/order/?_method=PUT">
         {{#each product}}
+        <input type="text" name="productID" id="productID" value="{{MASP}}" hidden="true">
+        <input type="number" name="price" id="price" value="{{GIA}}" hidden="true">
         <div class="service_card col-12 col-md-6 col-lg-4 mt-4">
             <input type="checkbox" id="card{{MASP}}" class="more" aria-hidden="true">
             <div class="content">
@@ -29,9 +32,10 @@
                         <div class="typeOfService">{{TENSANPHAM}}</div>
                         <div class="price">{{GIA}} VND</div>
                         <label for="card{{MASP}}" class="buttons booking_btn" aria-hidden="true">
-                            <button class="buttons btn-outline-danger w-100">
-                                <a href="/order/{{MASP}}/add" style="text-decoration:none;">Buy Now</a></button>
-                                <a href="/products/{{MASP}}/viewRating" style="text-decoration:none;">DANH GIA SAN PHAM</a>
+                            
+                                <input name="amount" type="number" class="amount" id="amount" value="1">
+                                <button type="submit" style="text-decoration:none;">Buy Now</button>
+                            
                         </label>
                         <label for="card{{MASP}}" class="buttons btn-custom return btn-outline-danger w-100"
                             aria-hidden="true">
@@ -42,7 +46,7 @@
             </div>
         </div>
         {{/each}}
-
+        </form>
     </div>
 </div>
 
