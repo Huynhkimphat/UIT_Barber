@@ -34,6 +34,12 @@ class ProductController {
             (async() => {
                 let result = await product.show(req.params.id);
                 let typeProduct = await productType.showToAdd();
+                for (let i = 0; i< typeProduct.length; i++){
+                    typeProduct[i] = Object.assign(typeProduct[i],{check: 0});
+                    if (typeProduct[i].MALSP == result[0].MALSP){
+                        typeProduct[i].check = 1;
+                    }
+                }
                 res.render("admin/products/updateProduct", {
                     product: result[0],
                     typeProduct,
