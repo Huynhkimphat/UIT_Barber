@@ -6,18 +6,19 @@
             <div class="form-holder">   
                 <div class="form-content">
                     <div class="form-items">
-                        <h3>Thêm đánh giá nhân viên</h3>
+                        <h3>Thêm đánh giá sản phẩm</h3>
                         <p>Điền vào khung bên dưới</p>
-                        <form class="requires-validation"  method="POST" action="/customerRating/?_method=PUT">
+                        <form class="requires-validation"  method="POST" action="/productRating/?_method=PUT">
                             <span class="items-group">
-                                <div class="col-sm-16 mt-3">Mã khách hàng:
-                                    <input class="form-control" type="text"  name="customerId" id="customerId" placeholder="customerId" value={{id}} readonly="readonly" required>
+                                <div class="col-sm-16 mt-3" >Mã khách hàng:
+                                    <input class="form-control" type="text" name="customerID" id="customerID" placeholder="customerId" value="{{id}}"
+                                        readonly="readonly" required>
                                     <div class="valid-feedback">This field is valid!</div>
                                 </div>
                             </span>
                             <span class="items-group">
-                                <div class="col-sm-16 mt-3">Mã nhân viên:
-                                    <input class="form-control" type="text"  name="employeeId" id="employeeId" placeholder="employeeId"  required>
+                                <div class="col-sm-16 mt-3" >Mã sản phẩm:
+                                    <input class="form-control" type="text"  name="productID" id="productID" placeholder="productId" value="{{productID}}" readonly="readonly" required>
                                     <div class="valid-feedback">This field is valid!</div>
                                 </div>
                             </span><br>

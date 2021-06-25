@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/product.css">
+<div class="mt-4 ">
+    <h3>Update Order: {{orderID}}</h3>
+    
+    <form class="mt-4" method="POST" action="/order/{{orderID}}/edit">
+    {{#each product}}
+        <div>
+            <label for="productID" >MASP: </label><br>
+            <input readonly="readonly" type="text" name="productID" class="productID" id="productID{{MASP}}" width="full" value="{{MASP}}"><br>
+        </div>
+        <div>
+            <label for="amount">So luong: </label><br>
+            <input  type="number" class="amount" name="amount" id="amount{{MASP}}{{SOLUONG}}" width="full" value="{{SOLUONG}}"><br>
+        </div>
+    {{/each}}
+        <button type="submit" class="btn btn-primary" >Save</button>
+    </form>
+</div>
+<script>
+    
+</script>

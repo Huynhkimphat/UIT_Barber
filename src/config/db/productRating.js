@@ -28,20 +28,18 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(customerID, productID, rateDay, ratePoint, cmt, Status) {
+async function add(customerID, productID, ratePoint, cmt) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO DANHGIASANPHAM VALUES (MADGSP_SEQ13.NEXTVAL , :customerID, :productID, TO_DATE(:rateDay,'yyyy-mm-dd'), :ratePoint, :cmt, :Status)";
+            "INSERT INTO DANHGIASANPHAM VALUES (MADGSP_SEQ13.NEXTVAL , :customerID, :productID, TO_DATE(SYSDATE,'yyyy-mm-dd'), :ratePoint, :cmt, 1)";
         await conn.execute(
             exec, {
                 customerID,
                 productID,
-                rateDay,
                 ratePoint,
-                cmt,
-                Status
+                cmt
             }, {
                 autoCommit: true,
             }
@@ -79,7 +77,7 @@ async function show(id = -1) {
             let exec =
                 "SELECT * FROM DANHGIASANPHAM WHERE MASP=" +
                 id;
-            const result = await conn.execute(exec);
+            let result = await conn.execute(exec);
             result = formatDate(result);
             if (conn) {
                 await conn.close();

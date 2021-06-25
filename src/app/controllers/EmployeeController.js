@@ -1,4 +1,6 @@
-const { employee, time } = require("../../config/db");
+const { employee, time, authenticate } = require("../../config/db");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 class EmployeeController {
     show(req, res, next) {
         (async() => {
@@ -39,8 +41,8 @@ class EmployeeController {
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await employee.add(
+            if (process.env.status == 3) {
+                let id = await employee.add(
                     req.body.firstName,
                     req.body.lastName,
                     req.body.DateOfBirth,
@@ -54,6 +56,18 @@ class EmployeeController {
                     req.body.password,
                     req.body.basicSalary
                 );
+                let Pass = "";
+                bcrypt.genSalt(saltRounds, function(err, salt) {
+                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                        Pass = hash;
+                        (async() => {
+                            await authenticate.registerForAdmin(
+                                Pass,
+                                id
+                            );
+                        })();
+                    });
+                });
                 res.redirect("/employee");
             } else {
                 res.redirect("/");

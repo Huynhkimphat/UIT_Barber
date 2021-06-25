@@ -7,6 +7,7 @@
             <th scope="col">Ngày đánh giá</th>
             <th scope="col">Đánh giá</th>
             <th scope="col">Chi tiết đánh giá</th>
+            <th scope="col">Status</th>
         </tr>
     </thead>
     {{#each customerRating}}
@@ -18,15 +19,11 @@
             <td>{{NGAYDANHGIA}}</td>
             <td>{{DANHGIA}}⭐</td>
             <td>{{CHITIETDANHGIA}}</td>
-            </td>
+            <td>{{TINHTRANG}}</td>
         </tr>
     </tbody>
 
     {{/each}}
 
 </table>
-<div class="row">
-    <div class="col-2">
-        <a href="./customerRating/add" type="button" class="btn btn-primary">Add</a>
-    </div>
-</div>
+<button class="btn btn-primary"><a href="/customerRating/add">Add</a></button>

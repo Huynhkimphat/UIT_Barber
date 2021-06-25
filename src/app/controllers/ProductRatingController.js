@@ -57,29 +57,30 @@ class ProductRatingController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status == 3) {
-                res.render("admin/productRating/addProductRating", {
+
+            if (process.env.status == 1) {
+                res.render("productRating/addProductRating", {
                     status: process.env.status,
                     username: process.env.username,
+                    id: process.env.id,
+                    productID: req.params.id,
                     img: process.env.img,
                 });
             } else {
-                res.redirect("/productRating");
+                res.redirect("/");
             }
         })();
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status == 3 || process.env.status == 2) {
+            if (process.env.status == 1) {
                 await productRating.add(
                     req.body.customerId,
                     req.body.productID,
-                    req.body.rateDay,
                     req.body.ratePoint,
-                    req.body.cmt,
-                    req.body.Status
+                    req.body.Comment
                 );
-                res.redirect("/productRating");
+                res.redirect("/products/" + String(req.body.productID) + "/viewRating");
             } else {
                 res.redirect("/");
             }

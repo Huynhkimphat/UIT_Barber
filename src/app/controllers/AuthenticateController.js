@@ -1,5 +1,6 @@
 const { authenticate } = require("../../config/db");
 const bcrypt = require("bcrypt");
+const { customer } = require("../../config/db");
 const saltRounds = 10;
 class AuthenticateController {
     login(req, res, next) {
@@ -12,13 +13,18 @@ class AuthenticateController {
         }
     }
     register(req, res) {
-        if (process.env.status == 0) {
-            res.render("authenticate/register", {
-                layout: "authenticate_layout",
-            });
-        } else {
-            res.redirect("/");
-        }
+        (async() => {
+            let existedEmail = await customer.checkEmail();
+            if (process.env.status == 0) {
+                res.render("authenticate/register", {
+                    existedEmail: existedEmail,
+                    layout: "authenticate_layout",
+                });
+            } else {
+                res.redirect("/");
+            }
+        })();
+
     }
     check(req, res, next) {
         let pass;

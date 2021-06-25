@@ -128,17 +128,12 @@ class ProductController {
                     img: process.env.img,
                     header: 2,
                 });
-            } else if (process.env.status != 0) {
+            } else {
                 res.render("productRating/showProductRating", {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
-                    header: 2,
-                });
-            } else {
-                res.render("productRating/showProductRating", {
-                    productRating: result,
                     header: 2,
                 });
             }
