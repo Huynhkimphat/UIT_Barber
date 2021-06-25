@@ -287,6 +287,7 @@ class BookingController {
                 let lstService = await service.getDetail(req.params.id);
                 let bookingDetail = await booking.getDetail(req.params.id);
                 res.render("booking/showDetail", {
+                    MAKH: process.env.id,
                     lstService: lstService,
                     bookingDetail: bookingDetail,
                     status: process.env.status,

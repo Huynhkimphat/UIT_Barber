@@ -75,7 +75,7 @@ class ProductRatingController {
         (async() => {
             if (process.env.status == 1) {
                 await productRating.add(
-                    req.body.customerID,
+                    req.body.customerId,
                     req.body.productID,
                     req.body.ratePoint,
                     req.body.Comment

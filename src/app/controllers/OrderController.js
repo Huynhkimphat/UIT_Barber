@@ -64,6 +64,7 @@ class OrderController {
     adding(req, res, next) {
         (async() => {
             if (process.env.status == 1) {
+                console.log(req.body)
                 await order.add(
                     process.env.id,
                     req.body.productID,
