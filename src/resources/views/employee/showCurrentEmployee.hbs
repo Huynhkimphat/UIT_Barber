@@ -1,0 +1,46 @@
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">MaNV</th>
+            <th scope="col">Họ tên</th>
+            <th scope="col">Ngày sinh</th>
+            <th scope="col">Giới tính</th>
+            <th scope="col">Số đt</th>
+            <th scope="col">Địa chỉ</th>
+            <th scope="col">Ngày vào làm</th>
+            <th scope="col">Loại nv</th>
+            <th scope="col">Email</th>
+            <th scope="col">Mã lương</th>
+            <th scope="col">Lương cơ bản</th>
+            <th scope="col">Lương thưởng</th>
+            <th scope="col">Lương được nhận</th>
+            <th scope="col">Ngày nhận lương</th>
+            <th scope="col">Update</th>
+        </tr>
+    </thead>
+    {{#each employee}}
+    <tbody>
+        <tr>
+            <th scope="row">{{MANV}}</th>
+            <td>{{HO}} {{TEN}}</td>
+            <td>{{NGAYSINH}}</td>
+            <td>{{GIOITINH}}</td>
+            <td>{{SODT}}</td>
+            <td>{{DIACHI}}</td>
+            <td>{{NGAYVAOLAM}}</td>
+            <td>{{LOAINHANVIEN}}</td>
+            <td>{{EMAIL}}</td>
+            <td>{{MALUONG}}</td>
+            <td>{{LUONGCOBAN}}</td>
+            <td>{{LUONGTHUONG}}</td>
+            <td>{{LUONGDUOCNHAN}}</td>
+            <td>{{NGAYNHANLUONG}}</td>
+            <td>
+                <a href="/employee/{{MANV}}/edit" class="btn btn-link">Update</a>
+            </td>
+        </tr>
+    </tbody>
+
+    {{/each}}
+
+</table>

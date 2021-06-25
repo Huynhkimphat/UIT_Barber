@@ -11,27 +11,32 @@
                     <use xlink:href="#bootstrap" />
                 </svg>
             </a>
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <input type="radio" name="check3" id="tc" class="headip" checked>
-                <input type="radio" name="check3" id="dv" class="headip">
-                <input type="radio" name="check3" id="sp" class="headip">
-                <input type="radio" name="check3" id="lh" class="headip">
-                <a href="#" id="tc1" class="nav-link px-2 text-white"> <label for="tc">Home</label> </a>
-                <a href="/service" id="dv1" class="nav-link px-2 text-white"> <label for="dv">Services</label> </a>
-                <a href="/products" id="sp1" class="nav-link px-2 text-white"> <label for="sp">Products</label> </a>
-                <a href="/about" id="lh1" class="nav-link px-2 text-white"> <label for="lh">About</label> </a>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 header" data-id={{header}}>
+                <a href="/" id="tc1" class="nav-link px-2 text-white header_item header_item--active">
+                    <label for="tc">Home</label>
+                </a>
+                <a href="/service" id="dv1" class="nav-link px-2 text-white header_item ">
+                    <label for="dv">Services</label>
+                </a>
+                <a href="/products" id="sp1" class="nav-link px-2 text-white header_item ">
+                    <label for="sp">Products</label>
+                </a>
+                <a href="/about" id="lh1" class="nav-link px-2 text-white header_item ">
+                    <label for="lh">About</label>
+                </a>
             </ul>
             <div class="text-end1">
                 {{#if status}}
                 <div id="user" class="me-2">
                     <div class="shop">
+                        <a href="/order">
                         <i id="shopping" class="fas fa-shopping-cart"></i>
                         <div class="nosh">
-                            <div>
+                            {{!-- <div>
                                 <img id="noshop" src="./assets/img/no.png" alt="">
                                 <b>Hiện tại không có đơn hàng</b>
-                            </div>
-                            {{!-- <div class="noempty">
+                            </div> --}}
+                            <div class="noempty">
                                 <ul class="listsp">
                                     <li>
                                         <h6> Sản phẩm đã thêm</h6>
@@ -45,18 +50,20 @@
                                             <a href=""> Xoá</a>
                                         </span>
                                     </li>
+                                    
                                 </ul>
-                            </div> --}}
+                            </div>
                         </div>
+                        </a>
                     </div>
                 </div>
                 <div class="usa">
                     <input style="display:none" type="checkbox" name="check" id="use">
-                    <label id="user2" for="use"> <img id="avata" src="./assets/img/avatar.png" alt=""> <b
+                    <label id="user2" for="use"> <img id="avata" src="{{img}}" alt=""> <b
                             id="name">{{username}}</b></label>
                     <div class="contentus">
                         <ul>
-                            <li> Thông tin cá nhân</li>
+                            <li> <a href=""> Thông tin cá nhân </a></li>
                             <li><a href="./booking">Lịch đặt</a></li>
                             <li> Đơn hàng</li>
                             <li><a href="/authenticate/logout">Thoát</a></li>
@@ -79,7 +86,19 @@
 
 </header>
 <script>
-    document.querySelector('.shop').onmouseover = function () {
-        document.querySelector('#use').checked = false;
+    try {
+        document.querySelector('.shop').onmouseover = function () {
+            document.querySelector('#use').checked = false;
+        }
+    } catch (e) {
+        //pass;
+    };
+    let headerItemsActiveID = document.querySelector('.header').getAttribute('data-id');
+    let headerItems = document.querySelectorAll('.header_item');
+    headerItemsActiveID && document.querySelector('.header_item--active').classList.remove("header_item--active");
+    for (let i = 0; i < headerItems.length; i++) {
+        if (headerItemsActiveID == i) {
+            headerItems[i].classList.add('header_item--active');
+        }
     }
 </script>

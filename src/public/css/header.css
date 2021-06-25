@@ -145,23 +145,7 @@ input[type="number"] {
     display: none;
 }
 
-.headip {
-    display: none;
-}
-
-#tc:checked~#tc1 {
-    color: rgb(255, 230, 8) !important;
-}
-
-#dv:checked~#dv1 {
-    color: rgb(255, 230, 8) !important;
-}
-
-#sp:checked~#sp1 {
-    color: rgb(255, 230, 8) !important;
-}
-
-#lh:checked~#lh1 {
+.header_item--active {
     color: rgb(255, 230, 8) !important;
 }
 

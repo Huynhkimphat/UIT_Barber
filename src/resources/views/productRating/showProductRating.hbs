@@ -7,6 +7,7 @@
             <th scope="col">Ngày đánh giá</th>
             <th scope="col">Đánh giá</th>
             <th scope="col">Chi tiết đánh giá</th>
+            <th scope="col">Thêm đánh giá</th>
         </tr>
     </thead>
     {{#each productRating}}
@@ -18,9 +19,10 @@
             <td>{{NGAYDANHGIA}}</td>
             <td>{{DANHGIA}}⭐</td>
             <td>{{CHITIETDANHGIA}}</td>
+            <td><a href="/productRating/{{MASP}}/add" style="text-decoration:none;">THÊM ĐÁNH GIÁ</a></td>
         </tr>
     </tbody>
-
+    
     {{/each}}
 
 </table>

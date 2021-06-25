@@ -1,28 +1,68 @@
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Mã đặt lịch</th>
-            <th scope="col">Ngày</th>
-            <th scope="col">Khung giờ</th>
-            <th scope="col">Khách hàng</th>
-            <th scope="col">Nhân viên</th>
-            <th scope="col">Dịch vụ</th>
-            <th scope="col">Giá</th>
-        </tr>
-    </thead>
-    {{#each booking}}
-    <tbody>
-        <tr>
-            <th scope="row">{{MADL}}</th>
-            <td>{{NGAY}}</td>
-            <td>{{KHUNGGIO}}</td>
-            <td>{{HO}} {{TEN}}</td>
-            <td>{{HO_1}} {{TEN_1}}</td>
-            <td>{{TENDICHVU}}</td>
-            <td>{{GIA}}</td>
-        </tr>
-    </tbody>
+<link rel="stylesheet" href="/css/bookingCart.css">
 
-    {{/each}}
 
-</table>
+<div class="content">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Stylist</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Update</th>
+                        </tr>
+                    </thead>
+                    {{#each booking}}
+                    <tbody>
+                        <tr scope="row">
+                            <td>{{MADL}}</td>
+                            <td>
+                                {{DAY}}/{{MONTH}}/{{YEAR}}
+                                <small class="d-block">{{KHUNGGIO}}</small>
+                            </td>
+                            <td>{{HO}} {{TEN}}</td>
+                            <td>{{HO_1}} {{TEN_1}}</td>
+                            {{#if done}}
+                                <td class="done">
+                                    <i class="fas fa-circle"></i> Done
+                                </td>
+                                <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                <td>
+                                    <a href="#!" class="update"></a>
+                                </td>
+                            {{else}}
+                                {{#if inProgress}}
+                                    <td class="in-progress">
+                                        <i class="fas fa-circle"></i> In Progress
+                                    </td>
+                                    <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                    <td>
+                                        <a href="#!" class="update"></a>
+                                    </td>
+                                {{else}}
+                                    <td class="incoming">
+                                        <i class="fas fa-circle"></i> Incoming
+                                    </td>
+                                    <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                    <td>
+                                        <a href="/booking/{{MADL}}/edit" class="update">Update</a>
+                                    </td>
+                                {{/if}}
+                            {{/if}}
+                        </tr>
+                    </tbody>
+                    {{/each}}
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>

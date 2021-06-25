@@ -1,0 +1,236 @@
+/* 
+* Design by Robert Mayer:https://goo.gl/CJ7yC8
+*
+*I intentionally left out the line that was supposed to be below the subheader simply because I don't like how it looks.
+*
+* Chronicle Display Roman font was substituted for similar fonts from Google Fonts.
+*/
+
+body {
+    background-color: #fdf1ec;
+  }
+  
+  .wrapper {
+    height: 630px;
+    width: 820px;
+    margin: 50px auto;
+    border-radius: 7px 7px 7px 7px;
+    /* VIA CSS MATIC https://goo.gl/cIbnS */
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+  }
+  
+  .product-img {
+    float: left;
+    height: 420px;
+    width: 327px;
+  }
+  
+  .product-img img {
+    border-radius: 7px 0 0 7px;
+    width: 376px;
+    height: 496px;
+    margin-top: 51px;
+  }
+  #imgchinh{
+    height: 470px !important;
+  }
+  
+  .product-info {
+    float: left;
+    height: 471px;
+    width: 491px; 
+    border-radius: 0 7px 10px 7px;
+    background-color: #ffffff;
+    margin-top: 50px;
+  }
+  
+  .product-text {
+    height: 300px;
+    width: 490px;
+  }
+  
+  .product-text h1 {
+    margin: 0px 0 0 140px;
+    padding-top: 52px;
+    font-size: 34px;
+    color: #474747;
+  }
+  
+  .product-text h1,
+  .product-price-btn p {
+    font-family: 'Bentham', serif;
+  }
+  
+  .product-text h2 {
+    margin: 0 0 47px 100px;
+    font-size: 13px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #d2d2d2;
+    letter-spacing: 0.2em;
+  }
+  
+  .product-text p {
+    height: 154px;
+    margin: -39px 0 0 38px;
+    font-family: 'Playfair Display', serif;
+    color: #8d8d8d;
+    line-height: 1.8;
+    font-size: 15px;
+    font-weight: lighter;
+    text-align: justify;
+    overflow: hidden;
+  }
+  #sl{
+    font-weight: bold;
+    font-size: 15px;
+    margin-left: 164px;
+    display: flex;
+    width: 120px;
+    margin-top: 26px;
+  }
+  #sl input{
+    height:20px;
+  }
+  #sl{
+    font-family: 'Bentham', serif;
+  }
+  .sao svg{
+    width: 25px;
+    height: auto;
+    
+  }
+  .sao ul{
+    display: flex;
+    list-style: none;
+  }
+  .sao{
+    margin-top: -175px;
+    margin-left: -7px;
+  }
+.sao path{
+  fill:rgb(238, 197, 16);
+}
+  .product-price-btn {
+    height: 103px;
+    width: 327px;
+    margin-top: 17px;
+    position: relative;
+  }
+  .listimg img{
+ width: 50px;
+ height: 50px;
+ margin-right: 20px; 
+ border-radius:10px; 
+ 
+  }
+  #mn{
+    margin-top: 50px;
+    margin-left: 29px;
+    font-size: 20px;
+  }
+  .listimg img:hover{
+     border:2px solid  rgb(71, 71, 69);
+     width: 44px;
+     height: 44px;
+  }
+
+  .listimg{
+    margin-top: -10px;
+    display:flex;
+    list-style: none;
+    margin-left: 164px;
+    
+  }
+  .product-price-btn p {
+    display: inline-block;
+    position: absolute;
+    top: -13px;
+    height: 50px;
+    font-family: 'Trocchi', serif;
+    margin: 10px 10px 10px 38px;
+    font-size: 28px;
+    font-weight: lighter;
+  
+    color: #474747;
+  }
+  
+  span {
+    display: inline-block;
+    height: 50px;
+    font-family: 'Suranna', serif;
+    font-size: 25px;
+    margin-left: 12px;
+  
+  }
+  
+  .product-price-btn button {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    width: 162px;
+    margin: 0 -148px 0 16px;
+    box-sizing: border-box;
+    border: transparent;
+    border-radius: 60px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    background-color: #c4c25b;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .product-price-btn button:hover {
+    background-color: #e0c810;
+  }
+  .quantity {
+    padding-top: 20px;
+    margin-right: 50px;
+  }
+  .quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 35px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+    
+  }
+  .btn-a{
+    position: relative;
+    left:54%;
+  }
+  #ip{
+    margin-left:52%;
+  }
+  .minus-btn{
+    margin-left: 2px !important;
+  }
+  .plus-btn svg,.minus-btn svg{
+    width:10px;
+    color:white;
+  }
+  #bnw{
+    margin-top: -38px;
+  }
+  .quantity
+{
+  display:flex;
+  margin-right: 40px;
+}
+.quantity button{
+  width:30px;
+  height:30px;
+background-color:rgb(128, 119, 119) !important;
+border-radius:2px;
+}
+
+  

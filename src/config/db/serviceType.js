@@ -14,11 +14,9 @@ async function destroy(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -44,18 +42,17 @@ async function showToAdd() {
         console.log("Ouch!", err);
     }
 }
-async function add(name) {
+async function add(name, status) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO LOAIDICHVU(MALDV,TENLOAIDICHVU) VALUES (MALDV_SEQ14.nextval , :name)";
+            "INSERT INTO LOAIDICHVU(MALDV, TENLOAIDICHVU, TINHTRANG) VALUES (MALDV_SEQ14.nextval , :name, :status)";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 name,
-            },
-            {
+                status,
+            }, {
                 autoCommit: true,
             }
         );
@@ -90,7 +87,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM LOAIDICHVU WHERE TINHTRANG = 1 AND MALSP =" + id;
+                "SELECT * FROM LOAIDICHVU WHERE MALDV =" + id;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();
@@ -101,18 +98,22 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
-async function add(name) {
+async function update(
+    id,
+    name,
+    status
+) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO LOAISANPHAM(MALSP,TENLOAISANPHAM) VALUES (MALSP_SEQ7.nextval , :name)";
+            "UPDATE LOAIDICHVU SET TENLOAIDICHVU = :name, TINHTRANG=:status  WHERE MALDV= :id";
         await conn.execute(
-            exec,
-            {
+            exec, {
+                id,
                 name,
-            },
-            {
+                status,
+            }, {
                 autoCommit: true,
             }
         );
@@ -123,5 +124,4 @@ async function add(name) {
         console.log("Ouch!", err);
     }
 }
-
-module.exports = { show, destroy, showToAdd, add };
+module.exports = { show, destroy, showToAdd, add, update };

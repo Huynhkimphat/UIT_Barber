@@ -1,8 +1,13 @@
 <div class="container">
     <div class="row">
+        <div class="col-2">
+            <a href="./products/add" type="button" class="btn btn-primary">Add</a>
+        </div>
+    </div>
+    <div class="row">
         {{#each product}}
         <div class="col-6">
-            <img class="card-img-top" src={{HINHANH}} alt="Card-image-cap">
+            <img class="card-img-top" src="/images/product/{{HINHANH}}" alt="Card-image-cap" width="50px" height="100px">
             <div class="card-body">
                 <h5 class="card-title">{{MASP}}</h5>
                 <p class="card-text">{{TENSANPHAM}}</p>
@@ -11,7 +16,6 @@
                 <p class="card-text">Status: {{TINHTRANG}}</p>
                 <p class="card-text product-status" data-id={{SOLUONG}}></p>
                 <p class="card-text">Mã loại sản phẩm: {{MALSP}}</p>
-                <a href="/products/{{MASP}}/viewRating" class="btn btn-link">DANH GIA SAN PHAM</a>
                 <a href="#" class="btn btn-primary">Buy now</a>
                 <a href="/products/{{MASP}}/edit" class="btn btn-link">Update</a>
                 <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"

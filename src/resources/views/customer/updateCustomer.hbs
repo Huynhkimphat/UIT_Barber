@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="/css/Adding_Update.css">
+
+
+<body>
+    <form class="mt-4" method="POST"action="/customer/{{customer.MAKH}}/edit">
+        <div class="form-body">
+            <div class="row">
+                <div class="form-holder">
+                    <div class="form-content">
+                        <div class="form-items">
+                            <h3>SỬA THÔNG TIN TÀI KHOẢN</h3>
+                            <p>Điền vào khung bên dưới</p>
+                            <form class="requires-validation" method="POST" action="/customer/{{customer.MAKH}}/edit">
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Họ:
+                                        <input class="form-control" type="text" name="firstName" id="firstName"
+                                            placeholder="firstName" value="{{customer.HO}}" required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span>
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Tên:
+                                        <input class="form-control" type="text" name="lastName" id="lastName"
+                                            placeholder="lastName" value="{{customer.TEN}}" required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span><br>
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Ngày sinh:
+                                        <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth"
+                                            value="{{customer.NGAYSINH}}" required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                        <div class="invalid-feedback">This field cannot be blank!</div>
+                                    </div>
+                                </span><br>
+                                <span class="items-group">
+                                    <div class="col-sm-8 mt-3">Giới tính:
+                                        <select type="text" name="sex" id="sex">
+                                            <option value="{{customer.GIOITINH}}" >{{customer.GIOITINH}}</option>
+                                            <option value="Nu">Nu</option>
+                                            <option value="Unknown">Unknown</option>
+                                            <option value="Nam">Nam</option>
+                                        </select>
+                                    </div>
+                                </span><br>
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Số điện thoại:
+                                        <input class="form-control" type="text" name="phoneNumber" id="phoneNumber"
+                                            value="{{customer.SODT}}" placeholder="phoneNumber" value="{{customer.SODT}}"
+                                            required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span><br>
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Địa chỉ:
+                                        <input class="form-control" type="text" name="address" id="address"
+                                            value="{{customer.DIACHI}}" placeholder="address" value="{{customer.DIACHI}}"
+                                            required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span><br>
+                                <span class="items-group">
+                                    <div class="col-sm-8 mt-3">Điểm tích lũy:
+                                        <input class="form-control" type="text" name="point" id="point"
+                                            value="{{customer.DIEMTICHLUY}}" disabled="true" value="{{customerDIEMTICHLUY}}"
+                                            required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span>
+                                <span class="items-group">
+                                    <div class="col-sm-16 mt-3">Hình ảnh:
+                                        <input class="form-control" type="text" name="img" id="img" width="full"
+                                            value="{{customer.HINHANH}}" required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span><br><span class="items-group">
+                                    <div class="col-sm-16 mt-3">Email:
+                                        <input class="form-control" type="text" name="email" id="email" width="full" readonly
+                                            value="{{customer.EMAIL}}" required>
+                                        <div class="valid-feedback">This field is valid!</div>
+                                    </div>
+                                </span><br><br>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                    <label class="form-check-label">I confirm that all data are correct</label>
+                                    <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
+                                </div>
+        
+        
+                                <span class="items-group">
+                                    <div class="col-sm-8 form-button mt-3">
+                                        <button id="Adding" type="submit"
+                                            class="btn btn-primary">Save</button>
+                                    </div>
+                                </span>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+<script src="/js/submitForm.js"></script>

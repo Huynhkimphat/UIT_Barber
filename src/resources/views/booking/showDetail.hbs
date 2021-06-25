@@ -1,0 +1,30 @@
+<div class="mt-4">
+    <label>Mã khách hàng:{{MAKH}}</label><br>
+    {{#each bookingDetail}}
+        <label>Khách hàng: {{HO}} {{TEN}}</label><br>
+        <label>Giờ: {{KHUNGGIO}}</label><br>
+        <label>Tên nhân viên: {{HO_1}} {{TEN_1}}</label><br>
+        <label>Ngày đặt: {{DAY}}/{{MONTH}}/{{YEAR}}</label>
+    {{/each}}
+    <div>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã dịch vụ</th>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col">Giá</th>
+                </tr>
+            </thead>
+            {{#each lstService}}
+                <tbody>
+                    <tr>
+                        <td>{{MADV}}</td>
+                        <td>{{TENDICHVU}}</td>
+                        <td>{{GIA}}</td>
+                        </td>
+                    </tr>   
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+</div>

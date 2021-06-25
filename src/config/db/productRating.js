@@ -28,21 +28,18 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(date, time, employee, service) {
+async function add(customerID, productID, ratePoint, cmt) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        // let bookingDate = new Date(date)
-        // console.log(bookingDate);
-        let day = date.split('/').join('-');
-        console.log(day, time, employee, service);
-        let exec = "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , 2 , :employee , :service)";
+        let exec =
+            "INSERT INTO DANHGIASANPHAM VALUES (MADGSP_SEQ13.NEXTVAL , :customerID, :productID, TO_DATE(SYSDATE,'yyyy-mm-dd'), :ratePoint, :cmt, 1)";
         await conn.execute(
             exec, {
-                day,
-                time,
-                employee,
-                service
+                customerID,
+                productID,
+                ratePoint,
+                cmt
             }, {
                 autoCommit: true,
             }
@@ -60,8 +57,7 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             if (process.env.status != 3) {
-                let exec =
-                    "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
+                let exec = "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -69,8 +65,7 @@ async function show(id = -1) {
                 }
                 return result.rows;
             } else {
-                let exec =
-                    "SELECT * FROM DANHGIASANPHAM";
+                let exec = "SELECT * FROM DANHGIASANPHAM";
                 const result = await conn.execute(exec);
                 let temp = formatDate(result);
                 if (conn) {
@@ -80,10 +75,10 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM DANHGIASANPHAM WHERE TINHTRANG = 1 AND MASP=" +
+                "SELECT * FROM DANHGIASANPHAM WHERE MASP=" +
                 id;
-            const result = await conn.execute(exec);
-            let temp = formatDate(result);
+            let result = await conn.execute(exec);
+            result = formatDate(result);
             if (conn) {
                 await conn.close();
             }

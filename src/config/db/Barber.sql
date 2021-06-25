@@ -96,7 +96,6 @@ CREATE TABLE NhanVien
     CONSTRAINT      CHK_NHANVIEN3   CHECK   (NgaySinh <  NgayVaoLam)
 );
 CREATE SEQUENCE MANV_SEQ3 START WITH 1;
-
 ---------------------------------------------BANG TAI KHOAN-------------------------------------------------------
 CREATE TABLE TaiKhoan
 (
@@ -200,6 +199,7 @@ CREATE TABLE HoaDon
 (
     MaHD        NUMBER      NOT NULL,
     MaKH        NUMBER      CONSTRAINT FK_HOADON_KHACHHANG REFERENCES KhachHang(MaKH)  NOT NULL,
+    Ngay        DATE        NOT NULL,
     KhuyenMai   NUMBER      DEFAULT 0,
     TongTien    NUMBER      NOT NULL,
     TinhTrang       NUMBER              DEFAULT 1,
@@ -254,7 +254,7 @@ SELECT * FROM KhachHang
 -- Loai Khach Hang
 SELECT * FROM LoaiKhachHang
 -- Nhan Vien
-SELECT * FROM NhanVien
+SELECT * FROM NhanVien;
 -- Tai Khoan
 SELECT * FROM TaiKhoan
 
@@ -294,14 +294,7 @@ INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'17h30-19h00');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'19h30-20h30');
 INSERT INTO GioDat(MaGio,KhungGio) VALUES(MAGD_SEQ9.NEXTVAL,'20h30-22h00');
 
-
-
 --------------------------------------------ALTER CHECKS---------------------------------------------------------
--- ALTER TABLE KHACHHANG
--- ADD CHECK (LOAIKH IN('Than thiet','VIP','Super VIP'));
-
--- ALTER TABLE KHACHHANG
--- ADD CONSTRAINT check_constraint_name CHECK(expression);
 -- Loai San Pham
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc tóc',1);			
 INSERT INTO LOAISANPHAM VALUES(MALSP_SEQ7.NEXTVAL,'Chăm sóc da',1);			
@@ -384,7 +377,7 @@ DROP TRIGGER TRIGGER_15_KHACHHANG;
 -- Test
 UPDATE KHACHHANG SET KHACHHANG.ngaysinh=TO_DATE('21-10-2001','dd-mm-yyyy') WHERE KHACHHANG.MAKH=21;
 
--- Nhan VIen Sua
+-- Nhan Vien Sua
 
 SET DEFINE OFF;
 CREATE TRIGGER TRIGGER_15_NHANVIEN
@@ -506,12 +499,45 @@ BEGIN
 
     IF(v_loaiKH!='Member')
     THEN 
-        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien*0.9 WHERE HOADON.MAHD=:NEW.MaHD;
+        UPDATE HOADON SET HOADON.TongTien= HOADON.TongTien * 0.9 
+        WHERE HOADON.MAHD=:NEW.MaHD;
     END IF;
 END;
 DROP TRIGGER TRIGGER_23_HOADON;
 -- Trigger 27
 -- Lương thưởng tháng sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,01.
+-- Nhan Luong Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_NHANLUONG
+AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+-- DanhGiaNhanVien Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_27_DanhGiaNhanVien
+AFTER INSERT OR UPDATE OF DanhGia ON DanhGiaNhanVien
+FOR EACH ROW
+DECLARE
+    v_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into v_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*v_danhgia*0.01 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
 
 -- TRIGGER 16
 -- Ngày sinh của nhân viên nhỏ hơn ngày hiện tại.
@@ -521,15 +547,158 @@ CREATE OR REPLACE TRIGGER TRIGGER_16_NHANVIEN
 AFTER INSERT OR UPDATE ON NHANVIEN
 FOR EACH ROW
 DECLARE
-    var_ngaysinh NHANVIEN.NgaySinh%TYPE
+    var_ngaysinh NHANVIEN.NgaySinh%TYPE;
+    var_date NHANVIEN.NgaySinh%TYPE;
 BEGIN
-    var_ngaysinh =:NEW.NgaySinh
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM NHANVIEN nv
+    WHERE nv.MaNV=:NEW.MaNV;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
+END;    
+SELECT SYSDATE FROM DUAL;
+SHOW ERRORS
 DROP TRIGGER TRIGGER_16_NHANVIEN;
+
+-- TRIGGER 17
+-- Ngày sinh của khách hàng nhỏ hơn ngày hiện tại.
+--Khach hang them sua
+SET DEFINE OFF;
+CREATE OR REPLACE TRIGGER TRIGGER_17_KHACHHANG 
+BEFORE INSERT OR UPDATE ON KHACHHANG
+FOR EACH ROW
+DECLARE
+    var_ngaysinh KHACHHANG.NgaySinh%TYPE;
+    var_date KHACHHANG.NgaySinh%TYPE;
+BEGIN
+    SELECT NgaySinh INTO var_NgaySinh
+    FROM KHACHHANG kh
+    WHERE kh.MaKH=:NEW.MaKH;
+
+    SELECT SYSDATE INTO var_date
+    FROM dual;
+    
+    IF (var_NgaySinh > var_date)
+    THEN
+    DBMS_OUTPUT.PUT_LINE('ERORR!!!!');
+        RAISE_APPLICATION_ERROR(-2000, 'LOI !!!');
+    END IF;
+END;    
 
 -- TRIGGER 20
 --Tổng tiền của một hoá đơn bằng tổng tiền của tất cả dịch vụ và sản phẩm.
 
+-- Chi tiet hoa don san pham xoa
 
+-- Hoa don sua
+
+-- CHECK 24 
+--Loại khách hàng VIP sẽ hết hạn sau 1 năm kể từ ngày kích hoạt VIP.
+ALTER TABLE LOAIKHACHHANG ADD CONSTRAINT CHK_LOAIKHACHHANG3 CHECK (
+    (EXTRACT(DAY FROM NgayKichHoatVip) = EXTRACT(DAY FROM NgayHetHanVip)) 
+    AND (EXTRACT(MONTH FROM NgayKichHoatVip) = EXTRACT(MONTH FROM NgayHetHanVip)) 
+    AND (EXTRACT(YEAR FROM NgayHetHanVip) - EXTRACT(YEAR FROM NgayKichHoatVip) = 1));
+
+--TRIGGER 28 
+--Lương thưởng tháng 12 sẽ được tính theo công thức: Lương cơ bản * Trung bình số sao của tháng đó * 0,1.
+-- Nhan luong  Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_28_NHANLUONG
+AFTER INSERT OR UPDATE OF LUONGCOBAN ON NHANLUONG
+FOR EACH ROW
+DECLARE
+    var_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into var_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    AND EXTRACT (MONTH FROM NgayDanhGia)=12
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong= :NEW.LuongCoBan*var_danhgia*0.1 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+-- DanhGiaNhanVien Them Sua
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_28_DanhGiaNhanVien
+AFTER INSERT OR UPDATE OF DanhGia ON DanhGiaNhanVien
+FOR EACH ROW
+DECLARE
+    var_danhgia float(2);
+BEGIN 
+    SELECT ROUND(AVG(DANHGIA),2) into var_danhgia
+    FROM DANHGIANHANVIEN dgnv
+    WHERE dgnv.MaNV=:NEW.MaNV
+    AND EXTRACT (MONTH FROM NgayDanhGia)=12
+    GROUP BY dgnv.MaNV;
+
+    UPDATE NhanLuong SET NhanLuong.LuongThuong=LuongCoBan*var_danhgia*0.1 
+    WHERE NhanLuong.MANV=:NEW.MaNV;
+END;
+--------------------------------
+SELECT * FROM SANPHAM WHERE SANPHAM.MASP =2;
+
+---- Trigger 18 ----
+---- tuổi của nhân viên phải từ 15 tuổi trở lên
+ALTER TABLE NhanVien
+ADD CONSTRAINT CHK_NHANVIEN_AGE
+        CHECK(EXTRACT(YEAR FROM NGAYVAOLAM) - EXTRACT(YEAR FROM NgaySinh) >= 15);
+ALTER TABLE NhanVien DROP CONSTRAINT CHK_NHANVIEN_AGE;
+---- Trigger 22 ----
+--- cứ mỗi 100000 trong hóa đơn sẽ +10 điểm vào điểm tích lũy
+-- thêm trên bảng HOADON
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_22_INSERTHOADON
+AFTER INSERT ON HOADON
+FOR EACH ROW 
+DECLARE
+       
+BEGIN
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                + TRUNC(:NEW.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;       
+END;    
+
+DROP TRIGGER TRIGGER_22_INSERTHOADON;
+-- cập nhật trên bảng hóa đơn
+SET DEFINE OFF;
+CREATE TRIGGER TRIGGER_22_UPDATEHOADON
+AFTER UPDATE OF TONGTIEN ON HOADON
+FOR EACH ROW 
+DECLARE
+BEGIN
+
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                 - TRUNC(:OLD.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;
+    
+        UPDATE KHACHHANG SET KHACHHANG.DIEMTICHLUY = KHACHHANG.DIEMTICHLUY 
+                                                + TRUNC(:NEW.TONGTIEN/10000)
+        WHERE KHACHHANG.MAKH = :NEW.MAKH;  
+END;    
+DROP TRIGGER TRIGGER_22_UPDATEHOADON;
+
+----trigger 26
+SELECT KhungGio 
+FROM GioDat
+WHERE MaGio not in (
+    SELECT MaGio 
+    FROM DatLich
+    WHERE MaNV = 1
+);
+SELECT MaGio 
+    FROM DatLich
+    WHERE MaNV = 1
+SELECT KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = 43)
+select * from giodat
+--------------------------------
 DESCRIBE DANHGIANHANVIEN
 SELECT * FROM DANHGIANHANVIEN
 INSERT INTO DANHGIANHANVIEN VALUES (MADGNV_SEQ12.NEXTVAL,1,1,To_Date('04-04-2021','dd-mm-yyyy'),5,'Good skill',1)
@@ -546,3 +715,107 @@ INSERT INTO CTHDDV VALUES (1, 1);
 INSERT INTO CTHDDV VALUES (3, 1);
 INSERT INTO CTHDSP VALUES (2 ,3,1);
 
+SELECT * FROM LOAIDICHVU
+ALTER TABLE DICHVU
+    ADD MALDV       NUMBER  NOT NULL;
+SELECT TENDICHVU,MADV,GIA FROM DICHVU
+WHERE MALDV =3
+DELETE FROM DatLich
+SELECT MADV,TENDICHVU,GIA FROM DICHVU
+WHERE MADV in(
+    SELECT MADV From DatLich
+    WHERE   MAKH =  (
+                        SELECT MAKH FROM DATLICH
+                        WHERE MADL = 5
+                    ) 
+        and MAGIO = (
+                        SELECT MAGIO FROM DATLICH
+                        WHERE MADL = 5
+                    )
+        and MANV =  (
+                        SELECT MANV FROM DATLICH
+                        WHERE MADL = 5
+                    )    
+)        
+SELECT KHACHHANG.TEN,KHACHHANG.HO, GIODAT.KHUNGGIO, DATLICH.MADL, NHANVIEN.TEN
+FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN
+WHERE   KHACHHANG.MAKH =    (
+                                SELECT MAKH FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and GIODAT.MAGIO =      (
+                                SELECT MAGIO FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and NHANVIEN.MANV =    (
+                                SELECT MANV FROM DATLICH
+                                WHERE MADL = 4
+                            )
+    and DATLICH.MADL = 4;
+SELECT * FROM DATLICH
+SELECT KHACHHANG.TEN,KHACHHANG.HO, GIODAT.KHUNGGIO, DATLICH.MADL, TO_DATE(DATLICH.NGAY,'dd-mm-yyyy'), NHANVIEN.TEN, NHANVIEN.HO FROM KHACHHANG,GIODAT,DATLICH,NHANVIEN WHERE   KHACHHANG.MAKH =    ( SELECT MAKH FROM DATLICH WHERE MADL = 5 ) and GIODAT.MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = 5)and NHANVIEN.MANV =(SELECT MANV FROM DATLICH WHERE MADL = 5 ) and DATLICH.MADL = 5
+
+SELECT EXTRACT(YEAR FROM DATLICH.NGAY) AS YEAR,EXTRACT(MONTH FROM DATLICH.NGAY) AS MONTH,EXTRACT(DAY FROM DATLICH.NGAY) AS DAY FROM DATLICH
+WHERE MADL = 5;
+DELETE FROM NHANVIEN 
+WHERE MANV =8
+SELECT LOAINHANVIEN FROM NHANVIEN WHERE MANV = 9
+SELECT  DISTINCT dl.ngay,gd.khunggio, ROW_NUMBER() FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.NGAY;
+SELECT dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.NGAY;
+SELECT DISTINCT NGAY,MAGIO,MAKH FROM DATLICH
+ORDER BY NGAY,MAGIO;
+
+SELECT NGAY, MAGIO, MAKH FROM DATLICH
+ORDER BY NGAY,MAGIO;
+-- SELECT column_name(s)
+-- FROM table_name
+-- ORDER BY column_name(s)
+-- FETCH FIRST number ROWS ONLY;
+
+SELECT DISTINCT dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO 
+                    AND dl.MADV=dv.MADV
+ORDER BY dl.Ngay;
+SELECT  dl.madl, dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv 
+                    WHERE dl.MANV=nv.MANV 
+                    AND dl.MAKH=kh.MAKH 
+                    AND dl.MAGIO=gd.MAGIO 
+                    AND dl.MADV=dv.MADV
+GROUP BY dl.ngay,gd.khunggio, kh.ho, kh.ten, nv.ho, nv.ten
+ORDER BY dl.Ngay;
+SELECT * FROM DATLICH;
+ALTER TABLE DATLICH
+ADD TINHTRANG number DEFAULT 1;
+SELECT TO_CHAR(NGAY,'dd/mm/yyyy') FROM DatLich
+
+SELECT MAGIO,KHUNGGIO FROM GIODAT 
+WHERE MAGIO NOT IN (
+    SELECT MAGIO FROM DATLICH 
+    WHERE MANV = :id 
+        AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy')) 
+ORDER BY MAGIO
+
+SELECT MADV,TENDICHVU,GIA FROM DICHVU 
+WHERE MADV in (
+    SELECT MADV From DatLich 
+    WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = 66 ) 
+        and MAGIO = ( SELECT MAGIO FROM DATLICH WHERE MADL = 66 ) 
+        and MANV =  ( SELECT MANV FROM DATLICH WHERE MADL = 66 )
+        and NGAY = (SELECT NGAY FROM DATLICH WHERE MADL =66))
+SELECT * FROM LUONG
+SELECT * FROM NHANVIEN
+SELECT * FROM TAIKHOAN
+INSERT INTO TAIKHOAN VALUES(MATK_SEQ4.NEXTVAL,1,null,102)
+SELECT * FROM CTHDSP

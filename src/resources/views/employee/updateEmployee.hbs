@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="/css/product.css">
+<div class="mt-4 ">
+    <h3>Update Employee:</h3>
+    <form class="mt-4" method="POST" action="/employee/{{employee.MANV}}/edit">
+        <div>
+            <label for="firstName">Họ: </label><br>
+            <input type="text" name="firstName" id="firstName" width="full" value="{{employee.HO}} "><br>
+        </div>
+        <div>
+            <label for="lastName">Tên: </label><br>
+            <input type="text" name="lastName" id="lastName" width="full" value="{{employee.TEN}}"><br>
+        </div>
+        <div>
+            <label for="DateOfBirth">Ngày sinh:</label><br>
+            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" value="{{employee.NGAYSINH}}"><br>
+        </div>
+        <div>
+            <label for="sex">Giới tính: </label>
+            <select id="sex" name="sex">
+                <option value="{{employee.GIOITINH}}">{{employee.GIOITINH}}</option>
+                <option value="Nu">Nu</option>
+                <option value="Unknown">Unknown</option>
+                <option value="Nam">Nam</option>
+            </select>
+        </div>
+        <div>
+            <label for="phoneNumber">Số điện thoại: </label><br>
+            <input type="text" name="phoneNumber" id="phoneNumber" width="full" value="{{employee.SODT}}"><br>
+        </div>
+        <div>
+            <label for="address">Địa chỉ: </label><br>
+            <input type="text" name="address" id="address" width="full" value="{{employee.DIACHI}}"><br>
+        </div>
+        <div>
+            <label for="typeEmployee">Chọn loại nhân viên: </label>
+            <select id="typeEmployee" name="typeEmployee" disabled="true">
+                <option value="{{employee.LOAINHANVIEN}}">{{employee.LOAINHANVIEN}}</option>
+                <option value="Staff">Staff</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <div>
+            <label for="img">Link ảnh: </label><br>
+            <input type="text" name="img" id="img" width="full" value="{{employee.HINHANH}}"><br>
+        </div>
+        <div>
+            <label for="email" >Email:</label><br>
+            <input type="text" name="email" id="email" width="full" value="{{employee.EMAIL}} "><br>
+        </div>
+        <h4>Employee salary: </h4>
+        <div>
+            <label for="basicSalary">Lương cơ bản: </label><br>
+            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"
+                value="{{employee.LUONGCOBAN}}" disabled="true"><br>
+        </div>
+        <div>
+            <label for="bonusSalary">Lương thưởng: </label><br>
+            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"
+                value="{{employee.LUONGTHUONG}}" disabled="true"><br>
+        </div>
+        <div>
+            <label for="salary">Lương được nhận: </label><br>
+            <input type="text" name="salary" id="salary" width="full" value="{{employee.LUONGDUOCNHAN}}" disabled="true"><br>
+        </div>
+        <div>
+            <label for="payday">Ngày nhận lương:</label><br>
+            <input type="date" name="payday" id="payday" width="full" value="{{employee.NGAYNHANLUONG}}" disabled="true"><br>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+<script>
+    function salarySum() {
+        document.getElementById('salary').value = Number(document.getElementById('basicSalary').value) + Number(document.getElementById('bonusSalary').value);
+    }
+
+</script>

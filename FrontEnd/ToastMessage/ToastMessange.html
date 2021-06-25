@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Message</title>
+    <!-- Get Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="../ToastMessage/assets/css/ToastMessage.css">
+
+</head>
+
+<body>
+    <!-- Buttons -->
+    <button type="button" class="btn btn-primary" id="showSuccessToast">Show success toast</button>
+    <button type="button" class="btn btn-primary" id="showErrorToast">Show error toast</button>
+    <button type="button" class="btn btn-primary" id="showInfoToast">Show info toast</button>
+    <button type="button" class="btn btn-primary" id="showWarningToast">Show warning toast</button>
+    <!-- Flex box container for aligning the toasts -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+        <div class="toast-container position-relative top-0 end-0 p-3">
+            <!-- Success Message -->
+            <div class="toast successToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header successToast-header">
+                    <img src="https://img.icons8.com/bubbles/2x/verified-account.png" class="rounded me-2"
+                        style="width: 40px; height: 40px;" alt="successful">
+                    <strong class="me-auto .text-white-50">Successful!</strong>
+                    <!-- <small>11 mins ago</small> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body successToast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div class="toast errorToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header errorToast-header">
+                    <img src="https://image.flaticon.com/icons/png/512/2550/2550327.png" class="rounded me-2"
+                        style="width: 40px; height: 40px;" alt="error">
+                    <strong class="me-auto .text-white-50">Error!!!</strong>
+                    <!-- <small>11 mins ago</small> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+
+            <!-- Info Message -->
+            <div class="toast infoToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header infoToast-header">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/21M0l6AEgaL.png" class="rounded me-2"
+                        style="width: 40px; height: 40px;" alt="info">
+                    <strong class="me-auto .text-white-50">Info!!!</strong>
+                    <!-- <small>11 mins ago</small> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body infoToast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+
+            <!-- Warning Message -->
+            <div class="toast warningToast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header warningToast-header">
+                    <img src="https://lh3.googleusercontent.com/proxy/S-ggxAP-0yED9kDH4HeaJtAX2h0RVOHC4iy_0CyG577lCNjETSlmSHlrR23Tc9htFD5GrETFMwtllhBbcelhi_lATPxHGHTDiNY"
+                        class="rounded me-2" style="width: 40px; height: 40px;" alt="warning">
+                    <strong class="me-auto .text-white-50">Warning!</strong>
+                    <!-- <small>11 mins ago</small> -->
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body warningToast-body">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script language="JavaScript" type="text/javascript" src="../ToastMessage/assets/js/ToastMessage.js"></script>
+
+</body>
+
+</html>

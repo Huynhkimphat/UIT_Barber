@@ -27,6 +27,20 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
+async function checkEmail() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT EMAIL FROM KHACHHANG WHERE TINHTRANG = 1"
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function show(id = -1) {
     let conn;
     try {
@@ -53,7 +67,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT * FROM KHACHHANG WHERE TINHTRANG = 1 AND MAKH =" +
+                "SELECT * FROM KHACHHANG WHERE MAKH =" +
                 id;
 
             const result = await conn.execute(exec);
@@ -61,11 +75,81 @@ async function show(id = -1) {
             if (conn) {
                 await conn.close();
             }
-            return result.rows;
+            return temp.rows;
         }
     } catch (err) {
         console.log("Ouch!", err);
     }
 }
+async function update(
+    id,
+    firstName,
+    lastName,
+    DateOfBirth,
+    sex,
+    phoneNumber,
+    address,
+    point,
+    img,
+    status,
+    email,
+) {
+    if (process.env.status == 3) {
+        let conn;
+        try {
+            conn = await oracledb.getConnection(config);
+            let exec1 =
+                "UPDATE KHACHHANG SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, DIEMTICHLUY= :point, HINHANH=:img, TINHTRANG=:status, EMAIL=:email WHERE MAKH= :id";
+            await conn.execute(
+                exec1, {
+                    id,
+                    firstName,
+                    lastName,
+                    DateOfBirth,
+                    sex,
+                    phoneNumber,
+                    address,
+                    point,
+                    img,
+                    status,
+                    email,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            if (conn) {
+                await conn.close();
+            }
+        } catch (err) {
+            console.log("Ouch!", err);
+        }
+    } else if (process.env.status == 1) {
+        let conn;
+        try {
+            conn = await oracledb.getConnection(config);
+            let exec1 =
+                "UPDATE KHACHHANG SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, HINHANH=:img WHERE MAKH= :id";
+            await conn.execute(
+                exec1, {
+                    id,
+                    firstName,
+                    lastName,
+                    DateOfBirth,
+                    sex,
+                    phoneNumber,
+                    address,
+                    img,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            if (conn) {
+                await conn.close();
+            }
+        } catch (err) {
+            console.log("Ouch!", err);
+        }
+    }
 
-module.exports = { show, destroy };
+}
+module.exports = { show, destroy, update, checkEmail };

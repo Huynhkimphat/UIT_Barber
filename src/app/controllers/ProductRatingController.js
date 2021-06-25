@@ -1,4 +1,4 @@
-const { productRating, time } = require("../../config/db");
+const { productRating } = require("../../config/db");
 class ProductRatingController {
     //* [GET]/
     show(req, res, next) {
@@ -9,12 +9,14 @@ class ProductRatingController {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else if (process.env.status != 0) {
                 res.render("productRating/showProductRating", {
                     productRating: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.render("productRating/showProductRating", {
@@ -27,11 +29,11 @@ class ProductRatingController {
         if (process.env.status == 3) {
             (async() => {
                 let result = await productRating.show(req.params.id);
-                res.render("admin/products/updateProduct", {
-                    product: result[0],
-                    typeProduct,
+                res.render("admin/productRating/updateProductRating", {
+                    productRating: result[0],
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             })();
         }
@@ -55,31 +57,30 @@ class ProductRatingController {
     }
     add(req, res, next) {
         (async() => {
-            if (process.env.status == 3) {
-                let typeProduct = await productType.showToAdd();
-                res.render("admin/productRating/addProductRating", {
-                    typeProduct: typeProduct,
+
+            if (process.env.status == 1) {
+                res.render("productRating/addProductRating", {
                     status: process.env.status,
                     username: process.env.username,
+                    id: process.env.id,
+                    productID: req.params.id,
+                    img: process.env.img,
                 });
             } else {
-                res.redirect("/products");
+                res.redirect("/");
             }
         })();
     }
     adding(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                await product.add(
-                    req.body.name,
-                    req.body.price,
-                    req.body.describe,
-                    req.body.country,
-                    req.body.img,
-                    req.body.count,
-                    req.body.typeProduct
+            if (process.env.status == 1) {
+                await productRating.add(
+                    req.body.customerId,
+                    req.body.productID,
+                    req.body.ratePoint,
+                    req.body.Comment
                 );
-                res.redirect("/products");
+                res.redirect("/products/" + String(req.body.productID) + "/viewRating");
             } else {
                 res.redirect("/");
             }

@@ -1,7 +1,6 @@
 const { account } = require("../../config/db");
 
 class accountController {
-    //* [GET]/
     show(req, res, next) {
         (async() => {
             let result = await account.show();
@@ -10,6 +9,7 @@ class accountController {
                     account: result,
                     status: process.env.status,
                     username: process.env.username,
+                    img: process.env.img,
                 });
             } else {
                 res.redirect("/");
