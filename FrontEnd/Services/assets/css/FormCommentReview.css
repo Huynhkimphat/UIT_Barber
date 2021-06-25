@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-body {
+.customer-reviews {
   background-color: #eee;
   font-family: "Poppins", sans-serif;
 }
@@ -42,7 +42,7 @@ body {
   margin-top: 10px;
 }
 
-.card {
+.cardComment {
   border: none;
   -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
