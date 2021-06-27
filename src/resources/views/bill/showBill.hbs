@@ -77,7 +77,7 @@
 <script>
     console.log(document.querySelectorAll(".billStatus")[0]);
     for (let i = 0; i < document.querySelectorAll(".thanhtoan").length; i++){
-        if (document.querySelectorAll(".thanhtoan")[i].value != 0) {
+        if (document.querySelectorAll(".thanhtoan")[i].value == 0) {
             document.querySelectorAll(".inProgress")[i].innerHTML = "Waiting";
             document.querySelectorAll(".billStatus")[i].classList.add("incoming");
         } else {
