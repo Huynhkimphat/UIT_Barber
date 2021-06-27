@@ -1,55 +1,62 @@
-<p>
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseProducts"
-        aria-expanded="false" aria-controls="collapseExample">
-        Sản phẩm
-    </button>
-    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseServices"
-        aria-expanded="false" aria-controls="collapseExample">
-        Dịch vụ
-    </button>
-</p>
-<div class="collapse" id="collapseProducts">
-    <div class="card card-body">
-        <div class="container">
-            <div class="row">
-                {{#each Products}}
-                <div class="col-6" id="card-product-bill">
-                    <img class="card-img-top" src={{HINHANH}} alt="Card-image-cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{MASP}}</h5>
-                        <p class="card-text">{{TENSANPHAM}}</p>
-                        <p class="card-text">Số lượng: {{SOLUONG}}</p>
-                        <p class="card-text">Giá: {{GIA}}</p>
-                        <a href="#" class="btn btn-primary">{{2}}</a>
-                        </a>
-                    </div>
-                </div>
-                {{/each}}
+<link rel="stylesheet" href="/css/checkout.css">
 
+    <div class='container'>
+      <div class='window'>
+        <div class='order-info'>
+          <div class='order-info-content'>
+            <h2>Order Summary</h2>
+            {{#each services}}
+            <div class='line'></div>
+            <table class='order-table'>
+              <tbody>
+                <tr>  
+                  <td><img src="{{HINHANH}}" class='full-width'></img>
+                  </td>
+                  <td>
+                    <br> <span class='thin'>{{TENDICHVU}}</span><br><br>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class='price'>{{GIA}}</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            {{/each}}
+            <div class='line'></div>
+            <div class='total'>
+              <span style='float:left;'>
+                <div class='thin dense'>Khuyến mãi 0%</div>
+                TOTAL
+              </span>
+              <span style='float:right; text-align:right;'>
+                <div class='thin dense'>0 VND</div>
+                {{total}} VND
+              </span>
             </div>
-        </div>
     </div>
-</div>
-<div class="collapse" id="collapseServices">
-    <div class="card card-body">
-        <div class="container">
-            <div class="row" id="card-service-bill">
-                {{#each Services}}
-                <div class="col-6">
-                    <img class="card-img-top" src={{HINHANH}} alt="Card-image-cap">
-                    <div class="card-body">
-                        <h5 class="card-title">{{MADV}}</h5>
-                        <p class="card-text">{{TENDICHVU}}</p>
-                        <p class="card-text">Giá: {{GIA}}</p>
-                        <a href="/bill/{{MADV}}/edit" class="btn btn-link">Update</a>
-                        <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                            data-id={{MADV}}>Delete
-                        </a>
-                    </div>
-                </div>
-
-                {{/each}}
+    </div>
+            <div class='credit-info'>
+              <div class='credit-info-content'>
+                Full Name
+                <input class='input-field'></input>
+                Address
+                <input class='input-field'></input>
+                <table class='half-input-table'>
+                  <tr>
+                    <td> Phone
+                      <input class='input-field'></input>
+                    </td>
+                    <td>CVC
+                      <input class='input-field'></input>
+                    </td>
+                  </tr>
+                </table>
+                <a class="pay" href="/bill/{{id}}/checkout">
+                <button class='pay-btn'>checkout</button></a>
+              </div>
+    
             </div>
-        </div>
+          </div>
     </div>
-</div>

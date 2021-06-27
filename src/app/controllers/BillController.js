@@ -27,16 +27,20 @@ class BillController {
     view(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let resultProducts = await bill.viewProducts(req.params.id);
                 let resultServices = await bill.viewServices(req.params.id);
+                let total = 0;
+                for (let i = 0; i < resultServices.length; i++){
+                    total += resultServices[i].GIA;
+                }
                 if (resultServices === "[]") {
                     resultServices = [
                         ["Khong dang ki dich vu"]
                     ];
                 }
                 res.render("bill/viewBill", {
-                    Products: resultProducts,
-                    Services: resultServices,
+                    id : req.params.id,
+                    total: total,
+                    services: resultServices,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,
@@ -89,6 +93,12 @@ class BillController {
     destroy(req, res, next) {
         (async() => {
             let result = await bill.destroy(req.params.id);
+        })();
+        res.redirect("/bill");
+    }
+    checkout(req, res, next) {
+        (async() => {
+            let result = await bill.checkout(req.params.id);
         })();
         res.redirect("/bill");
     }
