@@ -74,9 +74,11 @@ async function viewProducts(id) {
             "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
             id;
         const result = await conn.execute(
-            exec,{
-                    id,
-            }, {
+            exec,
+            {
+                id,
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -96,17 +98,11 @@ async function viewServices(id) {
             "SELECT CTHDDV.MADV, DICHVU.TENDICHVU, DICHVU.GIA, DICHVU.HINHANH FROM DICHVU, CTHDDV \n" +
             "WHERE CTHDDV.MAHD =:id AND DICHVU.MADV = CTHDDV.MADV";
         const result = await conn.execute(
-<<<<<<< HEAD
             exec,
             {
                 id,
             },
             {
-=======
-            exec,{
-                    id,
-            }, {
->>>>>>> d049e2dfdb6e0fd610a43635459db30f546f6135
                 autoCommit: true,
             }
         );
