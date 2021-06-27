@@ -8,7 +8,9 @@ p {
     color: rgba(255, 255, 255, 0.5);
     font-weight: 300;
 }
-
+a{
+    color: #fff;
+}
 h1,
 h2,
 h3,
@@ -25,14 +27,15 @@ h6,
 }
 
 a {
+    text-decoration: none !important;
     -webkit-transition: 0.3s all ease;
     -o-transition: 0.3s all ease;
     transition: 0.3s all ease;
 }
 
-a,
 a:hover {
     text-decoration: none !important;
+    color: red;
 }
 
 .content {

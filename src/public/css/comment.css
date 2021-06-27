@@ -1,0 +1,301 @@
+
+  .badge {
+    font-size: 25px;
+    font-weight: 200;
+  }
+  
+  .badge i {
+    font-size: 20px;
+    font-weight: 200;
+  }
+  
+  .about-rating {
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+  
+  .total-ratings {
+    font-size: 12px;
+  }
+  
+  .bg-custom {
+    background-color: #b7dd29 !important;
+  }
+  
+  .progress {
+    margin-top: 10px;
+  }
+  
+  .card {
+    border: none;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.03);
+  }
+  
+  .comment-text {
+    font-size: 12px;
+  }
+  
+  .fs-10 {
+    font-size: 12px;
+  }
+  
+  .star-active {
+    color: #fbc02d;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .star-active:hover {
+    color: #f9a825;
+    cursor: pointer;
+  }
+  
+  .star-inactive {
+    color: #cfd8dc;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .customer-reviews__heading {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+  
+  .comment-detail {
+    margin: 0;
+  }
+  
+  .comment-detail li {
+    color: #aaaaaa;
+    font-size: 12px;
+    padding-right: 10px;
+    font-weight: 600;
+  }
+  
+  .comment-detail a:hover {
+    text-decoration: underline;
+  }
+  
+  .comment-detail li:last-child {
+    padding-right: 0;
+  }
+  
+  .comment-detail li i {
+    color: #666666;
+    font-size: 15px;
+    margin-right: 10px;
+  }
+  
+  /* Add comment */
+  .overlay {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+  }
+  
+  label.radio {
+    cursor: pointer;
+    width: 100% !important;
+    margin-top: 9px;
+  }
+  
+  label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none;
+    width: 100%;
+  }
+  
+  label.radio span {
+    padding: 7px 14px;
+    border: 1px solid #d32f2f;
+    display: inline-block;
+    color: #d32f2f;
+    border-radius: 3px;
+    box-shadow: 3px 5px 8px 2px #e9ecef;
+    width: 100%;
+    align-items: center;
+  }
+  
+  label.radio input:checked + span {
+    border-color: #d32f2f;
+    background-color: #d32f2f;
+    color: #fff;
+  }
+  
+  .area {
+    resize: none;
+  }
+  
+  .area:focus {
+    box-shadow: none;
+    border-color: #d32f2f !important;
+  }
+  
+  .submit-button {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #fff !important;
+    box-shadow: none;
+    text-transform: uppercase;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  
+  .submit-button:hover {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+  }
+  
+  /* rating */
+  .text-white {
+    color: #fff !important;
+  }
+  .rate {
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+  }
+  
+  .rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+  
+  .rating > input {
+    display: none;
+  }
+  
+  .rating > label {
+    position: relative;
+    width: 1em;
+    font-size: 30px;
+    font-weight: 300;
+    color: #ffd600;
+    cursor: pointer;
+  }
+  
+  .rating > label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0;
+  }
+  
+  .rating > label:hover:before,
+  .rating > label:hover ~ label:before {
+    opacity: 1 !important;
+  }
+  
+  .rating > input:checked ~ label:before {
+    opacity: 1;
+  }
+  
+  .rating:hover > input:checked ~ label:before {
+    opacity: 0.4;
+  }
+  
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    .text-white {
+      padding: 92px;
+    }
+  }
+  
+  @media only screen and (max-width: 360px) {
+    .text-white {
+      padding: 44px;
+    }
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .text-white {
+      padding: 256px;
+    }
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .text-white {
+      padding: 256px;
+    }
+  }
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .text-white {
+      padding: 317px;
+    }
+  }
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .text-white {
+      padding: 317px;
+    }
+  }
+  
+  .paginate {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .paginate > li {
+    list-style: none;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+  }
+  
+  .paginate-pagination ul {
+    margin: 20px 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .paginate-pagination ul:after {
+    content: " ";
+    display: table;
+    clear: both;
+  }
+  
+  .paginate-pagination ul > li {
+    float: left;
+    margin-right: 3px;
+  }
+  
+  .paginate-pagination ul > li > a.page {
+    display: block;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border: 1px solid #ddd;
+    background: white;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .paginate-pagination ul > li > a.page:hover {
+    opacity: 0.7;
+  }
+  .paginate-pagination ul > li > a.page.active {
+    opacity: 0.7;
+    cursor: default;
+  }
+  
+  .paginate-pagination ul > li > a.page-next.deactive,
+  .paginate-pagination ul > li > a.page-prev.deactive {
+    opacity: 0.7;
+    cursor: default;
+  }
+  
