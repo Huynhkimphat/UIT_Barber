@@ -70,7 +70,13 @@ async function viewProducts(id) {
         let exec =
             "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
             id;
-        const result = await conn.execute(exec);
+        const result = await conn.execute(
+            exec,{
+                    id,
+            }, {
+                autoCommit: true,
+            }
+        );
         if (conn) {
             await conn.close();
         }
@@ -84,9 +90,15 @@ async function viewServices(id) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "SELECT CTHDDV.MADV, TENDICHVU, GIA, HINHANH, TINHTRANG FROM DICHVU, CTHDDV WHERE CTHDDV.MAHD =" +
-            id;
-        const result = await conn.execute(exec);
+            "SELECT CTHDDV.MADV, DICHVU.TENDICHVU, DICHVU.GIA, DICHVU.HINHANH FROM DICHVU, CTHDDV \n" +
+            "WHERE CTHDDV.MAHD =:id AND DICHVU.MADV = CTHDDV.MADV";
+        const result = await conn.execute(
+            exec,{
+                    id,
+            }, {
+                autoCommit: true,
+            }
+        );
         if (conn) {
             await conn.close();
         }
@@ -119,4 +131,22 @@ async function add(customer, money, date) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, viewProducts, viewServices, add };
+async function checkout(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec ="UPDATE HOADON SET THANHTOAN = 1 WHERE MAHD = :id";
+        const result = await conn.execute(
+            exec,{
+                    id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
