@@ -10,8 +10,6 @@
             <th scope="col">Điểm tích lũy</th>
             <th scope="col">Email</th>
             <th scope="col">Status</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
         </tr>
     </thead>
     {{#each customer}}
@@ -26,21 +24,13 @@
             <td>{{DIEMTICHLUY}}</td>
             <td>{{EMAIL}}</td>
             <td>{{TINHTRANG}}</td>
-            <td>
-                <a href="/customer/{{MAKH}}/edit" class="btn btn-link">Update</a>
-            </td>
-            <td>
-                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{MAKH}}>Delete
-                </a>
-            </td>
         </tr>
     </tbody>
 
     {{/each}}
 
 </table>
-<button class="btn btn-primary"><a href="/customer/add">Add</a></button>
+
 {{!-- Delete Model --}}
 <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

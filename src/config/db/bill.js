@@ -51,7 +51,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1 AND MAHD =" +
+                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1 AND MAKH =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {

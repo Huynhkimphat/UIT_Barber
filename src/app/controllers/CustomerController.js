@@ -1,5 +1,5 @@
 const { customer, time } = require("../../config/db");
-
+const cpFile = require("cp-file");
 class CustomerController {
     show(req, res, next) {
         (async() => {
@@ -69,6 +69,15 @@ class CustomerController {
     update(req, res, next) {
         if (process.env.status == 3 || process.env.status == 1) {
             (async() => {
+                await cpFile(
+                    process.env.imgRoute + req.body.img,
+                    "./src/public/images/customer/" + req.body.img
+                );
+                console.log(
+                    "File copied to ./src/public/images/customer/" + req.body.img
+                );
+            })();
+            (async() => {
                 await customer.update(
                     req.params.id,
                     req.body.firstName,
@@ -82,7 +91,7 @@ class CustomerController {
                     req.body.status,
                     req.body.email
                 );
-                res.redirect("/customer");
+                res.redirect("/account");
             })();
         }
     }

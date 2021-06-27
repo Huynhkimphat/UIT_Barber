@@ -17,32 +17,31 @@ class BookingController {
             if (process.env.status == 3) {
                 let result = await booking.show();
                 let i = 1;
-                while (i<result.length){
-                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
-                        result.splice(i,1);
-                    }
-                    else{
-                        i+=1;
+                while (i < result.length) {
+                    if (result[i].DAY == result[i - 1].DAY && result[i].MONTH == result[i - 1].MONTH && result[i].YEAR == result[i - 1].YEAR && result[i].KHUNGGIO == result[i - 1].KHUNGGIO && result[i].HO_1 == result[i - 1].HO_1 && result[i].TEN_1 == result[i - 1].TEN_1) {
+                        result.splice(i, 1);
+                    } else {
+                        i += 1;
                     }
                 }
                 result = getStatus(result);
-                res.render("admin/booking/showBooking", {  
+                res.render("admin/booking/showBooking", {
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.mg,
+                    header: 2,
                 });
             } else if (process.env.status == 0) {
                 res.redirect("/authenticate/login");
             } else {
                 let result = await booking.show(process.env.id);
                 let i = 1;
-                while (i<result.length){
-                    if(result[i].DAY == result[i-1].DAY && result[i].MONTH == result[i-1].MONTH && result[i].YEAR == result[i-1].YEAR && result[i].KHUNGGIO == result[i-1].KHUNGGIO && result[i].HO_1 == result[i-1].HO_1 && result[i].TEN_1 == result[i-1].TEN_1){
-                        result.splice(i,1);
-                    }
-                    else{
-                        i+=1;
+                while (i < result.length) {
+                    if (result[i].DAY == result[i - 1].DAY && result[i].MONTH == result[i - 1].MONTH && result[i].YEAR == result[i - 1].YEAR && result[i].KHUNGGIO == result[i - 1].KHUNGGIO && result[i].HO_1 == result[i - 1].HO_1 && result[i].TEN_1 == result[i - 1].TEN_1) {
+                        result.splice(i, 1);
+                    } else {
+                        i += 1;
                     }
                 }
                 result = getStatus(result);
@@ -58,8 +57,8 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                if(process.env.id){
-                // let result = await booking.show(req.params.id);
+                if (process.env.id) {
+                    // let result = await booking.show(req.params.id);
                     let employeeName = await employee.showToAdd();
                     let d = new Date();
                     let dayString = d.toLocaleDateString("en-GB");
@@ -81,7 +80,7 @@ class BookingController {
                         username: process.env.username,
                         img: process.env.img,
                     });
-                } else{
+                } else {
                     res.redirect("/");
                 }
             } else {
@@ -93,7 +92,7 @@ class BookingController {
         (async() => {
             if (process.env.status != 0) {
                 let customer = process.env.id;
-                if(customer){
+                if (customer) {
                     let lstService = [];
                     let i;
                     for (i = 0; i < req.body.serviceType.length; i++) {
@@ -121,58 +120,58 @@ class BookingController {
                 // get date
                 let d = new Date();
                 let dayString = d.toLocaleDateString("en-GB");
-                let day = [{day: dayString},];
+                let day = [{ day: dayString }, ];
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
-                day.push({day: dayString});
+                day.push({ day: dayString });
                 d.setDate(d.getDate() + 1);
                 dayString = d.toLocaleDateString("en-GB");
-                day.push({day: dayString});
-                for (i = 0; i<3;i++){
-                    if (day[i].day == bookingDetail[0].NGAY){ 
-                        day[i] = Object.assign(day[i],{check: 1});
-                    } else{
-                        day[i] = Object.assign(day[i],{check: 0});
+                day.push({ day: dayString });
+                for (i = 0; i < 3; i++) {
+                    if (day[i].day == bookingDetail[0].NGAY) {
+                        day[i] = Object.assign(day[i], { check: 1 });
+                    } else {
+                        day[i] = Object.assign(day[i], { check: 0 });
                     }
-                }  
+                }
                 // get employee
                 let employeeBooking = await employee.showToAdd();
-                for (i = 0; i < employeeBooking.length; i++){
-                    if (employeeBooking[i].MANV == bookingDetail[0].MANV){ 
-                        employeeBooking[i] = Object.assign(employeeBooking[i],{check: 1});
-                        employeeBooking[i] = Object.assign(employeeBooking[i],{day:bookingDetail[0].NGAY});
-                    } else{
-                        employeeBooking[i] = Object.assign(employeeBooking[i],{check: 0});
-                        employeeBooking[i] = Object.assign(employeeBooking[i],{day:bookingDetail[0].NGAY});
+                for (i = 0; i < employeeBooking.length; i++) {
+                    if (employeeBooking[i].MANV == bookingDetail[0].MANV) {
+                        employeeBooking[i] = Object.assign(employeeBooking[i], { check: 1 });
+                        employeeBooking[i] = Object.assign(employeeBooking[i], { day: bookingDetail[0].NGAY });
+                    } else {
+                        employeeBooking[i] = Object.assign(employeeBooking[i], { check: 0 });
+                        employeeBooking[i] = Object.assign(employeeBooking[i], { day: bookingDetail[0].NGAY });
                     }
                 }
                 //get time
-                let time = await employee.addTimePeriod(bookingDetail[0].MANV,bookingDetail[0].NGAY); 
+                let time = await employee.addTimePeriod(bookingDetail[0].MANV, bookingDetail[0].NGAY);
                 let currentDay = new Date()
                 let date = currentDay.toLocaleDateString("en-GB");
-                if (bookingDetail[0].NGAY == date){
+                if (bookingDetail[0].NGAY == date) {
                     i = 0;
-                    while (i < time.length){
-                        if( time[i].MAGIO <= convertCurrentTime(currentDay.getHours() + currentDay.getMinutes()/60)){
-                            time.splice(i,1);
-                        } else{
-                            i+=1;
+                    while (i < time.length) {
+                        if (time[i].MAGIO <= convertCurrentTime(currentDay.getHours() + currentDay.getMinutes() / 60)) {
+                            time.splice(i, 1);
+                        } else {
+                            i += 1;
                         }
                     }
                 }
-                for (i = 0; i < time.length; i++){
-                    time[i] = Object.assign(time[i],{check: 0});
+                for (i = 0; i < time.length; i++) {
+                    time[i] = Object.assign(time[i], { check: 0 });
                 }
-                time.push({MAGIO: bookingDetail[0].MAGIO, KHUNGGIO: bookingDetail[0].KHUNGGIO, check:1});
-                time = sortObject(time,'MAGIO');
+                time.push({ MAGIO: bookingDetail[0].MAGIO, KHUNGGIO: bookingDetail[0].KHUNGGIO, check: 1 });
+                time = sortObject(time, 'MAGIO');
                 // get typeService
                 let lstService = await service.getDetail(req.params.id);
                 let typeService = await serviceType.showToAdd();
-                for (i = 0; i< typeService.length;i++){
-                    typeService[i] = Object.assign(typeService[i],{check:0});
+                for (i = 0; i < typeService.length; i++) {
+                    typeService[i] = Object.assign(typeService[i], { check: 0 });
                     let j;
-                    for (j = 0; j < lstService.length;j++){
-                        if(typeService[i].MALDV == lstService[j].MALDV){
+                    for (j = 0; j < lstService.length; j++) {
+                        if (typeService[i].MALDV == lstService[j].MALDV) {
                             typeService[i].check = 1;
                         }
                     }
@@ -180,7 +179,7 @@ class BookingController {
                 res.render("booking/updateBooking", {
                     lstService: lstService,
                     id: req.params.id,
-                    employeeBooking : employeeBooking,
+                    employeeBooking: employeeBooking,
                     day: day,
                     time: time,
                     typeService: typeService,
@@ -197,7 +196,7 @@ class BookingController {
         (async() => {
             if (process.env.status != 0) {
                 let bookingDetail = await booking.getDetail(req.params.id);
-                let result = await booking.destroy( req.params.id);
+                let result = await booking.destroy(req.params.id);
                 let lstService = [];
                 let i;
                 for (i = 0; i < req.body.serviceType.length; i++) {
@@ -219,7 +218,7 @@ class BookingController {
     destroy(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                let result = await booking.destroy( req.params.id);
+                let result = await booking.destroy(req.params.id);
                 res.redirect("/booking");
             } else {
                 res.redirect("/");
@@ -231,23 +230,23 @@ class BookingController {
             if (process.env.status != 0) {
                 let currentDay = new Date()
                 let date = currentDay.toLocaleDateString("en-GB");
-                let timePeriod = await employee.addTimePeriod(req.body.idEmployee,req.body.day);
+                let timePeriod = await employee.addTimePeriod(req.body.idEmployee, req.body.day);
                 let bookingDetail = await booking.getDetail(req.body.idBookingUpdate);
-                if (req.body.idEmployee == bookingDetail[0].MANV && req.body.day == bookingDetail[0].NGAY){
-                    timePeriod.push({MAGIO: bookingDetail[0].MAGIO, KHUNGGIO: bookingDetail[0].KHUNGGIO});
+                if (req.body.idEmployee == bookingDetail[0].MANV && req.body.day == bookingDetail[0].NGAY) {
+                    timePeriod.push({ MAGIO: bookingDetail[0].MAGIO, KHUNGGIO: bookingDetail[0].KHUNGGIO });
                 }
-                if (date == req.body.day){
+                if (date == req.body.day) {
                     let i = 0;
-                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes()/60);
-                    while (i < timePeriod.length){
-                        if( timePeriod[i].MAGIO <= time){
-                            timePeriod.splice(i,1);
-                        } else{
-                            i+=1;
+                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes() / 60);
+                    while (i < timePeriod.length) {
+                        if (timePeriod[i].MAGIO <= time) {
+                            timePeriod.splice(i, 1);
+                        } else {
+                            i += 1;
                         }
                     }
                 }
-                timePeriod = sortObject(timePeriod,'MAGIO');
+                timePeriod = sortObject(timePeriod, 'MAGIO');
                 res.send(timePeriod);
             }
         })();
@@ -257,15 +256,15 @@ class BookingController {
             if (process.env.status != 0) {
                 let currentDay = new Date()
                 let date = currentDay.toLocaleDateString("en-GB");
-                let timePeriod = await employee.addTimePeriod(req.body.id,req.body.day);
-                if (date == req.body.day){
+                let timePeriod = await employee.addTimePeriod(req.body.id, req.body.day);
+                if (date == req.body.day) {
                     let i = 0;
-                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes()/60);
-                    while (i < timePeriod.length){
-                        if( timePeriod[i].MAGIO <= time){
-                            timePeriod.splice(i,1);
-                        } else{
-                            i+=1;
+                    let time = convertCurrentTime(currentDay.getHours() + currentDay.getMinutes() / 60);
+                    while (i < timePeriod.length) {
+                        if (timePeriod[i].MAGIO <= time) {
+                            timePeriod.splice(i, 1);
+                        } else {
+                            i += 1;
                         }
                     }
                 }
@@ -296,21 +295,21 @@ class BookingController {
                 });
             } else {
                 res.redirect("/");
-        }
+            }
         })();
     }
-    getOldService(req,res){
+    getOldService(req, res) {
         (async() => {
             if (process.env.status != 0) {
                 let serviceName = await service.addNameService(req.body.id);
                 let lstServiceOld = await service.getDetail(req.body.idBookingUpdate);
                 let i;
-                for (i = 0;i < serviceName.length;i++){
-                    serviceName[i] = Object.assign(serviceName[i],{check: 0});
+                for (i = 0; i < serviceName.length; i++) {
+                    serviceName[i] = Object.assign(serviceName[i], { check: 0 });
                     let j;
-                    for (j = 0; j < lstServiceOld.length;j++){
-                        if (serviceName[i].MADV == lstServiceOld[j].MADV){
-                            serviceName[i].check =1;
+                    for (j = 0; j < lstServiceOld.length; j++) {
+                        if (serviceName[i].MADV == lstServiceOld[j].MADV) {
+                            serviceName[i].check = 1;
                         }
                     }
                 }

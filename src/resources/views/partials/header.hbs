@@ -18,7 +18,7 @@
                 <a href="/service" id="dv1" class="nav-link px-2 text-white header_item ">
                     <label for="dv">Services</label>
                 </a>
-                <a href="/products" id="sp1" class="nav-link px-2 text-white header_item ">
+                <a href="/products" id="sp1" class="nav-link px-2 text-white header_item " hidden="true">
                     <label for="sp">Products</label>
                 </a>
                 <a href="/about" id="lh1" class="nav-link px-2 text-white header_item ">
@@ -27,7 +27,8 @@
             </ul>
             <div class="text-end1">
                 {{#if status}}
-                <div id="user" class="me-2">
+                <input type="text" class="stat" id = "stat" value="{{status}}" hidden="true">
+                <div id="user" class="me-2" hidden="true">
                     <div class="shop">
                         <a href="/order">
                         <i id="shopping" class="fas fa-shopping-cart"></i>
@@ -63,10 +64,11 @@
                             id="name">{{username}}</b></label>
                     <div class="contentus">
                         <ul>
-                            <li> <a href="./customer"> Thông tin cá nhân </a></li>
+                            <li> <a  href="/account" id="infoBtn"> Thông tin cá nhân </a></li>
                             <li><a href="./booking">Lịch đặt</a></li>
-                            <li> Đơn hàng</li>
+                            <li hidden="true"> Đơn hàng</li>
                             <li><a href="/authenticate/logout">Thoát</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -83,7 +85,6 @@
         </div>
     </div>
     </div>
-
 </header>
 <script>
     try {
@@ -101,4 +102,5 @@
             headerItems[i].classList.add('header_item--active');
         }
     }
+
 </script>

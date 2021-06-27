@@ -1,81 +1,177 @@
-<link rel="stylesheet" href="/css/product.css">
-<div class="mt-4 ">
-    <h3>Update Employee {{employee.MANV}}</h3>
+<link rel="stylesheet" href="/css/Adding_Update.css">
+
+{{#each existedPhoneNumber}}
+<input type="hidden" name="existedPhoneNumber" class="existedPhoneNumber" value="{{SODT}}"></input>
+{{/each}}
+
+<body>
     <form class="mt-4" method="POST" action="/employee/{{employee.MANV}}/edit">
-        <div>
-            <label for="firstName">Họ: </label><br>
-            <input type="text" name="firstName" id="firstName" width="full" value="{{employee.HO}} "><br>
-        </div>
-        <div>
-            <label for="lastName">Tên: </label><br>
-            <input type="text" name="lastName" id="lastName" width="full" value="{{employee.TEN}}"><br>
-        </div>
-        <div>
-            <label for="DateOfBirth">Ngày sinh:</label><br>
-            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" value="{{employee.NGAYSINH}}"><br>
-        </div>
-        <div>
-            <label for="sex">Giới tính: </label>
-            <select id="sex" name="sex">
-                <option value="{{employee.GIOITINH}}">{{employee.GIOITINH}}</option>
-                <option value="Nu">Nu</option>
-                <option value="Unknown">Unknown</option>
-                <option value="Nam">Nam</option>
-            </select>
-        </div>
-        <div>
-            <label for="phoneNumber">Số điện thoại: </label><br>
-            <input type="text" name="phoneNumber" id="phoneNumber" width="full" value="{{employee.SODT}}"><br>
-        </div>
-        <div>
-            <label for="address">Địa chỉ: </label><br>
-            <input type="text" name="address" id="address" width="full" value="{{employee.DIACHI}}"><br>
-        </div>
-        <div>
-            <label for="beginDate">Ngày vào làm:</label><br>
-            <input type="date" name="beginDate" id="beginDate" width="full" value="{{employee.NGAYVAOLAM}}"><br>
-        </div>
-        <div>
-            <label for="typeEmployee">Chọn loại nhân viên: </label>
-            <select id="typeEmployee" name="typeEmployee">
-                <option value="{{employee.LOAINHANVIEN}}">{{employee.LOAINHANVIEN}}</option>
-                <option value="Staff">Staff</option>
-                <option value="Admin">Admin</option>
-            </select>
-        </div>
-        <div>
-            <label for="img">Link ảnh: </label><br>
-            <input type="text" name="img" id="img" width="full" value="{{employee.HINHANH}}"><br>
-        </div>
-        <div>
-            <label for="email" >Email:</label><br>
-            <input type="text" name="email" id="email" width="full" value="{{employee.EMAIL}} "><br>
-        </div>
-        <h4>Update Employee salary id: {{employee.MALUONG}}</h4>
-        <div>
-            <label for="basicSalary">Lương cơ bản: </label><br>
-            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"
-                value="{{employee.LUONGCOBAN}}"><br>
-        </div>
-        <div>
-            <label for="bonusSalary">Lương thưởng: </label><br>
-            <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" width="full"
-                value="{{employee.LUONGTHUONG}}"><br>
-        </div>
-        <div>
-            <label for="salary">Lương được nhận: </label><br>
-            <input type="text" name="salary" id="salary" width="full" value="{{employee.LUONGDUOCNHAN}}"><br>
-        </div>
-        <div>
-            <label for="payday">Ngày nhận lương:</label><br>
-            <input type="date" name="payday" id="payday" width="full" value="{{employee.NGAYNHANLUONG}}"><br>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
+        <div class="form-body">
+            <div class="row">
+                <div class="form-holder">
+                    <div class="form-content">
+                        <div class="form-items">
+                            <h3>SỬA THÔNG TIN TÀI KHOẢN</h3>
+                            <p>Điền vào khung bên dưới</p>
+                            <br class="requires-validation" method="POST" action="/employee/{{employee.MANV}}/edit">
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Họ:
+                                    <input class="form-control" type="text" name="firstName" id="firstName"
+                                        placeholder="firstName" value="{{employee.HO}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Tên:
+                                    <input class="form-control" type="text" name="lastName" id="lastName"
+                                        placeholder="lastName" value="{{employee.TEN}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày sinh:
+                                    <input type="date" class="form-control" name="DateOfBirth" id="DateOfBirth"
+                                        value="{{employee.NGAYSINH}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                    <div class="invalid-feedback">This field cannot be blank!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-8 mt-3">Giới tính:
+                                    <select type="text" name="sex" id="sex">
+                                        <option value="{{employee.GIOITINH}}">{{employee.GIOITINH}}</option>
+                                        <option value="Nu">Nu</option>
+                                        <option value="Unknown">Unknown</option>
+                                        <option value="Nam">Nam</option>
+                                    </select>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Số điện thoại:
+                                    <input onchange="checkPhoneNumber()" class="form-control" type="text"
+                                        name="phoneNumber" id="phoneNumber" value="{{employee.SODT}}"
+                                        placeholder="phoneNumber" value="{{employee.SODT}}" required>
+                                    <span style="color: #f33a58" class="form-message" id="phone-form-message"></span>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Địa chỉ:
+                                    <input class="form-control" type="text" name="address" id="address"
+                                        value="{{employee.DIACHI}}" placeholder="address" value="{{employee.DIACHI}}"
+                                        required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày vào làm:
+                                    <input type="date" name="beginDate" id="beginDate" class="form-control" width="full"
+                                        value="{{employee.NGAYVAOLAM}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Hình ảnh:
+                                    <input class="form-control" type="text" name="img" id="img" width="full"
+                                        value="{{employee.HINHANH}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Email:
+                                    <input class="form-control" type="text" name="email" id="email" width="full"
+                                        readonly value="{{employee.EMAIL}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <span class="items-group">
+                                <div class="col-sm-8 mt-3">Chọn loại nhân viên:
+                                    <select type="typeEmployee" name="typeEmployee" id="typeEmployee" disabled="true">
+                                        <option value="{{employee.LOAINHANVIEN}}">{{employee.LOAINHANVIEN}}</option>
+                                        <option value="Staff">Staff</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                </div>
+                            </span><br>
+                            <h3>Update Employee salary id: {{employee.MALUONG}}</h3>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Lương cơ bản:
+                                    <input onchange="salarySum()" class="form-control" type="text" name="basicSalary" id="basicSalary" width="full"
+                                         value="{{employee.LUONGCOBAN}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Lương thưởng:
+                                    <input onchange="salarySum()" type="text" name="bonusSalary" id="bonusSalary" class="form-control" width="full"
+                                        value="{{employee.LUONGTHUONG}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Lương được nhận:
+                                    <input type="text" name="salary" id="salary" class="form-control" width="full"
+                                        value="{{employee.LUONGDUOCNHAN}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày nhận lương:
+                                    <input type="date" name="payday" id="payday" class="form-control" width="full"
+                                        value="{{employee.NGAYNHANLUONG}}" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span></br>
+                            <div hidden="true">
+                                <input type="number" name="salaryId" id="salaryId" width="full" value="{{employee.MALUONG}}"><br>
+                            </div>
+                            </span><br><br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label">I confirm that all data are correct</label>
+                                <div class="invalid-feedback">Please confirm that the entered data are all correct!
+                                </div>
+                            </div>
+
+
+                            <span class="items-group">
+                                <div class="col-sm-8 form-button mt-3">
+                                    <button id="Adding" type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </span>
+                            <br>
     </form>
-</div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </form>
+</body>
+<script src="/js/submitForm.js"></script>
 <script>
-    function salarySum() {
-        document.getElementById('salary').value = Number(document.getElementById('basicSalary').value) + Number(document.getElementById('bonusSalary').value);
+    let checkPN = true;
+    let existedPhoneNumber = document.querySelectorAll(".existedPhoneNumber");
+    console.log(existedPhoneNumber);
+    let num = existedPhoneNumber.length;
+    function checkPhoneNumber() {
+        document.querySelector("#phone-form-message").innerHTML = "";
+        for (i = 0; i < num; i++) {
+            if (document.querySelector("#phoneNumber").value == existedPhoneNumber[i].value) {
+                document.querySelector("#phone-form-message").innerHTML = "Existed phone number!";
+                document.querySelector("#phoneNumber").value = "";
+                checkPN = false;
+                document.getElementById("Adding").disabled = true;
+            } else {
+                checkPN = true;
+            }
+        }
+        if (document.querySelector("#phoneNumber").value != "" && checkPN == true) {
+            document.getElementById("Adding").disabled = false;
+        }
     }
+    function salarySum() {
+            document.getElementById('salary').value = Number(document.getElementById('basicSalary').value) + Number(document.getElementById('bonusSalary').value);
+        }
 
 </script>

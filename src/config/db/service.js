@@ -51,14 +51,28 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE DICHVU SET TINHTRANG = 0 WHERE MADV = :id ";
-        await conn.execute(
-            exec, {
-                id,
-            }, {
-                autoCommit: true,
-            }
-        );
+        let check = "SELECT * FROM DICHVU WHERE MADV =" + id;
+        let finalCheck = await conn.execute(check);
+        if (finalCheck.rows.TINHTRANG == 1) {
+            let exec = "UPDATE DICHVU SET TINHTRANG = 0 WHERE MADV = :id ";
+            await conn.execute(
+                exec, {
+                    id,
+                }, {
+                    autoCommit: true,
+                }
+            );
+        } else {
+            let exec = "UPDATE DICHVU SET TINHTRANG = 1 WHERE MADV = :id ";
+            await conn.execute(
+                exec, {
+                    id,
+                }, {
+                    autoCommit: true,
+                }
+            );
+        }
+
         if (conn) {
             await conn.close();
         }
@@ -133,7 +147,7 @@ async function addNameService(id) {
         const result = await conn.execute(
             exec, {
                 id,
-            },{
+            }, {
                 autoCommit: true,
             }
         );
@@ -153,8 +167,8 @@ async function getDetail(id) {
         const result = await conn.execute(
             exec, {
                 id,
-            },{
-                autoCommit:true,
+            }, {
+                autoCommit: true,
             }
         );
         if (conn) {
