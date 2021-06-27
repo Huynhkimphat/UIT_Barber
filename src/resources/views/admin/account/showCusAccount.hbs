@@ -121,19 +121,19 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col" class="text-center">Name</th>
-                                                                <th scope="col" class="text-center">SĐT</th>
                                                                 <th scope="col" class="text-center">Member/VIP</th>
-                                                                <th scope="col" class="text-center">Member to VIP</th>
+                                                                <th scope="col" class="text-center">Điểm tích lũy</th>
 
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            {{#each about}}
                                                             <tr>
-                                                                <td class="text-center">Hoàng Văn A</td>
-                                                                <td class="text-center">0837442244</td>
-                                                                <td class="text-center">Member</td>
-                                                                <td class="text-center">100*</td>
+                                                                <td class="text-center">{{HO}} {{TEN}}</td>
+                                                                <td class="text-center" id="checkVip"></td>
+                                                                <td class="text-center" type="number" id="point">{{DIEMTICHLUY}}</td>
                                                             </tr>
+                                                            {{/each}}
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -165,6 +165,13 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript">
 
+    </script>
+    <script>
+        if (document.getElementById("point").innerHTML <= 150){
+            document.getElementById("checkVip").innerHTML = "Member";
+        } else {
+            document.getElementById("checkVip").innerHTML = "Vip";
+        }
     </script>
 </body>
 
