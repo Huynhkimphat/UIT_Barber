@@ -13,7 +13,27 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE DATLICH SET TINHTRANG = 0 "+
+        ////delete HoaDon
+        let exec = "UPDATE HOADON SET TINHTRANG = 0\n "+
+                    "WHERE MAHD = (\n" +
+                    "SELECT DISTINCT MAHD FROM CTHDDV\n"+
+                    "WHERE MADL in (\n" +
+                    "SELECT MADL FROM DATLICH \n"+   
+                        "WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id) \n"+
+                            "AND     NGAY = (SELECT NGAY FROM DATLICH WHERE MADL = :id)\n"+
+                            "AND     MANV = (SELECT MANV FROM DATLICH WHERE MADL = :id) \n"+
+                            "AND     MAGIO = (SELECT MAGIO FROM DATLICH WHERE MADL = :id)\n"+
+                        ")\n" +
+                    ")";
+        await conn.execute(
+            exec,{
+                    id,
+            }, {
+                autoCommit: true,
+            }
+        );
+        //// delete datlich
+        exec = "UPDATE DATLICH SET TINHTRANG = 0 "+
                     "WHERE MADL in ( " +
                     "SELECT MADL FROM DATLICH " +
                     "WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id) " +
@@ -28,6 +48,22 @@ async function destroy(id) {
                 autoCommit: true,
             }
         );
+        //// delete CTHDDV
+        exec = "DELETE FROM CTHDDV\n"+
+                "WHERE MADL in ( " +
+                "SELECT MADL FROM DATLICH " +
+                "WHERE   MAKH = (SELECT MAKH FROM DATLICH WHERE MADL = :id) " +
+                "AND     NGAY = (SELECT NGAY FROM DATLICH WHERE MADL = :id) " +
+                "AND     MANV = (SELECT MANV FROM DATLICH WHERE MADL = :id) " +
+                "AND     MAGIO = (SELECT MAGIO FROM DATLICH WHERE MADL = :id) " +
+                ")";
+        await conn.execute(
+             exec,{
+                    id,
+                },{
+                    autoCommit: true,
+                }
+            );
         if (conn) {
             await conn.close();
         }
@@ -35,34 +71,49 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(customer,lstService, date, time, employee) {
+async function add(customer,lstService, date, time, employee,money) {
     let conn;
     try {
-        // conn = await oracledb.getConnection(config);
         let day = date.split("/").join("-");
         let i;
         let service;
+        conn = await oracledb.getConnection(config);
+        let execHD = "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)"
+        await conn.execute(
+            execHD,{
+                day,
+                money,
+                customer,
+            },{
+                autoCommit: true,
+            }
+        );
+        /// add into DatLich
         for (i = 0;i < lstService.length; i++){
-            conn = await oracledb.getConnection(config);
             service = lstService[i];
-            let exec =
-                "INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MANV_SEQ3.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
+            let execDL ="INSERT INTO DATLICH(MADL,Ngay,MaGio,MaKH,MaNV,MaDV) VALUES (MADL_SEQ10.nextval , To_Date(:day,'dd-mm-yyyy') , :time , :customer , :employee , :service)";
+            let execCTHDDV = "INSERT INTO CTHDDV(MAHD,MADV,MADL) VALUES(MAHD_SEQ11.CURRVAL,:service,MADL_SEQ10.CURRVAL)";
             await conn.execute(
-                exec,
-                {
+                execDL,{
                     day,
                     time,
                     customer,
                     employee,
                     service,
-                },
-                {
+                },{
                     autoCommit: true,
                 }
             );
-            if (conn) {
-                await conn.close();
-            }
+            await conn.execute(
+                execCTHDDV,{
+                    service
+                },{
+                    autoCommit: true,
+                }
+            )
+        }
+        if (conn) {
+            await conn.close();
         }
     } catch (err) {
         console.log("Ouch!", err);

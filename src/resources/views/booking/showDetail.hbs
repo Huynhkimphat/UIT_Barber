@@ -1,30 +1,28 @@
-<div class="mt-4">
-    <label>Mã khách hàng:{{MAKH}}</label><br>
-    {{#each bookingDetail}}
-        <label>Khách hàng: {{HO}} {{TEN}}</label><br>
-        <label>Giờ: {{KHUNGGIO}}</label><br>
-        <label>Tên nhân viên: {{HO_1}} {{TEN_1}}</label><br>
-        <label>Ngày đặt: {{DAY}}/{{MONTH}}/{{YEAR}}</label>
-    {{/each}}
-    <div>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">Mã dịch vụ</th>
-                    <th scope="col">Tên dịch vụ</th>
-                    <th scope="col">Giá</th>
-                </tr>
-            </thead>
-            {{#each lstService}}
-                <tbody>
-                    <tr>
-                        <td>{{MADV}}</td>
-                        <td>{{TENDICHVU}}</td>
-                        <td>{{GIA}}</td>
-                        </td>
-                    </tr>   
-                </tbody>
-            {{/each}}
-        </table>
-    </div>
+<link rel="stylesheet" href="/css/detail.css">
+
+
+<div class="container">
+    <ul class="information">
+        <p><b>Mã khách hàng:</b> {{MAKH}}</p>
+        {{#each bookingDetail}}
+            <p><b>Khách hàng:</b> {{HO}} {{TEN}}</p>
+            <p><b>Giờ:</b> {{KHUNGGIO}}</p>
+            <p><b>Tên nhân viên:</b> {{HO_1}} {{TEN_1}}</p>
+            <p><b>Ngày đặt:</b> {{DAY}}/{{MONTH}}/{{YEAR}}</p>
+        {{/each}}
+    </ul>
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Mã dịch vụ</div>
+                <div class="col col-2">Tên dịch vụ</div>
+                <div class="col col-3">Giá</div>
+            </li>
+        {{#each lstService}}          
+            <li class="table-row">
+                <div class="col col-1" data-label="Mã dịch vụ">{{MADV}}</div>
+                <div class="col col-2" data-label="Tên dịch vụ">{{TENDICHVU}}</div>
+                <div class="col col-3" data-label="Giá">{{GIA}}</div>
+            </li>
+        {{/each}}
+    </ul>
 </div>
