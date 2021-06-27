@@ -153,4 +153,4 @@ async function checkout(id) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, viewProducts, viewServices, add };
+module.exports = { show, destroy, viewProducts, viewServices, add, checkout };
