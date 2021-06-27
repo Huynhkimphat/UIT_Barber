@@ -35,6 +35,7 @@ class AdminAuthenticateController {
                                 console.log(err);
                             } else {
                                 if (result) {
+                                    process.env.admin = req.body.email;
                                     process.env.username = "Admin";
                                     process.env.status = 3;
                                     res.redirect("/");

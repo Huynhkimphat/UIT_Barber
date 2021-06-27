@@ -73,7 +73,7 @@
                                 </span>
                                 <span class="items-group">
                                     <div class="col-sm-16 mt-3">Hình ảnh:
-                                        <input class="form-control" type="text" name="img" id="img" width="full"
+                                        <input class="form-control" type="file" name="img" id="img" width="full"
                                             value="{{customer.HINHANH}}" required>
                                         <div class="valid-feedback">This field is valid!</div>
                                     </div>
@@ -110,6 +110,7 @@
 <script>
     let checkPN = true;
     let existedPhoneNumber = document.querySelectorAll(".existedPhoneNumber");
+    console.log(existedPhoneNumber);
     let num = existedPhoneNumber.length;
     function checkPhoneNumber() {
         document.querySelector("#phone-form-message").innerHTML = "";

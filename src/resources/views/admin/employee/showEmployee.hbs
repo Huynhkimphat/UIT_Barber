@@ -16,8 +16,6 @@
             <th scope="col">Lương được nhận</th>
             <th scope="col">Ngày nhận lương</th>
             <th scope="col">status</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
         </tr>
     </thead>
     {{#each employee}}
@@ -38,14 +36,6 @@
             <td>{{LUONGDUOCNHAN}}</td>
             <td>{{NGAYNHANLUONG}}</td>
             <td>{{TINHTRANG}}</td>
-            <td>
-                <a href="/employee/{{MANV}}/edit" class="btn btn-link">Update</a>
-            </td>
-            <td>
-                <a href=" " class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteRecord"
-                    data-id={{MANV}}>Delete
-                </a>
-            </td>
         </tr>
     </tbody>
 

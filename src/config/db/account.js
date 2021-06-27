@@ -1,5 +1,6 @@
 const oracledb = require("oracledb");
 const dotenv = require("dotenv");
+const adminAuthenticate = require("../../config/db")
 dotenv.config();
 
 const config = {
@@ -50,5 +51,34 @@ async function show(id = -1) {
         console.log("Ouch!", err);
     }
 }
+async function changePassword(
+    email,
+    newPassword
+) {
+    try {
+        let conn = await oracledb.getConnection(config);
+        let execForID = "SELECT MANV FROM NHANVIEN WHERE EMAIL =: email AND LOAINHANVIEN";
+        let adminID = await conn.execute(execForID, {
+            email
+        }, {
+            autoCommit: true,
+        });
+        adminId = adminID.rows[0].MANV;
+        console.log(adminId);
+        let exec = "UPDATE TAIKHOAN SET PASSWORD =:newPassword WHERE MANV =:adminId";
 
-module.exports = { show };
+        await conn.execute(exec, {
+            newPassword,
+            adminId,
+
+        }, {
+            autoCommit: true,
+        });
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { show, changePassword };

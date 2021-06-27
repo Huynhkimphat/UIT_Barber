@@ -3,8 +3,9 @@ const { bill, time } = require("../../config/db");
 class BillController {
     show(req, res, next) {
         (async() => {
-            let result = await bill.show();
+
             if (process.env.status == 3) {
+                let result = await bill.show();
                 res.render("admin/bill/showBill", {
                     bill: result,
                     status: process.env.status,
@@ -14,6 +15,7 @@ class BillController {
             } else if (process.env.status == 0 || process.env.status == 2) {
                 res.redirect("/");
             } else {
+                let result = await bill.show(process.env.id);
                 res.render("bill/showBill", {
                     bill: result,
                     status: process.env.status,
@@ -61,12 +63,12 @@ class BillController {
 
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
-                let result = await bill.show(req.params.id);
+            if (process.env.status == 1) {
+                let resultServices = await bill.viewServices(req.params.id);
                 let timePeriod = await time.show();
-                let temp = formatDate(result);
                 res.render("bill/updateBill", {
-                    bill: temp,
+                    services: resultServices,
+                    billId: req.params.id,
                     timePeriod: timePeriod,
                     status: process.env.status,
                     username: process.env.username,
