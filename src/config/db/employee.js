@@ -333,7 +333,20 @@ async function checkPhoneNumber() {
         console.log("Ouch!", err);
     }
 }
-
+async function checkEmail() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT EMAIL FROM NHANVIEN WHERE TINHTRANG = 1 AND LOAINHANVIEN='Staff'";
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 
 module.exports = {
     show,
@@ -342,5 +355,6 @@ module.exports = {
     update,
     addTimePeriod,
     add,
-    checkPhoneNumber
+    checkPhoneNumber,
+    checkEmail
 };

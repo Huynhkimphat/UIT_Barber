@@ -1,64 +1,170 @@
-<link rel="stylesheet" href="/css/product.css">
-<div class="mt-4 ">
-    <h3>Add Employee:</h3>
-    <form class="mt-4" method="POST" action="/employee/?_method=PUT">
-        <div>
-            <label for="firstName">Họ: </label><br>
-            <input type="text" name="firstName" id="firstName" width="full"><br>
+<link rel="stylesheet" href="/css/Adding_Update.css">
+{{#each existedPhoneNumber}}
+<input type="hidden" name="existedPhoneNumber" class="existedPhoneNumber" value="{{SODT}}"></input>
+{{/each}}
+{{#each existedEmail}}
+<input type="hidden" name="existedEmail" class="existedEmail" value="{{EMAIL}}"></input>
+{{/each}}
+<body>
+    <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>THÊM NHÂN VIÊN</h3>
+                        <p>Điền vào khung bên dưới</p>
+                        <form class="requires-validation" method="POST" action="/employee/?_method=PUT">
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Họ:
+                                    <input class="form-control" type="text" name="firstName" id="firstName" placeholder="firstName"
+                                        required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Tên:
+                                    <input class="form-control" type="text" name="lastName" id="lastName" placeholder="lastName" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày sinh:
+                                    <input class="form-control" type="date" name="DateOfBirth" id="DateOfBirth" placeholder="DateOfBirth" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Giới tính:
+                                    <select id="sex" name="sex">
+                                        <option value="Nu">Nu</option>
+                                        <option value="Nam">Nam</option>
+                                        <option value="Unknown">Unknown</option>
+                                    </select>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Số điện thoại:
+                                    <input onchange="checkPhoneNumber()" class="form-control" type="text" name="phoneNumber" id="phoneNumber"
+                                         placeholder="phoneNumber" required>
+                                    <span style="color: #f33a58" class="form-message" id="phone-form-message"></span>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span><br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Địa chỉ:
+                                    <input class="form-control" type="text" name="address" id="address" placeholder="address" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Ngày vào làm:
+                                    <input class="form-control" type="date"name="beginDate" id="beginDate" placeholder="beginDate" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Chọn loại nhân viên:
+                                    <select id="typeEmployee" name="typeEmployee">
+                                        <option value="Staff">Staff</option>
+                                        <option value="Admin">Admin</option>
+                                    </select>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Link ảnh:
+                                    <input class="form-control" type="file" name="img" id="img" placeholder="image" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <h3>Add Employee account:</h3>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Email:
+                                    <input onchange="checkEmail()" class="form-control" type="text" name="email" id="email" placeholder="email" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                    <span class="form-message"></span>
+                                    <span style="color: #f33a58" class="form-message" id="email-form-message"></span>
+                                </div>
+                            </span>
+                            <br>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Mật khẩu:
+                                    <input class="form-control" type="text" name="password" id="password" placeholder="password" required>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            <h3>Add Employee salary:</h3>
+                            <span class="items-group">
+                                <div class="col-sm-16 mt-3">Lương cơ bản:
+                                    <input class="form-control" type="text" name="basicSalary" id="basicSalary" placeholder="basicSalary" value="10000000" readonly>
+                                    <div class="valid-feedback">This field is valid!</div>
+                                </div>
+                            </span>
+                            <br>
+                            
+
+
+                            <span class="items-group">
+                                <div class="col-sm-8 form-button mt-3">
+                                    <button id="Adding" type="submit" class="btn btn-primary">Adding</button>
+                                </div>
+                            </span>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="lastName">Tên: </label><br>
-            <input type="text" name="lastName" id="lastName" width="full" ><br>
-        </div>
-        <div>
-            <label for="DateOfBirth">Ngày sinh:</label><br>
-            <input type="date" name="DateOfBirth" id="DateOfBirth" width="full" ><br>
-        </div>
-        <div>
-            <label for="sex">Giới tính: </label>
-            <select id="sex" name="sex">
-                <option value="Nu">Nu</option>
-                <option value="Nam">Nam</option>
-                <option value="Unknown">Unknown</option>
-            </select>
-        </div>
-        <div>
-            <label for="phoneNumber">Số điện thoại: </label><br>
-            <input type="text" name="phoneNumber" id="phoneNumber" width="full"><br>
-        </div>
-        <div>
-            <label for="address">Địa chỉ: </label><br>
-            <input type="text" name="address" id="address" width="full"><br>
-        </div>
-        <div>
-            <label for="beginDate">Ngày vào làm:</label><br>
-            <input type="date" name="beginDate" id="beginDate" width="full"><br>
-        </div>
-        <div>
-            <label for="typeEmployee">Chọn loại nhân viên: </label>
-            <select id="typeEmployee" name="typeEmployee">
-                <option value="Staff">Staff</option>
-                <option value="Admin">Admin</option>
-            </select>
-        </div>
-        <div>
-            <label for="img">Link ảnh: </label><br>
-            <input type="text" name="img" id="img" width="full"><br>
-        </div>
-        <h4>Add Employee account:</h4>
-        <div>
-            <label for="email">Email:</label><br>
-            <input type="text" name="email" id="email" width="full"><br>
-        </div>
-            <label for="password">Mật khẩu: </label><br>
-            <input type="text" name="password" id="password" width="full"><br>
-        </div>
-        
-        <h4>Add Employee salary:</h4>
-        <div>
-            <label for="basicSalary">Lương cơ bản: </label><br>
-            <input onchange="salarySum()" type="text" name="basicSalary" id="basicSalary"><br>
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-    </form>
-</div>
+    </div>
+</body>
+<script src="/js/submitForm.js"></script>
+
+<script>
+    let existedEmail = document.querySelectorAll(".existedEmail");
+    function checkEmail() {
+        document.querySelector("#email-form-message").innerHTML = "";
+        let num = existedEmail.length;
+        for (i = 0; i < num; i++) {
+            if (document.querySelector("#email").value == existedEmail[i].value) {
+                document.querySelector("#email-form-message").innerHTML = "Existed email!";
+
+            }
+        }
+    };
+    
+
+
+</script>
+
+<script>
+    let checkPN = true;
+    let existedPhoneNumber = document.querySelectorAll(".existedPhoneNumber");
+    console.log(existedPhoneNumber);
+    let num = existedPhoneNumber.length;
+    function checkPhoneNumber() {
+        document.querySelector("#phone-form-message").innerHTML = "";
+        for (i = 0; i < num; i++) {
+            if (document.querySelector("#phoneNumber").value == existedPhoneNumber[i].value) {
+                document.querySelector("#phone-form-message").innerHTML = "Existed phone number!";
+                document.querySelector("#phoneNumber").value = "";
+                checkPN = false;
+                document.getElementById("Adding").disabled = true;
+            } else {
+                checkPN = true;
+            }
+        }
+        if (document.querySelector("#phoneNumber").value != "" && checkPN == true) {
+            document.getElementById("Adding").disabled = false;
+        }
+    };    
+</script>
