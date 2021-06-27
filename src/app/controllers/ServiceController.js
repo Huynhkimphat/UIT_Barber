@@ -43,7 +43,7 @@ class ServiceController {
                 res.redirect("/service");
             }
         })();
-    } 
+    }
     adding(req, res, next) {
         (async() => {
             await cpFile(
@@ -83,12 +83,13 @@ class ServiceController {
         }
     }
     edit(req, res, next) {
+
         (async() => {
             let result = await service.show(req.params.id);
             let typeService = await serviceType.show();
-            for (let i = 0; i< typeService.length; i++){
-                typeService[i] = Object.assign(typeService[i],{check: 0});
-                if (typeService[i].MALDV == result[0].MALDV){
+            for (let i = 0; i < typeService.length; i++) {
+                typeService[i] = Object.assign(typeService[i], { check: 0 });
+                if (typeService[i].MALDV == result[0].MALDV) {
                     typeService[i].check = 1;
                 }
             }

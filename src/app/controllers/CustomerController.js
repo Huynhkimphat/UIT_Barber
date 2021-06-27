@@ -1,5 +1,5 @@
 const { customer, time } = require("../../config/db");
-
+const cpFile = require("cp-file");
 class CustomerController {
     show(req, res, next) {
         (async() => {
@@ -40,9 +40,11 @@ class CustomerController {
     edit(req, res, next) {
         (async() => {
             if (process.env.status == 3) {
+                let existedPhoneNumber = await customer.checkPhoneNumber();
                 let result = await customer.show(req.params.id);
                 let timePeriod = await time.show();
                 res.render("admin/customer/updateCustomer", {
+                    existedPhoneNumber: existedPhoneNumber,
                     customer: result[0],
                     timePeriod: timePeriod,
                     status: process.env.status,
@@ -50,9 +52,11 @@ class CustomerController {
                     img: process.env.img,
                 });
             } else if (process.env.status == 1) {
+                let existedPhoneNumber = await customer.checkPhoneNumber();
                 let result = await customer.show(req.params.id);
                 let timePeriod = await time.show();
                 res.render("customer/updateCustomer", {
+                    existedPhoneNumber: existedPhoneNumber,
                     customer: result[0],
                     timePeriod: timePeriod,
                     status: process.env.status,
@@ -64,6 +68,15 @@ class CustomerController {
     }
     update(req, res, next) {
         if (process.env.status == 3 || process.env.status == 1) {
+            (async() => {
+                await cpFile(
+                    process.env.imgRoute + req.body.img,
+                    "./src/public/images/customer/" + req.body.img
+                );
+                console.log(
+                    "File copied to ./src/public/images/customer/" + req.body.img
+                );
+            })();
             (async() => {
                 await customer.update(
                     req.params.id,
@@ -78,7 +91,7 @@ class CustomerController {
                     req.body.status,
                     req.body.email
                 );
-                res.redirect("/customer");
+                res.redirect("/account");
             })();
         }
     }

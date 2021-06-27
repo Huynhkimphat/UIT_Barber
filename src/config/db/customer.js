@@ -27,6 +27,20 @@ async function destroy(id) {
         console.log("Ouch!", err);
     }
 }
+async function checkPhoneNumber() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT SODT FROM KHACHHANG WHERE TINHTRANG = 1"
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 async function checkEmail() {
     let conn;
     try {
@@ -152,4 +166,4 @@ async function update(
     }
 
 }
-module.exports = { show, destroy, update, checkEmail };
+module.exports = { show, destroy, update, checkEmail, checkPhoneNumber };

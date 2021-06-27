@@ -67,7 +67,7 @@ async function show(id = -1) {
             } else {
                 let execEmpInfo = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV"
                 let execEmpSalaryBonus =
-                    "SELECT LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANLUONG"
+                    "SELECT * FROM NHANLUONG"
 
                 const resultInfo = await conn.execute(execEmpInfo);
                 const resultBonus = await conn.execute(execEmpSalaryBonus);
@@ -185,13 +185,14 @@ async function update(
     bonusSalary,
     salary,
     payday,
+    status
 ) {
     if (process.env.status == 3) {
         let conn;
         try {
             conn = await oracledb.getConnection(config);
             let exec1 =
-                "UPDATE NHANVIEN SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, NGAYVAOLAM= TO_DATE(:beginDate,'yyyy-mm-dd'), LOAINHANVIEN=:typeEmployee, HINHANH=:img, EMAIL=:email WHERE MANV= :id";
+                "UPDATE NHANVIEN SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, NGAYVAOLAM= TO_DATE(:beginDate,'yyyy-mm-dd'), LOAINHANVIEN=:typeEmployee, HINHANH=:img, EMAIL=:email, TINHTRANG =:status WHERE MANV= :id";
             await conn.execute(
                 exec1, {
                     id,
@@ -205,6 +206,7 @@ async function update(
                     typeEmployee,
                     img,
                     email,
+                    status
                 }, {
                     autoCommit: true,
                 }
@@ -220,18 +222,46 @@ async function update(
                     autoCommit: true,
                 }
             );
-            exec3 =
-                "UPDATE NHANLUONG SET NGAYNHANLUONG = TO_DATE(:payday,'yyyy-mm-dd'), LUONGTHUONG = :bonusSalary, LUONGDUOCNHAN = :salary WHERE MANV = :id";
-            await conn.execute(
-                exec3, {
-                    id,
-                    payday,
-                    bonusSalary,
-                    salary,
-                }, {
+            let check = "SELECT * FROM NHANLUONG";
+            let rsCheck = await conn.execute(
+                check, {}, {
                     autoCommit: true,
                 }
-            )
+            );
+            let k = 0;
+            for (let i = 0, len = rsCheck.rows.length; i < len; i++) {
+                if (rsCheck.rows[i].MANV == id) {
+                    exec3 =
+                        "UPDATE NHANLUONG SET NGAYNHANLUONG = TO_DATE(:payday,'yyyy-mm-dd'), LUONGTHUONG = :bonusSalary, LUONGDUOCNHAN = :salary WHERE MANV = :id";
+                    await conn.execute(
+                        exec3, {
+                            payday,
+                            bonusSalary,
+                            salary,
+                            id,
+                        }, {
+                            autoCommit: true,
+                        }
+                    )
+                    k = 1;
+                }
+            }
+            if (k == 0) {
+                console.log(payday);
+                let finalExec = "INSERT INTO NHANLUONG VALUES(:salaryId, :id,TO_DATE(:payday,'yyyy-mm-dd') , :basicSalary, :bonusSalary, :salary)";
+                await conn.execute(
+                    finalExec, {
+                        salaryId,
+                        id,
+                        payday,
+                        basicSalary,
+                        bonusSalary,
+                        salary,
+                    }, {
+                        autoCommit: true,
+                    }
+                )
+            }
             if (conn) {
                 await conn.close();
             }
@@ -289,7 +319,20 @@ async function addTimePeriod(id, day) {
         console.log("Ouch!", err);
     }
 }
-
+async function checkPhoneNumber() {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT SODT FROM NHANVIEN WHERE TINHTRANG = 1"
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 
 
 module.exports = {
@@ -298,5 +341,6 @@ module.exports = {
     destroy,
     update,
     addTimePeriod,
-    add
+    add,
+    checkPhoneNumber
 };

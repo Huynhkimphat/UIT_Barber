@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/service.css">
+<div class="container">
+
+<div class="mt-4 ">
+    
+    
+    <form class="mt-4" method="POST" action="/bill/{{billId}}/edit">
+    {{#each services}}
+        <div>
+            <label for="serviceID" >MADV: </label><br>
+            <input type="text" name="serviceID" class="serviceID" id="serviceID{{MADV}}" width="full" value="{{MADV}}"><br>
+        </div>
+        <button  class="delete">Delete</button>
+    {{/each}}
+        <button type="submit" class="btn btn-primary" >Save</button>
+    </form>
+</div>
+</div>
+<script>
+    
+</script>
