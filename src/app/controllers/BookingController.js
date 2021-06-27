@@ -58,7 +58,7 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                if(process.env.id){
+                if(process.env.status != 3){
                 // let result = await booking.show(req.params.id);
                     let employeeName = await employee.showToAdd();
                     let d = new Date();
