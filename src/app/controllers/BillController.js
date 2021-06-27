@@ -63,10 +63,10 @@ class BillController {
             }
         })();
     }
-    adding(req,res,next){
+    adding(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                
+
             } else {
                 res.redirect("/");
             }

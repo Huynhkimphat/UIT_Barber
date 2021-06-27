@@ -42,7 +42,7 @@ async function login(email) {
             }
             return result.rows[0];
         } else {
-            let exec = `SELECT tk.password,tk.manv,nv.hinhanh FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}'`;
+            let exec = `SELECT tk.password,tk.manv,nv.hinhanh FROM NHANVIEN nv, TAIKHOAN tk where nv.manv=tk.manv and nv.Email='${email}' and nv.loainhanvien='Staff'`;
             const result = await conn.execute(exec);
             if (conn) {
                 await conn.close();

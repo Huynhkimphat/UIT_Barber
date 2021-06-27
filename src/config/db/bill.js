@@ -32,9 +32,9 @@ async function show(id = -1) {
     try {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
-            if (process.env.status != 3) {
+            if (process.env.status == 1) {
                 let exec =
-                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1";
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON";
                 const result = await conn.execute(exec);
                 if (conn) {
                     await conn.close();
@@ -42,7 +42,7 @@ async function show(id = -1) {
                 return result.rows;
             } else {
                 let exec =
-                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON";
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON";
                 const result = await conn.execute(exec);
                 if (conn) {
                     await conn.close();
@@ -51,7 +51,7 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,TINHTRANG FROM HOADON WHERE TINHTRANG = 1 AND MAKH =" +
+                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE MAKH =" +
                 id;
             const result = await conn.execute(exec);
             if (conn) {
@@ -107,7 +107,7 @@ async function viewServices(id) {
         console.log("Ouch!", err);
     }
 }
-async function add(customer,money, date) {
+async function add(customer, money, date) {
     let conn;
     try {
         // conn = await oracledb.getConnection(config);
@@ -116,11 +116,11 @@ async function add(customer,money, date) {
         let exec =
             "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)"
         await conn.execute(
-            exec,{
+            exec, {
                 day,
                 money,
                 customer,
-            },{
+            }, {
                 autoCommit: true,
             }
         );
@@ -150,4 +150,3 @@ async function checkout(id) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, viewProducts, viewServices,add,checkout };
