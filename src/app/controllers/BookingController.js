@@ -7,6 +7,7 @@ const {
     service,
     serviceType,
     time,
+    bill,
 } = require("../../config/db");
 const { compare } = require("bcrypt");
 
@@ -98,12 +99,18 @@ class BookingController {
                     for (i = 0; i < req.body.serviceType.length; i++) {
                         lstService.push(req.body[req.body.serviceType[i]]);
                     };
+                    // await bill.add(
+                    //     customer,
+                    //     await service.getmoney(lstService),
+                    //     req.body.date
+                    // )
                     await booking.add(
                         customer,
                         lstService,
                         req.body.date,
                         req.body.time,
-                        req.body.employee
+                        req.body.employee,
+                        await service.getmoney(lstService),
                     );
                 }
                 res.redirect("/booking");
@@ -207,7 +214,8 @@ class BookingController {
                     lstService,
                     req.body.date,
                     req.body.time,
-                    req.body.employee
+                    req.body.employee,
+                    await service.getmoney(lstService),
                 );
                 res.redirect("/booking");
             } else {

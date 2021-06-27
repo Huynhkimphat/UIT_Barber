@@ -12,7 +12,7 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE HOADON SET TINHTRANG = 0 WHERE MAHD = :id";
+        let exec = "UPDATE HOADON SET TINHTRANG = 0, ,TONGTIEN = 0 WHERE MAHD = :id";
         await conn.execute(
             exec, {
                 id,
@@ -95,5 +95,28 @@ async function viewServices(id) {
         console.log("Ouch!", err);
     }
 }
-
-module.exports = { show, destroy, viewProducts, viewServices };
+async function add(customer,money, date) {
+    let conn;
+    try {
+        // conn = await oracledb.getConnection(config);
+        let day = date.split("/").join("-");
+        conn = await oracledb.getConnection(config);
+        let exec =
+            "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)"
+        await conn.execute(
+            exec,{
+                day,
+                money,
+                customer,
+            },{
+                autoCommit: true,
+            }
+        );
+        if (conn) {
+            await conn.close();
+        }
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+module.exports = { show, destroy, viewProducts, viewServices,add };

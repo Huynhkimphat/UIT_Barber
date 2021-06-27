@@ -1,6 +1,7 @@
 const oracledb = require("oracledb");
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 const dotenv = require("dotenv");
+const { service } = require(".");
 dotenv.config();
 
 const config = {
@@ -179,6 +180,31 @@ async function getDetail(id) {
         console.log("Ouch!", err);
     }
 }
+async function getmoney(lstService) {
+    let conn;
+    try {
+        let money = 0;
+        for (let i = 0; i< lstService.length; i++){
+            conn = await oracledb.getConnection(config);
+            let service = lstService[i];
+            let exec = "SELECT GIA FROM DICHVU WHERE MADV = :service";
+            let result = await conn.execute(
+                exec, {
+                    service,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            if (conn) {
+                await conn.close();
+            }
+            money += result.rows[0].GIA;
+        }
+        return money;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
 module.exports = {
     show,
     showToAdd,
@@ -187,4 +213,5 @@ module.exports = {
     update,
     addNameService,
     getDetail,
+    getmoney,
 };
