@@ -125,16 +125,45 @@ async function add(customerID, productId, price, amount) {
                     autoCommit: true,
                 }
             );
-            exec = "INSERT INTO CTHDSP VALUES(:billID,:productId,:amount)";
-            await conn.execute(
+            exec = "SELECT * FROM CTHDSP WHERE MAHD =:billID";
+            let rs = await conn.execute(
                 exec, {
                     billID,
-                    productId,
-                    amount
                 }, {
                     autoCommit: true,
                 }
             );
+            console.log(rs.rows[0]);
+            console.log(productId);
+            for (let i = 0, len = rs.rows.length; i < len; i++) {
+                if (rs.rows[i].MASP == productId) {
+                    let num = Number(amount) + Number(rs.rows[i].SOLUONG);
+                    exec = "UPDATE CTHDSP SET SOLUONG =: num WHERE MASP =: productId";
+                    await conn.execute(
+                        exec, {
+                            num,
+                            productId,
+                        }, {
+                            autoCommit: true,
+                        }
+                    );
+
+                } else {
+                    console.log(rs.rows[i].MASP);
+                    exec = "INSERT INTO CTHDSP VALUES(:billID,:productId,:amount)";
+                    await conn.execute(
+                        exec, {
+                            billID,
+                            productId,
+                            amount
+                        }, {
+                            autoCommit: true,
+                        }
+                    );
+                }
+            }
+
+
             if (conn) {
                 await conn.close();
             }
@@ -149,6 +178,14 @@ async function add(customerID, productId, price, amount) {
                     autoCommit: true,
                 }
             );
+            resBill = await conn.execute(
+                execForBill, {
+                    customerID,
+                }, {
+                    autoCommit: true,
+                }
+            );
+            billID = resBill.rows[0].MAHD;
             let exec = "INSERT INTO CTHDSP VALUES(:billID, :productId, :amount)";
             await conn.execute(
                 exec, {

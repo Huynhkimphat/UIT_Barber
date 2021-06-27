@@ -1,4 +1,7 @@
 <link rel="stylesheet" href="/css/Adding_Update.css">
+{{#each existedPhoneNumber}}
+<input type="hidden" name="existedPhoneNumber" class="existedPhoneNumber" value="{{SODT}}"></input>
+{{/each}}
 
 
 <body>
@@ -41,7 +44,8 @@
                             </span><br>
                             <span class="items-group">
                                 <div class="col-sm-16 mt-3">Số điện thoại:
-                                    <input class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="{{customer.SODT}}" placeholder="phoneNumber"  value="{{customer.SODT}}" required>
+                                    <input onchange="checkPhoneNumber()" class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="{{customer.SODT}}" placeholder="phoneNumber"  value="{{customer.SODT}}" required>
+                                    <span style="color: #f33a58" class="form-message" id="phone-form-message"></span>
                                     <div class="valid-feedback">This field is valid!</div>
                                 </div>
                             </span><br>
@@ -89,3 +93,26 @@
     </div>
 </body>
 <script src="/js/submitForm.js"></script>
+<script>
+    let checkPN = true;
+    let existedPhoneNumber = document.querySelectorAll(".existedPhoneNumber");
+    let num = existedPhoneNumber.length;
+    function checkPhoneNumber() {
+        document.querySelector("#phone-form-message").innerHTML = "";
+        for (i = 0; i < num; i++) {
+            if (document.querySelector("#phoneNumber").value == existedPhoneNumber[i].value) {
+                document.querySelector("#phone-form-message").innerHTML = "Existed phone number!";
+                document.querySelector("#phoneNumber").value = "";
+                checkPN = false;
+                document.getElementById("Adding").disabled = true;
+            } else {
+                checkPN = true;
+            }
+        }
+        if (document.querySelector("#phoneNumber").value != "" && checkPN == true) {
+            document.getElementById("Adding").disabled = false;
+        }
+    }
+
+
+</script>
