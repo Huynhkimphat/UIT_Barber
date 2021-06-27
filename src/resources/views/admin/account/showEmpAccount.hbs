@@ -124,35 +124,32 @@
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col" class="text-center">ID</th>
-                                                                <th scope="col" class="text-center">Month</th>
-                                                                <th scope="col" class="text-center">Number Customer</th>
-                                                                <th scope="col" class="text-center">Salary</th>
-                                                                <th scope="col" class="text-center">Salary Date</th>
-
+                                                                <th scope="col" class="text-center">Ngày vào làm</th>
+                                                                <th scope="col" class="text-center">Loại nhân viên</th>
+                                                                <th scope="col" class="text-center">Mã lương</th>
+                                                                <th scope="col" class="text-center">Lương cơ bản</th>
+                                                                
+                                                                <th scope="col" class="text-center">Lương thưởng</th>
+                                                                <th scope="col" class="text-center">Ngày nhận lương</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            {{#each about}}
                                                             <tr>
-                                                                <td class="text-center"><a href="#">NV01</a></td>
-                                                                <td class="text-center">January</td>
-                                                                <td class="text-center">900</td>
-                                                                <td class="text-center">9.000.000 đ</td>
-                                                                <td class="text-center">28/1</td>
+                                                                <td class="text-center"><a href="#">{{aboutMANV}}</a></td>
+                                                                <td class="text-center">{{NGAYVAOLAM}}</td>
+                                                                <td class="text-center">{{LOAINHANVIEN}}</td>
+                                                                <td class="text-center">{{MALUONG}}</td>
+                                                                <td class="text-center">{{LUONGCOBAN}}VND</td>
+
+                                                                <td class="text-center" id="bonusSalary">{{LUONGTHUONG}}VND</td>
+                                                                <td class="text-center" id="payday">{{NGAYNHANLUONG}}</td>
+                                                                
+                                                                <input id="checkPayday" value="{{NGAYNHANLUONG}}" hidden="true"></input>
+                                                                <input id="checkBonusSalary" value="{{LUONGTHUONG}}" hidden="true"></input>
                                                             </tr>
-                                                            <tr>
-                                                                <td class="text-center"><a href="#">NV01</a></td>
-                                                                <td class="text-center">February</td>
-                                                                <td class="text-center">1000</td>
-                                                                <td class="text-center">10.000.000 đ</td>
-                                                                <td class="text-center">29/2</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-center"><a href="#">NV01</a></td>
-                                                                <td class="text-center">March</td>
-                                                                <td class="text-center">1100</td>
-                                                                <td class="text-center">11.000.000 đ</td>
-                                                                <td class="text-center">29/3</td>
-                                                            </tr>
+                                                            {{/each}}
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -163,83 +160,6 @@
                             </div>
                         </div>
 
-                        <!-- Current Rating -->
-
-                        <div class="tab-pane fade" id="account-Current-Rating">
-                            <span class="heading">Staff Rating</span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <p>4.1 average based on 254 reviews.</p>
-                            <hr style="border:3px solid #f1f1f1">
-
-                            <div class="row">
-                                <div class="side">
-                                    <div>5 star</div>
-                                </div>
-                                <div class="middle">
-                                    <div class="bar-container">
-                                        <div class="bar-5"></div>
-                                    </div>
-                                </div>
-                                <div class="side right">
-                                    <div>150</div>
-                                </div>
-                                <div class="side">
-                                    <div>4 star</div>
-                                </div>
-                                <div class="middle">
-                                    <div class="bar-container">
-                                        <div class="bar-4"></div>
-                                    </div>
-                                </div>
-                                <div class="side right">
-                                    <div>63</div>
-                                </div>
-                                <div class="side">
-                                    <div>3 star</div>
-                                </div>
-                                <div class="middle">
-                                    <div class="bar-container">
-                                        <div class="bar-3"></div>
-                                    </div>
-                                </div>
-                                <div class="side right">
-                                    <div>15</div>
-                                </div>
-                                <div class="side">
-                                    <div>2 star</div>
-                                </div>
-                                <div class="middle">
-                                    <div class="bar-container">
-                                        <div class="bar-2"></div>
-                                    </div>
-                                </div>
-                                <div class="side right">
-                                    <div>6</div>
-                                </div>
-                                <div class="side">
-                                    <div>1 star</div>
-                                </div>
-                                <div class="middle">
-                                    <div class="bar-container">
-                                        <div class="bar-1"></div>
-                                    </div>
-                                </div>
-                                <div class="side right">
-                                    <div>20</div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <!-- Review About Me -->
-                        <div class="tab-pane fade" id="account-Review-About-Me">
-
-                        </div>
                     </div>
                 </div>
             </div>
@@ -256,6 +176,16 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript">
 
+    </script>
+    <script>
+        console.log(document.getElementById("checkBonusSalary").value);
+        if (document.getElementById("checkBonusSalary").value){
+            document.getElementById("bonusSalary").innerHTML = document.getElementById("checkBonusSalary").value;
+            document.getElementById("payday").innerHTML = document.getElementById("checkPayday").value;
+        } else {
+            document.getElementById("bonusSalary").innerHTML = 0;
+            document.getElementById("payday").innerHTML = "Chưa có/nhận lương";
+        }
     </script>
 </body>
 

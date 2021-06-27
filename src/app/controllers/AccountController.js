@@ -18,6 +18,7 @@ class accountController {
                 });
             } else if (process.env.status == 2) {
                 let About = await employee.show(process.env.id);
+
                 res.render("admin/account/showEmpAccount", {
                     employeeId: req.params.id,
                     about: About,
