@@ -1,4 +1,4 @@
-const { account, customer, employee, adminAuthenticate } = require("../../config/db");
+const { account, customer, employee, adminAuthenticate, authenticate } = require("../../config/db");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 class accountController {
@@ -18,6 +18,7 @@ class accountController {
                 });
             } else if (process.env.status == 2) {
                 let About = await employee.show(process.env.id);
+
                 res.render("admin/account/showEmpAccount", {
                     employeeId: req.params.id,
                     about: About,
@@ -40,9 +41,10 @@ class accountController {
         })();
     }
     changePassword(req, res, next) {
+        let pass;
+        let encryptedPassword = "";
         if (process.env.status == 3) {
-            let pass;
-            let encryptedPassword = "";
+
             (async() => {
                 pass = await adminAuthenticate.login(process.env.admin);
                 bcrypt.compare(
@@ -54,7 +56,6 @@ class accountController {
                             res.send("Wrong password!");
                         } else {
                             if (result) {
-                                console.log(process.env.admin);
                                 bcrypt.genSalt(saltRounds, function(err, salt) {
                                     bcrypt.hash(req.body.newPassword, salt, function(err, hash) {
                                         encryptedPassword = hash;
@@ -63,7 +64,7 @@ class accountController {
                                                 process.env.admin,
                                                 encryptedPassword,
                                             );
-                                            res.redirect("/authenticate/logout");
+                                            res.redirect("/account");
                                         })();
                                     });
                                 });
@@ -75,16 +76,70 @@ class accountController {
                     }
                 );
             })();
+        } else if (process.env.status == 1) {
             (async() => {
-                await account.changePassword(
-                    req.params.id,
+                pass = await authenticate.login(req.body.email);
+                bcrypt.compare(
                     req.body.currentPassword,
-                    req.body.newPassword,
-                );
-                res.redirect("/account");
-            })();
-        } else {
+                    pass.PASSWORD,
+                    function(err, result) {
+                        if (err) {
+                            console.log(err);
+                            res.send("Wrong password!");
+                        } else {
+                            if (result) {
+                                bcrypt.genSalt(saltRounds, function(err, salt) {
+                                    bcrypt.hash(req.body.newPassword, salt, function(err, hash) {
+                                        encryptedPassword = hash;
+                                        (async() => {
+                                            await account.changePassword(
+                                                req.body.email,
+                                                encryptedPassword,
+                                            );
+                                            res.redirect("/account");
+                                        })();
+                                    });
+                                });
 
+                            } else {
+                                res.send("Wrong password!");
+                            }
+                        }
+                    }
+                );
+            })();
+        } else if (process.env.status == 2) {
+            (async() => {
+                pass = await authenticate.login(req.body.email);
+                bcrypt.compare(
+                    req.body.currentPassword,
+                    pass.PASSWORD,
+                    function(err, result) {
+                        if (err) {
+                            console.log(err);
+                            res.send("Wrong password!");
+                        } else {
+                            if (result) {
+                                bcrypt.genSalt(saltRounds, function(err, salt) {
+                                    bcrypt.hash(req.body.newPassword, salt, function(err, hash) {
+                                        encryptedPassword = hash;
+                                        (async() => {
+                                            await account.changePassword(
+                                                req.body.email,
+                                                encryptedPassword,
+                                            );
+                                            res.redirect("/account");
+                                        })();
+                                    });
+                                });
+
+                            } else {
+                                res.send("Wrong password!");
+                            }
+                        }
+                    }
+                );
+            })();
         }
     }
 }

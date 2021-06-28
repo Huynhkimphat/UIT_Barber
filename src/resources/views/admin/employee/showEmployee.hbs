@@ -1,85 +1,110 @@
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">MaNV</th>
-            <th scope="col">Họ tên</th>
-            <th scope="col">Ngày sinh</th>
-            <th scope="col">Giới tính</th>
-            <th scope="col">Số đt</th>
-            <th scope="col">Địa chỉ</th>
-            <th scope="col">Ngày vào làm</th>
-            <th scope="col">Loại nv</th>
-            <th scope="col">Email</th>
-            <th scope="col">Mã lương</th>
-            <th scope="col">Lương cơ bản</th>
-            <th scope="col">Lương thưởng</th>
-            <th scope="col">Lương được nhận</th>
-            <th scope="col">Ngày nhận lương</th>
-            <th scope="col">status</th>
-        </tr>
-    </thead>
-    {{#each employee}}
-    <tbody>
-        <tr>
-            <th scope="row">{{MANV}}</th>
-            <td>{{HO}} {{TEN}}</td>
-            <td>{{NGAYSINH}}</td>
-            <td>{{GIOITINH}}</td>
-            <td>{{SODT}}</td>
-            <td>{{DIACHI}}</td>
-            <td>{{NGAYVAOLAM}}</td>
-            <td>{{LOAINHANVIEN}}</td>
-            <td>{{EMAIL}}</td>
-            <td>{{MALUONG}}</td>
-            <td>{{LUONGCOBAN}}</td>
-            <td>{{LUONGTHUONG}}</td>
-            <td>{{LUONGDUOCNHAN}}</td>
-            <td>{{NGAYNHANLUONG}}</td>
-            <td>{{TINHTRANG}}</td>
-        </tr>
-    </tbody>
+<!DOCTYPE html>
+<html lang="en">
 
-    {{/each}}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" <link rel="stylesheet"
+        href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/unicons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
-</table>
-<button class="btn btn-primary"><a href="/employee/add">Add</a></button>
-{{!-- Delete Model --}}
-<div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteRecordLabel">Delete employee</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <link rel="stylesheet" href="/css/bookingCart.css">
+
+    <title>UIT BABER</title>
+</head>
+
+<body>
+
+
+    <div class="content">
+
+        <div class="container">
+            <div class="table-responsive">
+
+                <table class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">MANV</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số đt</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Ngày vào làm</th>
+                            <th scope="col">Loại nv</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mã lương</th>
+                            <th scope="col">Lương cơ bản</th>
+                            <th scope="col">Lương thưởng</th>
+                            <th scope="col">Lương được nhận</th>
+                            <th scope="col">Ngày nhận lương</th>
+                            <th scope="col">status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#each employee}}
+                        <tr scope="row">
+                            <th>{{MANV}}</th>
+                            <td>{{HO}} {{TEN}}</td>
+                            <td>{{NGAYSINH}}</td>
+                            <td>{{GIOITINH}}</td>
+                            <td>{{SODT}}</td>
+                            <td>{{DIACHI}}</td>
+                            <td>{{NGAYVAOLAM}}</td>
+                            <td>{{LOAINHANVIEN}}</td>
+                            <td>{{EMAIL}}</td>
+                            <td>{{MALUONG}}</td>
+                            <td>{{LUONGCOBAN}}</td>
+                            <td>{{LUONGTHUONG}}</td>
+                            <td>{{LUONGDUOCNHAN}}</td>
+                            <td>{{NGAYNHANLUONG}}</td>
+                            <td>{{TINHTRANG}}</td>
+                        </tr>
+                        {{/each}}
+
+                    </tbody>
+                </table>
             </div>
-            <div class="modal-body">
-                Do you want to delete employee?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-warning" id="btn-delete-employee">Yes</button>
-            </div>
+
+
         </div>
+
     </div>
-</div>
-{{!-- Delete hidden Form --}}
-<form name="delete-employee-form" method="POST" action=""></form>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        let employeeId;
-        let deleteForm = document.forms['delete-employee-form'];
-        let btnDeleteEmployee = document.getElementById('btn-delete-employee');
 
-        // When dialog confirm clicked
-        $('#deleteRecord').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            employeeId = button.data('id');
-        });
 
-        // When delete button clicked
-        btnDeleteEmployee.onclick = function () {
-            deleteForm.action = '/employee/' + employeeId + '?_method=DELETE';
-            deleteForm.submit();
-        };
-    })
-</script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let employeeId;
+            let deleteForm = document.forms['delete-employee-form'];
+            let btnDeleteEmployee = document.getElementById('btn-delete-employee');
+
+            // When dialog confirm clicked
+            $('#deleteRecord').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                employeeId = button.data('id');
+            });
+
+            // When delete button clicked
+            btnDeleteEmployee.onclick = function () {
+                deleteForm.action = '/employee/' + employeeId + '?_method=DELETE';
+                deleteForm.submit();
+            };
+        })
+    </script>
+</body>
+
+</html>

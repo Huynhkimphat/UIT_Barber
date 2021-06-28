@@ -28,8 +28,13 @@ class EmployeeController {
     }
     add(req, res, next) {
         (async() => {
+
             if (process.env.status == 3) {
+                let existedPhoneNumber = await employee.checkPhoneNumber();
+                let existedEmail = await employee.checkEmail();
                 res.render("admin/employee/addEmployee", {
+                    existedPhoneNumber: existedPhoneNumber,
+                    existedEmail: existedEmail,
                     status: process.env.status,
                     username: process.env.username,
                     img: process.env.img,

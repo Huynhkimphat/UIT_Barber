@@ -25,12 +25,12 @@ class AdminAuthenticateController {
         let encryptedPassword = "";
         if (process.env.status == 0) {
             if (!req.body.firstName) {
-                (async() => {
+                (async () => {
                     pass = await adminAuthenticate.login(req.body.email);
                     bcrypt.compare(
                         req.body.password,
                         pass,
-                        function(err, result) {
+                        function (err, result) {
                             if (err) {
                                 console.log(err);
                             } else {
@@ -38,7 +38,7 @@ class AdminAuthenticateController {
                                     process.env.admin = req.body.email;
                                     process.env.username = "Admin";
                                     process.env.status = 3;
-                                    res.redirect("/");
+                                    res.redirect("../dashboard");
                                 } else {
                                     res.render("messages", {
                                         box: "error",
@@ -56,10 +56,10 @@ class AdminAuthenticateController {
                     );
                 })();
             } else {
-                bcrypt.genSalt(saltRounds, function(err, salt) {
-                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                bcrypt.genSalt(saltRounds, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
                         encryptedPassword = hash;
-                        (async() => {
+                        (async () => {
                             await adminAuthenticate.register(
                                 req.body.email,
                                 encryptedPassword,
