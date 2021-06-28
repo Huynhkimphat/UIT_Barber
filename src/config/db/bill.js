@@ -37,7 +37,7 @@ async function show(id = -1) {
         if (id == -1) {
             if (process.env.status == 1) {
                 let exec =
-                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON";
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE TINHTRANG = 1 ";
                 const result = await conn.execute(exec);
                 if (conn) {
                     await conn.close();
@@ -45,7 +45,7 @@ async function show(id = -1) {
                 return result.rows;
             } else {
                 let exec =
-                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON";
+                    "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE TINHTRANG = 1";
                 const result = await conn.execute(exec);
                 if (conn) {
                     await conn.close();
@@ -54,9 +54,14 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE MAKH =" +
-                id;
-            const result = await conn.execute(exec);
+                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE MAKH = :id AND TINHTRANG = 1";
+            const result = await conn.execute(
+                    exec, {
+                        id,
+                    },{
+                        autoCommit:true,
+                    }
+                );
             if (conn) {
                 await conn.close();
             }
