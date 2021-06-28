@@ -14,7 +14,7 @@ async function destroy(id) {
     try {
         conn = await oracledb.getConnection(config);
         ////delete HoaDon
-        let exec = "UPDATE HOADON SET TINHTRANG = 0\n "+
+        let exec = "UPDATE HOADON SET TINHTRANG = 0, TONGTIEN = 0\n "+
                     "WHERE MAHD = (\n" +
                     "SELECT DISTINCT MAHD FROM CTHDDV\n"+
                     "WHERE MADL in (\n" +
