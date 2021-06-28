@@ -2,7 +2,6 @@ const oracledb = require("oracledb");
 const { formatDate } = require("../../utils/formatDate");
 const { mergeEmpInfo } = require("../../utils/mergeEmpInfo");
 
-
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -17,9 +16,11 @@ async function destroy(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE NHANVIEN SET TINHTRANG = 0 WHERE MANV = :id";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 id,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -34,7 +35,8 @@ async function showToAdd() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MaNV,Ho,Ten FROM NHANVIEN WHERE LOAINHANVIEN != 'Admin'";
+        let exec =
+            "SELECT MaNV,Ho,Ten FROM NHANVIEN WHERE LOAINHANVIEN != 'Admin'";
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -50,24 +52,25 @@ async function show(id = -1) {
         conn = await oracledb.getConnection(config);
         if (id == -1) {
             if (process.env.status != 3) {
-                let execEmpInfo = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV AND TINHTRANG = 1"
+                let execEmpInfo =
+                    "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV AND TINHTRANG = 1";
                 let execEmpSalaryBonus =
-                    "SELECT LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANLUONG WHERE NHANLUONG.MANV"
+                    "SELECT LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANLUONG WHERE NHANLUONG.MANV";
 
                 const resultInfo = await conn.execute(execEmpInfo);
                 const resultBonus = await conn.execute(execEmpSalaryBonus);
 
                 let temp1 = formatDate(resultInfo);
                 let temp2 = formatDate(resultBonus);
-                const result = [{...temp1.rows[0], ...temp2.rows[0] }];
+                const result = [{ ...temp1.rows[0], ...temp2.rows[0] }];
                 if (conn) {
                     await conn.close();
                 }
                 return result;
             } else {
-                let execEmpInfo = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV"
-                let execEmpSalaryBonus =
-                    "SELECT * FROM NHANLUONG"
+                let execEmpInfo =
+                    "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV";
+                let execEmpSalaryBonus = "SELECT * FROM NHANLUONG";
 
                 const resultInfo = await conn.execute(execEmpInfo);
                 const resultBonus = await conn.execute(execEmpSalaryBonus);
@@ -81,7 +84,8 @@ async function show(id = -1) {
                 return result;
             }
         } else {
-            let execEmpInfo = "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV AND NHANVIEN.MANV =" +
+            let execEmpInfo =
+                "SELECT NHANVIEN.MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL,LUONG.MALUONG,LUONG.LUONGCOBAN FROM NHANVIEN,LUONG WHERE NHANVIEN.MANV = LUONG.MANV AND NHANVIEN.MANV =" +
                 id;
             let execEmpSalaryBonus =
                 "SELECT LUONGTHUONG,LUONGDUOCNHAN,NGAYNHANLUONG FROM NHANLUONG WHERE NHANLUONG.MANV =" +
@@ -93,7 +97,7 @@ async function show(id = -1) {
             let temp1 = formatDate(resultInfo);
             let temp2 = formatDate(resultBonus);
 
-            const result = [{...temp1.rows[0], ...temp2.rows[0] }];
+            const result = [{ ...temp1.rows[0], ...temp2.rows[0] }];
             if (conn) {
                 await conn.close();
             }
@@ -115,17 +119,26 @@ async function add(
     typeEmployee,
     img,
     email,
-    password,
     basicSalary
 ) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-
+        console.log(
+            firstName,
+            DateOfBirth,
+            sex,
+            phoneNumber,
+            beginDate,
+            typeEmployee,
+            img,
+            basicSalary
+        );
         let exec1 =
-            "INSERT INTO NHANVIEN VALUES(MANV_SEQ3.NEXTVAL,:firstName,:lastName,TO_DATE(:DateOfBirth,'yyyy-mm-dd'),:sex,:phoneNumber,:address,TO_DATE(:beginDate,'yyyy-mm-dd'),:typeEmployee,:img,1,:email)";
+            "INSERT INTO NHANVIEN(MANV,HO,TEN,NGAYSINH,GIOITINH,SODT,DIACHI,NGAYVAOLAM,LOAINHANVIEN,HINHANH,TINHTRANG,EMAIL) VALUES(MANV_SEQ3.NEXTVAL,:firstName,:lastName,TO_DATE(:DateOfBirth,'yyyy-mm-dd'),:sex,:phoneNumber,:address,TO_DATE(:beginDate,'yyyy-mm-dd'),:typeEmployee,:img,1,:email)";
         await conn.execute(
-            exec1, {
+            exec1,
+            {
                 firstName,
                 lastName,
                 DateOfBirth,
@@ -136,27 +149,37 @@ async function add(
                 typeEmployee,
                 img,
                 email,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
-        let execForID = "SELECT MANV FROM NHANVIEN WHERE SODT = :phoneNumber AND TEN = :lastName AND HO = :firstName"
-        let resultForID = await conn.execute(execForID, {
-            phoneNumber,
-            lastName,
-            firstName
-        }, {
-            autoCommit: true,
-        });
+        let execForID =
+            "SELECT MANV FROM NHANVIEN WHERE SODT = :phoneNumber AND TEN = :lastName AND HO = :firstName";
+        let resultForID = await conn.execute(
+            execForID,
+            {
+                phoneNumber,
+                lastName,
+                firstName,
+            },
+            {
+                autoCommit: true,
+            }
+        );
         let id = resultForID.rows[0].MANV;
+        console.log(resultForID);
         id = String(id);
+        console.log(basicSalary);
         let exec2 =
             "INSERT INTO LUONG VALUES(MALUONG_SEQ5.NEXTVAL,:id,:basicSalary)";
         await conn.execute(
-            exec2, {
+            exec2,
+            {
                 id,
-                basicSalary
-            }, {
+                basicSalary,
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -194,7 +217,8 @@ async function update(
             let exec1 =
                 "UPDATE NHANVIEN SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, NGAYVAOLAM= TO_DATE(:beginDate,'yyyy-mm-dd'), LOAINHANVIEN=:typeEmployee, HINHANH=:img, EMAIL=:email, TINHTRANG =:status WHERE MANV= :id";
             await conn.execute(
-                exec1, {
+                exec1,
+                {
                     id,
                     firstName,
                     lastName,
@@ -206,8 +230,9 @@ async function update(
                     typeEmployee,
                     img,
                     email,
-                    status
-                }, {
+                    status,
+                },
+                {
                     autoCommit: true,
                 }
             );
@@ -215,16 +240,20 @@ async function update(
             exec2 =
                 "UPDATE LUONG SET LUONGCOBAN = :basicSalary WHERE MALUONG = :salaryId";
             await conn.execute(
-                exec2, {
+                exec2,
+                {
                     salaryId,
                     basicSalary,
-                }, {
+                },
+                {
                     autoCommit: true,
                 }
             );
             let check = "SELECT * FROM NHANLUONG";
             let rsCheck = await conn.execute(
-                check, {}, {
+                check,
+                {},
+                {
                     autoCommit: true,
                 }
             );
@@ -234,33 +263,38 @@ async function update(
                     exec3 =
                         "UPDATE NHANLUONG SET NGAYNHANLUONG = TO_DATE(:payday,'yyyy-mm-dd'), LUONGTHUONG = :bonusSalary, LUONGDUOCNHAN = :salary WHERE MANV = :id";
                     await conn.execute(
-                        exec3, {
+                        exec3,
+                        {
                             payday,
                             bonusSalary,
                             salary,
                             id,
-                        }, {
+                        },
+                        {
                             autoCommit: true,
                         }
-                    )
+                    );
                     k = 1;
                 }
             }
             if (k == 0) {
                 console.log(payday);
-                let finalExec = "INSERT INTO NHANLUONG VALUES(:salaryId, :id,TO_DATE(:payday,'yyyy-mm-dd') , :basicSalary, :bonusSalary, :salary)";
+                let finalExec =
+                    "INSERT INTO NHANLUONG VALUES(:salaryId, :id,TO_DATE(:payday,'yyyy-mm-dd') , :basicSalary, :bonusSalary, :salary)";
                 await conn.execute(
-                    finalExec, {
+                    finalExec,
+                    {
                         salaryId,
                         id,
                         payday,
                         basicSalary,
                         bonusSalary,
                         salary,
-                    }, {
+                    },
+                    {
                         autoCommit: true,
                     }
-                )
+                );
             }
             if (conn) {
                 await conn.close();
@@ -275,7 +309,8 @@ async function update(
             let exec1 =
                 "UPDATE NHANVIEN SET HO = :firstName, TEN = :lastName, NGAYSINH = TO_DATE(:DateOfBirth,'yyyy-mm-dd') , GIOITINH=:sex, SODT=:phoneNumber, DIACHI=:address, HINHANH=:img WHERE MANV= :id";
             await conn.execute(
-                exec1, {
+                exec1,
+                {
                     id,
                     firstName,
                     lastName,
@@ -284,7 +319,8 @@ async function update(
                     phoneNumber,
                     address,
                     img,
-                }, {
+                },
+                {
                     autoCommit: true,
                 }
             );
@@ -302,12 +338,15 @@ async function addTimePeriod(id, day) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy') AND TINHTRANG = 1) ORDER BY MAGIO";
+        let exec =
+            "SELECT MAGIO,KHUNGGIO FROM GIODAT WHERE MAGIO NOT IN (SELECT MAGIO FROM DATLICH WHERE MANV = :id AND DATLICH.NGAY = TO_DATE(:day,'dd-mm-yyyy') AND TINHTRANG = 1) ORDER BY MAGIO";
         const result = await conn.execute(
-            exec, {
+            exec,
+            {
                 id,
                 day,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -323,7 +362,7 @@ async function checkPhoneNumber() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT SODT FROM NHANVIEN WHERE TINHTRANG = 1"
+        let exec = "SELECT SODT FROM NHANVIEN WHERE TINHTRANG = 1";
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -337,7 +376,8 @@ async function checkEmail() {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT EMAIL FROM NHANVIEN WHERE TINHTRANG = 1 AND LOAINHANVIEN='Staff'";
+        let exec =
+            "SELECT EMAIL FROM NHANVIEN WHERE TINHTRANG = 1 AND LOAINHANVIEN='Staff'";
         const result = await conn.execute(exec);
         if (conn) {
             await conn.close();
@@ -356,5 +396,5 @@ module.exports = {
     addTimePeriod,
     add,
     checkPhoneNumber,
-    checkEmail
+    checkEmail,
 };

@@ -4,7 +4,7 @@ const saltRounds = 10;
 const cpFile = require("cp-file");
 class EmployeeController {
     show(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status == 3) {
                 let result = await employee.show();
                 res.render("admin/employee/showEmployee", {
@@ -27,8 +27,7 @@ class EmployeeController {
         })();
     }
     add(req, res, next) {
-        (async() => {
-
+        (async () => {
             if (process.env.status == 3) {
                 let existedPhoneNumber = await employee.checkPhoneNumber();
                 let existedEmail = await employee.checkEmail();
@@ -46,7 +45,7 @@ class EmployeeController {
         })();
     }
     adding(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status == 3) {
                 let id = await employee.add(
                     req.body.firstName,
@@ -59,18 +58,14 @@ class EmployeeController {
                     req.body.typeEmployee,
                     req.body.img,
                     req.body.email,
-                    req.body.password,
                     req.body.basicSalary
                 );
                 let Pass = "";
-                bcrypt.genSalt(saltRounds, function(err, salt) {
-                    bcrypt.hash(req.body.password, salt, function(err, hash) {
+                bcrypt.genSalt(saltRounds, function (err, salt) {
+                    bcrypt.hash(req.body.password, salt, function (err, hash) {
                         Pass = hash;
-                        (async() => {
-                            await authenticate.registerForAdmin(
-                                Pass,
-                                id
-                            );
+                        (async () => {
+                            await authenticate.registerForAdmin(Pass, id);
                         })();
                     });
                 });
@@ -81,7 +76,7 @@ class EmployeeController {
         })();
     }
     edit(req, res, next) {
-        (async() => {
+        (async () => {
             if (process.env.status == 3) {
                 let existedPhoneNumber = await employee.checkPhoneNumber();
                 let result = await employee.show(req.params.id);
@@ -110,23 +105,24 @@ class EmployeeController {
         })();
     }
     destroy(req, res, next) {
-        (async() => {
+        (async () => {
             let result = await employee.destroy(req.params.id);
         })();
         res.redirect("/employee");
     }
     update(req, res, next) {
         if (process.env.status == 3 || process.env.status == 2) {
-            (async() => {
+            (async () => {
                 await cpFile(
                     process.env.imgRoute + req.body.img,
                     "./src/public/images/employee/" + req.body.img
                 );
                 console.log(
-                    "File copied to ./src/public/images/employee/" + req.body.img
+                    "File copied to ./src/public/images/employee/" +
+                        req.body.img
                 );
             })();
-            (async() => {
+            (async () => {
                 await employee.update(
                     req.params.id,
                     req.body.firstName,
