@@ -35,6 +35,24 @@ class BookingController {
                 });
             } else if (process.env.status == 0) {
                 res.redirect("/authenticate/login");
+            } else if (process.env.status==2){
+                let result = await booking.show(process.env.id);
+                let i = 1;
+                while (i < result.length) {
+                    if (result[i].DAY == result[i - 1].DAY && result[i].MONTH == result[i - 1].MONTH && result[i].YEAR == result[i - 1].YEAR && result[i].KHUNGGIO == result[i - 1].KHUNGGIO && result[i].HO_1 == result[i - 1].HO_1 && result[i].TEN_1 == result[i - 1].TEN_1) {
+                        result.splice(i, 1);
+                    } else {
+                        i += 1;
+                    }
+                }
+                result = getStatus(result);
+                res.render("booking/showBooking", {
+                    check: 0,
+                    booking: result,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             } else {
                 let result = await booking.show(process.env.id);
                 let i = 1;
@@ -47,6 +65,7 @@ class BookingController {
                 }
                 result = getStatus(result);
                 res.render("booking/showBooking", {
+                    check: 1,
                     booking: result,
                     status: process.env.status,
                     username: process.env.username,
@@ -58,7 +77,7 @@ class BookingController {
     add(req, res, next) {
         (async() => {
             if (process.env.status != 0) {
-                if(process.env.status != 3){
+                if(process.env.status != 3 && process.env.status != 2){
                 // let result = await booking.show(req.params.id);
                     let employeeName = await employee.showToAdd();
                     let d = new Date();
@@ -121,7 +140,7 @@ class BookingController {
     }
     edit(req, res, next) {
         (async() => {
-            if (process.env.status != 0) {
+            if (process.env.status != 0 && process.env.status != 2) {
                 let bookingDetail = await booking.getDetail(req.params.id);
                 let i;
                 // get date

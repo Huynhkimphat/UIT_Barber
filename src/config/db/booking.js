@@ -154,27 +154,51 @@ async function show(id = -1) {
                 }
                 return result.rows;
         } else {
-            let exec =
+            if (process.env.status == 2){
+                let exec =
                 "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio,gd.khunggio, kh.ho, kh.ten, dl.manv, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
-                "WHERE dl.MANV=nv.MANV \n" +
-                "AND dl.MAKH=kh.MAKH \n" +
-                "AND dl.MAGIO=gd.MAGIO \n" +
-                "AND dl.MADV=dv.MADV\n" +
-                "AND dl.MAKH= :id \n" +
-                "AND dl.TINHTRANG = 1\n" +
-                "ORDER BY YEAR DESC,MONTH DESC,DAY DESC,KHUNGGIO DESC";
-            let result = await conn.execute(
-                exec, {
-                    id,
-                },{
-                    autoCommit:true,
+                    "WHERE dl.MANV=nv.MANV \n" +
+                    "AND dl.MAKH=kh.MAKH \n" +
+                    "AND dl.MAGIO=gd.MAGIO \n" +
+                    "AND dl.MADV=dv.MADV\n" +
+                    "AND dl.MANV= :id \n" +
+                    "AND dl.TINHTRANG = 1\n" +
+                    "ORDER BY YEAR DESC,MONTH DESC,DAY DESC,KHUNGGIO DESC";
+                    let result = await conn.execute(
+                        exec, {
+                            id,
+                        },{
+                            autoCommit:true,
+                        }
+                    );
+                    if (conn) {
+                        await conn.close();
+                    }
+                    return result.rows;
+            } else{
+                let exec =
+                    "SELECT dl.madl, EXTRACT(YEAR FROM dl.ngay) AS YEAR,EXTRACT(MONTH FROM dl.ngay) AS MONTH,EXTRACT(DAY FROM dl.ngay) AS DAY, dl.magio,gd.khunggio, kh.ho, kh.ten, dl.manv, nv.ho, nv.ten FROM DATLICH dl,KHACHHANG kh,NHANVIEN nv,GIODAT gd,DICHVU dv \n" +
+                    "WHERE dl.MANV=nv.MANV \n" +
+                    "AND dl.MAKH=kh.MAKH \n" +
+                    "AND dl.MAGIO=gd.MAGIO \n" +
+                    "AND dl.MADV=dv.MADV\n" +
+                    "AND dl.MAKH= :id \n" +
+                    "AND dl.TINHTRANG = 1\n" +
+                    "ORDER BY YEAR DESC,MONTH DESC,DAY DESC,KHUNGGIO DESC";
+                let result = await conn.execute(
+                    exec, {
+                        id,
+                    },{
+                        autoCommit:true,
+                    }
+                );   
+                if (conn) {
+                    await conn.close();
                 }
-            );   
-            // result = formatDate(result);
-            if (conn) {
-                await conn.close();
+                return result.rows;
             }
-            return result.rows;
+            // result = formatDate(result);
+            
         }
     } catch (err) {
         console.log("Ouch!", err);

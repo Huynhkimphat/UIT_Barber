@@ -5,59 +5,113 @@
         <div class="container">
             <div class="table-responsive">
                 <table class="table table-striped custom-table">
-                    <button type="button" class="btn btn-outline-dark">
-                    <a href="/booking/add" style="text-decoration:none;">Booking Now</a></button><br><br>
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Stylist</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Details</th>
-                            <th scope="col">Update</th>
-                        </tr>
-                    </thead>
-                    {{#each booking}}
-                    <tbody>
-                        <tr scope="row">
-                            <td>{{MADL}}</td>
-                            <td>
-                                {{DAY}}/{{MONTH}}/{{YEAR}}
-                                <small class="d-block">{{KHUNGGIO}}</small>
-                            </td>
-                            <td>{{HO}} {{TEN}}</td>
-                            <td>{{HO_1}} {{TEN_1}}</td>
-                            {{#if done}}
-                                <td class="done">
-                                    <i class="fas fa-circle"></i> Done
-                                </td>
-                                <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                    {{#if check}}
+                        <button type="button" class="btn btn-outline-dark">
+                        <a href="/booking/add" style="text-decoration:none;">Booking Now</a></button><br><br>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Stylist</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Update</th>
+                            </tr>
+                        </thead>
+                        {{#each booking}}
+                        <tbody>
+                            <tr scope="row">
+                                <td>{{MADL}}</td>
                                 <td>
-                                    <a href="#!" class="update"></a>
+                                    {{DAY}}/{{MONTH}}/{{YEAR}}
+                                    <small class="d-block">{{KHUNGGIO}}</small>
                                 </td>
-                            {{else}}
-                                {{#if inProgress}}
-                                    <td class="in-progress">
-                                        <i class="fas fa-circle"></i> In Progress
+                                <td>{{HO}} {{TEN}}</td>
+                                <td>{{HO_1}} {{TEN_1}}</td>
+                                {{#if done}}
+                                    <td class="done">
+                                        <i class="fas fa-circle"></i> Done
                                     </td>
                                     <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
                                     <td>
                                         <a href="#!" class="update"></a>
                                     </td>
                                 {{else}}
-                                    <td class="incoming">
-                                        <i class="fas fa-circle"></i> Incoming
+                                    {{#if inProgress}}
+                                        <td class="in-progress">
+                                            <i class="fas fa-circle"></i> In Progress
+                                        </td>
+                                        <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                        <td>
+                                            <a href="#!" class="update"></a>
+                                        </td>
+                                    {{else}}
+                                        <td class="incoming">
+                                            <i class="fas fa-circle"></i> Incoming
+                                        </td>
+                                        <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                        <td>
+                                            <a href="/booking/{{MADL}}/edit" class="update">Update</a>
+                                        </td>
+                                    {{/if}}
+                                {{/if}}
+                            </tr>
+                        </tbody>
+                        {{/each}}
+                    {{else}}
+                    <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Stylist</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Update</th>
+                            </tr>
+                        </thead>
+                        {{#each booking}}
+                        <tbody>
+                            <tr scope="row">
+                                <td>{{MADL}}</td>
+                                <td>
+                                    {{DAY}}/{{MONTH}}/{{YEAR}}
+                                    <small class="d-block">{{KHUNGGIO}}</small>
+                                </td>
+                                <td>{{HO}} {{TEN}}</td>
+                                <td>{{HO_1}} {{TEN_1}}</td>
+                                {{#if done}}
+                                    <td class="done">
+                                        <i class="fas fa-circle"></i> Done
                                     </td>
                                     <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
                                     <td>
-                                        <a href="/booking/{{MADL}}/edit" class="update">Update</a>
+                                        <a href="#!" class="update"></a>
                                     </td>
+                                {{else}}
+                                    {{#if inProgress}}
+                                        <td class="in-progress">
+                                            <i class="fas fa-circle"></i> In Progress
+                                        </td>
+                                        <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                        <td>
+                                            <a href="#!" class="update"></a>
+                                        </td>
+                                    {{else}}
+                                        <td class="incoming">
+                                            <i class="fas fa-circle"></i> Incoming
+                                        </td>
+                                        <td><a href="/booking/{{MADL}}/showDetail" class="more">Details</a></td>
+                                        <td>
+                                            <a href="#!" class="update"></a>
+                                        </td>
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
-                        </tr>
-                    </tbody>
-                    {{/each}}
+                            </tr>
+                        </tbody>
+                        {{/each}}
+                    {{/if}}
                 </table>
             </div>
         </div>
