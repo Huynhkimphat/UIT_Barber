@@ -12,11 +12,14 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE HOADON SET TINHTRANG = 0, ,TONGTIEN = 0 WHERE MAHD = :id";
+        let exec =
+            "UPDATE HOADON SET TINHTRANG = 0, ,TONGTIEN = 0 WHERE MAHD = :id";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 id,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -71,9 +74,11 @@ async function viewProducts(id) {
             "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
             id;
         const result = await conn.execute(
-            exec,{
-                    id,
-            }, {
+            exec,
+            {
+                id,
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -93,9 +98,11 @@ async function viewServices(id) {
             "SELECT CTHDDV.MADV, DICHVU.TENDICHVU, DICHVU.GIA, DICHVU.HINHANH FROM DICHVU, CTHDDV \n" +
             "WHERE CTHDDV.MAHD =:id AND DICHVU.MADV = CTHDDV.MADV";
         const result = await conn.execute(
-            exec,{
-                    id,
-            }, {
+            exec,
+            {
+                id,
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -114,13 +121,15 @@ async function add(customer, money, date) {
         let day = date.split("/").join("-");
         conn = await oracledb.getConnection(config);
         let exec =
-            "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)"
+            "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)";
         await conn.execute(
-            exec, {
+            exec,
+            {
                 day,
                 money,
                 customer,
-            }, {
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -135,11 +144,13 @@ async function checkout(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec ="UPDATE HOADON SET THANHTOAN = 1 WHERE MAHD = :id";
+        let exec = "UPDATE HOADON SET THANHTOAN = 1 WHERE MAHD = :id";
         const result = await conn.execute(
-            exec,{
-                    id,
-            }, {
+            exec,
+            {
+                id,
+            },
+            {
                 autoCommit: true,
             }
         );
@@ -150,3 +161,4 @@ async function checkout(id) {
         console.log("Ouch!", err);
     }
 }
+module.exports = { show, destroy, viewProducts, viewServices, add, checkout };
