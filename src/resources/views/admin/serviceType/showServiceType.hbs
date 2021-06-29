@@ -18,7 +18,7 @@ integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwr
                         <span class="google mt-3 ">Tên loai dịch vụ: {{TENLOAIDICHVU}}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
-                        <span class="google mt-3 ">Status: {{TINHTRANG}}</span>
+                        <span class="google mt-3 status">Status: {{TINHTRANG}}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <a href="/serviceType/{{MALDV}}/edit" class="btn btn-link"><button class="btn1 btn-sm">Update</button></a>
@@ -47,7 +47,7 @@ integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwr
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Do you want to delete serviceType?
+                Do you want to change serviceType status?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
@@ -78,13 +78,13 @@ integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwr
         };
     })
     let btnStatus = document.querySelectorAll(".status");
-    let btnDelete = document.querySelectorAll(".btn-delete");
-    for (i = 0; i < btnStatus.length; i++) {
-        if (btnStatus[i].innerText == "0") {
-            btnDelete[i].innerText = "Recover";
-        } else {
-            btnDelete[i].innerText = "Delete";
-        }
-    }
+        let btnDelete = document.querySelectorAll(".btn-delete");
 
+        for (let i = 0; i < btnStatus.length; i++) {
+            if (btnStatus[i].innerText == "Status: 0") {
+                btnDelete[i].innerText = "Recover";
+            } else {
+                btnDelete[i].innerText = "Delete";
+            }
+        };
 </script>

@@ -1,5 +1,5 @@
 const oracledb = require("oracledb");
-
+const nodemailer = require('nodemailer');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -15,11 +15,9 @@ async function destroy(id) {
         let exec =
             "UPDATE HOADON SET TONGTIEN = 0,TINHTRANG = 0 WHERE MAHD = :id";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -54,14 +52,14 @@ async function show(id = -1) {
             }
         } else {
             let exec =
-                "SELECT MAHD,MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON WHERE MAKH = :id AND TINHTRANG = 1";
+                "SELECT KHACHHANG.HO,KHACHHANG.TEN,MAHD,KHACHHANG.MAKH,KHUYENMAI,TONGTIEN,THANHTOAN FROM HOADON,KHACHHANG WHERE HOADON.MAKH = :id AND HOADON.TINHTRANG = 1 AND HOADON.MAKH = KHACHHANG.MAKH";
             const result = await conn.execute(
-                    exec, {
-                        id,
-                    },{
-                        autoCommit:true,
-                    }
-                );
+                exec, {
+                    id,
+                }, {
+                    autoCommit: true,
+                }
+            );
             if (conn) {
                 await conn.close();
             }
@@ -79,11 +77,9 @@ async function viewProducts(id) {
             "SELECT CTHDSP.MASP, CTHDSP.SOLUONG, TENSANPHAM, GIA, MOTASANPHAM, XUATXU, HINHANH FROM SANPHAM, CTHDSP WHERE SANPHAM.MASP = CTHDSP.MASP AND CTHDSP.MAHD =" +
             id;
         const result = await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -103,11 +99,9 @@ async function viewServices(id) {
             "SELECT CTHDDV.MADV, DICHVU.TENDICHVU, DICHVU.GIA, DICHVU.HINHANH FROM DICHVU, CTHDDV \n" +
             "WHERE CTHDDV.MAHD =:id AND DICHVU.MADV = CTHDDV.MADV";
         const result = await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -128,13 +122,11 @@ async function add(customer, money, date) {
         let exec =
             "INSERT INTO HOADON(MAHD, MAKH, NGAY, TONGTIEN, THANHTOAN) VALUES(MAHD_SEQ11.NEXTVAL,:customer,To_Date(:day,'dd-mm-yyyy'),:money,0)";
         await conn.execute(
-            exec,
-            {
+            exec, {
                 day,
                 money,
                 customer,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -151,11 +143,9 @@ async function checkout(id) {
         conn = await oracledb.getConnection(config);
         let exec = "UPDATE HOADON SET THANHTOAN = 1 WHERE MAHD = :id";
         const result = await conn.execute(
-            exec,
-            {
+            exec, {
                 id,
-            },
-            {
+            }, {
                 autoCommit: true,
             }
         );
@@ -166,4 +156,44 @@ async function checkout(id) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, viewProducts, viewServices, add, checkout };
+async function getStatus(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT THANHTOAN FROM HOADON WHERE MAHD =" + id;
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows[0].THANHTOAN;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function sendEmail() {
+
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: '19521533@gm.uit.edu.vn',
+            pass: '1421894601'
+        }
+    });
+
+    let mailOptions = {
+        from: '19521533@gm.uit.edu.vn',
+        to: 'lehoang8d@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+module.exports = { show, destroy, viewProducts, viewServices, add, checkout, getStatus, sendEmail };

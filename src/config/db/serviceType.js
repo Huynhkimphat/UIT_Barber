@@ -12,14 +12,28 @@ async function destroy(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id";
-        await conn.execute(
-            exec, {
-                id,
-            }, {
-                autoCommit: true,
-            }
-        );
+        let check = "SELECT * FROM LOAIDICHVU WHERE MALDV =" + id;
+        let finalCheck = await conn.execute(check);
+        if (finalCheck.rows[0].TINHTRANG) {
+            let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 0 WHERE MALDV = :id ";
+            await conn.execute(
+                exec, {
+                    id,
+                }, {
+                    autoCommit: true,
+                }
+            );
+        } else {
+            let exec = "UPDATE LOAIDICHVU SET TINHTRANG = 1 WHERE MALDV = :id ";
+            await conn.execute(
+                exec, {
+                    id,
+                }, {
+                    autoCommit: true,
+                }
+            );
+        }
+
         if (conn) {
             await conn.close();
         }
