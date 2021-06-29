@@ -33,7 +33,7 @@
                     <thead>
                         <tr>
                             <th scope="col">Mã hóa đơn</th>
-                            <th scope="col">Mã khách hàng</th>
+                            <th scope="col">Họ tên </th>
                             <th scope="col">Khuyến mãi</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Thanh toán</th>
@@ -44,7 +44,7 @@
                         {{#each bill}}
                         <tr scope="row">
                             <td>{{MAHD}}</td>
-                            <td>{{MAKH}}</td>
+                            <td>{{HO}} {{TEN}}</td>
                             <td>{{KHUYENMAI}}</td>
                             <td>{{TONGTIEN}}</td>
                             <td name="billStatus" class="billStatus">
