@@ -13,7 +13,7 @@ async function destroy(id) {
     try {
         conn = await oracledb.getConnection(config);
         let exec =
-            "UPDATE HOADON SET TINHTRANG = 0, ,TONGTIEN = 0 WHERE MAHD = :id";
+            "UPDATE HOADON SET TONGTIEN = 0,TINHTRANG = 0 WHERE MAHD = :id";
         await conn.execute(
             exec, {
                 id,

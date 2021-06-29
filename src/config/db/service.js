@@ -154,7 +154,7 @@ async function addNameService(id) {
     let conn;
     try {
         conn = await oracledb.getConnection(config);
-        let exec = "SELECT TENDICHVU,MADV,GIA FROM DICHVU WHERE MALDV = :id";
+        let exec = "SELECT TENDICHVU,MADV,GIA FROM DICHVU WHERE MALDV = :id AND TINHTRANG = 1";
         const result = await conn.execute(
             exec,
             {
