@@ -41,7 +41,10 @@
     <div></div>
             <div class='credit-info' id='bill-Done'>
               <div class='credit-info-content'>
-                <button class='pay-btn' id="status-label" style="line-height:7em; font-size: 2rem; ">Đã thanh toán</button>
+                <a class="pay" href="/bill/{{id}}/checkout">
+                  <button class='pay-btn'>checkout</button></a>
+
+                  
               </div>
     
             </div>
@@ -50,7 +53,4 @@
     </div>
 
 <script>
-  if (document.getElementById("billStatus").value == 0){
-    document.getElementById("status-label").innerHTML = "Chưa thanh toán";
-  } 
 </script>

@@ -1,5 +1,5 @@
 const oracledb = require("oracledb");
-
+const nodemailer = require('nodemailer');
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -156,4 +156,44 @@ async function checkout(id) {
         console.log("Ouch!", err);
     }
 }
-module.exports = { show, destroy, viewProducts, viewServices, add, checkout };
+async function getStatus(id) {
+    let conn;
+    try {
+        conn = await oracledb.getConnection(config);
+        let exec = "SELECT THANHTOAN FROM HOADON WHERE MAHD =" + id;
+        const result = await conn.execute(exec);
+        if (conn) {
+            await conn.close();
+        }
+        return result.rows[0].THANHTOAN;
+    } catch (err) {
+        console.log("Ouch!", err);
+    }
+}
+async function sendEmail() {
+
+
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: '19521533@gm.uit.edu.vn',
+            pass: '1421894601'
+        }
+    });
+
+    let mailOptions = {
+        from: '19521533@gm.uit.edu.vn',
+        to: 'lehoang8d@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'That was easy!'
+    };
+
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+module.exports = { show, destroy, viewProducts, viewServices, add, checkout, getStatus, sendEmail };

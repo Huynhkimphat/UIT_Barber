@@ -8,4 +8,5 @@ router.get("/add", BillController.add);
 router.get("/:id/edit", BillController.edit);
 router.delete("/:id/", BillController.destroy);
 router.get("/:id/checkout", BillController.checkout);
+router.get("/sendEmail", BillController.sendEmail);
 module.exports = router;

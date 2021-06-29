@@ -2,7 +2,7 @@ const { bill, time } = require("../../config/db");
 
 class BillController {
     show(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status == 3) {
                 let result = await bill.show();
                 res.render("admin/bill/showBill", {
@@ -25,17 +25,21 @@ class BillController {
         })();
     }
     view(req, res, next) {
-        (async () => {
-            if (process.env.status != 0) {
+        (async() => {
+            if (process.env.status == 1) {
                 let resultServices = await bill.viewServices(req.params.id);
                 let total = 0;
                 for (let i = 0; i < resultServices.length; i++) {
                     total += resultServices[i].GIA;
                 }
                 if (resultServices === "[]") {
-                    resultServices = [["Khong dang ki dich vu"]];
+                    resultServices = [
+                        ["Khong dang ki dich vu"]
+                    ];
                 }
+                let billStatus = await bill.getStatus(req.params.id);
                 res.render("bill/viewBill", {
+                    billStatus: billStatus,
                     id: req.params.id,
                     total: total,
                     services: resultServices,
@@ -43,13 +47,34 @@ class BillController {
                     username: process.env.username,
                     img: process.env.img,
                 });
-            } else {
+            } else if (process.env.status != 3) {
                 res.redirect("/");
+            } else if (process.env.status == 3) {
+                let resultServices = await bill.viewServices(req.params.id);
+                let total = 0;
+                for (let i = 0; i < resultServices.length; i++) {
+                    total += resultServices[i].GIA;
+                }
+                if (resultServices === "[]") {
+                    resultServices = [
+                        ["Khong dang ki dich vu"]
+                    ];
+                }
+                let billStatus = await bill.getStatus(req.params.id);
+                res.render("admin/bill/viewBill", {
+                    billStatus: billStatus,
+                    id: req.params.id,
+                    total: total,
+                    services: resultServices,
+                    status: process.env.status,
+                    username: process.env.username,
+                    img: process.env.img,
+                });
             }
         })();
     }
     add(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status != 0) {
                 res.render("bill/addBill", {
                     status: process.env.status,
@@ -62,15 +87,14 @@ class BillController {
         })();
     }
     adding(req, res, next) {
-        (async () => {
-            if (process.env.status != 0) {
-            } else {
+        (async() => {
+            if (process.env.status != 0) {} else {
                 res.redirect("/");
             }
         })();
     }
     edit(req, res, next) {
-        (async () => {
+        (async() => {
             if (process.env.status == 1) {
                 let resultServices = await bill.viewServices(req.params.id);
                 let timePeriod = await time.show();
@@ -88,14 +112,20 @@ class BillController {
         })();
     }
     destroy(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await bill.destroy(req.params.id);
         })();
         res.redirect("/bill");
     }
     checkout(req, res, next) {
-        (async () => {
+        (async() => {
             let result = await bill.checkout(req.params.id);
+        })();
+        res.redirect("/bill");
+    }
+    sendEmail(req, res, next) {
+        (async() => {
+            let result = await bill.sendEmail();
         })();
         res.redirect("/bill");
     }
