@@ -702,7 +702,7 @@ select * from giodat
 
 
 
-------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
 ---PROCEDURE DICHVU-------------
 ----Insert-----
 CREATE OR REPLACE PROCEDURE INSERT_DICHVU (
@@ -718,25 +718,28 @@ BEGIN
         VALUES (MADV_SEQ6.nextval , e_TENDV , e_GIA, e_MOTA, e_HINHANH, e_MALDV);
     COMMIT;
 END;
---demo
-BEGIN
-    INSERT_DICHVU('ten',100000,'asssss','1.jpg',1);
-    dbms_output.put_line('add ok nha');
-END;
+------------------------
 ----update-----
 CREATE OR REPLACE PROCEDURE UPDATE_DICHVU (
+    e_TENDV     IN DICHVU.TENDICHVU%TYPE,
+    e_GIA       IN DICHVU.GIA%TYPE,
+    e_MOTA      IN DICHVU.MOTADICHVU%TYPE,
+    e_HINHANH   IN DICHVU.HINHANH%TYPE,
+    e_MALDV     IN DICHVU.MALDV%TYPE,
     e_MADV      NUMBER
-    e_TENDV     DICHVU.TENDICHVU%TYPE,
-    e_GIA       DICHVU.GIA%TYPE,
-    e_MOTA      DICHVU.MOTADICHVU%TYPE,
-    e_HINHANH   DICHVU.HINHANH%TYPE,
-    e_MALDV     DICHVU.MALDV%TYPE
 )
 AS
 BEGIN 
-    UPDATE DICHVU SET TENDICHVU = e_TENDV, GIA = e_GIA, MOTADICHVU= e_MOTA, HINHANH= e_HINHANH, MALDV= e_MALDV  WHERE MADV= e_MADV;
+    UPDATE DICHVU SET TENDICHVU = e_TENDV, GIA = e_GIA, MOTADICHVU= e_MOTA, HINHANH= e_HINHANH, MALDV= e_MALDV  
+    WHERE MADV= e_MADV;
     COMMIT;
 END;
+DROP PROCEDURE UPDATE_DICHVU;
+BEGIN
+    UPDATE_DICHVU('ten1',200000,'aaaaaaas','2.jpg',1,41);
+END;
+
+-------------------------
 ----soft delete------
 CREATE OR REPLACE PROCEDURE S_DELETE_DICHVU (
     e_MADV      NUMBER
@@ -746,6 +749,8 @@ BEGIN
     UPDATE DICHVU SET TINHTRANG = 0  WHERE MADV= e_MADV;
     COMMIT;
 END;
+
+--------------------------
 ----hard delete------
 CREATE OR REPLACE PROCEDURE H_DELETE_DICHVU (
     e_MADV      NUMBER
@@ -755,10 +760,25 @@ BEGIN
     DELETE FROM DICHVU WHERE MADV = e_MADV;
     COMMIT;
 END;
+--------------------
+BEGIN
+    INSERT_DICHVU('ten',100000,'asssss','1.jpg',1);
+    dbms_output.put_line('add ok nha');
+END;
+SELECT * FROM DICHVU WHERE MADV = 41;
 
--------PROCEDURE DATLICH--------------- 
------ create list service to add-------
+BEGIN
+    S_DELETE_DICHVU(41);
+END;
+
+BEGIN
+    H_DELETE_DICHVU(41);
+END;
+
+----------------------------
 CREATE OR REPLACE TYPE lstService AS VARRAY(200) OF NUMBER;
+
+----------------------------
 ----- procedure add DATLICH
 CREATE OR REPLACE PROCEDURE ADD_DATLICH(
     e_MAKH          DATLICH.MAKH%TYPE,
@@ -784,14 +804,23 @@ BEGIN
     END LOOP;
 END;
 
+SELECT * FROM CTHDDV;
+SELECT * FROM DATLICH;
+SELECT * FROM HOADON;
+BEGIN
+    ADD_DATLICH(1,1,TO_DATE('7/8/2021','dd-mm-yyyy'),2,1,10000);
+    END;
+describe DATLICH
+
+-----------------------------------
 ----- procedure soft delete DATLICH----
 CREATE OR REPLACE PROCEDURE S_DELETE_DATLICH(
-    e_MADL NUMBER,
+    e_MADL NUMBER
 )
 AS
 BEGIN
     UPDATE HOADON SET TINHTRANG = 0, TONGTIEN = 0 
-                    WHERE MAHD IN ( 
+                    WHERE MAHD in ( 
                         SELECT DISTINCT MAHD FROM CTHDDV
                         WHERE MADL in ( 
                             SELECT MADL FROM DATLICH    
@@ -818,6 +847,8 @@ BEGIN
                     AND     MAGIO   = (SELECT MAGIO FROM DATLICH WHERE MADL = e_MADL)  
                 );
 END;
+
+------------------------------------------
 ------ procedure update DATLICH-----
 CREATE OR REPLACE PROCEDURE UPDATE_DATLICH(
     e_MADL          NUMBER,
@@ -836,11 +867,12 @@ BEGIN
     ADD_DATLICH(e_MAKH,e_SERVICE,e_NGAY,e_MAGIO,e_MANV,e_TONGTIEN);
 END;
 
+----------------------------------------
 
-------------------------------------------------
+--------- hiện ra chi tiết của loại dich vụ --__--------------
 CREATE OR REPLACE PROCEDURE e_CHITIETLOAIDICHVU(e_MALDV IN LOAIDICHVU.MALDV%TYPE)
 IS
-    e_TENDV         DICHVU.TENDV%TYPE;
+    e_TENDV         DICHVU.TENDICHVU%TYPE;
     e_MOTA          DICHVU.MOTADICHVU%TYPE;
     e_GIA           DICHVU.GIA%TYPE;
     e_TENLDV        LOAIDICHVU.TENLOAIDICHVU%TYPE;
@@ -853,9 +885,9 @@ BEGIN
     SELECT TENLOAIDICHVU,TINHTRANG
     INTO e_TENLDV,e_TINHTRANG
     FROM LOAIDICHVU
-    WHERE LOAIDICHVU.MALDV = e_MALDV
+    WHERE LOAIDICHVU.MALDV = e_MALDV;
     DBMS_OUTPUT.PUT_LINE('Loại dịch vụ cần tìm là'); 
-    DBMS_OUTPUT.PUT_LINE('** Tên loại dịch vụ: '||e_TENLDV||);
+    DBMS_OUTPUT.PUT_LINE('** Tên loại dịch vụ: '||e_TENLDV);
     IF e_TINHTRANG = 1 THEN
         DBMS_OUTPUT.PUT_LINE('** TÌNH TRẠNG: Còn hoạt động.');
         DBMS_OUTPUT.PUT_LINE('Danh sách dịch vụ');
@@ -863,21 +895,17 @@ BEGIN
         LOOP
             FETCH CUR INTO CUR_MADV;
             EXIT WHEN CUR%NOTFOUND;
-            SELECT DICHVU.MADV, DICHVU.TENDICHVU, DICHVU.MOTADICHVU, DICHVU.GIA
+            SELECT  DICHVU.TENDICHVU, DICHVU.MOTADICHVU, DICHVU.GIA
             INTO e_TENDV, e_MOTA, e_GIA
             FROM DICHVU
             WHERE DICHVU.MADV = CUR_MADV;
             DBMS_OUTPUT.PUT_LINE('Mã dịch vụ: '||CUR_MADV||'      Tên dịch vụ: '||e_TENDV);
             DBMS_OUTPUT.PUT_LINE('Mô tả: '||e_MOTA);
-            DBMS_OUTPUT.PUT_LINE('Giá dịch vụ: '||e_GIA||);
+            DBMS_OUTPUT.PUT_LINE('Giá dịch vụ: '||e_GIA);
+            DBMS_OUTPUT.PUT_LINE('--------------------------');
+
         END LOOP;
     ELSE
         DBMS_OUTPUT.PUT_LINE('** TÌNH TRẠNG: Đã dừng.');
     END IF;
 END;
-
-BEGIN
-    e_CHITIETLOAIDICHVU('Tự truyền vào nha');
-END;
-
-DROP PROCEDURE e_CHITIETLOAIDICHVU;
